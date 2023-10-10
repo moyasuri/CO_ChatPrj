@@ -1,5 +1,3 @@
-!libcrypto-1_1-x64.dll
-!libssl-1_1-x64.dll
 
 # Compiled Object files
 *.slo
@@ -11,6 +9,8 @@
 *.so
 *.dylib
 *.dll
+!libcrypto-1_1-x64.dll
+!libssl-1_1-x64.dll
 
 # Fortran module files
 *.mod
