@@ -28,7 +28,7 @@ int main()
     }
 
     // 데이터베이스 선택
-    con->setSchema("last");
+    con->setSchema("chat");
 
     // db 한글 저장을 위한 셋팅 
     stmt = con->createStatement();
