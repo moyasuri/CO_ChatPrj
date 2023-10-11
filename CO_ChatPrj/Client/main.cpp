@@ -49,13 +49,20 @@ int main() {
         cout << "사용할 닉네임 입력 >> ";
         cin >> my_nick;
 
+        // PF_INET : 프로토콜 familiy IPv4 인터넷 프로토콜을 사용
+        // SOCK_STREAM: 소켓 유형(socket type)을 나타냅니다. 
+        // SOCK_STREAM은 TCP(Transmission Control Protocol) 기반의 연결 지향형 소켓을 생성함을 의미합니다.
+        // TCP는 신뢰성 있는 데이터 전송을 제공하며, 연결 지향형으로 동작하여 데이터가 순서대로 전달됩니다.
+        // IPPROTO_TCP: 프로토콜(protocol)을 나타냅니다. IPPROTO_TCP는 TCP 프로토콜을 사용함을 의미합니다.
         client_sock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP); // 
 
         // 연결할 서버 정보 설정 부분
         SOCKADDR_IN client_addr = {};
         client_addr.sin_family = AF_INET;
         client_addr.sin_port = htons(7777);
-        InetPton(AF_INET, TEXT("192.168.0.37"), &client_addr.sin_addr);
+        InetPton(AF_INET, TEXT("192.168.0.6"), &client_addr.sin_addr);
+
+        // AF_INTE 과 PF_INET은 정확히 동일한 의미
 
         while (1) {
             if (!connect(client_sock, (SOCKADDR*)&client_addr, sizeof(client_addr))) { // 위에 설정한 정보에 해당하는 server로 연결!
