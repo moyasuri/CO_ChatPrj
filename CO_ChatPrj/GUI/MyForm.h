@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "SignUp.h"
+#include "MainForm.h"
 #include <msclr/marshal_cppstd.h>
 #include <string>
 
@@ -9,6 +10,7 @@ static SOCKET client_sock;
 static bool enterServer;
 static bool isExit;
 namespace GUI {
+	ref class MainForm;
 	using namespace std;
 	using namespace System;
 	using namespace System::ComponentModel;
@@ -26,6 +28,9 @@ namespace GUI {
 	/// </summary>
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
+		// MyForm 클래스 내에서 사용할 SignUp 폼의 인스턴스를 생성합니다.
+	private: SignUp^ signupForm = nullptr;
+	private: MainForm^ mainForm = nullptr;
 
 
 	private: System::Windows::Forms::TextBox^ textBox; // 텍스트 상자를 멤버 변수로 추가
@@ -81,7 +86,7 @@ namespace GUI {
 
 
 
-	// private: System::Windows::Forms::TextBox^ textBox2;
+		   // private: System::Windows::Forms::TextBox^ textBox2;
 
 
 
@@ -203,7 +208,7 @@ namespace GUI {
 			this->btnExit->TabIndex = 11;
 			this->btnExit->Text = L"Exit";
 			this->btnExit->UseVisualStyleBackColor = true;
-			this->btnExit->Click += gcnew System::EventHandler(this, &MyForm::button2_Click);
+			this->btnExit->Click += gcnew System::EventHandler(this, &MyForm::btnExit_Click);
 			// 
 			// btnSignup
 			// 
@@ -255,21 +260,28 @@ namespace GUI {
 #pragma endregion
 
 
-	// sign up form을 띄우기.
+
+		// sign up form을 띄우기.
 	private: System::Void btn_signup_Click(System::Object^ sender, System::EventArgs^ e) {
-		SignUp^ signupForm = gcnew SignUp;
-		signupForm->Show();
+		// 이미 생성된 SignUp 폼이 없는 경우에만 새로운 폼을 생성하고 엽니다.
+		if (signupForm == nullptr || signupForm->IsDisposed) {
+			signupForm = gcnew SignUp;
+			signupForm->Show();
+		}
+		// 이미 생성된 폼이 열려 있는 경우, 해당 폼을 활성화시킵니다.
+		else {
+			signupForm->Activate();
+		}
 	}
 
-	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
-	}
+
 
 
 
 
 
 	private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
-		
+
 
 
 		// 새로운 폼 생성
@@ -301,8 +313,8 @@ namespace GUI {
 
 
 		String^ inputText = textBox->Text;
-		
-		
+
+
 		std::string nick = msclr::interop::marshal_as<std::string>(inputText);
 
 		// my_nick에 값 할당
@@ -312,37 +324,49 @@ namespace GUI {
 		// 새로운 폼 종료
 		newForm->Close();
 	}
-		
 
-	// Signin button : database 에서 ID : password  일치하는지 확인하는 함수
-	// ID PW 가 일치하지 않을때는 : ID 또는 PW가 일치하지 않습니다는 메세지를 송출
-	// 없으면 없다고 하기
+
+
+
+		   // Signin button : database 에서 ID : password  일치하는지 확인하는 함수
+		   // ID PW 가 일치하지 않을때는 : ID 또는 PW가 일치하지 않습니다는 메세지를 송출
+		   // 없으면 없다고 하기
 
 	private: System::Void btnSignin_Click(System::Object^ sender, System::EventArgs^ e) {
 
-		// 텍스트 상자에서 텍스트 가져오기
-		String^ textBoxText = txtBoxID->Text; // textBox는 해당 텍스트 상자의 이름입니다.
+		//// 텍스트 상자에서 텍스트 가져오기
+		//String^ textBoxText = txtBoxID->Text; // textBox는 해당 텍스트 상자의 이름입니다.
 
-		if (!String::IsNullOrEmpty(textBoxText)) {
-			// 텍스트 상자에 텍스트가 비어 있지 않으면 Message Box로 출력
-			MessageBox::Show(textBoxText, "텍스트 상자 내용", MessageBoxButtons::OK, MessageBoxIcon::Information);
-		}
-		else {
-			// 텍스트 상자가 비어 있을 때 메시지를 출력할 수 있습니다.
-			MessageBox::Show("텍스트 상자가 비어 있습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-		}
+		//if (!String::IsNullOrEmpty(textBoxText)) {
+		//	// 텍스트 상자에 텍스트가 비어 있지 않으면 Message Box로 출력
+		//	MessageBox::Show(textBoxText, "텍스트 상자 내용", MessageBoxButtons::OK, MessageBoxIcon::Information);
+		//}
+		//else {
+		//	// 텍스트 상자가 비어 있을 때 메시지를 출력할 수 있습니다.
+		//	MessageBox::Show("텍스트 상자가 비어 있습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		//}
 
-		textBoxText = txtBoxPW->Text; // textBox는 해당 텍스트 상자의 이름입니다.
+		//textBoxText = txtBoxPW->Text; // textBox는 해당 텍스트 상자의 이름입니다.
 
-		if (!String::IsNullOrEmpty(textBoxText)) {
-			// 텍스트 상자에 텍스트가 비어 있지 않으면 Message Box로 출력
-			MessageBox::Show(textBoxText, "텍스트 상자 내용", MessageBoxButtons::OK, MessageBoxIcon::Information);
-		}
-		else {
-			// 텍스트 상자가 비어 있을 때 메시지를 출력할 수 있습니다.
-			MessageBox::Show("텍스트 상자가 비어 있습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-		}
+		//if (!String::IsNullOrEmpty(textBoxText)) {
+		//	// 텍스트 상자에 텍스트가 비어 있지 않으면 Message Box로 출력
+		//	MessageBox::Show(textBoxText, "텍스트 상자 내용", MessageBoxButtons::OK, MessageBoxIcon::Information);
+		//}
+		//else {
+		//	// 텍스트 상자가 비어 있을 때 메시지를 출력할 수 있습니다.
+		//	MessageBox::Show("텍스트 상자가 비어 있습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		//}
 
+
+		// 새로운 폼을 생성하고 표시합니다.
+		mainForm = gcnew MainForm;
+		mainForm->Show();
+		this->Hide();
+
+	}
+	private: System::Void btnExit_Click(System::Object^ sender, System::EventArgs^ e) {
+		this->Close();
+		
 	}
 };
 }
