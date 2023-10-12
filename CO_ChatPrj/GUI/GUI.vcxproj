@@ -123,12 +123,16 @@
   <ItemGroup>
     <ClCompile Include="MyForm.cpp" />
     <ClCompile Include="SignUp.cpp" />
+    <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="SignUp.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="test.h">
       <FileType>CppForm</FileType>
     </ClInclude>
   </ItemGroup>
@@ -138,6 +142,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SignUp.resx">
       <DependentUpon>SignUp.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="test.resx">
+      <DependentUpon>test.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

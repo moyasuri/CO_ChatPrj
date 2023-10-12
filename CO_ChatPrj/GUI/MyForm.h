@@ -1,8 +1,20 @@
 ﻿#pragma once
 #include "SignUp.h"
 
-namespace GUI {
+#include <WinSock2.h> //Winsock 헤더파일 include. WSADATA 들어있음.
+#include <WS2tcpip.h>
+#include <string>
+#include <sstream>
+#include <iostream>
+#include <thread>
+#include <msclr/marshal_cppstd.h>
 
+#define MAX_SIZE 1024
+
+
+
+namespace GUI {
+	using namespace std;
 	using namespace System;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;
@@ -10,6 +22,28 @@ namespace GUI {
 	using namespace System::Data;
 	using namespace System::Drawing;
 	using namespace System::Media;
+
+	SOCKET client_sock;
+	string my_nick;
+	int chat_recv() {
+		char buf[MAX_SIZE] = { };
+		string msg;
+
+		while (1) {
+			ZeroMemory(&buf, MAX_SIZE);
+			if (recv(client_sock, buf, MAX_SIZE, 0) > 0) {
+				msg = buf;
+				std::stringstream ss(msg);  // 문자열을 스트림화
+				string user;
+				ss >> user; // 스트림을 통해, 문자열을 공백 분리해 변수에 할당. 보낸 사람의 이름만 user에 저장됨.
+				if (user != my_nick) cout << buf << endl; // 내가 보낸 게 아닐 경우에만 출력하도록.
+			}
+			else {
+				cout << "Server Off" << endl;
+				return -1;
+			}
+		}
+	}
 
 	/// <summary>
 	/// MyForm에 대한 요약입니다.
@@ -29,7 +63,14 @@ namespace GUI {
 			sound->Load();
 			sound->Play();
 
+
 			
+
+
+			
+			
+
+
 		}
 
 	protected:
@@ -56,6 +97,7 @@ namespace GUI {
 	private: System::Windows::Forms::TextBox^ textBox2;
 	private: System::Windows::Forms::Button^ button2;
 	private: System::Windows::Forms::Button^ btn_signup;
+	private: System::Windows::Forms::Button^ button3;
 
 
 
@@ -87,6 +129,7 @@ namespace GUI {
 			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
 			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->btn_signup = (gcnew System::Windows::Forms::Button());
+			this->button3 = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// label1
@@ -103,7 +146,7 @@ namespace GUI {
 			// button1
 			// 
 			this->button1->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
-			this->button1->Location = System::Drawing::Point(527, 533);
+			this->button1->Location = System::Drawing::Point(527, 527);
 			this->button1->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(171, 41);
@@ -162,7 +205,7 @@ namespace GUI {
 			// 
 			this->button2->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
 			this->button2->ForeColor = System::Drawing::Color::DarkSlateBlue;
-			this->button2->Location = System::Drawing::Point(527, 596);
+			this->button2->Location = System::Drawing::Point(527, 592);
 			this->button2->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(171, 41);
@@ -175,7 +218,7 @@ namespace GUI {
 			// 
 			this->btn_signup->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
 			this->btn_signup->ForeColor = System::Drawing::SystemColors::Highlight;
-			this->btn_signup->Location = System::Drawing::Point(889, 535);
+			this->btn_signup->Location = System::Drawing::Point(888, 529);
 			this->btn_signup->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->btn_signup->Name = L"btn_signup";
 			this->btn_signup->Size = System::Drawing::Size(171, 41);
@@ -184,6 +227,16 @@ namespace GUI {
 			this->btn_signup->UseVisualStyleBackColor = true;
 			this->btn_signup->Click += gcnew System::EventHandler(this, &MyForm::btn_signup_Click);
 			// 
+			// button3
+			// 
+			this->button3->Location = System::Drawing::Point(550, 218);
+			this->button3->Name = L"button3";
+			this->button3->Size = System::Drawing::Size(338, 112);
+			this->button3->TabIndex = 13;
+			this->button3->Text = L"test";
+			this->button3->UseVisualStyleBackColor = true;
+			this->button3->Click += gcnew System::EventHandler(this, &MyForm::button3_Click);
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
@@ -191,6 +244,7 @@ namespace GUI {
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->ClientSize = System::Drawing::Size(1109, 646);
+			this->Controls->Add(this->button3);
 			this->Controls->Add(this->btn_signup);
 			this->Controls->Add(this->button2);
 			this->Controls->Add(this->textBox2);
@@ -218,5 +272,80 @@ namespace GUI {
 	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
 	}
 
+private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
+	WSADATA wsa;
+
+	// Winsock를 초기화하는 함수. MAKEWORD(2, 2)는 Winsock의 2.2 버전을 사용하겠다는 의미.
+	// 실행에 성공하면 0을, 실패하면 그 이외의 값을 반환.
+	// 0을 반환했다는 것은 Winsock을 사용할 준비가 되었다는 의미.
+	int code = WSAStartup(MAKEWORD(2, 2), &wsa);
+	if (!code) {
+
+		// 새로운 폼 생성
+		Form^ newForm = gcnew Form();
+		newForm->Text = "새로운 폼"; // 폼의 제목 설정
+
+		// 텍스트 상자 생성
+		TextBox^ textBox = gcnew TextBox();
+		textBox->Location = System::Drawing::Point(10, 10);  // 텍스트 상자의 위치 설정
+		textBox->Size = System::Drawing::Size(200, 20);     // 텍스트 상자의 크기 설정
+
+		// "확인" 버튼 생성
+		Button^ confirmButton = gcnew Button();
+		confirmButton->Location = System::Drawing::Point(10, 40);
+		confirmButton->Text = "확인";
+		confirmButton->Click += gcnew System::EventHandler(this, &MyForm::confirmButton_Click);
+
+		// "확인" 버튼을 폼에 추가
+		newForm->Controls->Add(textBox);
+		newForm->Controls->Add(confirmButton);
+
+		// 새로운 폼을 표시
+		newForm->ShowDialog();
+
+	
+		cout << "사용할 닉네임 입력 >> ";
+		cin >> my_nick;
+
+		// PF_INET : 프로토콜 familiy IPv4 인터넷 프로토콜을 사용
+		// SOCK_STREAM: 소켓 유형(socket type)을 나타냅니다. 
+		// SOCK_STREAM은 TCP(Transmission Control Protocol) 기반의 연결 지향형 소켓을 생성함을 의미합니다.
+		// TCP는 신뢰성 있는 데이터 전송을 제공하며, 연결 지향형으로 동작하여 데이터가 순서대로 전달됩니다.
+		// IPPROTO_TCP: 프로토콜(protocol)을 나타냅니다. IPPROTO_TCP는 TCP 프로토콜을 사용함을 의미합니다.
+		client_sock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP); // 
+
+		// 연결할 서버 정보 설정 부분
+		SOCKADDR_IN client_addr = {};
+		client_addr.sin_family = AF_INET;
+		client_addr.sin_port = htons(7777);
+		InetPton(AF_INET, TEXT("192.168.0.6"), &client_addr.sin_addr);
+
+		// AF_INTE 과 PF_INET은 정확히 동일한 의미
+
+		while (1) {
+			if (!connect(client_sock, (SOCKADDR*)&client_addr, sizeof(client_addr))) { // 위에 설정한 정보에 해당하는 server로 연결!
+				cout << "Server Connect" << endl;
+				send(client_sock, my_nick.c_str(), my_nick.length(), 0); // 연결에 성공하면 client 가 입력한 닉네임을 서버로 전송
+				break;
+			}
+			cout << "Connecting..." << endl;
+		}
+
+		std::thread th2(chat_recv);
+
+		while (1) {
+			string text;
+			std::getline(cin, text);
+			const char* buffer = text.c_str(); // string형을 char* 타입으로 변환
+			send(client_sock, buffer, strlen(buffer), 0);
+		}
+		th2.join();
+		closesocket(client_sock);
+	}
+
+	WSACleanup();
+
+
+}
 };
 }

@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+
 namespace GUI {
 
 	using namespace System;
@@ -155,9 +156,7 @@ namespace GUI {
 			this->textBox3->ForeColor = System::Drawing::SystemColors::WindowFrame;
 			this->textBox3->Location = System::Drawing::Point(345, 166);
 			this->textBox3->Margin = System::Windows::Forms::Padding(3, 4, 3, 4);
-			this->textBox3->MaxLength = 16;
 			this->textBox3->Name = L"textBox3";
-			this->textBox3->PasswordChar = '*';
 			this->textBox3->Size = System::Drawing::Size(195, 27);
 			this->textBox3->TabIndex = 5;
 			// 
