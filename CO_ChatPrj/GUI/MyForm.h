@@ -61,6 +61,8 @@ namespace GUI {
 
 
 
+
+
 	protected:
 
 	private:
@@ -76,10 +78,6 @@ namespace GUI {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-
-
-
-
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->button1 = (gcnew System::Windows::Forms::Button());
@@ -96,19 +94,19 @@ namespace GUI {
 			this->label1->AutoSize = true;
 			this->label1->BackColor = System::Drawing::Color::Transparent;
 			this->label1->Font = (gcnew System::Drawing::Font(L"Georgia", 24));
-			this->label1->Location = System::Drawing::Point(88, 390);
+			this->label1->Location = System::Drawing::Point(101, 488);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(115, 38);
+			this->label1->Size = System::Drawing::Size(144, 46);
 			this->label1->TabIndex = 0;
 			this->label1->Text = L"Sign in";
 			// 
 			// button1
 			// 
 			this->button1->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
-			this->button1->Location = System::Drawing::Point(466, 427);
+			this->button1->Location = System::Drawing::Point(527, 533);
 			this->button1->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(150, 33);
+			this->button1->Size = System::Drawing::Size(171, 41);
 			this->button1->TabIndex = 1;
 			this->button1->Text = L"Sign in";
 			this->button1->UseVisualStyleBackColor = true;
@@ -119,9 +117,9 @@ namespace GUI {
 			this->label2->AutoSize = true;
 			this->label2->BackColor = System::Drawing::Color::Transparent;
 			this->label2->Font = (gcnew System::Drawing::Font(L"Georgia", 12));
-			this->label2->Location = System::Drawing::Point(238, 403);
+			this->label2->Location = System::Drawing::Point(272, 500);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(26, 18);
+			this->label2->Size = System::Drawing::Size(33, 24);
 			this->label2->TabIndex = 2;
 			this->label2->Text = L"ID";
 			// 
@@ -130,9 +128,9 @@ namespace GUI {
 			this->label3->AutoSize = true;
 			this->label3->BackColor = System::Drawing::Color::Transparent;
 			this->label3->Font = (gcnew System::Drawing::Font(L"Georgia", 12));
-			this->label3->Location = System::Drawing::Point(238, 457);
+			this->label3->Location = System::Drawing::Point(272, 567);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(76, 18);
+			this->label3->Size = System::Drawing::Size(95, 24);
 			this->label3->TabIndex = 3;
 			this->label3->Text = L"Password";
 			// 
@@ -142,10 +140,10 @@ namespace GUI {
 			this->textBox1->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBox1->Font = (gcnew System::Drawing::Font(L"Georgia", 12));
 			this->textBox1->ForeColor = System::Drawing::SystemColors::WindowFrame;
-			this->textBox1->Location = System::Drawing::Point(242, 431);
+			this->textBox1->Location = System::Drawing::Point(277, 535);
 			this->textBox1->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(176, 19);
+			this->textBox1->Size = System::Drawing::Size(201, 23);
 			this->textBox1->TabIndex = 7;
 			// 
 			// textBox2
@@ -154,20 +152,20 @@ namespace GUI {
 			this->textBox2->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBox2->Font = (gcnew System::Drawing::Font(L"Georgia", 12));
 			this->textBox2->ForeColor = System::Drawing::SystemColors::WindowFrame;
-			this->textBox2->Location = System::Drawing::Point(242, 484);
+			this->textBox2->Location = System::Drawing::Point(277, 601);
 			this->textBox2->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->textBox2->Name = L"textBox2";
-			this->textBox2->Size = System::Drawing::Size(176, 19);
+			this->textBox2->Size = System::Drawing::Size(201, 23);
 			this->textBox2->TabIndex = 10;
 			// 
 			// button2
 			// 
 			this->button2->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
 			this->button2->ForeColor = System::Drawing::Color::DarkSlateBlue;
-			this->button2->Location = System::Drawing::Point(466, 474);
+			this->button2->Location = System::Drawing::Point(527, 596);
 			this->button2->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(150, 33);
+			this->button2->Size = System::Drawing::Size(171, 41);
 			this->button2->TabIndex = 11;
 			this->button2->Text = L"Exit";
 			this->button2->UseVisualStyleBackColor = true;
@@ -177,10 +175,10 @@ namespace GUI {
 			// 
 			this->btn_signup->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
 			this->btn_signup->ForeColor = System::Drawing::SystemColors::Highlight;
-			this->btn_signup->Location = System::Drawing::Point(736, 427);
+			this->btn_signup->Location = System::Drawing::Point(889, 535);
 			this->btn_signup->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->btn_signup->Name = L"btn_signup";
-			this->btn_signup->Size = System::Drawing::Size(150, 33);
+			this->btn_signup->Size = System::Drawing::Size(171, 41);
 			this->btn_signup->TabIndex = 12;
 			this->btn_signup->Text = L"Sign up";
 			this->btn_signup->UseVisualStyleBackColor = true;
@@ -188,11 +186,11 @@ namespace GUI {
 			// 
 			// MyForm
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(7, 12);
+			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->ClientSize = System::Drawing::Size(970, 517);
+			this->ClientSize = System::Drawing::Size(1109, 646);
 			this->Controls->Add(this->btn_signup);
 			this->Controls->Add(this->button2);
 			this->Controls->Add(this->textBox2);

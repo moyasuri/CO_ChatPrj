@@ -10,4 +10,6 @@ void main(array<String^>^ args) {
 	Application::SetCompatibleTextRenderingDefault(false);
 	GUI::MyForm form;
 	Application::Run(% form);
+
+
 }
