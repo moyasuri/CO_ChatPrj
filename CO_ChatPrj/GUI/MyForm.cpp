@@ -9,12 +9,13 @@
 
 
 #include "MyForm.h"
-
+#include "MainForm.h"
 
 
 #define MAX_SIZE 1024
 using namespace System;
 using namespace System::Windows::Forms;
+
 
 
 using std::cout;

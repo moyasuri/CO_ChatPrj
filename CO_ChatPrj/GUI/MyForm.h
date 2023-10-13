@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "SignUp.h"
-//#include "MainForm.h"
+#include "MainForm.h"
 #include <msclr/marshal_cppstd.h>
 #include <string>
 
@@ -36,7 +36,8 @@ namespace GUI {
 		   // 텍스트 상자를 멤버 변수로 추가
 	private: System::Windows::Forms::Form^ newForm;
 
-
+	private:
+		MainForm^ mainForm_;
 	public:
 		MyForm(void)
 		{
@@ -51,13 +52,13 @@ namespace GUI {
 			sound->Play();
 
 
+		}
 
-
-
-
-
-
-
+		MyForm(MainForm^ mainForm)
+		{
+			InitializeComponent();
+			mainForm_ = mainForm;
+			// ...
 		}
 
 
@@ -355,16 +356,18 @@ namespace GUI {
 		//	MessageBox::Show("텍스트 상자가 비어 있습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		//}
 
-
-		// 새로운 폼을 생성하고 표시합니다.
-		//mainForm = gcnew MainForm;
-		//mainForm->Show();
+		// 함수포인터 콜백
+		MainForm^ mainForm = gcnew MainForm(); // Form2 객체 생성
+		mainForm->Owner = this; // Form1을 Form2의 Owner로 설정
+		mainForm->Show(); // Form2 표시
 		
-		this->Hide();
+		
+		this->Hide(); // Form1 숨기기
+
 
 	}
 	private: System::Void btnExit_Click(System::Object^ sender, System::EventArgs^ e) {
-		this->Close();
+		
 		
 	}
 };
