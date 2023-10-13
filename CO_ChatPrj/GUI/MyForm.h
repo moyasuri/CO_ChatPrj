@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "SignUp.h"
 #include "MainForm.h"
+#include "FindAccount.h"
 #include <msclr/marshal_cppstd.h>
 #include <string>
 
@@ -29,12 +30,15 @@ namespace GUI {
 	{
 		// MyForm 클래스 내에서 사용할 sub 폼의 인스턴스를 생성합니다.
 	private: SignUp^ signupForm = nullptr;
+	private: FindAccount^ findaccountForm = nullptr;
 
 
 	private: System::Windows::Forms::TextBox^ textBox; // 텍스트 상자를 멤버 변수로 추가
 	private: System::Windows::Forms::TextBox^ txtBoxPW;
 		   // 텍스트 상자를 멤버 변수로 추가
 	private: System::Windows::Forms::Form^ newForm;
+	private: System::Windows::Forms::Button^ btnFindAccount;
+
 
 	private:
 		MainForm^ mainForm_;
@@ -123,6 +127,7 @@ namespace GUI {
 			this->btnExit = (gcnew System::Windows::Forms::Button());
 			this->btnSignup = (gcnew System::Windows::Forms::Button());
 			this->button3 = (gcnew System::Windows::Forms::Button());
+			this->btnFindAccount = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// label1
@@ -199,7 +204,7 @@ namespace GUI {
 			// btnExit
 			// 
 			this->btnExit->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
-			this->btnExit->ForeColor = System::Drawing::Color::DarkSlateBlue;
+			this->btnExit->ForeColor = System::Drawing::Color::Firebrick;
 			this->btnExit->Location = System::Drawing::Point(527, 592);
 			this->btnExit->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->btnExit->Name = L"btnExit";
@@ -213,7 +218,7 @@ namespace GUI {
 			// 
 			this->btnSignup->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
 			this->btnSignup->ForeColor = System::Drawing::SystemColors::Highlight;
-			this->btnSignup->Location = System::Drawing::Point(888, 529);
+			this->btnSignup->Location = System::Drawing::Point(807, 527);
 			this->btnSignup->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->btnSignup->Name = L"btnSignup";
 			this->btnSignup->Size = System::Drawing::Size(171, 41);
@@ -232,6 +237,19 @@ namespace GUI {
 			this->button3->UseVisualStyleBackColor = true;
 			this->button3->Click += gcnew System::EventHandler(this, &MyForm::button3_Click);
 			// 
+			// btnFindAccount
+			// 
+			this->btnFindAccount->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
+			this->btnFindAccount->ForeColor = System::Drawing::Color::DarkBlue;
+			this->btnFindAccount->Location = System::Drawing::Point(807, 592);
+			this->btnFindAccount->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->btnFindAccount->Name = L"btnFindAccount";
+			this->btnFindAccount->Size = System::Drawing::Size(171, 41);
+			this->btnFindAccount->TabIndex = 14;
+			this->btnFindAccount->Text = L"Find Account";
+			this->btnFindAccount->UseVisualStyleBackColor = true;
+			this->btnFindAccount->Click += gcnew System::EventHandler(this, &MyForm::btnFindAccount_Click);
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
@@ -239,6 +257,7 @@ namespace GUI {
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->ClientSize = System::Drawing::Size(1109, 646);
+			this->Controls->Add(this->btnFindAccount);
 			this->Controls->Add(this->button3);
 			this->Controls->Add(this->btnSignup);
 			this->Controls->Add(this->btnExit);
@@ -368,7 +387,20 @@ namespace GUI {
 	}
 	private: System::Void btnExit_Click(System::Object^ sender, System::EventArgs^ e) {
 		
-		
+		this->Close();
 	}
+
+private: System::Void btnFindAccount_Click(System::Object^ sender, System::EventArgs^ e) {
+	
+	// 이미 생성된 SignUp 폼이 없는 경우에만 새로운 폼을 생성하고 엽니다.
+	if (findaccountForm == nullptr || findaccountForm->IsDisposed) {
+		findaccountForm = gcnew FindAccount;
+		findaccountForm->Show();
+	}
+	// 이미 생성된 폼이 열려 있는 경우, 해당 폼을 활성화시킵니다.
+	else {
+		findaccountForm->Activate();
+	}
+}
 };
 }
