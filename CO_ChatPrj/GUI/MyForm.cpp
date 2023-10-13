@@ -7,6 +7,7 @@
 #include <iostream>
 #include <thread>
 
+
 #include "MyForm.h"
 
 
@@ -113,7 +114,6 @@ void main(array<String^>^ args) {
     // 통신 작업을 처리할 스레드 생성 및 실행
     std::thread communicationThread(CommunicateWithServer);
     communicationThread.detach();  // 메인 스레드와 분리하여 실행
-
 
 	Application::Run(% form);
 

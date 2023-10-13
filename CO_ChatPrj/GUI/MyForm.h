@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "SignUp.h"
-#include "MainForm.h"
+//#include "MainForm.h"
 #include <msclr/marshal_cppstd.h>
 #include <string>
 
@@ -10,7 +10,6 @@ static SOCKET client_sock;
 static bool enterServer;
 static bool isExit;
 namespace GUI {
-	ref class MainForm;
 	using namespace std;
 	using namespace System;
 	using namespace System::ComponentModel;
@@ -28,9 +27,8 @@ namespace GUI {
 	/// </summary>
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
-		// MyForm 클래스 내에서 사용할 SignUp 폼의 인스턴스를 생성합니다.
+		// MyForm 클래스 내에서 사용할 sub 폼의 인스턴스를 생성합니다.
 	private: SignUp^ signupForm = nullptr;
-	private: MainForm^ mainForm = nullptr;
 
 
 	private: System::Windows::Forms::TextBox^ textBox; // 텍스트 상자를 멤버 변수로 추가
@@ -359,8 +357,9 @@ namespace GUI {
 
 
 		// 새로운 폼을 생성하고 표시합니다.
-		mainForm = gcnew MainForm;
-		mainForm->Show();
+		//mainForm = gcnew MainForm;
+		//mainForm->Show();
+		
 		this->Hide();
 
 	}
