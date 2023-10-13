@@ -30,6 +30,18 @@
     <ClCompile Include="FindAccount.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Friends.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="F_Message.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="AddFriend.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="FriendResponse.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyForm.h">
@@ -46,6 +58,18 @@
     </ClInclude>
     <ClInclude Include="FindAccount.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Friends.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="F_Message.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="AddFriend.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="FriendResponse.h">
+      <Filter>소스 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

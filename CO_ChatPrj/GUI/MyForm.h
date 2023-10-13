@@ -29,8 +29,11 @@ namespace GUI {
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
 		// MyForm 클래스 내에서 사용할 sub 폼의 인스턴스를 생성합니다.
-	private: SignUp^ signupForm = nullptr;
-	private: FindAccount^ findaccountForm = nullptr;
+	private:
+		SignUp^ signupForm = nullptr;
+		FindAccount^ findaccountForm = nullptr;
+		MainForm^ mainForm =nullptr;
+		
 
 
 	private: System::Windows::Forms::TextBox^ textBox; // 텍스트 상자를 멤버 변수로 추가
@@ -38,10 +41,11 @@ namespace GUI {
 		   // 텍스트 상자를 멤버 변수로 추가
 	private: System::Windows::Forms::Form^ newForm;
 	private: System::Windows::Forms::Button^ btnFindAccount;
+	private: System::Windows::Forms::PictureBox^ pictureBox1;
 
 
-	private:
-		MainForm^ mainForm_;
+
+
 	public:
 		MyForm(void)
 		{
@@ -58,12 +62,7 @@ namespace GUI {
 
 		}
 
-		MyForm(MainForm^ mainForm)
-		{
-			InitializeComponent();
-			mainForm_ = mainForm;
-			// ...
-		}
+
 
 
 	protected:
@@ -77,7 +76,7 @@ namespace GUI {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::Label^ label1;
+
 	private: System::Windows::Forms::Button^ btnSignin;
 
 	private: System::Windows::Forms::Label^ label2;
@@ -118,7 +117,6 @@ namespace GUI {
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
-			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->btnSignin = (gcnew System::Windows::Forms::Button());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->label3 = (gcnew System::Windows::Forms::Label());
@@ -128,23 +126,14 @@ namespace GUI {
 			this->btnSignup = (gcnew System::Windows::Forms::Button());
 			this->button3 = (gcnew System::Windows::Forms::Button());
 			this->btnFindAccount = (gcnew System::Windows::Forms::Button());
+			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->SuspendLayout();
-			// 
-			// label1
-			// 
-			this->label1->AutoSize = true;
-			this->label1->BackColor = System::Drawing::Color::Transparent;
-			this->label1->Font = (gcnew System::Drawing::Font(L"Georgia", 24));
-			this->label1->Location = System::Drawing::Point(101, 488);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(144, 46);
-			this->label1->TabIndex = 0;
-			this->label1->Text = L"Sign in";
 			// 
 			// btnSignin
 			// 
 			this->btnSignin->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
-			this->btnSignin->Location = System::Drawing::Point(527, 527);
+			this->btnSignin->Location = System::Drawing::Point(584, 527);
 			this->btnSignin->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->btnSignin->Name = L"btnSignin";
 			this->btnSignin->Size = System::Drawing::Size(171, 41);
@@ -158,7 +147,7 @@ namespace GUI {
 			this->label2->AutoSize = true;
 			this->label2->BackColor = System::Drawing::Color::Transparent;
 			this->label2->Font = (gcnew System::Drawing::Font(L"Georgia", 12));
-			this->label2->Location = System::Drawing::Point(272, 500);
+			this->label2->Location = System::Drawing::Point(322, 500);
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(33, 24);
 			this->label2->TabIndex = 2;
@@ -169,7 +158,7 @@ namespace GUI {
 			this->label3->AutoSize = true;
 			this->label3->BackColor = System::Drawing::Color::Transparent;
 			this->label3->Font = (gcnew System::Drawing::Font(L"Georgia", 12));
-			this->label3->Location = System::Drawing::Point(272, 567);
+			this->label3->Location = System::Drawing::Point(322, 567);
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(95, 24);
 			this->label3->TabIndex = 3;
@@ -181,7 +170,7 @@ namespace GUI {
 			this->txtBoxID->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->txtBoxID->Font = (gcnew System::Drawing::Font(L"Georgia", 12));
 			this->txtBoxID->ForeColor = System::Drawing::SystemColors::WindowFrame;
-			this->txtBoxID->Location = System::Drawing::Point(277, 535);
+			this->txtBoxID->Location = System::Drawing::Point(327, 535);
 			this->txtBoxID->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->txtBoxID->Name = L"txtBoxID";
 			this->txtBoxID->Size = System::Drawing::Size(201, 23);
@@ -193,7 +182,7 @@ namespace GUI {
 			this->txtBoxPW->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->txtBoxPW->Font = (gcnew System::Drawing::Font(L"Georgia", 12));
 			this->txtBoxPW->ForeColor = System::Drawing::SystemColors::WindowFrame;
-			this->txtBoxPW->Location = System::Drawing::Point(277, 601);
+			this->txtBoxPW->Location = System::Drawing::Point(327, 601);
 			this->txtBoxPW->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->txtBoxPW->MaxLength = 16;
 			this->txtBoxPW->Name = L"txtBoxPW";
@@ -205,7 +194,7 @@ namespace GUI {
 			// 
 			this->btnExit->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
 			this->btnExit->ForeColor = System::Drawing::Color::Firebrick;
-			this->btnExit->Location = System::Drawing::Point(527, 592);
+			this->btnExit->Location = System::Drawing::Point(584, 592);
 			this->btnExit->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->btnExit->Name = L"btnExit";
 			this->btnExit->Size = System::Drawing::Size(171, 41);
@@ -218,7 +207,7 @@ namespace GUI {
 			// 
 			this->btnSignup->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
 			this->btnSignup->ForeColor = System::Drawing::SystemColors::Highlight;
-			this->btnSignup->Location = System::Drawing::Point(807, 527);
+			this->btnSignup->Location = System::Drawing::Point(859, 527);
 			this->btnSignup->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->btnSignup->Name = L"btnSignup";
 			this->btnSignup->Size = System::Drawing::Size(171, 41);
@@ -241,7 +230,7 @@ namespace GUI {
 			// 
 			this->btnFindAccount->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
 			this->btnFindAccount->ForeColor = System::Drawing::Color::DarkBlue;
-			this->btnFindAccount->Location = System::Drawing::Point(807, 592);
+			this->btnFindAccount->Location = System::Drawing::Point(859, 592);
 			this->btnFindAccount->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->btnFindAccount->Name = L"btnFindAccount";
 			this->btnFindAccount->Size = System::Drawing::Size(171, 41);
@@ -250,6 +239,18 @@ namespace GUI {
 			this->btnFindAccount->UseVisualStyleBackColor = true;
 			this->btnFindAccount->Click += gcnew System::EventHandler(this, &MyForm::btnFindAccount_Click);
 			// 
+			// pictureBox1
+			// 
+			this->pictureBox1->BackColor = System::Drawing::Color::Transparent;
+			this->pictureBox1->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.BackgroundImage")));
+			this->pictureBox1->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->pictureBox1->Location = System::Drawing::Point(20, 487);
+			this->pictureBox1->Margin = System::Windows::Forms::Padding(0);
+			this->pictureBox1->Name = L"pictureBox1";
+			this->pictureBox1->Size = System::Drawing::Size(246, 147);
+			this->pictureBox1->TabIndex = 15;
+			this->pictureBox1->TabStop = false;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
@@ -257,6 +258,7 @@ namespace GUI {
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->ClientSize = System::Drawing::Size(1109, 646);
+			this->Controls->Add(this->pictureBox1);
 			this->Controls->Add(this->btnFindAccount);
 			this->Controls->Add(this->button3);
 			this->Controls->Add(this->btnSignup);
@@ -266,11 +268,11 @@ namespace GUI {
 			this->Controls->Add(this->label3);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->btnSignin);
-			this->Controls->Add(this->label1);
 			this->DoubleBuffered = true;
 			this->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->Name = L"MyForm";
 			this->Text = L"MyForm";
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -375,13 +377,17 @@ namespace GUI {
 		//	MessageBox::Show("텍스트 상자가 비어 있습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		//}
 
-		// 함수포인터 콜백
-		MainForm^ mainForm = gcnew MainForm(); // Form2 객체 생성
-		mainForm->Owner = this; // Form1을 Form2의 Owner로 설정
-		mainForm->Show(); // Form2 표시
-		
-		
-		this->Hide(); // Form1 숨기기
+	
+			
+		if (mainForm == nullptr || mainForm->IsDisposed) {
+			mainForm = gcnew MainForm();
+			mainForm->Owner = this;
+			this->Hide(); 
+			mainForm->Show();
+		}
+
+
+
 
 
 	}

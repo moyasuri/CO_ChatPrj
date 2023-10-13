@@ -1,5 +1,6 @@
 ﻿#pragma once
-// MainForm.h
+#include "Friends.h"
+#include "F_Message.h"
 
 
 namespace GUI {
@@ -19,6 +20,9 @@ namespace GUI {
 
 	public ref class MainForm : public System::Windows::Forms::Form
 	{
+	private:
+		Friends^ friendsForm = nullptr;
+		F_Message^ f_Message = nullptr;
 	public:
 		MainForm(void)
 		{
@@ -38,9 +42,28 @@ namespace GUI {
 			if (components)
 			{
 				delete components;
+
 			}
+			this->Owner->Show();
 		}
-	private: System::Windows::Forms::Button^ button1;
+	private: System::Windows::Forms::Button^ btnDelChatRoom;
+	private: System::Windows::Forms::Button^ btnJoinChatRoom;
+	protected:
+
+
+	private: System::Windows::Forms::Button^ btnEditProfile;
+	private: System::Windows::Forms::Button^ btnChkMsg;
+	private: System::Windows::Forms::Button^ btnCreateChatRoom;
+
+
+
+	private: System::Windows::Forms::Button^ btnFriends;
+	private: System::Windows::Forms::Button^ btnMessage;
+	private: System::Windows::Forms::Button^ btnSignOut;
+
+
+
+
 	protected:
 
 	private:
@@ -57,18 +80,90 @@ namespace GUI {
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
-			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->btnDelChatRoom = (gcnew System::Windows::Forms::Button());
+			this->btnJoinChatRoom = (gcnew System::Windows::Forms::Button());
+			this->btnEditProfile = (gcnew System::Windows::Forms::Button());
+			this->btnChkMsg = (gcnew System::Windows::Forms::Button());
+			this->btnCreateChatRoom = (gcnew System::Windows::Forms::Button());
+			this->btnFriends = (gcnew System::Windows::Forms::Button());
+			this->btnMessage = (gcnew System::Windows::Forms::Button());
+			this->btnSignOut = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
-			// button1
+			// btnDelChatRoom
 			// 
-			this->button1->Location = System::Drawing::Point(387, 230);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(75, 23);
-			this->button1->TabIndex = 0;
-			this->button1->Text = L"button1";
-			this->button1->UseVisualStyleBackColor = true;
-			this->button1->Click += gcnew System::EventHandler(this, &MainForm::button1_Click);
+			this->btnDelChatRoom->Location = System::Drawing::Point(659, 434);
+			this->btnDelChatRoom->Name = L"btnDelChatRoom";
+			this->btnDelChatRoom->Size = System::Drawing::Size(206, 81);
+			this->btnDelChatRoom->TabIndex = 0;
+			this->btnDelChatRoom->Text = L"Delete Chat Room";
+			this->btnDelChatRoom->UseVisualStyleBackColor = true;
+			// 
+			// btnJoinChatRoom
+			// 
+			this->btnJoinChatRoom->Location = System::Drawing::Point(419, 293);
+			this->btnJoinChatRoom->Name = L"btnJoinChatRoom";
+			this->btnJoinChatRoom->Size = System::Drawing::Size(227, 74);
+			this->btnJoinChatRoom->TabIndex = 1;
+			this->btnJoinChatRoom->Text = L"Join Chat Room";
+			this->btnJoinChatRoom->UseVisualStyleBackColor = true;
+			// 
+			// btnEditProfile
+			// 
+			this->btnEditProfile->Location = System::Drawing::Point(139, 589);
+			this->btnEditProfile->Name = L"btnEditProfile";
+			this->btnEditProfile->Size = System::Drawing::Size(240, 41);
+			this->btnEditProfile->TabIndex = 2;
+			this->btnEditProfile->Text = L"Edit Profile";
+			this->btnEditProfile->UseVisualStyleBackColor = true;
+			// 
+			// btnChkMsg
+			// 
+			this->btnChkMsg->Location = System::Drawing::Point(454, 521);
+			this->btnChkMsg->Name = L"btnChkMsg";
+			this->btnChkMsg->Size = System::Drawing::Size(183, 81);
+			this->btnChkMsg->TabIndex = 2;
+			this->btnChkMsg->Text = L"Check Message";
+			this->btnChkMsg->UseVisualStyleBackColor = true;
+			// 
+			// btnCreateChatRoom
+			// 
+			this->btnCreateChatRoom->Location = System::Drawing::Point(419, 402);
+			this->btnCreateChatRoom->Name = L"btnCreateChatRoom";
+			this->btnCreateChatRoom->Size = System::Drawing::Size(207, 69);
+			this->btnCreateChatRoom->TabIndex = 3;
+			this->btnCreateChatRoom->Text = L"Create Chat Room";
+			this->btnCreateChatRoom->UseVisualStyleBackColor = true;
+			// 
+			// btnFriends
+			// 
+			this->btnFriends->Location = System::Drawing::Point(792, 627);
+			this->btnFriends->Name = L"btnFriends";
+			this->btnFriends->Size = System::Drawing::Size(206, 81);
+			this->btnFriends->TabIndex = 4;
+			this->btnFriends->Text = L"Friends";
+			this->btnFriends->UseVisualStyleBackColor = true;
+			this->btnFriends->Click += gcnew System::EventHandler(this, &MainForm::btnFriends_Click);
+			// 
+			// btnMessage
+			// 
+			this->btnMessage->Location = System::Drawing::Point(1083, 627);
+			this->btnMessage->Name = L"btnMessage";
+			this->btnMessage->Size = System::Drawing::Size(206, 81);
+			this->btnMessage->TabIndex = 5;
+			this->btnMessage->Text = L"Message";
+			this->btnMessage->UseVisualStyleBackColor = true;
+			this->btnMessage->Click += gcnew System::EventHandler(this, &MainForm::btnMessage_Click);
+			// 
+			// btnSignOut
+			// 
+			this->btnSignOut->Location = System::Drawing::Point(388, 642);
+			this->btnSignOut->Name = L"btnSignOut";
+			this->btnSignOut->Size = System::Drawing::Size(113, 51);
+			this->btnSignOut->TabIndex = 6;
+			this->btnSignOut->Text = L"Sign Out";
+			this->btnSignOut->UseVisualStyleBackColor = true;
+			this->btnSignOut->Click += gcnew System::EventHandler(this, &MainForm::btnSignOut_Click);
 			// 
 			// MainForm
 			// 
@@ -76,17 +171,48 @@ namespace GUI {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->ClientSize = System::Drawing::Size(1337, 720);
-			this->Controls->Add(this->button1);
+			this->Controls->Add(this->btnSignOut);
+			this->Controls->Add(this->btnMessage);
+			this->Controls->Add(this->btnFriends);
+			this->Controls->Add(this->btnCreateChatRoom);
+			this->Controls->Add(this->btnChkMsg);
+			this->Controls->Add(this->btnEditProfile);
+			this->Controls->Add(this->btnJoinChatRoom);
+			this->Controls->Add(this->btnDelChatRoom);
 			this->Name = L"MainForm";
 			this->Text = L"MainForm";
 			this->ResumeLayout(false);
 
 		}
 #pragma endregion
-	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
-		
-		this->Owner->Show();
-		this->Close();
+	private: System::Void btnFriends_Click(System::Object^ sender, System::EventArgs^ e) {
+
+		// 이미 생성된 SignUp 폼이 없는 경우에만 새로운 폼을 생성하고 엽니다.
+		if (friendsForm == nullptr || friendsForm->IsDisposed) {
+			friendsForm = gcnew Friends;
+			friendsForm->Show();
+		}
+		// 이미 생성된 폼이 열려 있는 경우, 해당 폼을 활성화시킵니다.
+		else {
+			friendsForm->Activate();
+		}
+
 	}
-	};
+private: System::Void btnMessage_Click(System::Object^ sender, System::EventArgs^ e) {
+	// 이미 생성된 SignUp 폼이 없는 경우에만 새로운 폼을 생성하고 엽니다.
+	if (f_Message == nullptr || f_Message->IsDisposed) {
+		f_Message = gcnew F_Message;
+		f_Message->Show();
+	}
+	// 이미 생성된 폼이 열려 있는 경우, 해당 폼을 활성화시킵니다.
+	else {
+		friendsForm->Activate();
+	}
+}
+
+private: System::Void btnSignOut_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->Owner->Show();
+	this->Close();
+}
+};
 }

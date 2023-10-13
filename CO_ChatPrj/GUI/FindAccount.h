@@ -55,15 +55,20 @@ namespace GUI {
 
 	private: System::Windows::Forms::Label^ label4;
 	private: System::Windows::Forms::Panel^ panel3;
-	private: System::Windows::Forms::TextBox^ textBox2;
-	private: System::Windows::Forms::TextBox^ textBox1;
+	private: System::Windows::Forms::TextBox^ txtBoxName;
+	private: System::Windows::Forms::TextBox^ txtBoxEmail;
+
+
 	private: System::Windows::Forms::Panel^ panel2;
 	private: System::Windows::Forms::Panel^ panel5;
-	private: System::Windows::Forms::TextBox^ textBox5;
+	private: System::Windows::Forms::TextBox^ txtBoxPhone;
+
 	private: System::Windows::Forms::Label^ label6;
 	private: System::Windows::Forms::Panel^ panel4;
-	private: System::Windows::Forms::TextBox^ textBox3;
-	private: System::Windows::Forms::TextBox^ textBox4;
+	private: System::Windows::Forms::TextBox^ txtBoxID;
+	private: System::Windows::Forms::TextBox^ txtBoxBirth;
+
+
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::Label^ label5;
 	private: System::Windows::Forms::Button^ btnSubmit_ID;
@@ -91,18 +96,18 @@ namespace GUI {
 			this->label9 = (gcnew System::Windows::Forms::Label());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->panel3 = (gcnew System::Windows::Forms::Panel());
-			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
+			this->txtBoxName = (gcnew System::Windows::Forms::TextBox());
+			this->txtBoxEmail = (gcnew System::Windows::Forms::TextBox());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->panel2 = (gcnew System::Windows::Forms::Panel());
 			this->panel5 = (gcnew System::Windows::Forms::Panel());
-			this->textBox5 = (gcnew System::Windows::Forms::TextBox());
+			this->txtBoxPhone = (gcnew System::Windows::Forms::TextBox());
 			this->label6 = (gcnew System::Windows::Forms::Label());
 			this->panel4 = (gcnew System::Windows::Forms::Panel());
-			this->textBox3 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox4 = (gcnew System::Windows::Forms::TextBox());
+			this->txtBoxID = (gcnew System::Windows::Forms::TextBox());
+			this->txtBoxBirth = (gcnew System::Windows::Forms::TextBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->label5 = (gcnew System::Windows::Forms::Label());
 			this->btnSubmit_ID = (gcnew System::Windows::Forms::Button());
@@ -128,8 +133,8 @@ namespace GUI {
 			// panel1
 			// 
 			this->panel1->Controls->Add(this->panel3);
-			this->panel1->Controls->Add(this->textBox2);
-			this->panel1->Controls->Add(this->textBox1);
+			this->panel1->Controls->Add(this->txtBoxName);
+			this->panel1->Controls->Add(this->txtBoxEmail);
 			this->panel1->Controls->Add(this->label2);
 			this->panel1->Controls->Add(this->label9);
 			this->panel1->Location = System::Drawing::Point(71, 77);
@@ -145,29 +150,29 @@ namespace GUI {
 			this->panel3->Size = System::Drawing::Size(462, 1);
 			this->panel3->TabIndex = 30;
 			// 
-			// textBox2
+			// txtBoxName
 			// 
-			this->textBox2->BackColor = System::Drawing::Color::GhostWhite;
-			this->textBox2->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->textBox2->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
-			this->textBox2->ForeColor = System::Drawing::SystemColors::WindowFrame;
-			this->textBox2->Location = System::Drawing::Point(112, 21);
-			this->textBox2->Margin = System::Windows::Forms::Padding(3, 4, 3, 4);
-			this->textBox2->Name = L"textBox2";
-			this->textBox2->Size = System::Drawing::Size(311, 34);
-			this->textBox2->TabIndex = 27;
+			this->txtBoxName->BackColor = System::Drawing::Color::GhostWhite;
+			this->txtBoxName->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->txtBoxName->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
+			this->txtBoxName->ForeColor = System::Drawing::SystemColors::WindowFrame;
+			this->txtBoxName->Location = System::Drawing::Point(112, 21);
+			this->txtBoxName->Margin = System::Windows::Forms::Padding(3, 4, 3, 4);
+			this->txtBoxName->Name = L"txtBoxName";
+			this->txtBoxName->Size = System::Drawing::Size(311, 34);
+			this->txtBoxName->TabIndex = 27;
 			// 
-			// textBox1
+			// txtBoxEmail
 			// 
-			this->textBox1->BackColor = System::Drawing::Color::GhostWhite;
-			this->textBox1->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->textBox1->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
-			this->textBox1->ForeColor = System::Drawing::SystemColors::WindowFrame;
-			this->textBox1->Location = System::Drawing::Point(112, 83);
-			this->textBox1->Margin = System::Windows::Forms::Padding(3, 4, 3, 4);
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(311, 34);
-			this->textBox1->TabIndex = 26;
+			this->txtBoxEmail->BackColor = System::Drawing::Color::GhostWhite;
+			this->txtBoxEmail->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->txtBoxEmail->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
+			this->txtBoxEmail->ForeColor = System::Drawing::SystemColors::WindowFrame;
+			this->txtBoxEmail->Location = System::Drawing::Point(112, 83);
+			this->txtBoxEmail->Margin = System::Windows::Forms::Padding(3, 4, 3, 4);
+			this->txtBoxEmail->Name = L"txtBoxEmail";
+			this->txtBoxEmail->Size = System::Drawing::Size(311, 34);
+			this->txtBoxEmail->TabIndex = 26;
 			// 
 			// label2
 			// 
@@ -209,11 +214,11 @@ namespace GUI {
 			// panel2
 			// 
 			this->panel2->Controls->Add(this->panel5);
-			this->panel2->Controls->Add(this->textBox5);
+			this->panel2->Controls->Add(this->txtBoxPhone);
 			this->panel2->Controls->Add(this->label6);
 			this->panel2->Controls->Add(this->panel4);
-			this->panel2->Controls->Add(this->textBox3);
-			this->panel2->Controls->Add(this->textBox4);
+			this->panel2->Controls->Add(this->txtBoxID);
+			this->panel2->Controls->Add(this->txtBoxBirth);
 			this->panel2->Controls->Add(this->label1);
 			this->panel2->Controls->Add(this->label5);
 			this->panel2->Location = System::Drawing::Point(69, 334);
@@ -229,17 +234,17 @@ namespace GUI {
 			this->panel5->Size = System::Drawing::Size(462, 1);
 			this->panel5->TabIndex = 31;
 			// 
-			// textBox5
+			// txtBoxPhone
 			// 
-			this->textBox5->BackColor = System::Drawing::Color::GhostWhite;
-			this->textBox5->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->textBox5->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
-			this->textBox5->ForeColor = System::Drawing::SystemColors::WindowFrame;
-			this->textBox5->Location = System::Drawing::Point(112, 148);
-			this->textBox5->Margin = System::Windows::Forms::Padding(3, 4, 3, 4);
-			this->textBox5->Name = L"textBox5";
-			this->textBox5->Size = System::Drawing::Size(311, 34);
-			this->textBox5->TabIndex = 32;
+			this->txtBoxPhone->BackColor = System::Drawing::Color::GhostWhite;
+			this->txtBoxPhone->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->txtBoxPhone->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
+			this->txtBoxPhone->ForeColor = System::Drawing::SystemColors::WindowFrame;
+			this->txtBoxPhone->Location = System::Drawing::Point(112, 148);
+			this->txtBoxPhone->Margin = System::Windows::Forms::Padding(3, 4, 3, 4);
+			this->txtBoxPhone->Name = L"txtBoxPhone";
+			this->txtBoxPhone->Size = System::Drawing::Size(311, 34);
+			this->txtBoxPhone->TabIndex = 32;
 			// 
 			// label6
 			// 
@@ -262,29 +267,29 @@ namespace GUI {
 			this->panel4->Size = System::Drawing::Size(462, 1);
 			this->panel4->TabIndex = 30;
 			// 
-			// textBox3
+			// txtBoxID
 			// 
-			this->textBox3->BackColor = System::Drawing::Color::GhostWhite;
-			this->textBox3->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->textBox3->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
-			this->textBox3->ForeColor = System::Drawing::SystemColors::WindowFrame;
-			this->textBox3->Location = System::Drawing::Point(112, 21);
-			this->textBox3->Margin = System::Windows::Forms::Padding(3, 4, 3, 4);
-			this->textBox3->Name = L"textBox3";
-			this->textBox3->Size = System::Drawing::Size(311, 34);
-			this->textBox3->TabIndex = 27;
+			this->txtBoxID->BackColor = System::Drawing::Color::GhostWhite;
+			this->txtBoxID->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->txtBoxID->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
+			this->txtBoxID->ForeColor = System::Drawing::SystemColors::WindowFrame;
+			this->txtBoxID->Location = System::Drawing::Point(112, 21);
+			this->txtBoxID->Margin = System::Windows::Forms::Padding(3, 4, 3, 4);
+			this->txtBoxID->Name = L"txtBoxID";
+			this->txtBoxID->Size = System::Drawing::Size(311, 34);
+			this->txtBoxID->TabIndex = 27;
 			// 
-			// textBox4
+			// txtBoxBirth
 			// 
-			this->textBox4->BackColor = System::Drawing::Color::GhostWhite;
-			this->textBox4->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->textBox4->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
-			this->textBox4->ForeColor = System::Drawing::SystemColors::WindowFrame;
-			this->textBox4->Location = System::Drawing::Point(112, 84);
-			this->textBox4->Margin = System::Windows::Forms::Padding(3, 4, 3, 4);
-			this->textBox4->Name = L"textBox4";
-			this->textBox4->Size = System::Drawing::Size(311, 34);
-			this->textBox4->TabIndex = 26;
+			this->txtBoxBirth->BackColor = System::Drawing::Color::GhostWhite;
+			this->txtBoxBirth->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->txtBoxBirth->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
+			this->txtBoxBirth->ForeColor = System::Drawing::SystemColors::WindowFrame;
+			this->txtBoxBirth->Location = System::Drawing::Point(112, 84);
+			this->txtBoxBirth->Margin = System::Windows::Forms::Padding(3, 4, 3, 4);
+			this->txtBoxBirth->Name = L"txtBoxBirth";
+			this->txtBoxBirth->Size = System::Drawing::Size(311, 34);
+			this->txtBoxBirth->TabIndex = 26;
 			// 
 			// label1
 			// 
@@ -375,9 +380,14 @@ namespace GUI {
 		
 private: System::Void btnSubmit_ID_Click(System::Object^ sender, System::EventArgs^ e) {
 
+	txtBoxName->Text;
+	txtBoxEmail->Text;
 	// DB ->  이름과 email 일치하는지 확인하고 알려주기
 }
 private: System::Void btnSubmit_PW_Click(System::Object^ sender, System::EventArgs^ e) {
+	txtBoxID->Text;
+	txtBoxBirth->Text;
+	txtBoxPhone->Text;
 	// DB ->  아이디와 생년월일 폰번호  일치하는지 확인하고 알려주기
 }
 private: System::Void btnCancle_Click(System::Object^ sender, System::EventArgs^ e) {
