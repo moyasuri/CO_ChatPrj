@@ -35,6 +35,7 @@ namespace GUI {
 		MainForm^ mainForm =nullptr;
 	private: bool isFirstActivation = true;
 
+		   
 
 	private: System::Windows::Forms::TextBox^ textBox; // 텍스트 상자를 멤버 변수로 추가
 	private: System::Windows::Forms::TextBox^ txtBoxPW;
@@ -327,10 +328,10 @@ namespace GUI {
 			// 
 			// PicBoxIntro
 			// 
-			this->PicBoxIntro->Location = System::Drawing::Point(1321, 287);
+			this->PicBoxIntro->Location = System::Drawing::Point(349, 245);
 			this->PicBoxIntro->Margin = System::Windows::Forms::Padding(2);
 			this->PicBoxIntro->Name = L"PicBoxIntro";
-			this->PicBoxIntro->Size = System::Drawing::Size(456, 786);
+			this->PicBoxIntro->Size = System::Drawing::Size(1430, 786);
 			this->PicBoxIntro->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
 			this->PicBoxIntro->TabIndex = 16;
 			this->PicBoxIntro->TabStop = false;
@@ -358,7 +359,7 @@ namespace GUI {
 			this->Margin = System::Windows::Forms::Padding(4, 2, 4, 2);
 			this->Name = L"MyForm";
 			this->Text = L"MyForm";
-			this->Activated += gcnew System::EventHandler(this, &MyForm::MyForm_Activated);
+			this->VisibleChanged += gcnew System::EventHandler(this, &MyForm::MyForm_Visible);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PicBoxHomeLogo))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PicBoxIntro))->EndInit();
 			this->ResumeLayout(false);
@@ -491,6 +492,7 @@ private: System::Void btnFindAccount_Click(System::Object^ sender, System::Event
 	if (findaccountForm == nullptr || findaccountForm->IsDisposed) {
 		findaccountForm = gcnew FindAccount;
 		findaccountForm->Show();
+		
 	}
 	// 이미 생성된 폼이 열려 있는 경우, 해당 폼을 활성화시킵니다.
 	else {
@@ -510,12 +512,13 @@ private: System::Void btnFindAccount_Click(System::Object^ sender, System::Event
 
 
     }
-	private: System::Void MyForm_Activated(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void MyForm_Visible(System::Object^ sender, System::EventArgs^ e) {
 		// 이 폼이 활성화될 때 수행하고자 하는 동작을 여기에 추가합니다.
 		if (isFirstActivation) {
 			isFirstActivation = false;
 			return; // 처음 활성화 시 함수 실행을 건너뛰기
 		}
+
 		HomeImageSound->Play();
 	}
 
