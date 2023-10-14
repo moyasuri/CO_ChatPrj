@@ -76,7 +76,7 @@ namespace GUI {
 			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\HomeIntro.gif");
 			PicBoxIntro->ImageLocation = relativePath;
 
-			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\melinium.png");
+			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\Trinity_Logo.gif");
 			PicBoxHomeLogo->ImageLocation = relativePath;
 
 
@@ -306,7 +306,7 @@ namespace GUI {
 			// 
 			// PicBoxIntro
 			// 
-			this->PicBoxIntro->Location = System::Drawing::Point(1107, 555);
+			this->PicBoxIntro->Location = System::Drawing::Point(678, 445);
 			this->PicBoxIntro->Margin = System::Windows::Forms::Padding(2);
 			this->PicBoxIntro->Name = L"PicBoxIntro";
 			this->PicBoxIntro->Size = System::Drawing::Size(1430, 786);
@@ -319,9 +319,9 @@ namespace GUI {
 			// 
 			this->PicBoxHomeLogo->BackColor = System::Drawing::Color::Transparent;
 			this->PicBoxHomeLogo->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
-			this->PicBoxHomeLogo->Location = System::Drawing::Point(26, 510);
+			this->PicBoxHomeLogo->Location = System::Drawing::Point(95, 513);
 			this->PicBoxHomeLogo->Name = L"PicBoxHomeLogo";
-			this->PicBoxHomeLogo->Size = System::Drawing::Size(340, 239);
+			this->PicBoxHomeLogo->Size = System::Drawing::Size(250, 250);
 			this->PicBoxHomeLogo->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
 			this->PicBoxHomeLogo->TabIndex = 17;
 			this->PicBoxHomeLogo->TabStop = false;
@@ -333,8 +333,8 @@ namespace GUI {
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->ClientSize = System::Drawing::Size(1386, 775);
-			this->Controls->Add(this->PicBoxHomeLogo);
 			this->Controls->Add(this->PicBoxIntro);
+			this->Controls->Add(this->PicBoxHomeLogo);
 			this->Controls->Add(this->btnFindAccount);
 			this->Controls->Add(this->button3);
 			this->Controls->Add(this->btnSignup);

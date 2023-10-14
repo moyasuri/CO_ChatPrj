@@ -60,7 +60,7 @@ int main() {
         SOCKADDR_IN client_addr = {};
         client_addr.sin_family = AF_INET;
         client_addr.sin_port = htons(7777);
-        InetPton(AF_INET, TEXT("192.168.0.18"), &client_addr.sin_addr);
+        InetPton(AF_INET, TEXT("192.168.50.250"), &client_addr.sin_addr);
 
         // AF_INTE 과 PF_INET은 정확히 동일한 의미
 
