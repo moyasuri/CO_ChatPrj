@@ -33,7 +33,7 @@ namespace GUI {
 		SignUp^ signupForm = nullptr;
 		FindAccount^ findaccountForm = nullptr;
 		MainForm^ mainForm =nullptr;
-		
+		Image^ gifImage = Image::FromFile("your_gif_image.gif");
 
 
 	private: System::Windows::Forms::TextBox^ textBox; // 텍스트 상자를 멤버 변수로 추가
@@ -41,9 +41,28 @@ namespace GUI {
 		   // 텍스트 상자를 멤버 변수로 추가
 	private: System::Windows::Forms::Form^ newForm;
 	private: System::Windows::Forms::Button^ btnFindAccount;
-	private: System::Windows::Forms::PictureBox^ PicBoxIntro;
+
 	private: System::Windows::Forms::Timer^ timerDeletePicBoxIntro;
 
+
+	private: System::Windows::Forms::PictureBox^ PicBoxIntro;
+
+	
+
+		   // 상위 폴더의 상대경로를 반환
+	public: String^ _GetPathParent()
+	{
+		System::String^ currentDirectory = System::IO::Directory::GetCurrentDirectory();
+		// System::String을 C++ 문자열로 변환합니다.
+		std::string currentDirectoryStr = msclr::interop::marshal_as<std::string>(currentDirectory);
+
+		// 상위 폴더의 경로를 얻기 위해 역슬래시를 찾아서 잘라냅니다.
+		size_t pos = currentDirectoryStr.find_last_of("\\");
+
+		std::string parentDirectoryStr = currentDirectoryStr.substr(0, pos);
+		System::String^ parentDirectory = gcnew System::String(parentDirectoryStr.c_str());
+		return parentDirectory;
+	}
 
 
 
@@ -61,16 +80,8 @@ namespace GUI {
 			//TODO: 생성자 코드를 여기에 추가합니다.
 			//
 						// sound 추가해보기
-			SoundPlayer^ sound = gcnew SoundPlayer;
-			System::String^ currentDirectory = System::IO::Directory::GetCurrentDirectory();
-			// System::String을 C++ 문자열로 변환합니다.
-			std::string currentDirectoryStr = msclr::interop::marshal_as<std::string>(currentDirectory);
 
-			// 상위 폴더의 경로를 얻기 위해 역슬래시를 찾아서 잘라냅니다.
-			size_t pos = currentDirectoryStr.find_last_of("\\");
-			
-			std::string parentDirectoryStr = currentDirectoryStr.substr(0, pos);
-			System::String^ parentDirectory = gcnew System::String(parentDirectoryStr.c_str());
+
 
 
 			// intro
@@ -81,15 +92,19 @@ namespace GUI {
 		
 			
 			
-
-		
+			SoundPlayer^ sound = gcnew SoundPlayer;
+			sound->SoundLocation = _GetPathParent()+ "\\Media\\shootingstar.wav"; // SoundLocation에 CLI 문자열을 설정
+			sound->Load();
+			sound->Play();
 		 
 
 		 	// MessageBox::Show(currentDirectoryStr, "caption", MessageBoxButtons::OK, MessageBoxIcon::Information);
 
-			sound->SoundLocation = parentDirectory+"\\Media\\shootingstar.wav"; // SoundLocation에 CLI 문자열을 설정
-			sound->Load();
-			sound->Play();
+						  // GIF 이미지
+
+
+
+
 
 
 		}
@@ -469,6 +484,8 @@ private: System::Void btnFindAccount_Click(System::Object^ sender, System::Event
 		   // Timer를 중지합니다.
 		   timerDeletePicBoxIntro->Stop();
 	   }
+
+
 
 
 
