@@ -8,21 +8,64 @@ namespace Test {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::Drawing::Imaging;
 
 	/// <summary>
 	/// Test에 대한 요약입니다.
 	/// </summary>
 	public ref class Test : public System::Windows::Forms::Form
 	{
+	private:
+
+		PictureBox^ pictureBox;
+		array<Image^>^ frames; // 이미지 프레임 배열
+		int currentFrame = 0; // 현재 프레임
+		Timer^ timer;
+
+
+	private:
+		void InitializeForm()
+		{
+			// this->Text = "GIF Animation";
+			// this->Size = Drawing::Size(400, 400);
+
+			pictureBox = gcnew PictureBox();
+			pictureBox->Size = Drawing::Size(200, 200);
+			pictureBox->Location = Point(100, 100);
+			this->Controls->Add(pictureBox);
+
+			// gif 이미지 파일 경로를 지정
+			Image^ gifImage = Image::FromFile("D:\\13.C++\\CO_ChatPrj\\CO_ChatPrj\\Media\\HomeIntro.gif");
+
+			// gif 이미지를 프레임으로 분할하여 frames 배열에 저장
+			int frameCount = gifImage->GetFrameCount(FrameDimension::Time);
+			frames = gcnew array<Image^>(frameCount);
+			for (int i = 0; i < frameCount; i++) {
+				gifImage->SelectActiveFrame(FrameDimension::Time, i);
+				frames[i] = dynamic_cast<Image^>(gifImage->Clone());
+			}
+
+			timer = gcnew Timer();
+			timer->Interval = 100; // 애니메이션 간격 (100 밀리초)
+			timer->Tick += gcnew EventHandler(this, &Test::AnimationTimer_Tick);
+			timer->Start();
+		}
+
+
+
+
 	private: System::Windows::Forms::TextBox^ textBox; // 텍스트 상자를 멤버 변수로 추가
 	private: System::Windows::Forms::Form^ newForm;
 	public:
+
+
 		Test(void)
 		{
 			InitializeComponent();
 			//
 			//TODO: 생성자 코드를 여기에 추가합니다.
 			//
+			InitializeForm();
 		}
 
 	protected:
@@ -115,7 +158,13 @@ namespace Test {
 	}
 
 
+	private: void AnimationTimer_Tick(Object^ sender, EventArgs^ e)
+		   {
+			   pictureBox->Image = frames[currentFrame];
 
+			   // 다음 프레임으로 이동 (순환)
+			   currentFrame = (currentFrame + 1) % frames->Length;
+		   }
 
 
 

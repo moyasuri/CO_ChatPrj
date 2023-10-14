@@ -3,6 +3,7 @@
 #include "F_Message.h"
 
 
+
 namespace GUI {
 
 	using namespace System;
@@ -212,6 +213,7 @@ private: System::Void btnMessage_Click(System::Object^ sender, System::EventArgs
 
 private: System::Void btnSignOut_Click(System::Object^ sender, System::EventArgs^ e) {
 	this->Owner->Show();
+	this->Owner->Activate();
 	this->Close();
 }
 };
