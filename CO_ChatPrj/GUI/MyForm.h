@@ -49,25 +49,12 @@ namespace GUI {
 	private: SoundPlayer^ HomeImageSound = gcnew SoundPlayer;
 	
 	private: System::String^ currentDirectory = System::IO::Directory::GetCurrentDirectory();
+	private: System::Windows::Forms::PictureBox^ PicBoxHomeLogo;
 	private: System::String^ relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\HomeIntro.gif");
 		   
 		   
 		   
-		   // 상위 폴더의 상대경로를 반환
-	public: String^ _GetPathParent()
-	{
-		System::String^ currentDirectory = System::IO::Directory::GetCurrentDirectory();
-		// System::String을 C++ 문자열로 변환합니다.
-		std::string currentDirectoryStr = msclr::interop::marshal_as<std::string>(currentDirectory);
 
-		// 상위 폴더의 경로를 얻기 위해 역슬래시를 찾아서 잘라냅니다.
-		size_t pos = currentDirectoryStr.find_last_of("\\");
-
-		std::string parentDirectoryStr = currentDirectoryStr.substr(0, pos);
-		System::String^ parentDirectory = gcnew System::String(parentDirectoryStr.c_str());
-		return parentDirectory;
-	}
-	private: System::Windows::Forms::PictureBox^ PicBoxHomeLogo;
 
 
 
@@ -77,17 +64,20 @@ namespace GUI {
 	public:
 		MyForm(void)
 		{
+
+
 			InitializeComponent();
 			//
 			//TODO: 생성자 코드를 여기에 추가합니다.
 			//
 						// sound 추가해보기
 
-			System::String^ currentDirectory = System::IO::Directory::GetCurrentDirectory();
-			System::String^ relativePath;
+			
 			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\HomeIntro.gif");
-			PicBoxIntro->ImageLocation= relativePath;
+			PicBoxIntro->ImageLocation = relativePath;
 
+			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\melinium.png");
+			PicBoxHomeLogo->ImageLocation = relativePath;
 
 
 
@@ -192,10 +182,10 @@ namespace GUI {
 			this->btnSignup = (gcnew System::Windows::Forms::Button());
 			this->button3 = (gcnew System::Windows::Forms::Button());
 			this->btnFindAccount = (gcnew System::Windows::Forms::Button());
-			this->PicBoxHomeLogo = (gcnew System::Windows::Forms::PictureBox());
 			this->PicBoxIntro = (gcnew System::Windows::Forms::PictureBox());
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PicBoxHomeLogo))->BeginInit();
+			this->PicBoxHomeLogo = (gcnew System::Windows::Forms::PictureBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PicBoxIntro))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PicBoxHomeLogo))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// btnSignin
@@ -314,21 +304,9 @@ namespace GUI {
 			this->btnFindAccount->UseVisualStyleBackColor = false;
 			this->btnFindAccount->Click += gcnew System::EventHandler(this, &MyForm::btnFindAccount_Click);
 			// 
-			// PicBoxHomeLogo
-			// 
-			this->PicBoxHomeLogo->BackColor = System::Drawing::Color::Transparent;
-			this->PicBoxHomeLogo->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"PicBoxHomeLogo.BackgroundImage")));
-			this->PicBoxHomeLogo->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->PicBoxHomeLogo->Location = System::Drawing::Point(25, 584);
-			this->PicBoxHomeLogo->Margin = System::Windows::Forms::Padding(0);
-			this->PicBoxHomeLogo->Name = L"PicBoxHomeLogo";
-			this->PicBoxHomeLogo->Size = System::Drawing::Size(308, 176);
-			this->PicBoxHomeLogo->TabIndex = 15;
-			this->PicBoxHomeLogo->TabStop = false;
-			// 
 			// PicBoxIntro
 			// 
-			this->PicBoxIntro->Location = System::Drawing::Point(349, 245);
+			this->PicBoxIntro->Location = System::Drawing::Point(1107, 555);
 			this->PicBoxIntro->Margin = System::Windows::Forms::Padding(2);
 			this->PicBoxIntro->Name = L"PicBoxIntro";
 			this->PicBoxIntro->Size = System::Drawing::Size(1430, 786);
@@ -337,6 +315,17 @@ namespace GUI {
 			this->PicBoxIntro->TabStop = false;
 			this->PicBoxIntro->WaitOnLoad = true;
 			// 
+			// PicBoxHomeLogo
+			// 
+			this->PicBoxHomeLogo->BackColor = System::Drawing::Color::Transparent;
+			this->PicBoxHomeLogo->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
+			this->PicBoxHomeLogo->Location = System::Drawing::Point(26, 510);
+			this->PicBoxHomeLogo->Name = L"PicBoxHomeLogo";
+			this->PicBoxHomeLogo->Size = System::Drawing::Size(340, 239);
+			this->PicBoxHomeLogo->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			this->PicBoxHomeLogo->TabIndex = 17;
+			this->PicBoxHomeLogo->TabStop = false;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(10, 18);
@@ -344,8 +333,8 @@ namespace GUI {
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->ClientSize = System::Drawing::Size(1386, 775);
-			this->Controls->Add(this->PicBoxIntro);
 			this->Controls->Add(this->PicBoxHomeLogo);
+			this->Controls->Add(this->PicBoxIntro);
 			this->Controls->Add(this->btnFindAccount);
 			this->Controls->Add(this->button3);
 			this->Controls->Add(this->btnSignup);
@@ -360,8 +349,8 @@ namespace GUI {
 			this->Name = L"MyForm";
 			this->Text = L"MyForm";
 			this->VisibleChanged += gcnew System::EventHandler(this, &MyForm::MyForm_Visible);
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PicBoxHomeLogo))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PicBoxIntro))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PicBoxHomeLogo))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
