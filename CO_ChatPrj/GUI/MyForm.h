@@ -285,7 +285,7 @@ namespace GUI {
 			// 
 			// button3
 			// 
-			this->button3->Location = System::Drawing::Point(688, 262);
+			this->button3->Location = System::Drawing::Point(615, 259);
 			this->button3->Margin = System::Windows::Forms::Padding(4);
 			this->button3->Name = L"button3";
 			this->button3->Size = System::Drawing::Size(422, 134);
@@ -310,7 +310,8 @@ namespace GUI {
 			// 
 			// PicBoxIntro
 			// 
-			this->PicBoxIntro->Location = System::Drawing::Point(-21, 0);
+			this->PicBoxIntro->BackColor = System::Drawing::SystemColors::AppWorkspace;
+			this->PicBoxIntro->Location = System::Drawing::Point(832, 665);
 			this->PicBoxIntro->Margin = System::Windows::Forms::Padding(2);
 			this->PicBoxIntro->Name = L"PicBoxIntro";
 			this->PicBoxIntro->Size = System::Drawing::Size(1430, 786);
@@ -332,11 +333,11 @@ namespace GUI {
 			// 
 			// PicBoxNagareboshi
 			// 
-			this->PicBoxNagareboshi->BackColor = System::Drawing::Color::Transparent;
+			this->PicBoxNagareboshi->BackColor = System::Drawing::Color::White;
 			this->PicBoxNagareboshi->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"PicBoxNagareboshi.Image")));
-			this->PicBoxNagareboshi->Location = System::Drawing::Point(-108, -57);
+			this->PicBoxNagareboshi->Location = System::Drawing::Point(1018, 522);
 			this->PicBoxNagareboshi->Name = L"PicBoxNagareboshi";
-			this->PicBoxNagareboshi->Size = System::Drawing::Size(1600, 900);
+			this->PicBoxNagareboshi->Size = System::Drawing::Size(597, 294);
 			this->PicBoxNagareboshi->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
 			this->PicBoxNagareboshi->TabIndex = 18;
 			this->PicBoxNagareboshi->TabStop = false;
