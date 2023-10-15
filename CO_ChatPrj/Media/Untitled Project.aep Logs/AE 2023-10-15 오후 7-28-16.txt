@@ -1,0 +1,17 @@
+Adobe After Effects v22.2.1 Windows 64 render log for project “Untitled Project.aep”
+
+Rendering started on 2023-10-15 at 오후 7:28:16
+
+  2023-10-15 오후 7:28:16: Starting composition “Comp 2”.
+
+  Output To: D:\13.C++\CO_ChatPrj\CO_ChatPrj\Media\nagareboshi2.mov    2023-10-15 오후 7:32:37: Finished composition “Comp 2”.
+
+
+  2023-10-15 오후 7:32:37: Starting composition “Comp 2”.
+
+  Output To: D:\13.C++\CO_ChatPrj\CO_ChatPrj\Media\Comp 2.mov  After Effects warning: Could not open the file 'C:\Users\Eiria\AppData\Local\Temp\Adobe\After Effects\22.2\Disk Cache - DESKTOP-VCC7KDP.noindex\e1\e170dd79-7d1d-ce7a-f5c6-67a8ad99ca1d.ADBE LCV.B310E03.bQAAAEkAAACcAwAAjQIAAG0AAABJAAAAnAMAAI0CAABtAAAASQAAAJwDAACNAgAAAAAAAAAAAABABgAAhAMAAAAAAAA=.aecache'.After Effects warning: Could not open the file 'C:\Users\Eiria\AppData\Local\Temp\Adobe\After Effects\22.2\Disk Cache - DESKTOP-VCC7KDP.noindex\e1\e170dd79-7d1d-ce7a-f5c6-67a8ad99ca1d.ADBE LCV.B310E03.bQAAAEkAAACcAwAAjQIAAG0AAABJAAAAnAMAAI0CAABtAAAASQAAAJwDAACNAgAAAAAAAAAAAABABgAAhAMAAAAAAAA=.aecache'.  2023-10-15 오후 7:32:52: Finished composition “Comp 2”.
+
+
+  Total Time Elapsed: 4 Min, 36 Sec
+Log closed on 2023-10-15 at 오후 7:32:53
+

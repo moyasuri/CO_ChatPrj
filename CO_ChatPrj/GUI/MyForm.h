@@ -50,6 +50,8 @@ namespace GUI {
 	
 	private: System::String^ currentDirectory = System::IO::Directory::GetCurrentDirectory();
 	private: System::Windows::Forms::PictureBox^ PicBoxHomeLogo;
+	private: System::Windows::Forms::PictureBox^ PicBoxNagareboshi;
+
 	private: System::String^ relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\HomeIntro.gif");
 		   
 		   
@@ -184,8 +186,10 @@ namespace GUI {
 			this->btnFindAccount = (gcnew System::Windows::Forms::Button());
 			this->PicBoxIntro = (gcnew System::Windows::Forms::PictureBox());
 			this->PicBoxHomeLogo = (gcnew System::Windows::Forms::PictureBox());
+			this->PicBoxNagareboshi = (gcnew System::Windows::Forms::PictureBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PicBoxIntro))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PicBoxHomeLogo))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PicBoxNagareboshi))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// btnSignin
@@ -306,7 +310,7 @@ namespace GUI {
 			// 
 			// PicBoxIntro
 			// 
-			this->PicBoxIntro->Location = System::Drawing::Point(678, 445);
+			this->PicBoxIntro->Location = System::Drawing::Point(-21, 0);
 			this->PicBoxIntro->Margin = System::Windows::Forms::Padding(2);
 			this->PicBoxIntro->Name = L"PicBoxIntro";
 			this->PicBoxIntro->Size = System::Drawing::Size(1430, 786);
@@ -326,6 +330,17 @@ namespace GUI {
 			this->PicBoxHomeLogo->TabIndex = 17;
 			this->PicBoxHomeLogo->TabStop = false;
 			// 
+			// PicBoxNagareboshi
+			// 
+			this->PicBoxNagareboshi->BackColor = System::Drawing::Color::Transparent;
+			this->PicBoxNagareboshi->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"PicBoxNagareboshi.Image")));
+			this->PicBoxNagareboshi->Location = System::Drawing::Point(-108, -57);
+			this->PicBoxNagareboshi->Name = L"PicBoxNagareboshi";
+			this->PicBoxNagareboshi->Size = System::Drawing::Size(1600, 900);
+			this->PicBoxNagareboshi->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			this->PicBoxNagareboshi->TabIndex = 18;
+			this->PicBoxNagareboshi->TabStop = false;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(10, 18);
@@ -344,6 +359,7 @@ namespace GUI {
 			this->Controls->Add(this->label3);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->btnSignin);
+			this->Controls->Add(this->PicBoxNagareboshi);
 			this->DoubleBuffered = true;
 			this->Margin = System::Windows::Forms::Padding(4, 2, 4, 2);
 			this->Name = L"MyForm";
@@ -351,6 +367,7 @@ namespace GUI {
 			this->VisibleChanged += gcnew System::EventHandler(this, &MyForm::MyForm_Visible);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PicBoxIntro))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PicBoxHomeLogo))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->PicBoxNagareboshi))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
