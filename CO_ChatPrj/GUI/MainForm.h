@@ -111,7 +111,7 @@ namespace GUI {
 			// 
 			// btnEditProfile
 			// 
-			this->btnEditProfile->Location = System::Drawing::Point(139, 589);
+			this->btnEditProfile->Location = System::Drawing::Point(39, 642);
 			this->btnEditProfile->Name = L"btnEditProfile";
 			this->btnEditProfile->Size = System::Drawing::Size(240, 41);
 			this->btnEditProfile->TabIndex = 2;

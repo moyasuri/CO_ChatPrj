@@ -35,6 +35,11 @@ namespace GUI {
 			}
 		}
 
+	protected:
+	private: System::Windows::Forms::Button^ button2;
+	private: System::Windows::Forms::TextBox^ textBox1;
+	private: System::Windows::Forms::Button^ button3;
+
 	private:
 		/// <summary>
 		/// 필수 디자이너 변수입니다.
@@ -48,11 +53,49 @@ namespace GUI {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->components = gcnew System::ComponentModel::Container();
-			this->Size = System::Drawing::Size(300,300);
-			this->Text = L"AddFriend";
-			this->Padding = System::Windows::Forms::Padding(0);
+			this->button2 = (gcnew System::Windows::Forms::Button());
+			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
+			this->button3 = (gcnew System::Windows::Forms::Button());
+			this->SuspendLayout();
+			// 
+			// button2
+			// 
+			this->button2->Location = System::Drawing::Point(230, 127);
+			this->button2->Name = L"button2";
+			this->button2->Size = System::Drawing::Size(189, 51);
+			this->button2->TabIndex = 1;
+			this->button2->Text = L"Send Request";
+			this->button2->UseVisualStyleBackColor = true;
+			// 
+			// textBox1
+			// 
+			this->textBox1->Location = System::Drawing::Point(163, 78);
+			this->textBox1->Name = L"textBox1";
+			this->textBox1->Size = System::Drawing::Size(215, 25);
+			this->textBox1->TabIndex = 2;
+			// 
+			// button3
+			// 
+			this->button3->Location = System::Drawing::Point(293, 293);
+			this->button3->Name = L"button3";
+			this->button3->Size = System::Drawing::Size(189, 51);
+			this->button3->TabIndex = 3;
+			this->button3->Text = L"Close";
+			this->button3->UseVisualStyleBackColor = true;
+			// 
+			// AddFriend
+			// 
+			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->ClientSize = System::Drawing::Size(545, 443);
+			this->Controls->Add(this->button3);
+			this->Controls->Add(this->textBox1);
+			this->Controls->Add(this->button2);
+			this->Name = L"AddFriend";
+			this->Text = L"AddFriend";
+			this->ResumeLayout(false);
+			this->PerformLayout();
+
 		}
 #pragma endregion
 	};
