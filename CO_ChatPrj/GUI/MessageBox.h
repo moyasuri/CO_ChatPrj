@@ -82,7 +82,7 @@ namespace GUI {
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(54, 89);
+			this->label1->Location = System::Drawing::Point(82, 71);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(53, 15);
 			this->label1->TabIndex = 0;
@@ -91,7 +91,7 @@ namespace GUI {
 			// label2
 			// 
 			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(54, 291);
+			this->label2->Location = System::Drawing::Point(82, 306);
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(41, 15);
 			this->label2->TabIndex = 1;
@@ -101,7 +101,7 @@ namespace GUI {
 			// 
 			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(2) { this->From, this->Date });
-			this->dataGridView1->Location = System::Drawing::Point(101, 112);
+			this->dataGridView1->Location = System::Drawing::Point(85, 89);
 			this->dataGridView1->Name = L"dataGridView1";
 			this->dataGridView1->RowHeadersWidth = 51;
 			this->dataGridView1->RowTemplate->Height = 27;
@@ -124,7 +124,7 @@ namespace GUI {
 			// 
 			// button1
 			// 
-			this->button1->Location = System::Drawing::Point(394, 161);
+			this->button1->Location = System::Drawing::Point(358, 166);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(75, 23);
 			this->button1->TabIndex = 3;
@@ -161,7 +161,7 @@ namespace GUI {
 			// 
 			// button2
 			// 
-			this->button2->Location = System::Drawing::Point(394, 211);
+			this->button2->Location = System::Drawing::Point(358, 216);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(75, 23);
 			this->button2->TabIndex = 5;
@@ -170,7 +170,7 @@ namespace GUI {
 			// 
 			// button3
 			// 
-			this->button3->Location = System::Drawing::Point(394, 358);
+			this->button3->Location = System::Drawing::Point(358, 448);
 			this->button3->Name = L"button3";
 			this->button3->Size = System::Drawing::Size(75, 23);
 			this->button3->TabIndex = 6;
@@ -179,7 +179,7 @@ namespace GUI {
 			// 
 			// button4
 			// 
-			this->button4->Location = System::Drawing::Point(702, 433);
+			this->button4->Location = System::Drawing::Point(681, 480);
 			this->button4->Name = L"button4";
 			this->button4->Size = System::Drawing::Size(145, 53);
 			this->button4->TabIndex = 7;
@@ -189,17 +189,17 @@ namespace GUI {
 			// 
 			// textBox1
 			// 
-			this->textBox1->Location = System::Drawing::Point(534, 103);
+			this->textBox1->Location = System::Drawing::Point(477, 89);
 			this->textBox1->Multiline = true;
 			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(248, 263);
+			this->textBox1->Size = System::Drawing::Size(349, 371);
 			this->textBox1->TabIndex = 8;
 			// 
 			// MessageBox
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(929, 545);
+			this->ClientSize = System::Drawing::Size(891, 545);
 			this->Controls->Add(this->textBox1);
 			this->Controls->Add(this->button4);
 			this->Controls->Add(this->button3);

@@ -244,6 +244,9 @@
     <EmbeddedResource Include="F_Message.resx">
       <DependentUpon>F_Message.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GeneralChatIndex.resx">
+      <DependentUpon>GeneralChatIndex.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="JoinChatRoom.resx">
       <DependentUpon>JoinChatRoom.h</DependentUpon>
     </EmbeddedResource>

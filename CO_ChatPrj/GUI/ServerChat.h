@@ -39,6 +39,7 @@ namespace GUI {
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::TextBox^ textBox2;
 	private: System::Windows::Forms::Button^ button1;
+	private: System::Windows::Forms::Button^ button2;
 
 	private:
 		/// <summary>
@@ -57,11 +58,12 @@ namespace GUI {
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
 			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// textBox1
 			// 
-			this->textBox1->Location = System::Drawing::Point(130, 94);
+			this->textBox1->Location = System::Drawing::Point(94, 92);
 			this->textBox1->Multiline = true;
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->Size = System::Drawing::Size(562, 317);
@@ -78,25 +80,36 @@ namespace GUI {
 			// 
 			// textBox2
 			// 
-			this->textBox2->Location = System::Drawing::Point(130, 457);
+			this->textBox2->Location = System::Drawing::Point(94, 455);
 			this->textBox2->Name = L"textBox2";
 			this->textBox2->Size = System::Drawing::Size(562, 25);
 			this->textBox2->TabIndex = 2;
 			// 
 			// button1
 			// 
-			this->button1->Location = System::Drawing::Point(340, 506);
+			this->button1->Location = System::Drawing::Point(194, 505);
 			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(101, 34);
+			this->button1->Size = System::Drawing::Size(149, 51);
 			this->button1->TabIndex = 3;
 			this->button1->Text = L"Send";
 			this->button1->UseVisualStyleBackColor = true;
+			// 
+			// button2
+			// 
+			this->button2->Location = System::Drawing::Point(417, 505);
+			this->button2->Name = L"button2";
+			this->button2->Size = System::Drawing::Size(149, 51);
+			this->button2->TabIndex = 4;
+			this->button2->Text = L"Exit";
+			this->button2->UseVisualStyleBackColor = true;
+			this->button2->Click += gcnew System::EventHandler(this, &ServerChat::button2_Click);
 			// 
 			// ServerChat
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(809, 568);
+			this->ClientSize = System::Drawing::Size(752, 568);
+			this->Controls->Add(this->button2);
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->textBox2);
 			this->Controls->Add(this->label1);
@@ -108,5 +121,8 @@ namespace GUI {
 
 		}
 #pragma endregion
-	};
+	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
+		this->Close();
+	}
+};
 }

@@ -77,7 +77,7 @@ namespace GUI {
 			// 
 			this->button1->Location = System::Drawing::Point(86, 53);
 			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(175, 53);
+			this->button1->Size = System::Drawing::Size(270, 75);
 			this->button1->TabIndex = 0;
 			this->button1->Text = L"New";
 			this->button1->UseVisualStyleBackColor = true;
@@ -85,9 +85,9 @@ namespace GUI {
 			// 
 			// button2
 			// 
-			this->button2->Location = System::Drawing::Point(95, 130);
+			this->button2->Location = System::Drawing::Point(86, 161);
 			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(145, 52);
+			this->button2->Size = System::Drawing::Size(270, 77);
 			this->button2->TabIndex = 1;
 			this->button2->Text = L"Sent";
 			this->button2->UseVisualStyleBackColor = true;
@@ -95,9 +95,9 @@ namespace GUI {
 			// 
 			// button3
 			// 
-			this->button3->Location = System::Drawing::Point(86, 198);
+			this->button3->Location = System::Drawing::Point(86, 268);
 			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(121, 39);
+			this->button3->Size = System::Drawing::Size(270, 72);
 			this->button3->TabIndex = 2;
 			this->button3->Text = L"Message Box";
 			this->button3->UseVisualStyleBackColor = true;
@@ -105,9 +105,9 @@ namespace GUI {
 			// 
 			// button4
 			// 
-			this->button4->Location = System::Drawing::Point(373, 336);
+			this->button4->Location = System::Drawing::Point(201, 412);
 			this->button4->Name = L"button4";
-			this->button4->Size = System::Drawing::Size(155, 91);
+			this->button4->Size = System::Drawing::Size(155, 44);
 			this->button4->TabIndex = 3;
 			this->button4->Text = L"Close";
 			this->button4->UseVisualStyleBackColor = true;
@@ -117,7 +117,7 @@ namespace GUI {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(666, 615);
+			this->ClientSize = System::Drawing::Size(466, 531);
 			this->Controls->Add(this->button4);
 			this->Controls->Add(this->button3);
 			this->Controls->Add(this->button2);
