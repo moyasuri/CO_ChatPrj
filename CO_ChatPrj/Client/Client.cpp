@@ -10,6 +10,7 @@
 // user 헤더 추가
 #include "User.cpp"
 
+using namespace std;
 
 //string으로 정보를 모두 받아줘야 하고 (socket에 char 형식으로만 전달 가능해 c_str 사용해야 하기 때문) 
 //서버에 전달 후 서버에서 string으로 다시 받아 int변환 등 처리해서 mysql로 보내준다.
@@ -60,6 +61,7 @@ class Client
         string inputNickname;
         string inputPW;
         string inputCha_num;
+   
 
         cout << "ID를 입력하세요 " << endl;
         cin >> inputID;
@@ -97,14 +99,14 @@ class Client
         vector <string> userinfo;
         userinfo.clear();
 
-        userinfo.push_back(user1.getMember_ID);
+        userinfo.push_back(user1.getMember_ID());
         userinfo.push_back(user1.getEmail());
         userinfo.push_back(user1.getPhone());
         userinfo.push_back(user1.getBirth());
-        userinfo.push_back(user1.getNickname);
-        userinfo.push_back(user1.getCha_num);
-        userinfo.push_back(user1.getMember_PW);
-        userinfo.push_back(user1.getJoin_room_index);
+        userinfo.push_back(user1.getNickname());
+        userinfo.push_back(user1.getCha_num());
+        userinfo.push_back(user1.getMember_PW());
+        userinfo.push_back(user1.getJoin_room_index());
 
         return userinfo;
     }
@@ -113,7 +115,7 @@ class Client
         int code = WSAStartup(MAKEWORD(2, 2), &wsa);
 
         if (!code) {
-            client_sock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP); // 
+            client_info_sock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP); // 
 
             // 연결할 서버 정보 설정 부분
             SOCKADDR_IN client_addr = {};
@@ -122,13 +124,14 @@ class Client
             InetPton(AF_INET, TEXT("192.168.0.18"), &client_addr.sin_addr);
 
             while (1) {
-                if (!connect(client_sock, (SOCKADDR*)&client_addr, sizeof(client_addr))) { // 위에 설정한 정보에 해당하는 server로 연결!
+                if (!connect(client_info_sock, (SOCKADDR*)&client_addr, sizeof(client_addr))) { // 위에 설정한 정보에 해당하는 server로 연결!
                     cout << "Server Connect" << endl;
                     for (auto info : getUserInfo(user))
-                        send(client_sock, info.c_str(), my_nick.length(), 0); // 연결에 성공하면 client 가 입력한 닉네임을 서버로 전송
+                    {
+                        send(client_info_sock, info.c_str(), info.length(), 0); // 연결에 성공하면 client 가 입력한 닉네임을 서버로 전송
+                        send(client_info_sock, " ", 1, 0);
+                    }
                     break;
-                }
-
             }
 
             std::thread th2(chat_recv);
@@ -137,14 +140,64 @@ class Client
                 string text;
                 std::getline(cin, text);
                 const char* buffer = text.c_str(); // string형을 char* 타입으로 변환
-                send(client_sock, buffer, strlen(buffer), 0);
+                send(client_info_sock, buffer, strlen(buffer), 0);
             }
             th2.join();
-            closesocket(client_sock);
+            closesocket(client_info_sock);
         }
 
         WSACleanup();
     }
 
+        void login() {
+            string login_id;
+            string login_pw;
+            cout << "id를 입력하세요 : " << endl;
 
+        }
+
+        int main() {
+            WSADATA wsa;
+
+            // Winsock를 초기화하는 함수. MAKEWORD(2, 2)는 Winsock의 2.2 버전을 사용하겠다는 의미.
+            // 실행에 성공하면 0을, 실패하면 그 이외의 값을 반환.
+            // 0을 반환했다는 것은 Winsock을 사용할 준비가 되었다는 의미.
+            int code = WSAStartup(MAKEWORD(2, 2), &wsa);
+
+            if (!code) {
+                cout << "사용할 닉네임 입력 >> ";
+                cin >> my_nick;
+
+                client_sock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP); // 
+
+                // 연결할 서버 정보 설정 부분
+                SOCKADDR_IN client_addr = {};
+                client_addr.sin_family = AF_INET;
+                client_addr.sin_port = htons(7777);
+                InetPton(AF_INET, TEXT("127.0.0.1"), &client_addr.sin_addr);
+
+                while (1) {
+                    if (!connect(client_sock, (SOCKADDR*)&client_addr, sizeof(client_addr))) { // 위에 설정한 정보에 해당하는 server로 연결!
+                        cout << "Server Connect" << endl;
+                        send(client_sock, my_nick.c_str(), my_nick.length(), 0); // 연결에 성공하면 client 가 입력한 닉네임을 서버로 전송
+                        break;
+                    }
+                    cout << "Connecting..." << endl;
+                }
+
+                std::thread th2(chat_recv);
+
+                while (1) {
+                    string text;
+                    std::getline(cin, text);
+                    const char* buffer = text.c_str(); // string형을 char* 타입으로 변환
+                    send(client_sock, buffer, strlen(buffer), 0);
+                }
+                th2.join();
+                closesocket(client_sock);
+            }
+
+            WSACleanup();
+            return 0;
+        }
 

@@ -42,7 +42,7 @@ class MY_SQL {
         }
 
         // 데이터베이스 선택
-        con->setSchema("chat");
+        con->setSchema("practice");
 
         // db 한글 저장을 위한 셋팅 
         stmt = con->createStatement();
@@ -155,7 +155,7 @@ void add_client() {
     cout << msg << endl;
     sck_list.push_back(new_client); // client 정보를 답는 sck_list 배열에 새로운 client 추가
 
-    std::thread th(recv_msg, client_count);
+    std::thread th(recv_msg, client_count);//idx로 받아짐
     // 다른 사람들로부터 오는 메시지를 계속해서 받을 수 있는 상태로 만들어 두기.
 
     client_count++; // client 수 증가.
