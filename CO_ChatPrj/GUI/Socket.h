@@ -1,21 +1,7 @@
-#pragma comment(lib, "ws2_32.lib")
 
-#include <WinSock2.h> //Winsock 헤더파일 include. WSADATA 들어있음.
-#include <WS2tcpip.h>
-#include <string>
-#include <sstream>
-#include <iostream>
-#include <thread>
 
-#define MAX_SIZE 1024
 
-using std::cout;
-using std::cin;
-using std::endl;
-using std::string;
 
-SOCKET client_sock;
-string my_nick;
 
 int chat_recv() {
     char buf[MAX_SIZE] = { };
@@ -24,7 +10,8 @@ int chat_recv() {
     while (1) {
         ZeroMemory(&buf, MAX_SIZE);
         if (recv(client_sock, buf, MAX_SIZE, 0) > 0) {
-            msg = buf;
+            // Temp_socket = buf;
+
             std::stringstream ss(msg);  // 문자열을 스트림화
             string user;
             ss >> user; // 스트림을 통해, 문자열을 공백 분리해 변수에 할당. 보낸 사람의 이름만 user에 저장됨.
@@ -37,8 +24,9 @@ int chat_recv() {
     }
 }
 
-int main() {
+void CommunicateWithServer() {
     WSADATA wsa;
+    my_nick = "abc";
 
     // Winsock를 초기화하는 함수. MAKEWORD(2, 2)는 Winsock의 2.2 버전을 사용하겠다는 의미.
     // 실행에 성공하면 0을, 실패하면 그 이외의 값을 반환.
@@ -86,5 +74,4 @@ int main() {
     }
 
     WSACleanup();
-    return 0;
 }

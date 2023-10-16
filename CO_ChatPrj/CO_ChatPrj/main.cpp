@@ -1,4 +1,4 @@
-#pragma comment(lib, "ws2_32.lib") //명시적인 라이브러리의 링크. 윈속 라이브러리 참조
+﻿#pragma comment(lib, "ws2_32.lib") //명시적인 라이브러리의 링크. 윈속 라이브러리 참조
 
 #include <WinSock2.h>
 #include <string>
