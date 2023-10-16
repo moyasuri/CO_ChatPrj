@@ -122,22 +122,25 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AddFriend.cpp" />
-    <ClCompile Include="CreateRoom.cpp" />
+    <ClCompile Include="CreateChatRoom.cpp" />
     <ClCompile Include="DeleteChatRoom.cpp" />
+    <ClCompile Include="EditProfile.cpp" />
     <ClCompile Include="FindAccount.cpp" />
+    <ClCompile Include="FriendList.cpp" />
     <ClCompile Include="FriendResponse.cpp" />
     <ClCompile Include="Friends.cpp" />
     <ClCompile Include="F_Message.cpp" />
+    <ClCompile Include="GeneralChatIndex.cpp" />
     <ClCompile Include="JoinChatRoom.cpp" />
     <ClCompile Include="MainForm.cpp" />
-    <ClCompile Include="Message_Box.cpp" />
+    <ClCompile Include="MessageBox.cpp" />
     <ClCompile Include="MyForm.cpp" />
     <ClCompile Include="NewMessage.cpp" />
     <ClCompile Include="PrivateRoom.cpp" />
     <ClCompile Include="PrivateRoomChat.cpp" />
     <ClCompile Include="PublicRoom.cpp" />
     <ClCompile Include="PublicRoomChat.cpp" />
-    <ClCompile Include="SentMessage.cpp" />
+    <ClCompile Include="MessageSent.cpp" />
     <ClCompile Include="ServerChat.cpp" />
     <ClCompile Include="SignUp.cpp" />
     <ClCompile Include="test.cpp" />
@@ -146,13 +149,19 @@
     <ClInclude Include="AddFriend.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="CreateRoom.h">
+    <ClInclude Include="CreateChatRoom.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="DeleteChatRoom.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="EditProfile.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="FindAccount.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="FriendList.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="FriendResponse.h">
@@ -164,13 +173,16 @@
     <ClInclude Include="F_Message.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="GeneralChatIndex.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="JoinChatRoom.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="MainForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="Message_Box.h">
+    <ClInclude Include="MessageBox.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="MyForm.h">
@@ -191,7 +203,7 @@
     <ClInclude Include="PublicRoomChat.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="SentMessage.h">
+    <ClInclude Include="MessageSent.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="ServerChat.h">
@@ -208,8 +220,20 @@
     <EmbeddedResource Include="AddFriend.resx">
       <DependentUpon>AddFriend.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CreateChatRoom.resx">
+      <DependentUpon>CreateChatRoom.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeleteChatRoom.resx">
+      <DependentUpon>DeleteChatRoom.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditProfile.resx">
+      <DependentUpon>EditProfile.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FindAccount.resx">
       <DependentUpon>FindAccount.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FriendList.resx">
+      <DependentUpon>FriendList.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FriendResponse.resx">
       <DependentUpon>FriendResponse.h</DependentUpon>
@@ -220,11 +244,14 @@
     <EmbeddedResource Include="F_Message.resx">
       <DependentUpon>F_Message.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="JoinChatRoom.resx">
+      <DependentUpon>JoinChatRoom.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.h</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Message_Box.resx">
-      <DependentUpon>Message_Box.h</DependentUpon>
+    <EmbeddedResource Include="MessageBox.resx">
+      <DependentUpon>MessageBox.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MyForm.resx">
       <DependentUpon>MyForm.h</DependentUpon>
@@ -232,8 +259,11 @@
     <EmbeddedResource Include="NewMessage.resx">
       <DependentUpon>NewMessage.h</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SentMessage.resx">
-      <DependentUpon>SentMessage.h</DependentUpon>
+    <EmbeddedResource Include="MessageSent.resx">
+      <DependentUpon>MessageSent.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ServerChat.resx">
+      <DependentUpon>ServerChat.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SignUp.resx">
       <DependentUpon>SignUp.h</DependentUpon>

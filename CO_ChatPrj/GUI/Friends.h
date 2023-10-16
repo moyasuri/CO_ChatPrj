@@ -1,4 +1,6 @@
 ﻿#pragma once
+#include "AddFriend.h"
+#include "FriendResponse.h"
 
 
 namespace GUI {
@@ -16,6 +18,9 @@ namespace GUI {
 	/// </summary>
 	public ref class Friends : public System::Windows::Forms::Form
 	{
+	private:
+		AddFriend^ addfriendform = nullptr;
+		FriendResponse^ friendresponseform = nullptr;
 	public:
 		Friends(void)
 		{
@@ -76,6 +81,7 @@ namespace GUI {
 			this->button3->TabIndex = 5;
 			this->button3->Text = L"Request Response";
 			this->button3->UseVisualStyleBackColor = true;
+			this->button3->Click += gcnew System::EventHandler(this, &Friends::button3_Click);
 			// 
 			// button2
 			// 
@@ -94,6 +100,7 @@ namespace GUI {
 			this->button4->TabIndex = 7;
 			this->button4->Text = L"Add Friend";
 			this->button4->UseVisualStyleBackColor = true;
+			this->button4->Click += gcnew System::EventHandler(this, &Friends::button4_Click);
 			// 
 			// label1
 			// 
@@ -132,32 +139,31 @@ namespace GUI {
 #pragma endregion
 
 
-		// 이건 방목록에 해당하는 list를 서버가 주는거라고 생각하면 될거같아.
-private: System::Void textBox1_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
-	// 검색어를 입력할 때마다 호출됩니다.
-	String^ searchTerm = textBox1->Text;
-	listBox1->Items->Clear();
 
+private: System::Void button4_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (addfriendform == nullptr || addfriendform->IsDisposed) {
+		addfriendform = gcnew AddFriend;
+		addfriendform->Show();
 
-
-	// 여기에서 검색 대상 목록을 정의합니다.
-	System::Collections::Generic::List<String^>^ items = gcnew System::Collections::Generic::List<String^>();
-	items->Add("jiwon");
-	items->Add("mila");
-	items->Add("alice");
-
-	// 검색어가 공백인 경우, 모든 항목을 표시하지 않습니다.
-	if (searchTerm->Trim() == "") {
-		return;
 	}
-	
-
-	// 검색어와 일치하는 항목을 ListBox에 추가합니다.
-	for each (String ^ item in items) {
-		if (item->ToLower()->Contains(searchTerm->ToLower())) {
-			listBox1->Items->Add(item);
-		}
+	// 이미 생성된 폼이 열려 있는 경우, 해당 폼을 활성화시킵니다.
+	else {
+		addfriendform->Activate();
 	}
+}
+
+private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
+
+	if (friendresponseform == nullptr|| friendresponseform->IsDisposed) {
+		friendresponseform = gcnew FriendResponse;
+		friendresponseform->Show();
+
+	}
+	// 이미 생성된 폼이 열려 있는 경우, 해당 폼을 활성화시킵니다.
+	else {
+		friendresponseform->Activate();
+	}
+
 }
 };
 }

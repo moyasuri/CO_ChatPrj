@@ -34,6 +34,11 @@ namespace GUI {
 				delete components;
 			}
 		}
+	private: System::Windows::Forms::DataGridView^ dataGridView1;
+	protected:
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ RoomName;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ CreateDate;
+	private: System::Windows::Forms::Button^ button1;
 
 	private:
 		/// <summary>
@@ -48,11 +53,62 @@ namespace GUI {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->components = gcnew System::ComponentModel::Container();
-			this->Size = System::Drawing::Size(300,300);
-			this->Text = L"DeleteChatRoom";
-			this->Padding = System::Windows::Forms::Padding(0);
+			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
+			this->RoomName = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->CreateDate = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->button1 = (gcnew System::Windows::Forms::Button());
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
+			this->SuspendLayout();
+			// 
+			// dataGridView1
+			// 
+			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(2) {
+				this->RoomName,
+					this->CreateDate
+			});
+			this->dataGridView1->Location = System::Drawing::Point(51, 61);
+			this->dataGridView1->Name = L"dataGridView1";
+			this->dataGridView1->RowHeadersWidth = 51;
+			this->dataGridView1->RowTemplate->Height = 27;
+			this->dataGridView1->Size = System::Drawing::Size(484, 316);
+			this->dataGridView1->TabIndex = 0;
+			// 
+			// RoomName
+			// 
+			this->RoomName->HeaderText = L"RoomName";
+			this->RoomName->MinimumWidth = 6;
+			this->RoomName->Name = L"RoomName";
+			this->RoomName->Width = 125;
+			// 
+			// CreateDate
+			// 
+			this->CreateDate->HeaderText = L"CreateDate";
+			this->CreateDate->MinimumWidth = 6;
+			this->CreateDate->Name = L"CreateDate";
+			this->CreateDate->Width = 125;
+			// 
+			// button1
+			// 
+			this->button1->Location = System::Drawing::Point(572, 71);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(157, 43);
+			this->button1->TabIndex = 1;
+			this->button1->Text = L"Delete";
+			this->button1->UseVisualStyleBackColor = true;
+			// 
+			// DeleteChatRoom
+			// 
+			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->ClientSize = System::Drawing::Size(760, 525);
+			this->Controls->Add(this->button1);
+			this->Controls->Add(this->dataGridView1);
+			this->Name = L"DeleteChatRoom";
+			this->Text = L"DeleteChatRoom";
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
+			this->ResumeLayout(false);
+
 		}
 #pragma endregion
 	};

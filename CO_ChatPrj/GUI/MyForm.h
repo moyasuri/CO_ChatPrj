@@ -38,16 +38,15 @@ namespace GUI {
 		   
 
 	private: System::Windows::Forms::TextBox^ textBox; // 텍스트 상자를 멤버 변수로 추가
-	private: System::Windows::Forms::TextBox^ txtBoxPW;
+	// private: System::Windows::Forms::TextBox^ txtBoxPW;
 		   // 텍스트 상자를 멤버 변수로 추가
-	private: System::Windows::Forms::Form^ newForm;
+
 	private: System::Windows::Forms::Button^ btnFindAccount;
 
 	private: System::Windows::Forms::Timer^ timerDeletePicBoxIntro;
 	private: System::Windows::Forms::PictureBox^ PicBoxIntro;
 	private: SoundPlayer^ IntroImageSound = gcnew SoundPlayer;
 	private: SoundPlayer^ HomeImageSound = gcnew SoundPlayer;
-	
 	private: System::String^ currentDirectory = System::IO::Directory::GetCurrentDirectory();
 	private: System::Windows::Forms::PictureBox^ PicBoxHomeLogo;
 	private: System::Windows::Forms::PictureBox^ PicBoxNagareboshi;
@@ -103,7 +102,21 @@ namespace GUI {
 			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\shootingstar.wav");
 			HomeImageSound->SoundLocation = relativePath;
 
+			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\nagareboshi2.gif");
+			PicBoxNagareboshi->ImageLocation = relativePath;
 
+			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\nagareboshi2.gif");
+			PicBoxNagareboshi->ImageLocation = relativePath;
+
+
+			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\temp\\Blue_menu.png");
+			btnFindAccount->BackgroundImage = Image::FromFile(relativePath);
+			btnExit->BackgroundImage = Image::FromFile(relativePath);
+			btnSignin->BackgroundImage = Image::FromFile(relativePath);
+			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\temp\\Yellow_menu.png");
+			btnSignup->BackgroundImage = Image::FromFile(relativePath);
+				
+			
 
 
 			
@@ -135,7 +148,7 @@ namespace GUI {
 		}
 
 	private: System::Windows::Forms::Button^ btnSignin;
-
+    private: System::Windows::Forms::TextBox^ txtBoxPW;
 	private: System::Windows::Forms::Label^ label2;
 	private: System::Windows::Forms::Label^ label3;
 	private: System::Windows::Forms::TextBox^ txtBoxID;
@@ -150,7 +163,7 @@ namespace GUI {
 
 
 
-	private: System::Windows::Forms::Button^ button3;
+
 	private: System::ComponentModel::IContainer^ components;
 
 
@@ -182,7 +195,6 @@ namespace GUI {
 			this->txtBoxPW = (gcnew System::Windows::Forms::TextBox());
 			this->btnExit = (gcnew System::Windows::Forms::Button());
 			this->btnSignup = (gcnew System::Windows::Forms::Button());
-			this->button3 = (gcnew System::Windows::Forms::Button());
 			this->btnFindAccount = (gcnew System::Windows::Forms::Button());
 			this->PicBoxIntro = (gcnew System::Windows::Forms::PictureBox());
 			this->PicBoxHomeLogo = (gcnew System::Windows::Forms::PictureBox());
@@ -194,12 +206,18 @@ namespace GUI {
 			// 
 			// btnSignin
 			// 
-			this->btnSignin->BackColor = System::Drawing::SystemColors::ControlLightLight;
+			this->btnSignin->BackColor = System::Drawing::Color::Transparent;
+			this->btnSignin->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnSignin->Cursor = System::Windows::Forms::Cursors::Arrow;
+			this->btnSignin->FlatAppearance->BorderSize = 0;
+			this->btnSignin->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnSignin->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnSignin->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnSignin->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
-			this->btnSignin->Location = System::Drawing::Point(730, 632);
-			this->btnSignin->Margin = System::Windows::Forms::Padding(4, 2, 4, 2);
+			this->btnSignin->Location = System::Drawing::Point(575, 451);
+			this->btnSignin->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->btnSignin->Name = L"btnSignin";
-			this->btnSignin->Size = System::Drawing::Size(214, 49);
+			this->btnSignin->Size = System::Drawing::Size(250, 120);
 			this->btnSignin->TabIndex = 1;
 			this->btnSignin->Text = L"Sign in";
 			this->btnSignin->UseVisualStyleBackColor = false;
@@ -210,10 +228,9 @@ namespace GUI {
 			this->label2->AutoSize = true;
 			this->label2->BackColor = System::Drawing::Color::Transparent;
 			this->label2->Font = (gcnew System::Drawing::Font(L"Georgia", 12));
-			this->label2->Location = System::Drawing::Point(402, 600);
-			this->label2->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+			this->label2->Location = System::Drawing::Point(322, 468);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(40, 29);
+			this->label2->Size = System::Drawing::Size(33, 24);
 			this->label2->TabIndex = 2;
 			this->label2->Text = L"ID";
 			// 
@@ -222,10 +239,9 @@ namespace GUI {
 			this->label3->AutoSize = true;
 			this->label3->BackColor = System::Drawing::Color::Transparent;
 			this->label3->Font = (gcnew System::Drawing::Font(L"Georgia", 12));
-			this->label3->Location = System::Drawing::Point(402, 680);
-			this->label3->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+			this->label3->Location = System::Drawing::Point(322, 552);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(115, 29);
+			this->label3->Size = System::Drawing::Size(95, 24);
 			this->label3->TabIndex = 3;
 			this->label3->Text = L"Password";
 			// 
@@ -235,10 +251,10 @@ namespace GUI {
 			this->txtBoxID->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->txtBoxID->Font = (gcnew System::Drawing::Font(L"Georgia", 12));
 			this->txtBoxID->ForeColor = System::Drawing::SystemColors::WindowFrame;
-			this->txtBoxID->Location = System::Drawing::Point(409, 642);
-			this->txtBoxID->Margin = System::Windows::Forms::Padding(4, 2, 4, 2);
+			this->txtBoxID->Location = System::Drawing::Point(327, 503);
+			this->txtBoxID->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->txtBoxID->Name = L"txtBoxID";
-			this->txtBoxID->Size = System::Drawing::Size(251, 28);
+			this->txtBoxID->Size = System::Drawing::Size(201, 23);
 			this->txtBoxID->TabIndex = 7;
 			// 
 			// txtBoxPW
@@ -247,23 +263,28 @@ namespace GUI {
 			this->txtBoxPW->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->txtBoxPW->Font = (gcnew System::Drawing::Font(L"Georgia", 12));
 			this->txtBoxPW->ForeColor = System::Drawing::SystemColors::WindowFrame;
-			this->txtBoxPW->Location = System::Drawing::Point(409, 721);
-			this->txtBoxPW->Margin = System::Windows::Forms::Padding(4, 2, 4, 2);
+			this->txtBoxPW->Location = System::Drawing::Point(327, 586);
+			this->txtBoxPW->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->txtBoxPW->MaxLength = 16;
 			this->txtBoxPW->Name = L"txtBoxPW";
 			this->txtBoxPW->PasswordChar = '*';
-			this->txtBoxPW->Size = System::Drawing::Size(251, 28);
+			this->txtBoxPW->Size = System::Drawing::Size(201, 23);
 			this->txtBoxPW->TabIndex = 10;
 			// 
 			// btnExit
 			// 
-			this->btnExit->BackColor = System::Drawing::SystemColors::ControlLightLight;
+			this->btnExit->BackColor = System::Drawing::Color::Transparent;
+			this->btnExit->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnExit->FlatAppearance->BorderSize = 0;
+			this->btnExit->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnExit->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnExit->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnExit->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
 			this->btnExit->ForeColor = System::Drawing::Color::Firebrick;
-			this->btnExit->Location = System::Drawing::Point(730, 710);
-			this->btnExit->Margin = System::Windows::Forms::Padding(4, 2, 4, 2);
+			this->btnExit->Location = System::Drawing::Point(571, 540);
+			this->btnExit->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->btnExit->Name = L"btnExit";
-			this->btnExit->Size = System::Drawing::Size(214, 49);
+			this->btnExit->Size = System::Drawing::Size(250, 120);
 			this->btnExit->TabIndex = 11;
 			this->btnExit->Text = L"Exit";
 			this->btnExit->UseVisualStyleBackColor = false;
@@ -271,38 +292,37 @@ namespace GUI {
 			// 
 			// btnSignup
 			// 
-			this->btnSignup->BackColor = System::Drawing::SystemColors::ControlLightLight;
+			this->btnSignup->BackColor = System::Drawing::Color::Transparent;
+			this->btnSignup->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnSignup->FlatAppearance->BorderSize = 0;
+			this->btnSignup->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnSignup->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnSignup->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnSignup->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
-			this->btnSignup->ForeColor = System::Drawing::SystemColors::Highlight;
-			this->btnSignup->Location = System::Drawing::Point(1074, 632);
-			this->btnSignup->Margin = System::Windows::Forms::Padding(4, 2, 4, 2);
+			this->btnSignup->ForeColor = System::Drawing::SystemColors::Desktop;
+			this->btnSignup->Location = System::Drawing::Point(792, 451);
+			this->btnSignup->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->btnSignup->Name = L"btnSignup";
-			this->btnSignup->Size = System::Drawing::Size(214, 49);
+			this->btnSignup->Size = System::Drawing::Size(307, 120);
 			this->btnSignup->TabIndex = 12;
 			this->btnSignup->Text = L"Sign up";
 			this->btnSignup->UseVisualStyleBackColor = false;
 			this->btnSignup->Click += gcnew System::EventHandler(this, &MyForm::btn_signup_Click);
 			// 
-			// button3
-			// 
-			this->button3->Location = System::Drawing::Point(615, 259);
-			this->button3->Margin = System::Windows::Forms::Padding(4);
-			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(422, 134);
-			this->button3->TabIndex = 13;
-			this->button3->Text = L"test";
-			this->button3->UseVisualStyleBackColor = true;
-			this->button3->Click += gcnew System::EventHandler(this, &MyForm::button3_Click);
-			// 
 			// btnFindAccount
 			// 
-			this->btnFindAccount->BackColor = System::Drawing::SystemColors::ControlLightLight;
+			this->btnFindAccount->BackColor = System::Drawing::Color::Transparent;
+			this->btnFindAccount->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnFindAccount->FlatAppearance->BorderSize = 0;
+			this->btnFindAccount->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnFindAccount->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnFindAccount->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnFindAccount->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
-			this->btnFindAccount->ForeColor = System::Drawing::Color::DarkBlue;
-			this->btnFindAccount->Location = System::Drawing::Point(1074, 710);
-			this->btnFindAccount->Margin = System::Windows::Forms::Padding(4, 2, 4, 2);
+			this->btnFindAccount->ForeColor = System::Drawing::Color::Black;
+			this->btnFindAccount->Location = System::Drawing::Point(781, 540);
+			this->btnFindAccount->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->btnFindAccount->Name = L"btnFindAccount";
-			this->btnFindAccount->Size = System::Drawing::Size(214, 49);
+			this->btnFindAccount->Size = System::Drawing::Size(322, 120);
 			this->btnFindAccount->TabIndex = 14;
 			this->btnFindAccount->Text = L"Find Account";
 			this->btnFindAccount->UseVisualStyleBackColor = false;
@@ -311,10 +331,10 @@ namespace GUI {
 			// PicBoxIntro
 			// 
 			this->PicBoxIntro->BackColor = System::Drawing::SystemColors::AppWorkspace;
-			this->PicBoxIntro->Location = System::Drawing::Point(832, 665);
+			this->PicBoxIntro->Location = System::Drawing::Point(-17, -5);
 			this->PicBoxIntro->Margin = System::Windows::Forms::Padding(2);
 			this->PicBoxIntro->Name = L"PicBoxIntro";
-			this->PicBoxIntro->Size = System::Drawing::Size(1430, 786);
+			this->PicBoxIntro->Size = System::Drawing::Size(1144, 655);
 			this->PicBoxIntro->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
 			this->PicBoxIntro->TabIndex = 16;
 			this->PicBoxIntro->TabStop = false;
@@ -324,45 +344,45 @@ namespace GUI {
 			// 
 			this->PicBoxHomeLogo->BackColor = System::Drawing::Color::Transparent;
 			this->PicBoxHomeLogo->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
-			this->PicBoxHomeLogo->Location = System::Drawing::Point(95, 513);
+			this->PicBoxHomeLogo->Location = System::Drawing::Point(76, 428);
+			this->PicBoxHomeLogo->Margin = System::Windows::Forms::Padding(2);
 			this->PicBoxHomeLogo->Name = L"PicBoxHomeLogo";
-			this->PicBoxHomeLogo->Size = System::Drawing::Size(250, 250);
+			this->PicBoxHomeLogo->Size = System::Drawing::Size(200, 208);
 			this->PicBoxHomeLogo->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
 			this->PicBoxHomeLogo->TabIndex = 17;
 			this->PicBoxHomeLogo->TabStop = false;
 			// 
 			// PicBoxNagareboshi
 			// 
-			this->PicBoxNagareboshi->BackColor = System::Drawing::Color::White;
-			this->PicBoxNagareboshi->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"PicBoxNagareboshi.Image")));
-			this->PicBoxNagareboshi->Location = System::Drawing::Point(1018, 522);
+			this->PicBoxNagareboshi->BackColor = System::Drawing::Color::Transparent;
+			this->PicBoxNagareboshi->Location = System::Drawing::Point(-32, -46);
+			this->PicBoxNagareboshi->Margin = System::Windows::Forms::Padding(2);
 			this->PicBoxNagareboshi->Name = L"PicBoxNagareboshi";
-			this->PicBoxNagareboshi->Size = System::Drawing::Size(597, 294);
+			this->PicBoxNagareboshi->Size = System::Drawing::Size(1183, 720);
 			this->PicBoxNagareboshi->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
 			this->PicBoxNagareboshi->TabIndex = 18;
 			this->PicBoxNagareboshi->TabStop = false;
 			// 
 			// MyForm
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(10, 18);
+			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->ClientSize = System::Drawing::Size(1386, 775);
-			this->Controls->Add(this->PicBoxIntro);
+			this->ClientSize = System::Drawing::Size(1109, 646);
+			this->Controls->Add(this->btnSignup);
+			this->Controls->Add(this->btnSignin);
 			this->Controls->Add(this->PicBoxHomeLogo);
 			this->Controls->Add(this->btnFindAccount);
-			this->Controls->Add(this->button3);
-			this->Controls->Add(this->btnSignup);
 			this->Controls->Add(this->btnExit);
 			this->Controls->Add(this->txtBoxPW);
 			this->Controls->Add(this->txtBoxID);
 			this->Controls->Add(this->label3);
 			this->Controls->Add(this->label2);
-			this->Controls->Add(this->btnSignin);
 			this->Controls->Add(this->PicBoxNagareboshi);
+			this->Controls->Add(this->PicBoxIntro);
 			this->DoubleBuffered = true;
-			this->Margin = System::Windows::Forms::Padding(4, 2, 4, 2);
+			this->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->Name = L"MyForm";
 			this->Text = L"MyForm";
 			this->VisibleChanged += gcnew System::EventHandler(this, &MyForm::MyForm_Visible);
@@ -396,50 +416,7 @@ namespace GUI {
 
 
 
-	private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
 
-
-
-		// 새로운 폼 생성
-		newForm = gcnew Form();
-		newForm->Text = "새로운 폼";
-
-		// 텍스트 상자 생성 및 초기화
-		textBox = gcnew System::Windows::Forms::TextBox();
-		textBox->Location = System::Drawing::Point(10, 10);
-		textBox->Size = System::Drawing::Size(200, 20);
-		newForm->Controls->Add(textBox);
-
-		// 확인 버튼 생성
-		Button^ confirmButton = gcnew Button();
-		confirmButton->Location = System::Drawing::Point(10, 40);
-		confirmButton->Size = System::Drawing::Size(75, 23);
-		confirmButton->Text = "확인";
-		confirmButton->Click += gcnew System::EventHandler(this, &MyForm::confirmButton_Click);
-		newForm->Controls->Add(confirmButton);
-
-		// 새로운 폼을 표시
-		newForm->Show();
-
-
-
-	}
-
-	private: System::Void confirmButton_Click(System::Object^ sender, System::EventArgs^ e) {
-
-
-		String^ inputText = textBox->Text;
-
-
-		std::string nick = msclr::interop::marshal_as<std::string>(inputText);
-
-		// my_nick에 값 할당
-		my_nick = nick;
-		// 이곳에서 inputText를 사용하거나 저장할 수 있습니다.
-
-		// 새로운 폼 종료
-		newForm->Close();
-	}
 
 
 
@@ -474,10 +451,11 @@ namespace GUI {
 		//}
 
 	
-			
+		// Hide 할때의 동작			
+
 		if (mainForm == nullptr || mainForm->IsDisposed) {
 			mainForm = gcnew MainForm();
-			mainForm->Owner = this;
+			mainForm->Owner = this; // Owner를 설정해야 가능
 			this->Hide(); 
 			this->HomeImageSound->Stop();
 			mainForm->Show();

@@ -12,10 +12,10 @@ namespace GUI {
 	/// <summary>
 	/// SentMessage에 대한 요약입니다.
 	/// </summary>
-	public ref class SentMessage : public System::Windows::Forms::Form
+	public ref class MessageSent : public System::Windows::Forms::Form
 	{
 	public:
-		SentMessage(void)
+		MessageSent(void)
 		{
 			InitializeComponent();
 			//
@@ -27,7 +27,7 @@ namespace GUI {
 		/// <summary>
 		/// 사용 중인 모든 리소스를 정리합니다.
 		/// </summary>
-		~SentMessage()
+		~MessageSent()
 		{
 			if (components)
 			{
@@ -42,6 +42,7 @@ namespace GUI {
 	private: System::Windows::Forms::Button^ button1;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ To;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Date;
+	private: System::Windows::Forms::Button^ button2;
 
 	private:
 		/// <summary>
@@ -57,10 +58,11 @@ namespace GUI {
 		void InitializeComponent(void)
 		{
 			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
-			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->To = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->Date = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
+			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->button2 = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -74,6 +76,20 @@ namespace GUI {
 			this->dataGridView1->RowTemplate->Height = 27;
 			this->dataGridView1->Size = System::Drawing::Size(404, 150);
 			this->dataGridView1->TabIndex = 3;
+			// 
+			// To
+			// 
+			this->To->HeaderText = L"To";
+			this->To->MinimumWidth = 6;
+			this->To->Name = L"To";
+			this->To->Width = 125;
+			// 
+			// Date
+			// 
+			this->Date->HeaderText = L"Date";
+			this->Date->MinimumWidth = 6;
+			this->Date->Name = L"Date";
+			this->Date->Width = 125;
 			// 
 			// textBox1
 			// 
@@ -92,29 +108,26 @@ namespace GUI {
 			this->button1->Text = L"Delete";
 			this->button1->UseVisualStyleBackColor = true;
 			// 
-			// To
+			// button2
 			// 
-			this->To->HeaderText = L"To";
-			this->To->MinimumWidth = 6;
-			this->To->Name = L"To";
-			this->To->Width = 125;
+			this->button2->Location = System::Drawing::Point(292, 326);
+			this->button2->Name = L"button2";
+			this->button2->Size = System::Drawing::Size(77, 21);
+			this->button2->TabIndex = 11;
+			this->button2->Text = L"Close";
+			this->button2->UseVisualStyleBackColor = true;
+			this->button2->Click += gcnew System::EventHandler(this, &MessageSent::button2_Click);
 			// 
-			// Date
-			// 
-			this->Date->HeaderText = L"Date";
-			this->Date->MinimumWidth = 6;
-			this->Date->Name = L"Date";
-			this->Date->Width = 125;
-			// 
-			// SentMessage
+			// MessageSent
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(750, 547);
+			this->Controls->Add(this->button2);
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->textBox1);
 			this->Controls->Add(this->dataGridView1);
-			this->Name = L"SentMessage";
+			this->Name = L"MessageSent";
 			this->Text = L"SentMessage";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
 			this->ResumeLayout(false);
@@ -123,5 +136,8 @@ namespace GUI {
 		}
 #pragma endregion
 	
-	};
+	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
+		this->Close();
+	}
+};
 }

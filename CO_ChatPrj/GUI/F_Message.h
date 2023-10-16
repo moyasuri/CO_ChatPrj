@@ -1,5 +1,7 @@
 ﻿#pragma once
-
+#include "NewMessage.h"
+#include "MessageSent.h"
+#include "MessageBox.h"
 namespace GUI {
 
 	using namespace System;
@@ -14,6 +16,12 @@ namespace GUI {
 	/// </summary>
 	public ref class F_Message : public System::Windows::Forms::Form
 	{
+	private:
+
+		NewMessage^ newmessageForm = nullptr;
+		MessageSent^ messagesentForm = nullptr;
+	private: System::Windows::Forms::Button^ button4;
+		   MessageBox^ messageboxForm = nullptr;
 	public:
 		F_Message(void)
 		{
@@ -62,6 +70,7 @@ namespace GUI {
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->button3 = (gcnew System::Windows::Forms::Button());
+			this->button4 = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// button1
@@ -72,6 +81,7 @@ namespace GUI {
 			this->button1->TabIndex = 0;
 			this->button1->Text = L"New";
 			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &F_Message::button1_Click);
 			// 
 			// button2
 			// 
@@ -81,6 +91,7 @@ namespace GUI {
 			this->button2->TabIndex = 1;
 			this->button2->Text = L"Sent";
 			this->button2->UseVisualStyleBackColor = true;
+			this->button2->Click += gcnew System::EventHandler(this, &F_Message::button2_Click);
 			// 
 			// button3
 			// 
@@ -90,12 +101,24 @@ namespace GUI {
 			this->button3->TabIndex = 2;
 			this->button3->Text = L"Message Box";
 			this->button3->UseVisualStyleBackColor = true;
+			this->button3->Click += gcnew System::EventHandler(this, &F_Message::button3_Click);
+			// 
+			// button4
+			// 
+			this->button4->Location = System::Drawing::Point(373, 336);
+			this->button4->Name = L"button4";
+			this->button4->Size = System::Drawing::Size(155, 91);
+			this->button4->TabIndex = 3;
+			this->button4->Text = L"Close";
+			this->button4->UseVisualStyleBackColor = true;
+			this->button4->Click += gcnew System::EventHandler(this, &F_Message::button4_Click);
 			// 
 			// F_Message
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(666, 615);
+			this->Controls->Add(this->button4);
 			this->Controls->Add(this->button3);
 			this->Controls->Add(this->button2);
 			this->Controls->Add(this->button1);
@@ -105,5 +128,44 @@ namespace GUI {
 
 		}
 #pragma endregion
-	};
+	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (newmessageForm == nullptr || newmessageForm->IsDisposed) {
+			newmessageForm = gcnew NewMessage;
+			newmessageForm->Show();
+
+		}
+		// 이미 생성된 폼이 열려 있는 경우, 해당 폼을 활성화시킵니다.
+		else {
+			newmessageForm->Activate();
+		}
+	}
+	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
+
+		if (messagesentForm == nullptr || messagesentForm->IsDisposed) {
+			messagesentForm = gcnew MessageSent;
+			messagesentForm->Show();
+
+		}
+		// 이미 생성된 폼이 열려 있는 경우, 해당 폼을 활성화시킵니다.
+		else {
+			messagesentForm->Activate();
+		}
+
+
+	}
+private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (messageboxForm == nullptr || messageboxForm->IsDisposed) {
+		messageboxForm = gcnew MessageBox;
+		messageboxForm->Show();
+
+	}
+	// 이미 생성된 폼이 열려 있는 경우, 해당 폼을 활성화시킵니다.
+	else {
+		messageboxForm->Activate();
+	}
+}
+private: System::Void button4_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->Close();
+}
+};
 }

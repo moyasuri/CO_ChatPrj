@@ -10,12 +10,12 @@ namespace GUI {
 	using namespace System::Drawing;
 
 	/// <summary>
-	/// CreateRoom에 대한 요약입니다.
+	/// GeneralChatIndex에 대한 요약입니다.
 	/// </summary>
-	public ref class CreateRoom : public System::Windows::Forms::Form
+	public ref class GeneralChatIndex : public System::Windows::Forms::Form
 	{
 	public:
-		CreateRoom(void)
+		GeneralChatIndex(void)
 		{
 			InitializeComponent();
 			//
@@ -27,7 +27,7 @@ namespace GUI {
 		/// <summary>
 		/// 사용 중인 모든 리소스를 정리합니다.
 		/// </summary>
-		~CreateRoom()
+		~GeneralChatIndex()
 		{
 			if (components)
 			{
@@ -50,7 +50,7 @@ namespace GUI {
 		{
 			this->components = gcnew System::ComponentModel::Container();
 			this->Size = System::Drawing::Size(300,300);
-			this->Text = L"CreateRoom";
+			this->Text = L"GeneralChatIndex";
 			this->Padding = System::Windows::Forms::Padding(0);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 		}

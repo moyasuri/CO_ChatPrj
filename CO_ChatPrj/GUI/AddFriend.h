@@ -60,7 +60,7 @@ namespace GUI {
 			// 
 			// button2
 			// 
-			this->button2->Location = System::Drawing::Point(230, 127);
+			this->button2->Location = System::Drawing::Point(33, 126);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(189, 51);
 			this->button2->TabIndex = 1;
@@ -69,19 +69,20 @@ namespace GUI {
 			// 
 			// textBox1
 			// 
-			this->textBox1->Location = System::Drawing::Point(163, 78);
+			this->textBox1->Location = System::Drawing::Point(33, 66);
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->Size = System::Drawing::Size(215, 25);
 			this->textBox1->TabIndex = 2;
 			// 
 			// button3
 			// 
-			this->button3->Location = System::Drawing::Point(293, 293);
+			this->button3->Location = System::Drawing::Point(33, 210);
 			this->button3->Name = L"button3";
 			this->button3->Size = System::Drawing::Size(189, 51);
 			this->button3->TabIndex = 3;
 			this->button3->Text = L"Close";
 			this->button3->UseVisualStyleBackColor = true;
+			this->button3->Click += gcnew System::EventHandler(this, &AddFriend::button3_Click);
 			// 
 			// AddFriend
 			// 
@@ -98,5 +99,8 @@ namespace GUI {
 
 		}
 #pragma endregion
+	private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
+		this->Close();
+	}
 	};
 }

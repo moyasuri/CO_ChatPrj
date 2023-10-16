@@ -90,9 +90,9 @@ namespace GUI {
 			// 
 			// button2
 			// 
-			this->button2->Location = System::Drawing::Point(294, 274);
+			this->button2->Location = System::Drawing::Point(284, 254);
 			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(75, 23);
+			this->button2->Size = System::Drawing::Size(110, 36);
 			this->button2->TabIndex = 3;
 			this->button2->Text = L"Reject";
 			this->button2->UseVisualStyleBackColor = true;
@@ -105,6 +105,7 @@ namespace GUI {
 			this->button3->TabIndex = 4;
 			this->button3->Text = L"Close";
 			this->button3->UseVisualStyleBackColor = true;
+			this->button3->Click += gcnew System::EventHandler(this, &FriendResponse::button3_Click);
 			// 
 			// FriendResponse
 			// 
@@ -123,5 +124,8 @@ namespace GUI {
 
 		}
 #pragma endregion
+private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->Close();
+}
 };
 }

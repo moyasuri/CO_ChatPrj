@@ -14,6 +14,7 @@ namespace GUI {
 	/// </summary>
 	public ref class test : public System::Windows::Forms::Form
 	{
+
 	public:
 		test(void)
 		{
@@ -35,6 +36,10 @@ namespace GUI {
 			}
 		}
 	private: System::Windows::Forms::Button^ button1;
+	private: System::Windows::Forms::Button^ button3;
+	private: System::Windows::Forms::Form^ newForm;
+	private: System::Windows::Forms::TextBox^ textBox;
+
 	protected:
 
 	private:
@@ -51,6 +56,7 @@ namespace GUI {
 		void InitializeComponent(void)
 		{
 			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->textBox = (gcnew System::Windows::Forms::TextBox());
 			this->SuspendLayout();
 			// 
 			// button1
@@ -63,15 +69,24 @@ namespace GUI {
 			this->button1->UseVisualStyleBackColor = true;
 			this->button1->Click += gcnew System::EventHandler(this, &test::button1_Click);
 			// 
+			// textBox
+			// 
+			this->textBox->Location = System::Drawing::Point(43, 174);
+			this->textBox->Name = L"textBox";
+			this->textBox->Size = System::Drawing::Size(175, 25);
+			this->textBox->TabIndex = 1;
+			// 
 			// test
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(446, 315);
+			this->Controls->Add(this->textBox);
 			this->Controls->Add(this->button1);
 			this->Name = L"test";
 			this->Text = L"test";
 			this->ResumeLayout(false);
+			this->PerformLayout();
 
 		}
 #pragma endregion
@@ -102,6 +117,51 @@ namespace GUI {
 			// 예를 들어, 텍스트 상자를 삭제할 수 있습니다.
 			this->Controls->Remove(textBox);
 		}
+	}
+
+	private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
+
+
+
+		// 새로운 폼 생성
+		newForm = gcnew Form();
+		newForm->Text = "새로운 폼";
+
+		// 텍스트 상자 생성 및 초기화
+		textBox = gcnew System::Windows::Forms::TextBox();
+		textBox->Location = System::Drawing::Point(10, 10);
+		textBox->Size = System::Drawing::Size(200, 20);
+		newForm->Controls->Add(textBox);
+
+		// 확인 버튼 생성
+		Button^ confirmButton = gcnew Button();
+		confirmButton->Location = System::Drawing::Point(10, 40);
+		confirmButton->Size = System::Drawing::Size(75, 23);
+		confirmButton->Text = "확인";
+		confirmButton->Click += gcnew System::EventHandler(this, &test::confirmButton_Click);
+		newForm->Controls->Add(confirmButton);
+
+		// 새로운 폼을 표시
+		newForm->Show();
+
+
+
+	}
+
+	private: System::Void confirmButton_Click(System::Object^ sender, System::EventArgs^ e) {
+
+
+		// String^ inputText = textBox->Text;
+
+
+		// std::string nick = msclr::interop::marshal_as<std::string>(inputText);
+
+		// my_nick에 값 할당
+		// my_nick = nick;
+		// 이곳에서 inputText를 사용하거나 저장할 수 있습니다.
+
+		// 새로운 폼 종료
+		// newForm->Close();
 	}
 	};
 }

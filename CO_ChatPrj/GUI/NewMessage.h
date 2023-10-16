@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "FriendList.h"
 
 namespace GUI {
 
@@ -14,6 +15,8 @@ namespace GUI {
 	/// </summary>
 	public ref class NewMessage : public System::Windows::Forms::Form
 	{
+	private:
+		FriendList^ friendlistForm = nullptr;
 	public:
 		NewMessage(void)
 		{
@@ -46,7 +49,7 @@ namespace GUI {
 		/// <summary>
 		/// 필수 디자이너 변수입니다.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+		System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -87,6 +90,7 @@ namespace GUI {
 			this->button1->TabIndex = 2;
 			this->button1->Text = L"Friends";
 			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &NewMessage::button1_Click);
 			// 
 			// textBox2
 			// 
@@ -113,6 +117,7 @@ namespace GUI {
 			this->button3->TabIndex = 5;
 			this->button3->Text = L"Cancle";
 			this->button3->UseVisualStyleBackColor = true;
+			this->button3->Click += gcnew System::EventHandler(this, &NewMessage::button3_Click);
 			// 
 			// NewMessage
 			// 
@@ -132,5 +137,21 @@ namespace GUI {
 
 		}
 #pragma endregion
+	private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
+		this->Close();
+	}
+	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (friendlistForm == nullptr || friendlistForm->IsDisposed) {
+			friendlistForm = gcnew FriendList;
+			friendlistForm->Show();
+
+		}
+		// 이미 생성된 폼이 열려 있는 경우, 해당 폼을 활성화시킵니다.
+		else {
+			friendlistForm->Activate();
+		}
+	}
+
 	};
 }
+

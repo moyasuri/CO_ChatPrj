@@ -12,10 +12,10 @@ namespace GUI {
 	/// <summary>
 	/// Message_Box에 대한 요약입니다.
 	/// </summary>
-	public ref class Message_Box : public System::Windows::Forms::Form
+	public ref class MessageBox : public System::Windows::Forms::Form
 	{
 	public:
-		Message_Box(void)
+		MessageBox(void)
 		{
 			InitializeComponent();
 			//
@@ -27,7 +27,7 @@ namespace GUI {
 		/// <summary>
 		/// 사용 중인 모든 리소스를 정리합니다.
 		/// </summary>
-		~Message_Box()
+		~MessageBox()
 		{
 			if (components)
 			{
@@ -179,22 +179,23 @@ namespace GUI {
 			// 
 			// button4
 			// 
-			this->button4->Location = System::Drawing::Point(394, 423);
+			this->button4->Location = System::Drawing::Point(702, 433);
 			this->button4->Name = L"button4";
-			this->button4->Size = System::Drawing::Size(75, 23);
+			this->button4->Size = System::Drawing::Size(145, 53);
 			this->button4->TabIndex = 7;
 			this->button4->Text = L"Close";
 			this->button4->UseVisualStyleBackColor = true;
+			this->button4->Click += gcnew System::EventHandler(this, &MessageBox::button4_Click);
 			// 
 			// textBox1
 			// 
-			this->textBox1->Location = System::Drawing::Point(575, 158);
+			this->textBox1->Location = System::Drawing::Point(534, 103);
 			this->textBox1->Multiline = true;
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->Size = System::Drawing::Size(248, 263);
 			this->textBox1->TabIndex = 8;
 			// 
-			// Message_Box
+			// MessageBox
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
@@ -208,7 +209,7 @@ namespace GUI {
 			this->Controls->Add(this->dataGridView1);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->label1);
-			this->Name = L"Message_Box";
+			this->Name = L"MessageBox";
 			this->Text = L"Message_Box";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView2))->EndInit();
@@ -217,5 +218,8 @@ namespace GUI {
 
 		}
 #pragma endregion
-	};
+	private: System::Void button4_Click(System::Object^ sender, System::EventArgs^ e) {
+		this->Close();
+	}
+};
 }
