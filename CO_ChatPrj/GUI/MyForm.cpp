@@ -94,8 +94,7 @@ void CommunicateWithServer() {
         th2.join();
         closesocket(client_sock);
     }
-
-    
+    WSACleanup();
 }
 
 
@@ -116,9 +115,8 @@ void main(array<String^>^ args) {
     // communicationThread.detach();  // 메인 스레드와 분리하여 실행
 
 	Application::Run(% form);
-    WSACleanup();
 
-
+    Sleep(1000);
 
 
 }
