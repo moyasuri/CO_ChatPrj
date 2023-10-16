@@ -33,10 +33,11 @@ int chat_recv() {
         ZeroMemory(&buf, MAX_SIZE);
         if (recv(client_sock, buf, MAX_SIZE, 0) > 0) {
             msg = buf;
-            std::stringstream ss(msg);  // 문자열을 스트림화
+            temp_socket = msg;
+            // std::stringstream ss(msg);  // 문자열을 스트림화
             string user;
-            ss >> user; // 스트림을 통해, 문자열을 공백 분리해 변수에 할당. 보낸 사람의 이름만 user에 저장됨.
-            if (user != my_nick) cout << buf << endl; // 내가 보낸 게 아닐 경우에만 출력하도록.
+            // ss >> user; // 스트림을 통해, 문자열을 공백 분리해 변수에 할당. 보낸 사람의 이름만 user에 저장됨.
+            // if (user != my_nick) cout << buf << endl; // 내가 보낸 게 아닐 경우에만 출력하도록.
         }
         else {
             cout << "Server Off" << endl;
@@ -94,7 +95,7 @@ void CommunicateWithServer() {
         closesocket(client_sock);
     }
 
-    WSACleanup();
+    
 }
 
 
@@ -112,10 +113,10 @@ void main(array<String^>^ args) {
 
     // 통신 작업을 처리할 스레드 생성 및 실행
     std::thread communicationThread(CommunicateWithServer);
-    communicationThread.detach();  // 메인 스레드와 분리하여 실행
+    // communicationThread.detach();  // 메인 스레드와 분리하여 실행
 
 	Application::Run(% form);
-
+    WSACleanup();
 
 
 

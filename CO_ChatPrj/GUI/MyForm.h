@@ -11,7 +11,7 @@ static SOCKET client_sock;
 static bool enterServer;
 static bool isExit;
 static int Temp_socket;
-
+static std::string temp_socket;
 
 
 namespace GUI {
@@ -390,17 +390,19 @@ namespace GUI {
 		// 텍스트 상자에서 텍스트 가져오기
 		String^ textID_ = txtBoxID->Text; // textBox는 해당 텍스트 상자의 이름입니다.
 		String^ textPW_ = txtBoxPW->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-		
+		std::string stdString = msclr::interop::marshal_as<std::string>(textID_);
 
 		// ID와 PW의 문자열이 채워져있다면
 		if (!String::IsNullOrEmpty(textID_)&& !String::IsNullOrEmpty(textPW_)) {
 
 			// Server에 ID / PW를 보내기함수
-			int temp = 0;
-			temp = Temp_socket;
+			int time_limit = 0;
+			
+			const char* buffer = stdString.c_str(); // string형을 char* 타입으로 변환
+			send(client_sock, buffer, strlen(buffer), 0);
 			while(1)
 			{
-				if (temp)// server 에서 오케이받는 함수
+				if (temp_socket=="3")// server 에서 오케이받는 함수
 				{
 
 					// Hide 할때의 동작			
@@ -421,7 +423,15 @@ namespace GUI {
 				}
 				else // 무한반복되는건데 시간타이밍 주면 좋을거같음
 				{
-
+					Sleep(1000);
+					if (time_limit > 1)
+					{
+						return;
+					}
+					else
+					{
+						time_limit++;
+					}
 				}
 			}
 		}
