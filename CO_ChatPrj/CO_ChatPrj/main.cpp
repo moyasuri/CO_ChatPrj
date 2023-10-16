@@ -6,7 +6,7 @@
 #include <thread>
 #include <vector>
 
-#define MAX_SIZE 1024
+#define MAX_SIZE 1024//소켓 박스크기
 #define MAX_CLIENT 3
 
 using std::cout;
@@ -15,11 +15,11 @@ using std::endl;
 using std::string;
 
 struct SOCKET_INFO { // 연결된 소켓 정보에 대한 틀 생성
-    SOCKET sck;
+    SOCKET sck;//이게 박스 역할
     string user;
 };
 
-std::vector<SOCKET_INFO> sck_list; // 연결된 클라이언트 소켓들을 저장할 배열 선언.
+std::vector<SOCKET_INFO> sck_list; // 연결된 클라이언트 소켓들을 저장할 배열 선언. 소켓을 쌓아놓는 역할
 SOCKET_INFO server_sock; // 서버 소켓에 대한 정보를 저장할 변수 선언.
 int client_count = 0; // 현재 접속해 있는 클라이언트를 count 할 변수 선언.
 
@@ -32,15 +32,15 @@ void del_client(int idx); // 소켓에 연결되어 있는 client를 제거하�
 int main() {
     WSADATA wsa;
 
-    // Winsock를 초기화하는 함수. MAKEWORD(2, 2)는 Winsock의 2.2 버전을 사용하겠다는 의미.
+    // Winsock를 초기화하는 함수_쓰레기값이 아닌 사용값으로 바꿔주는 것을 초기화라고 한다. MAKEWORD(2, 2)는 Winsock의 2.2 버전을 사용하겠다는 의미.
     // 실행에 성공하면 0을, 실패하면 그 이외의 값을 반환.
     // 0을 반환했다는 것은 Winsock을 사용할 준비가 되었다는 의미.
     int code = WSAStartup(MAKEWORD(2, 2), &wsa);
 
-    if (!code) {
+    if (!code) { // 소켓을 사용할 준비가 됐다. true일 경우 실행한다.
         server_init();
 
-        std::thread th1[MAX_CLIENT];
+        std::thread th1[MAX_CLIENT];// 클라이언트 하나마다 스레드 하나로 연결
         for (int i = 0; i < MAX_CLIENT; i++) {
             // 인원 수 만큼 thread 생성해서 각각의 클라이언트가 동시에 소통할 수 있도록 함.
             th1[i] = std::thread(add_client);
@@ -51,9 +51,9 @@ int main() {
             string text, msg = "";
 
             std::getline(cin, text);
-            const char* buf = text.c_str();
+            const char* buf = text.c_str();// c_str string을 char로 변환하는 함수
             msg = server_sock.user + " : " + buf;
-            send_msg(msg.c_str());
+            send_msg(msg.c_str()); //클라이언트로 보낼 문자열
         }
 
         for (int i = 0; i < MAX_CLIENT; i++) {
@@ -110,7 +110,7 @@ void add_client() {
     recv(new_client.sck, buf, MAX_SIZE, 0);
     // Winsock2의 recv 함수. client가 보낸 닉네임을 받음.
     new_client.user = string(buf);
-
+// 여기까지는 접속
     string msg = "[공지] " + new_client.user + " 님이 입장했습니다.";
     cout << msg << endl;
     sck_list.push_back(new_client); // client 정보를 답는 sck_list 배열에 새로운 client 추가
@@ -122,7 +122,7 @@ void add_client() {
     cout << "[공지] 현재 접속자 수 : " << client_count << "명" << endl;
     send_msg(msg.c_str()); // c_str : string 타입을 const chqr* 타입으로 바꿔줌.
 
-    th.join();
+    th.join();//이때부터 진짜 시작 위에는 스레드를 준비시킨거고 
 }
 
 void send_msg(const char* msg) {
@@ -131,8 +131,9 @@ void send_msg(const char* msg) {
     }
 }
 
+
 void recv_msg(int idx) {
-    char buf[MAX_SIZE] = { };
+    char buf[MAX_SIZE] = { }; //버퍼가 채워질 때까지 그냥 임시 메모리 공간
     string msg = "";
 
     //cout << sck_list[idx].user << endl;
@@ -140,7 +141,7 @@ void recv_msg(int idx) {
     while (1) {
         ZeroMemory(&buf, MAX_SIZE);
         if (recv(sck_list[idx].sck, buf, MAX_SIZE, 0) > 0) { // 오류가 발생하지 않으면 recv는 수신된 바이트 수를 반환. 0보다 크다는 것은 메시지가 왔다는 것.
-            msg = sck_list[idx].user + " : " + buf;
+            msg = sck_list[idx].user + " : " + buf; //클라이언트에서 들어온 결과값이 저장되는 곳
             cout << msg << endl;
             send_msg(msg.c_str());
         }
