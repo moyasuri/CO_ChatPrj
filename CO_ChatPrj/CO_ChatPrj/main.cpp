@@ -142,7 +142,7 @@ void recv_msg(int idx) {
         if (recv(sck_list[idx].sck, buf, MAX_SIZE, 0) > 0) { // 오류가 발생하지 않으면 recv는 수신된 바이트 수를 반환. 0보다 크다는 것은 메시지가 왔다는 것.
             msg = sck_list[idx].user + " : " + buf;
             cout << msg << endl;
-            send_msg(msg.c_str());
+            //send_msg(msg.c_str());
         }
         else { //그렇지 않을 경우 퇴장에 대한 신호로 생각하여 퇴장 메시지 전송
             msg = "[공지] " + sck_list[idx].user + " 님이 퇴장했습니다.";

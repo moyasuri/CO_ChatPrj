@@ -7,7 +7,6 @@
 #include <iostream>
 #include <thread>
 
-
 #include "MyForm.h"
 #include "MainForm.h"
 
@@ -24,6 +23,8 @@ using std::endl;
 using std::string;
 
 
+
+
 int chat_recv() {
     char buf[MAX_SIZE] = { };
     string msg;
@@ -32,10 +33,13 @@ int chat_recv() {
         ZeroMemory(&buf, MAX_SIZE);
         if (recv(client_sock, buf, MAX_SIZE, 0) > 0) {
             msg = buf;
+            Temp_socket = std::stoi(msg);
+            
             std::stringstream ss(msg);  // 문자열을 스트림화
             string user;
             ss >> user; // 스트림을 통해, 문자열을 공백 분리해 변수에 할당. 보낸 사람의 이름만 user에 저장됨.
-            if (user != my_nick) cout << buf << endl; // 내가 보낸 게 아닐 경우에만 출력하도록.
+
+            //if (user != my_nick) cout << buf << endl; // 내가 보낸 게 아닐 경우에만 출력하도록.
         }
         else {
             cout << "Server Off" << endl;
@@ -46,6 +50,8 @@ int chat_recv() {
 
 void CommunicateWithServer() {
     // WinSock 초기화
+    
+    System::Windows::Forms::MessageBox::Show("server ", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
     WSADATA wsa;
     if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0) {
         std::cout << "Failed to initialize WinSock" << std::endl;
@@ -57,49 +63,44 @@ void CommunicateWithServer() {
     SOCKADDR_IN client_addr = {};
     client_addr.sin_family = AF_INET;
     client_addr.sin_port = htons(7777);
-    InetPton(AF_INET, TEXT("192.168.67.227"), &client_addr.sin_addr);
+    InetPton(AF_INET, TEXT("192.168.0.18"), &client_addr.sin_addr);
 
     // 서버에 연결
 
     // myform에서 닉네임을 설정하도록
-    while (1)
-    {
-        if (my_nick != "")
-        {
+    my_nick = "abc";
+    // 데이터 송수신 로직
+    while (1) {
+        if (!connect(client_sock, (SOCKADDR*)&client_addr, sizeof(client_addr))) { // 위에 설정한 정보에 해당하는 server로 연결!
+            // System::Windows::Forms::MessageBox::Show("연결 ", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+            // cout << "Server Connect" << endl;
+            send(client_sock, my_nick.c_str(), my_nick.length(), 0); // 연결에 성공하면 client 가 입력한 닉네임을 서버로 전송
             break;
         }
-
-        // 데이터 송수신 로직
-        while (1) {
-            if (!connect(client_sock, (SOCKADDR*)&client_addr, sizeof(client_addr))) { // 위에 설정한 정보에 해당하는 server로 연결!
-                cout << "Server Connect" << endl;
-                send(client_sock, my_nick.c_str(), my_nick.length(), 0); // 연결에 성공하면 client 가 입력한 닉네임을 서버로 전송
-                break;
-            }
-
-            // cout << "Connecting..." << endl;
-        }
-
-        std::thread th2(chat_recv);
-
-        while (1) {
-            string text;
-            std::getline(cin, text);
-            const char* buffer = text.c_str(); // string형을 char* 타입으로 변환
-            send(client_sock, buffer, strlen(buffer), 0);
-        }
-        th2.join();
-
-
-        closesocket(client_sock);
-        // 연결 종료
-
-
-
-        // WinSock 정리
-        WSACleanup();
+        // cout << "Connecting..." << endl;
     }
+
+    std::thread th2(chat_recv);
+
+    while (1) {
+        System::Windows::Forms::MessageBox::Show("server while ", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+        string text;
+        std::getline(cin, text);
+        const char* buffer = text.c_str(); // string형을 char* 타입으로 변환
+        send(client_sock, buffer, strlen(buffer), 0);
+    }
+    //th2.detach();
+    th2.join();
+
+    closesocket(client_sock);
+    // 연결 종료
+
+    // WinSock 정리
+    WSACleanup();
+    System::Windows::Forms::MessageBox::Show("server end ", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 }
+
+
 
 
 
@@ -113,8 +114,8 @@ void main(array<String^>^ args) {
 	GUI::MyForm form;
 
     // 통신 작업을 처리할 스레드 생성 및 실행
-    std::thread communicationThread(CommunicateWithServer);
-    communicationThread.detach();  // 메인 스레드와 분리하여 실행
+    //std::thread communicationthread(communicatewithserver);
+    //communicationthread.detach();  // 메인 스레드와 분리하여 실행
 
 	Application::Run(% form);
 

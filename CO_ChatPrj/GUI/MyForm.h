@@ -10,6 +10,8 @@ static std::string my_nick;
 static SOCKET client_sock;
 static bool enterServer;
 static bool isExit;
+static int Temp_socket;
+
 
 
 namespace GUI {
@@ -49,7 +51,7 @@ namespace GUI {
 	private: System::Windows::Forms::PictureBox^ PicBoxHomeLogo;
 	private: System::Windows::Forms::PictureBox^ PicBoxNagareboshi;
 
-	private: System::String^ relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\HomeIntro.gif");
+	private: System::String^ relativePath;
 		   
 
 
@@ -65,6 +67,9 @@ namespace GUI {
 
 			// Image 추가
 			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\constantmoderato.wav");
+			IntroImageSound->SoundLocation = relativePath; // SoundLocation에 CLI 문자열을 설정
+			IntroImageSound->Load();
+			IntroImageSound->Play();
 			
 			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\HomeIntro.gif");
 			PicBoxIntro->ImageLocation = relativePath;
@@ -95,9 +100,7 @@ namespace GUI {
 
 			// sound 추가
 						
-			IntroImageSound->SoundLocation = relativePath; // SoundLocation에 CLI 문자열을 설정
-			IntroImageSound->Load();
-			IntroImageSound->Play();
+
 
 
 			// intro 삭제 타이머
@@ -107,14 +110,7 @@ namespace GUI {
 			timerDeletePicBoxIntro->Tick += gcnew System::EventHandler(this, &MyForm::timerDeletePicBoxIntro_Tick);
 			timerDeletePicBoxIntro->Start();
 
-
-
-
-
 		}
-
-
-
 
 	protected:
 		/// <summary>
@@ -336,7 +332,7 @@ namespace GUI {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
+			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage"))); // 나중에 경로 지정하자
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->ClientSize = System::Drawing::Size(1109, 646);
 			this->Controls->Add(this->btnSignup);
@@ -400,16 +396,25 @@ namespace GUI {
 		if (!String::IsNullOrEmpty(textID_)&& !String::IsNullOrEmpty(textPW_)) {
 
 			// Server에 ID / PW를 보내기함수
-
-
+			int temp = 0;
+			temp = Temp_socket;
 			while(1)
 			{
-				if (1)// server 에서 오케이
+				if (temp)// server 에서 오케이받는 함수
 				{
+
+					// Hide 할때의 동작			
+					if (mainForm == nullptr || mainForm->IsDisposed) {
+						mainForm = gcnew MainForm();
+						mainForm->Owner = this; // Owner를 설정해야 가능
+						this->Hide();
+						this->HomeImageSound->Stop();
+						mainForm->Show();
+					}
 
 					return;
 				}
-				else if(1) //  server에서 다른값보내면
+				else if(0) //  server에서 다른값보내면
 				{
 
 					return;
@@ -468,6 +473,8 @@ namespace GUI {
 
 		HomeImageSound->Play();
 	}
+
+
 
 };
 }
