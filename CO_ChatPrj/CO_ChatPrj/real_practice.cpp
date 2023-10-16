@@ -1,3 +1,5 @@
+//조은수 연습파일 2......... 여기도 다 볼 거 아닙니다
+
 #pragma comment(lib, "ws2_32.lib") //명시적인 라이브러리의 링크. 윈속 라이브러리 참조
 
 #include <WinSock2.h>
@@ -39,9 +41,12 @@ void del_client(int idx); // 소켓에 연결되어 있는 client를 제거하는 함수. closes
 //내가 만든 함수
 void server_main();
 void mysql_login();
-int func_num();
+int server_func_num();
 
-
+struct SOCKET_INFO { // 연결된 소켓 정보에 대한 틀 생성
+    SOCKET sck;
+    string user;
+};
 
 //class 나중에 정리 필요
 
@@ -51,6 +56,7 @@ class MY_SQL {
     sql::Connection* con;
     sql::Statement* stmt;
     sql::PreparedStatement* pstmt;
+   
 
     void set_database() {
         try {
@@ -79,7 +85,7 @@ class MY_SQL {
 
     //login 쿼리 보내기
     void check_pw(string mysql_check_id) {
-        stmt->execute("select member_PW from member where Member_ID =",mysql_check_id); // DROP
+        stmt->execute("select member_PW from member where Member_ID ='"+ mysql_check_id+"'"); // DROP
     }
 
 };
@@ -95,46 +101,22 @@ int main() {
 
     if (!code) {
         server_init();
+
         std::thread th1[MAX_CLIENT];
         for (int i = 0; i < MAX_CLIENT; i++) {
             // 인원 수 만큼 thread 생성해서 각각의 클라이언트가 동시에 소통할 수 있도록 함.
             th1[i] = std::thread(add_client);
         }
+        //std::thread th1(add_client); // 이렇게 하면 하나의 client만 받아짐...
 
-        SOCKADDR_IN addr = {};
-        int addrsize = sizeof(addr);
-        char buf[MAX_SIZE] = { };
+        while (1) { // 무한 반복문을 사용하여 서버가 계속해서 채팅 보낼 수 있는 상태를 만들어 줌. 반복문을 사용하지 않으면 한 번만 보낼 수 있음.
+            string text, msg = "";
 
-        while(1){
-        ZeroMemory(&addr, addrsize); // addr의 메모리 영역을 0으로 초기화
-
-        SOCKET_INFO new_client = {};
-
-        new_client.sck = accept(server_sock.sck, (sockaddr*)&addr, &addrsize);
-        recv(new_client.sck, buf, MAX_SIZE, 0);
-        string reading = string(buf);
-        MY_SQL mysql;
-        switch (func_num(reading))
-        {
-        case(0): //login_check pw
-            mysql.check_pw();
-            ; break;
-        case(1):
-            ; break;
-        case(2):
-            ; break;
-        case(3):
-            ; break;
-        case(4):
-            ; break;
-        case(5):
-            ; break;
-        case(6):
-            ; break;
-        case(7):
-            ; break;
+            std::getline(cin, text);
+            const char* buf = text.c_str();
+            msg = server_sock.user + " : " + buf;
+            send_msg(msg.c_str());
         }
-
 
         for (int i = 0; i < MAX_CLIENT; i++) {
             th1[i].join();
@@ -146,7 +128,6 @@ int main() {
 
         closesocket(server_sock.sck);
     }
-
     else {
         cout << "프로그램 종료. (Error code : " << code << ")";
     }
@@ -180,6 +161,25 @@ void server_init() {
 }
 
 void add_client() {
+    SOCKADDR_IN addr = {};
+    int addrsize = sizeof(addr);
+    char buf[MAX_SIZE] = { };
+
+    ZeroMemory(&addr, addrsize); // addr의 메모리 영역을 0으로 초기화
+
+    SOCKET_INFO new_client = {};
+
+    new_client.sck = accept(server_sock.sck, (sockaddr*)&addr, &addrsize);
+    recv(new_client.sck, buf, MAX_SIZE, 0);
+    // Winsock2의 recv 함수. client가 보낸 닉네임을 받음.
+    new_client.user = string(buf);
+
+    string msg = "[공지] " + new_client.user + " 님이 입장했습니다.";
+    cout << msg << endl;
+    sck_list.push_back(new_client); // client 정보를 답는 sck_list 배열에 새로운 client 추가
+
+    std::thread th(recv_msg, client_count);
+    // 다른 사람들로부터 오는 메시지를 계속해서 받을 수 있는 상태로 만들어 두기.
 
     client_count++; // client 수 증가.
     cout << "[공지] 현재 접속자 수 : " << client_count << "명" << endl;
@@ -200,7 +200,10 @@ void recv_msg(int idx) {
 
     //cout << sck_list[idx].user << endl;
 
-    while (1) {
+    while (1) { //  recv한 다음에 여기에 switch 넣기 
+        // add client () 수정하지 마.
+
+
         ZeroMemory(&buf, MAX_SIZE);
         if (recv(sck_list[idx].sck, buf, MAX_SIZE, 0) > 0) { // 오류가 발생하지 않으면 recv는 수신된 바이트 수를 반환. 0보다 크다는 것은 메시지가 왔다는 것.
             msg = sck_list[idx].user + " : " + buf;
@@ -222,42 +225,8 @@ void del_client(int idx) {
     //sck_list.erase(sck_list.begin() + idx); // 배열에서 클라이언트를 삭제하게 될 경우 index가 달라지면서 런타임 오류 발생....ㅎ
     client_count--;
 }
+/// <summary>
+/// ///////////////////////////////////////////////////////////////
+/// </summary>
+/// <returns></returns>
 
-void server_main() {
-    SOCKADDR_IN addr = {};
-    int addrsize = sizeof(addr);
-    char buf[MAX_SIZE] = { };
-
-    ZeroMemory(&addr, addrsize); // addr의 메모리 영역을 0으로 초기화
-
-    SOCKET_INFO new_client = {};
-
-    new_client.sck = accept(server_sock.sck, (sockaddr*)&addr, &addrsize);
-    recv(new_client.sck, buf, MAX_SIZE, 0);
-    string reading = string(buf);
-}
-
-
-
-
-int func_num(string reading) { //들어오는 정보들을 기능별로 구분하기 위한 buf에 있는 값 받아오는 첫 번째 함수
-    string strfunc_menu;
-    strfunc_menu = reading[0] + reading[1];
-
-    if (strfunc_menu == "00")
-        return 0;
-    if (strfunc_menu == "01")
-        return 1;
-    if (strfunc_menu == "02")
-        return 2;
-    if (strfunc_menu == "03")
-        return 3;
-    if (strfunc_menu == "04")
-        return 4;
-    if (strfunc_menu == "05")
-        return 5;
-    if (strfunc_menu == "06")
-        return 6;
-    if (strfunc_menu == "07")
-        return 7;
-}

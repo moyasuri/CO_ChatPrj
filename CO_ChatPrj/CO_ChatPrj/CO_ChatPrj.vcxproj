@@ -139,6 +139,8 @@
     <ClCompile Include="ManageUser.cpp" />
     <ClCompile Include="practice.cpp" />
     <ClCompile Include="practice_main.cpp" />
+    <ClCompile Include="practice_main2.cpp" />
+    <ClCompile Include="real_practice.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

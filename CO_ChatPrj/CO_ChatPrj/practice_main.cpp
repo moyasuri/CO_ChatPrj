@@ -1,3 +1,9 @@
+//여기 확인해주세요! 찐 연습용 메인
+//리더님이 올려주셨던 형식이 너무 채팅방 내의 형식이라 여기부분은 
+//서버와 연동해서 메시지를 받고 보내줘서 기능 처리를 우선 할 수 있도록 만든 부분입니다.
+// add_client1과 recv_from_server 가 사용되는 주 부분입니다.
+//채팅방 내 전체 공지말고는 기능 별로 각각 send를 사용할 예정입니다. >> send용 함수가 recv_from_server처럼 존재하지 않음
+
 #pragma comment(lib, "ws2_32.lib") //명시적인 라이브러리의 링크. 윈속 라이브러리 참조
 
 #include <WinSock2.h>
@@ -10,6 +16,8 @@
 #define MAX_SIZE 1024//소켓 박스크기
 #define MAX_CLIENT 3
 
+using namespace std;
+
 const string server = "tcp://127.0.0.1:3306"; // 데이터베이스 주소
 const string username = "codingon"; // 데이터베이스 사용자
 const string password = "1q2w3e4r5t"; // 데이터베이스 접속 비밀번호
@@ -20,9 +28,22 @@ using std::endl;
 using std::string;
 
 struct SOCKET_INFO { // 연결된 소켓 정보에 대한 틀 생성
-    SOCKET sck;//이게 박스 역할
+    SOCKET sck;
     string user;
 };
+
+std::vector<SOCKET_INFO> sck_list; // 연결된 클라이언트 소켓들을 저장할 배열 선언.
+SOCKET_INFO server_sock; // 서버 소켓에 대한 정보를 저장할 변수 선언.
+int client_count = 0; // 현재 접속해 있는 클라이언트를 count 할 변수 선언.
+
+//기존함수들
+void server_init(); // socket 초기화 함수. socket(), bind(), listen() 함수 실행됨. 자세한 내용은 함수 구현부에서 확인.
+void add_client(); // 소켓에 연결을 시도하는 client를 추가(accept)하는 함수. client accept() 함수 실행됨. 자세한 내용은 함수 구현부에서 확인.
+void send_msg(const char* msg); // send() 함수 실행됨. 자세한 내용은 함수 구현부에서 확인.
+void recv_msg(int idx); // recv() 함수 실행됨. 자세한 내용은 함수 구현부에서 확인.
+void del_client(int idx); // 소켓에 연결되어 있는 client를 제거하는 함수. closesocket() 실행됨. 자세한 내용은 함수 구현부에서 확인.
+
+
 
 class MY_SQL {
     // MySQL Connector/C++ 초기화
@@ -30,6 +51,8 @@ class MY_SQL {
     sql::Connection* con;
     sql::Statement* stmt;
     sql::PreparedStatement* pstmt;
+    sql::ResultSet* res;
+
 
     void set_database() {
         try {
@@ -52,68 +75,20 @@ class MY_SQL {
 
     //친구목록 데이터 가져오기
     void send_friend_list(const char* friendList) {
-       stmt ->execute("select Friend_List_Index, My_Friend_ID from chat.friend_list"); // DROP
+        stmt->execute("select Friend_List_Index, My_Friend_ID from chat.friend_list"); // DROP
 
     }
-};
 
+    //login 쿼리 보내기
+    void check_pw(SOCKET server_sock, string mysql_check_id) {
+        res = stmt->executeQuery("SELECT member_PW FROM member WHERE Member_ID = '" + mysql_check_id + "'");
+        string result = "00 " + res->getString(1);
 
-std::vector<SOCKET_INFO> sck_list; // 연결된 클라이언트 소켓들을 저장할 배열 선언. 소켓을 쌓아놓는 역할
-SOCKET_INFO server_sock; // 서버 소켓에 대한 정보를 저장할 변수 선언.
-int client_count = 0; // 현재 접속해 있는 클라이언트를 count 할 변수 선언.
-
-void server_init(); // socket 초기화 함수. socket(), bind(), listen() 함수 실행됨. 자세한 내용은 함수 구현부에서 확인.
-void add_client(); // 소켓에 연결을 시도하는 client를 추가(accept)하는 함수. client accept() 함수 실행됨. 자세한 내용은 함수 구현부에서 확인.
-void send_msg(const char* msg); // send() 함수 실행됨. 자세한 내용은 함수 구현부에서 확인.
-void recv_msg(int idx); // recv() 함수 실행됨. 자세한 내용은 함수 구현부에서 확인.
-void del_client(int idx); // 소켓에 연결되어 있는 client를 제거하는 함수. closesocket() 실행됨. 자세한 내용은 함수 구현부에서 확인.
-
-class practice_main {
-    WSADATA wsa;
-
-    // Winsock를 초기화하는 함수_쓰레기값이 아닌 사용값으로 바꿔주는 것을 초기화라고 한다. MAKEWORD(2, 2)는 Winsock의 2.2 버전을 사용하겠다는 의미.
-    // 실행에 성공하면 0을, 실패하면 그 이외의 값을 반환.
-    // 0을 반환했다는 것은 Winsock을 사용할 준비가 되었다는 의미.
-    int code = WSAStartup(MAKEWORD(2, 2), &wsa);
-    void run() {
-        if (!code) { // 소켓을 사용할 준비가 됐다. true일 경우 실행한다.
-            server_init();
-
-            std::thread th1[MAX_CLIENT];// 클라이언트 하나마다 스레드 하나로 연결
-            for (int i = 0; i < MAX_CLIENT; i++) {
-                // 인원 수 만큼 thread 생성해서 각각의 클라이언트가 동시에 소통할 수 있도록 함.
-                th1[i] = std::thread(add_client);
-            }
-            //std::thread th1(add_client); // 이렇게 하면 하나의 client만 받아짐...
-
-            while (1) { // 무한 반복문을 사용하여 서버가 계속해서 채팅 보낼 수 있는 상태를 만들어 줌. 반복문을 사용하지 않으면 한 번만 보낼 수 있음.
-                string text, msg = "";
-
-                std::getline(cin, text);
-                const char* buf = text.c_str();// c_str string을 char로 변환하는 함수
-                msg = server_sock.user + " : " + buf;
-                send_msg(msg.c_str()); //클라이언트로 보낼 문자열
-            }
-
-            for (int i = 0; i < MAX_CLIENT; i++) {
-                th1[i].join();
-                //join : 해당하는 thread 들이 실행을 종료하면 리턴하는 함수.
-                //join 함수가 없으면 main 함수가 먼저 종료되어서 thread가 소멸하게 됨.
-                //thread 작업이 끝날 때까지 main 함수가 끝나지 않도록 해줌.
-            }
-            //th1.join();
-
-            closesocket(server_sock.sck);
-        }
-        else {
-            cout << "프로그램 종료. (Error code : " << code << ")";
-        }
-
-        WSACleanup();
+        send(server_sock, result.c_str(), MAX_SIZE, 0);
     }
 
-
 };
+
 
 void server_init() {
     server_sock.sck = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
@@ -132,6 +107,7 @@ void server_init() {
 
     bind(server_sock.sck, (sockaddr*)&server_addr, sizeof(server_addr)); // 설정된 소켓 정보를 소켓에 바인딩한다.
     listen(server_sock.sck, SOMAXCONN); // 소켓을 대기 상태로 기다린다.
+    //*
     server_sock.user = "server";
 
     cout << "Server On" << endl;
@@ -150,19 +126,40 @@ void add_client() {
     recv(new_client.sck, buf, MAX_SIZE, 0);
     // Winsock2의 recv 함수. client가 보낸 닉네임을 받음.
     new_client.user = string(buf);
-    // 여기까지는 접속
+
     string msg = "[공지] " + new_client.user + " 님이 입장했습니다.";
     cout << msg << endl;
     sck_list.push_back(new_client); // client 정보를 답는 sck_list 배열에 새로운 client 추가
 
-    std::thread th(recv_msg, client_count);//idx로 받아짐
+    std::thread th(recv_msg, client_count);
     // 다른 사람들로부터 오는 메시지를 계속해서 받을 수 있는 상태로 만들어 두기.
 
     client_count++; // client 수 증가.
     cout << "[공지] 현재 접속자 수 : " << client_count << "명" << endl;
     send_msg(msg.c_str()); // c_str : string 타입을 const chqr* 타입으로 바꿔줌.
 
-    th.join();//이때부터 진짜 시작 위에는 스레드를 준비시킨거고 
+    th.join();
+}
+
+void add_client1() { //add_client  변형해서 우리 상황에 맞게 사용하고 싶음
+    SOCKADDR_IN addr = {};
+    int addrsize = sizeof(addr);
+    char buf[MAX_SIZE] = { };
+
+    ZeroMemory(&addr, addrsize); // addr의 메모리 영역을 0으로 초기화
+
+    SOCKET_INFO new_client = {};
+
+    new_client.sck = accept(server_sock.sck, (sockaddr*)&addr, &addrsize);
+    recv(new_client.sck, buf, MAX_SIZE, 0);
+    // Winsock2의 recv 함수. client가 보낸 닉네임을 받음.
+    string reading = string(buf);
+    string msg = string(buf + 3);
+    std::thread th(recv_from_client,server_sock.sck, reading,msg);
+    //질문 recv_from_client 함수에 사용되는 인자들은 어떻게 넣어주지??????
+
+    th.join();
+
 }
 
 void send_msg(const char* msg) {
@@ -172,18 +169,19 @@ void send_msg(const char* msg) {
 }
 
 
-
-
 void recv_msg(int idx) {
-    char buf[MAX_SIZE] = { }; //버퍼가 채워질 때까지 그냥 임시 메모리 공간
+    char buf[MAX_SIZE] = { };
     string msg = "";
 
     //cout << sck_list[idx].user << endl;
 
-    while (1) {
+    while (1) { //  recv한 다음에 여기에 switch 넣기 
+        // add client () 수정하지 마.
+
+
         ZeroMemory(&buf, MAX_SIZE);
         if (recv(sck_list[idx].sck, buf, MAX_SIZE, 0) > 0) { // 오류가 발생하지 않으면 recv는 수신된 바이트 수를 반환. 0보다 크다는 것은 메시지가 왔다는 것.
-            msg = sck_list[idx].user + " : " + buf; //클라이언트에서 들어온 결과값이 저장되는 곳
+            msg = sck_list[idx].user + " : " + buf;
             cout << msg << endl;
             send_msg(msg.c_str());
         }
@@ -202,4 +200,106 @@ void del_client(int idx) {
     //sck_list.erase(sck_list.begin() + idx); // 배열에서 클라이언트를 삭제하게 될 경우 index가 달라지면서 런타임 오류 발생....ㅎ
     client_count--;
 }
+
+void recv_from_client(SOCKET s, string reading, string msg) {// 메세지가 들어오면 타입 구분 하는 기초 함수
+    class MY_SQL mysql;
+    switch (server_func_num(reading))
+    {
+    case(0): //login_check pw
+        mysql.check_pw(s, msg);
+        //리더님은 문제가 없다고 하셨는데..,,,, 추가 목록 다시 살펴봐야함
+        ; break;
+    case(1):
+        ; break;
+    case(2):
+        ; break;
+    case(3):
+        ; break;
+    case(4):
+        ; break;
+    case(5):
+        ; break;
+    case(6):
+        ; break;
+    case(7):
+        ; break;
+    }
+
+}
+
+int server_func_num(string reading) { //들어오는 정보들을 기능별로 구분하기 위한 buf에 있는 값 받아오는 첫 번째 함수
+    string strfunc_menu;
+    strfunc_menu = reading[0] + reading[1];
+
+    if (strfunc_menu == "00")
+        return 0;
+    if (strfunc_menu == "01")
+        return 1;
+    if (strfunc_menu == "02")
+        return 2;
+    if (strfunc_menu == "03")
+        return 3;
+    if (strfunc_menu == "04")
+        return 4;
+    if (strfunc_menu == "05")
+        return 5;
+    if (strfunc_menu == "06")
+        return 6;
+    if (strfunc_menu == "07")
+        return 7;
+}
+
+
+
+
+
+
+int main() {
+    WSADATA wsa;
+
+    // Winsock를 초기화하는 함수. MAKEWORD(2, 2)는 Winsock의 2.2 버전을 사용하겠다는 의미.
+    // 실행에 성공하면 0을, 실패하면 그 이외의 값을 반환.
+    // 0을 반환했다는 것은 Winsock을 사용할 준비가 되었다는 의미.
+    int code = WSAStartup(MAKEWORD(2, 2), &wsa);
+
+    if (!code) {
+        server_init();
+
+        std::thread th1[MAX_CLIENT];
+        for (int i = 0; i < MAX_CLIENT; i++) {
+            // 인원 수 만큼 thread 생성해서 각각의 클라이언트가 동시에 소통할 수 있도록 함.
+            th1[i] = std::thread(add_client1);
+        }
+        //질문 add_client1처럼 처음부터 사용자를 받아주는 게 아니라 구별 후 시작하려면 어떻게 해야하는지
+        // 이게 채팅에서만 쓰이는 건지 각 명령어를 받을 때도 사용하는 건지
+        //std::thread th1(add_client); // 이렇게 하면 하나의 client만 받아짐...
+
+        while (1) { // 무한 반복문을 사용하여 *서버*가 계속해서 클라이언트에게 채팅 보낼 수 있는 상태를 만들어 줌. 반복문을 사용하지 않으면 한 번만 보낼 수 있음.
+            string text, msg = "";
+
+            std::getline(cin, text);
+            const char* buf = text.c_str();
+            msg = server_sock.user + " : " + buf;
+            send_msg(msg.c_str());
+        }
+
+        for (int i = 0; i < MAX_CLIENT; i++) {
+            th1[i].join();
+            //join : 해당하는 thread 들이 실행을 종료하면 리턴하는 함수.
+            //join 함수가 없으면 main 함수가 먼저 종료되어서 thread가 소멸하게 됨.
+            //thread 작업이 끝날 때까지 main 함수가 끝나지 않도록 해줌.
+        }
+        //th1.join();
+
+        closesocket(server_sock.sck);
+    }
+    else {
+        cout << "프로그램 종료. (Error code : " << code << ")";
+    }
+
+    WSACleanup();
+
+    return 0;
+}
+
 

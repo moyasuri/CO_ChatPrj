@@ -22,7 +22,7 @@ class User {
 	string getNickname() {
 		return nickname;
 	}
-	string getCha_Num() {
+	string getCha_num() {
 		return member_ID;
 	}
 	string getMember_PW() {
@@ -58,14 +58,14 @@ class User {
 	}
 
 private:
-	string member_ID;
-	string email;
-	string phone;
-	string birth;
-	string nickname;
-	string cha_num;
-	string member_PW;
-	string join_room_index;
+	string member_ID="";
+	string email="";
+	string phone="";
+	string birth="";
+	string nickname="";
+	string cha_num="";
+	string member_PW="";
+	string join_room_index="";
 
 
 
