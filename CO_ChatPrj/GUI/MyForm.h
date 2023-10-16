@@ -10,6 +10,8 @@ static std::string my_nick;
 static SOCKET client_sock;
 static bool enterServer;
 static bool isExit;
+
+
 namespace GUI {
 	using namespace std;
 	using namespace System;
@@ -35,14 +37,10 @@ namespace GUI {
 		MainForm^ mainForm =nullptr;
 	private: bool isFirstActivation = true;
 
-		   
-
-	private: System::Windows::Forms::TextBox^ textBox; // 텍스트 상자를 멤버 변수로 추가
-	// private: System::Windows::Forms::TextBox^ txtBoxPW;
-		   // 텍스트 상자를 멤버 변수로 추가
-
+	
+	
+	private: System::Windows::Forms::TextBox^ textBox;
 	private: System::Windows::Forms::Button^ btnFindAccount;
-
 	private: System::Windows::Forms::Timer^ timerDeletePicBoxIntro;
 	private: System::Windows::Forms::PictureBox^ PicBoxIntro;
 	private: SoundPlayer^ IntroImageSound = gcnew SoundPlayer;
@@ -53,13 +51,6 @@ namespace GUI {
 
 	private: System::String^ relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\HomeIntro.gif");
 		   
-		   
-		   
-
-
-
-
-
 
 
 	public:
@@ -71,33 +62,15 @@ namespace GUI {
 			//
 			//TODO: 생성자 코드를 여기에 추가합니다.
 			//
-						// sound 추가해보기
 
+			// Image 추가
+			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\constantmoderato.wav");
 			
 			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\HomeIntro.gif");
 			PicBoxIntro->ImageLocation = relativePath;
 
 			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\Trinity_Logo.gif");
 			PicBoxHomeLogo->ImageLocation = relativePath;
-
-
-
-			// IntroImagesound 플레이
-			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\constantmoderato.wav");
-			// sound->SoundLocation = _GetPathParent()+ "\\Media\\shootingstar.wav"; // SoundLocation에 CLI 문자열을 설정
-			IntroImageSound->SoundLocation = relativePath; // SoundLocation에 CLI 문자열을 설정
-			IntroImageSound->Load();
-			IntroImageSound->Play();
-
-
-			// intro 삭제 타이머
-			
-			timerDeletePicBoxIntro = gcnew System::Windows::Forms::Timer();
-			timerDeletePicBoxIntro->Interval =6000; // 3초 (3000 밀리초)
-			timerDeletePicBoxIntro->Tick += gcnew System::EventHandler(this, &MyForm::timerDeletePicBoxIntro_Tick);
-			timerDeletePicBoxIntro->Start();
-
-
 
 			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\shootingstar.wav");
 			HomeImageSound->SoundLocation = relativePath;
@@ -113,18 +86,26 @@ namespace GUI {
 			btnFindAccount->BackgroundImage = Image::FromFile(relativePath);
 			btnExit->BackgroundImage = Image::FromFile(relativePath);
 			btnSignin->BackgroundImage = Image::FromFile(relativePath);
+
 			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\temp\\Yellow_menu.png");
 			btnSignup->BackgroundImage = Image::FromFile(relativePath);
-				
+
+			// 이미지 추가 끝
+
+
+			// sound 추가
+						
+			IntroImageSound->SoundLocation = relativePath; // SoundLocation에 CLI 문자열을 설정
+			IntroImageSound->Load();
+			IntroImageSound->Play();
+
+
+			// intro 삭제 타이머
 			
-
-
-			
-				
-
-
-		 	// MessageBox::Show(currentDirectoryStr, "caption", MessageBoxButtons::OK, MessageBoxIcon::Information);
-
+			timerDeletePicBoxIntro = gcnew System::Windows::Forms::Timer();
+			timerDeletePicBoxIntro->Interval = 6000; 
+			timerDeletePicBoxIntro->Tick += gcnew System::EventHandler(this, &MyForm::timerDeletePicBoxIntro_Tick);
+			timerDeletePicBoxIntro->Start();
 
 
 
@@ -156,19 +137,7 @@ namespace GUI {
 	private: System::Windows::Forms::Button^ btnSignup;
 
 
-
-
-		   // private: System::Windows::Forms::TextBox^ textBox2;
-
-
-
-
-
 	private: System::ComponentModel::IContainer^ components;
-
-
-
-
 
 
 
@@ -355,7 +324,7 @@ namespace GUI {
 			// PicBoxNagareboshi
 			// 
 			this->PicBoxNagareboshi->BackColor = System::Drawing::Color::Transparent;
-			this->PicBoxNagareboshi->Location = System::Drawing::Point(-32, -46);
+			this->PicBoxNagareboshi->Location = System::Drawing::Point(-37, -46);
 			this->PicBoxNagareboshi->Margin = System::Windows::Forms::Padding(2);
 			this->PicBoxNagareboshi->Name = L"PicBoxNagareboshi";
 			this->PicBoxNagareboshi->Size = System::Drawing::Size(1183, 720);
@@ -370,7 +339,6 @@ namespace GUI {
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->ClientSize = System::Drawing::Size(1109, 646);
-			this->Controls->Add(this->PicBoxIntro);
 			this->Controls->Add(this->btnSignup);
 			this->Controls->Add(this->btnSignin);
 			this->Controls->Add(this->PicBoxHomeLogo);
@@ -381,6 +349,7 @@ namespace GUI {
 			this->Controls->Add(this->label3);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->PicBoxNagareboshi);
+			this->Controls->Add(this->PicBoxIntro);
 			this->DoubleBuffered = true;
 			this->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->Name = L"MyForm";
@@ -414,76 +383,69 @@ namespace GUI {
 
 
 
-
-
-
-
-
-
-
 		   // Signin button : database 에서 ID : password  일치하는지 확인하는 함수
 		   // ID PW 가 일치하지 않을때는 : ID 또는 PW가 일치하지 않습니다는 메세지를 송출
 		   // 없으면 없다고 하기
 
 	private: System::Void btnSignin_Click(System::Object^ sender, System::EventArgs^ e) {
 
-		//// 텍스트 상자에서 텍스트 가져오기
-		//String^ textBoxText = txtBoxID->Text; // textBox는 해당 텍스트 상자의 이름입니다.
 
-		//if (!String::IsNullOrEmpty(textBoxText)) {
-		//	// 텍스트 상자에 텍스트가 비어 있지 않으면 Message Box로 출력
-		//	MessageBox::Show(textBoxText, "텍스트 상자 내용", MessageBoxButtons::OK, MessageBoxIcon::Information);
-		//}
-		//else {
-		//	// 텍스트 상자가 비어 있을 때 메시지를 출력할 수 있습니다.
-		//	MessageBox::Show("텍스트 상자가 비어 있습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-		//}
 
-		//textBoxText = txtBoxPW->Text; // textBox는 해당 텍스트 상자의 이름입니다.
+		// 텍스트 상자에서 텍스트 가져오기
+		String^ textID_ = txtBoxID->Text; // textBox는 해당 텍스트 상자의 이름입니다.
+		String^ textPW_ = txtBoxPW->Text; // textBox는 해당 텍스트 상자의 이름입니다.
+		
 
-		//if (!String::IsNullOrEmpty(textBoxText)) {
-		//	// 텍스트 상자에 텍스트가 비어 있지 않으면 Message Box로 출력
-		//	MessageBox::Show(textBoxText, "텍스트 상자 내용", MessageBoxButtons::OK, MessageBoxIcon::Information);
-		//}
-		//else {
-		//	// 텍스트 상자가 비어 있을 때 메시지를 출력할 수 있습니다.
-		//	MessageBox::Show("텍스트 상자가 비어 있습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-		//}
+		// ID와 PW의 문자열이 채워져있다면
+		if (!String::IsNullOrEmpty(textID_)&& !String::IsNullOrEmpty(textPW_)) {
 
-	
-		// Hide 할때의 동작			
+			// Server에 ID / PW를 보내기함수
 
-		if (mainForm == nullptr || mainForm->IsDisposed) {
-			mainForm = gcnew MainForm();
-			mainForm->Owner = this; // Owner를 설정해야 가능
-			this->Hide(); 
-			this->HomeImageSound->Stop();
-			mainForm->Show();
+
+			while(1)
+			{
+				if (1)// server 에서 오케이
+				{
+
+					return;
+				}
+				else if(1) //  server에서 다른값보내면
+				{
+
+					return;
+				}
+				else // 무한반복되는건데 시간타이밍 주면 좋을거같음
+				{
+
+				}
+			}
+		}
+		// 입력값이 없다면,
+		else {
+			System::Windows::Forms::MessageBox::Show("ID / PW 를 다시입력해주세요. ", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		}
 
 
-
-
-
 	}
+
 	private: System::Void btnExit_Click(System::Object^ sender, System::EventArgs^ e) {
 		
 		this->Close();
 	}
 
-private: System::Void btnFindAccount_Click(System::Object^ sender, System::EventArgs^ e) {
+
+	private: System::Void btnFindAccount_Click(System::Object^ sender, System::EventArgs^ e) {
 	
-	// 이미 생성된 SignUp 폼이 없는 경우에만 새로운 폼을 생성하고 엽니다.
-	if (findaccountForm == nullptr || findaccountForm->IsDisposed) {
-		findaccountForm = gcnew FindAccount;
-		findaccountForm->Show();
-		
+		// 이미 생성된 SignUp 폼이 없는 경우에만 새로운 폼을 생성하고 엽니다.
+		if (findaccountForm == nullptr || findaccountForm->IsDisposed) {
+			findaccountForm = gcnew FindAccount;
+			findaccountForm->Show();
+		}
+		// 이미 생성된 폼이 열려 있는 경우, 해당 폼을 활성화시킵니다.
+		else {
+			findaccountForm->Activate();
+		}
 	}
-	// 이미 생성된 폼이 열려 있는 경우, 해당 폼을 활성화시킵니다.
-	else {
-		findaccountForm->Activate();
-	}
-}
 
 	// intro 삭제
     private: System::Void timerDeletePicBoxIntro_Tick(System::Object^ sender, System::EventArgs^ e) {
@@ -506,8 +468,6 @@ private: System::Void btnFindAccount_Click(System::Object^ sender, System::Event
 
 		HomeImageSound->Play();
 	}
-
-
 
 };
 }
