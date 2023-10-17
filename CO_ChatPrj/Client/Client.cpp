@@ -1,3 +1,6 @@
+/*
+send 와 receive는 무조건 짝꿍
+*/
 #pragma comment(lib, "ws2_32.lib")
 
 #include <WinSock2.h> //Winsock 헤더파일 include. WSADATA 들어있음.
@@ -184,6 +187,23 @@ vector<string> recv_from_server() {
     return server_msg;
 }
 
+string want_exit() { //메뉴 닫기 while문에서 사용해준다.
+    char answer;
+    cout << "이 화면을 닫기를 원합니까? (Y/N) " << endl;
+    while (1) {
+        cin >> answer;
+        if (answer == 'Y')
+        {
+            return "break;";
+            break;
+        }
+        else if (answer == 'N')
+            break;
+        else
+            cout << "잘못 입력하셨습니다. 다시 시도해 주세요 .";
+    }
+}
+
 string recv_from_server_text() 
 {
     vector<string> text;
@@ -293,6 +313,7 @@ void friend_home() {
                     if (friend_num == 친구요청_클)
                     {
                         send_to_server(친구요청_클);
+                        recv_from_server();
                         if (recv_friend_home_num == 친구요청_서)
                             recv_from_server_text();
                     }
@@ -300,12 +321,43 @@ void friend_home() {
                     
                     else if (friend_num == 친구검색_클)
                     {
+                        while (1) {
+                            want_exit();
+                            string search_friend_id = "";
+                            char add_answer;
+                            cout << "검색할 아이디 입력" << endl;
+                            cin >> search_friend_id;
+                            send_to_server(친구검색_클 + search_friend_id);
+                            recv_from_server();
+                            if (recv_friend_home_num == 친구검색_클)
+                            {
+                                if (recv_from_server_text() != "have")                   
+                                    cout << "ID가 확인되지 않습니다. 다시 시도해주세요. " << endl;
+                               
+                                while(recv_from_server_text() == "have") //존재하는지 확인해주는 내용 받음
+                                {
+                                    cout << search_friend_id << "는 존재합니다. \n 친구로 추가하시겠습니까? (Y/N)" << endl;//추가버튼 보여줌
+                                    if (add_answer == 'Y')
+                                    {
+                                        ;
+                                        friend_num == 친구신청_클;
+                                        send_to_server(친구신청_클 + search_friend_id);
+                                        recv_from_server();
+                                    }
+                                    else if (add_answer == 'N')
+                                        break;
+                                    else
+                                    {
+                                        cout << "잘못 입력하셨습니다. 다시 시도해주세요.";
+                                        continue;
+                                    }
+                                }
 
+                                
+                            }
+                        }
                     }
-                    else if (friend_num == 친구신청_클)
-                    {
-
-                    }
+                   
                     else
                         cout << "오류 발생" << endl;
             }
