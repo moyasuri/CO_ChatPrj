@@ -517,7 +517,7 @@ namespace GUI {
 		{
 			return msclr::interop::marshal_as<std::string>(str);
 		}
-		;
+		
 
 
 	};
