@@ -34,7 +34,7 @@ int chat_recv() {
         ZeroMemory(&buf, MAX_SIZE);
         if (recv(client_sock, buf, MAX_SIZE, 0) > 0) {
             msg = buf;
-            Recv_str = msg;
+            // Recv_str = msg;
             // std::stringstream ss(msg);  // 문자열을 스트림화
             string user;
             // ss >> user; // 스트림을 통해, 문자열을 공백 분리해 변수에 할당. 보낸 사람의 이름만 user에 저장됨.

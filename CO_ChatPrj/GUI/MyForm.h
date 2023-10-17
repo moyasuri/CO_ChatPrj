@@ -24,7 +24,7 @@ namespace GUI {
 	using namespace System::Data;
 	using namespace System::Drawing;
 	using namespace System::Media;
-	
+
 
 
 
@@ -38,11 +38,11 @@ namespace GUI {
 		SignUp^ signupForm = nullptr;
 		FindAccount^ findaccountForm = nullptr;
 		MainForm^ mainForm = nullptr;
-		
+
 	private: bool isFirstActivation = true;
 
-	
-	
+
+
 	private: System::Windows::Forms::TextBox^ textBox;
 	private: System::Windows::Forms::Button^ btnFindAccount;
 	private: System::Windows::Forms::Timer^ timerDeletePicBoxIntro;
@@ -54,7 +54,7 @@ namespace GUI {
 	private: System::Windows::Forms::PictureBox^ PicBoxNagareboshi;
 
 	private: System::String^ relativePath;
-		   
+
 
 
 	public:
@@ -106,14 +106,26 @@ namespace GUI {
 
 
 
+
+
+
+
+
 			// intro 삭제 타이머
-			
+
 			timerDeletePicBoxIntro = gcnew System::Windows::Forms::Timer();
-			timerDeletePicBoxIntro->Interval = 6000; 
+			timerDeletePicBoxIntro->Interval = 6000;
 			timerDeletePicBoxIntro->Tick += gcnew System::EventHandler(this, &MyForm::timerDeletePicBoxIntro_Tick);
 			timerDeletePicBoxIntro->Start();
 
+
+
+
+
 		}
+
+
+
 
 	protected:
 		/// <summary>
@@ -128,7 +140,7 @@ namespace GUI {
 		}
 
 	private: System::Windows::Forms::Button^ btnSignin;
-    private: System::Windows::Forms::TextBox^ txtBoxPW;
+	private: System::Windows::Forms::TextBox^ txtBoxPW;
 	private: System::Windows::Forms::Label^ label2;
 	private: System::Windows::Forms::Label^ label3;
 	private: System::Windows::Forms::TextBox^ txtBoxID;
@@ -371,7 +383,7 @@ namespace GUI {
 
 		// sign up form을 띄우기.
 	private: System::Void btn_signup_Click(System::Object^ sender, System::EventArgs^ e) {
-		
+
 		btnSignup->NotifyDefault(false);
 		// 이미 생성된 SignUp 폼이 없는 경우에만 새로운 폼을 생성하고 엽니다.
 		if (signupForm == nullptr || signupForm->IsDisposed) {
@@ -395,28 +407,29 @@ namespace GUI {
 
 	private: System::Void btnSignin_Click(System::Object^ sender, System::EventArgs^ e) {
 
+
 		//테두리 없애기
 		btnSignin->NotifyDefault(false);
-		
+
 		// 텍스트 상자에서 텍스트 가져오기
 		String^ textID_ = txtBoxID->Text; // textBox는 해당 텍스트 상자의 이름입니다.
 		String^ textPW_ = txtBoxPW->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-		
+
 
 		// ID와 PW의 문자열이 채워져있다면
-		if (!String::IsNullOrEmpty(textID_)&& !String::IsNullOrEmpty(textPW_)) {
+		if (!String::IsNullOrEmpty(textID_) && !String::IsNullOrEmpty(textPW_)) {
 
 			// Server에 ID / PW를 보내기함수
 			int time_limit = 0;
-			
+
 			const char* buffer = ConvertStr(textID_).c_str(); // string형을 char* 타입으로 변환후 buffer에 집어넣기
 			send(client_sock, buffer, strlen(buffer), 0);
 
 
-			
-			while(1)
+
+			while (1)
 			{
-				if (Recv_str=="3")// server 에서 오케이받는 함수
+				if (Recv_str == "3")// server 에서 오케이받는 함수
 				{
 
 					// Hide 할때의 동작			
@@ -429,7 +442,7 @@ namespace GUI {
 					}
 					return;
 				}
-				else if(0) //  server에서 다른값보내면
+				else if (0) //  server에서 다른값보내면
 				{
 
 					return;
@@ -454,6 +467,7 @@ namespace GUI {
 			System::Windows::Forms::MessageBox::Show("ID / PW 를 다시입력해주세요. ", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		}
 
+
 	}
 
 	private: System::Void btnExit_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -475,18 +489,18 @@ namespace GUI {
 		}
 	}
 
-	// intro 삭제
-    private: System::Void timerDeletePicBoxIntro_Tick(System::Object^ sender, System::EventArgs^ e) {
-    
-	    this->Controls->Remove(PicBoxIntro); // 컨트롤을 폼에서 제거
-	    delete PicBoxIntro; // 메모리에서 해제
-	    // Timer를 중지합니다.
-	    timerDeletePicBoxIntro->Stop();
+		   // intro 삭제
+	private: System::Void timerDeletePicBoxIntro_Tick(System::Object^ sender, System::EventArgs^ e) {
+
+		this->Controls->Remove(PicBoxIntro); // 컨트롤을 폼에서 제거
+		delete PicBoxIntro; // 메모리에서 해제
+		// Timer를 중지합니다.
+		timerDeletePicBoxIntro->Stop();
 		IntroImageSound->Stop();
 		HomeImageSound->Play();
 
 
-    }
+	}
 	private: System::Void MyForm_Visible(System::Object^ sender, System::EventArgs^ e) {
 		// 이 폼이 활성화될 때 수행하고자 하는 동작을 여기에 추가합니다.
 		if (isFirstActivation) {
@@ -496,15 +510,15 @@ namespace GUI {
 
 		HomeImageSound->Play();
 	}
-		   
-		   
+
+
 	public:
-	   static string ConvertStr(String^ str)
-	  {
-	   return msclr::interop::marshal_as<std::string>(str);
-	  }
-	;
+		static string ConvertStr(String^ str)
+		{
+			return msclr::interop::marshal_as<std::string>(str);
+		}
+		;
 
 
-};
+	};
 }
