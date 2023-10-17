@@ -155,5 +155,8 @@
     <ClInclude Include="GeneralChatIndex.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Usage.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

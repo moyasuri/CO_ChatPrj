@@ -215,6 +215,7 @@
     <ClInclude Include="test.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Usage.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AddFriend.resx">
