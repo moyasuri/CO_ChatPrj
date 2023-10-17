@@ -119,7 +119,7 @@ void add_client() {
     // 다른 사람들로부터 오는 메시지를 계속해서 받을 수 있는 상태로 만들어 두기.
 
     client_count++; // client 수 증가.
-    cout << "[공지] 현재 접속자 수 : " << client_count << "명" << endl; // 왜 구문오류가 발생하지?
+    cout << "[공지] 현재 접속자 수 : " << client_count << "명" << endl; 
     send_msg(msg.c_str()); // c_str : string 타입을 const chqr* 타입으로 바꿔줌.
 
     th.join();
@@ -130,6 +130,7 @@ void send_msg(const char* msg) {
         send(sck_list[i].sck, msg, MAX_SIZE, 0);
     }
 }
+// client별 확인을 만들어야겠네.
 
 void recv_msg(int idx) {
     char buf[MAX_SIZE] = { };

@@ -7,6 +7,8 @@
 #include <iostream>
 #include <thread>
 
+// SOCKET client_sock;
+// std::string Recv_str;
 
 #include "MyForm.h"
 #include "MainForm.h"
@@ -34,7 +36,8 @@ int chat_recv() {
         ZeroMemory(&buf, MAX_SIZE);
         if (recv(client_sock, buf, MAX_SIZE, 0) > 0) {
             msg = buf;
-            // Recv_str = msg;
+            Recv_str = msg;
+            
             // std::stringstream ss(msg);  // 문자열을 스트림화
             string user;
             // ss >> user; // 스트림을 통해, 문자열을 공백 분리해 변수에 할당. 보낸 사람의 이름만 user에 저장됨.
@@ -87,10 +90,10 @@ void CommunicateWithServer() {
         std::thread th2(chat_recv);
 
         while (1) {
-            string text;
-            std::getline(cin, text);
-            const char* buffer = text.c_str(); // string형을 char* 타입으로 변환
-            send(client_sock, buffer, strlen(buffer), 0);
+            //string text;
+            //std::getline(cin, text);
+            //const char* buffer = text.c_str(); // string형을 char* 타입으로 변환
+            //send(client_sock, buffer, strlen(buffer), 0);
         }
         th2.join();
         closesocket(client_sock);

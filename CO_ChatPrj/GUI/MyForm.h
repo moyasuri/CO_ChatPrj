@@ -8,11 +8,10 @@
 
 
 static std::string my_nick;
-static SOCKET client_sock;
+std::string Recv_str;
+SOCKET client_sock;
 static bool enterServer;
 static bool isExit;
-static int Temp_socket;
-static std::string Recv_str;
 
 
 namespace GUI {
@@ -290,7 +289,7 @@ namespace GUI {
 			this->btnSignup->TabStop = false;
 			this->btnSignup->Text = L"Sign up";
 			this->btnSignup->UseVisualStyleBackColor = false;
-			this->btnSignup->Click += gcnew System::EventHandler(this, &MyForm::btn_signup_Click);
+			this->btnSignup->Click += gcnew System::EventHandler(this, &MyForm::btn_Signup_Click);
 			// 
 			// btnFindAccount
 			// 
@@ -382,7 +381,7 @@ namespace GUI {
 
 
 		// sign up form을 띄우기.
-	private: System::Void btn_signup_Click(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void btn_Signup_Click(System::Object^ sender, System::EventArgs^ e) {
 
 		btnSignup->NotifyDefault(false);
 		// 이미 생성된 SignUp 폼이 없는 경우에만 새로운 폼을 생성하고 엽니다.
@@ -423,8 +422,8 @@ namespace GUI {
 			int time_limit = 0;
 
 			const char* buffer = ConvertStr(textID_).c_str(); // string형을 char* 타입으로 변환후 buffer에 집어넣기
+			//System::Windows::Forms::MessageBox::Show(textID_, "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			send(client_sock, buffer, strlen(buffer), 0);
-
 
 
 			while (1)
@@ -452,6 +451,8 @@ namespace GUI {
 					Sleep(1000);
 					if (time_limit > 1)
 					{
+						System::String^ recvStr = gcnew System::String(Recv_str.c_str());
+						System::Windows::Forms::MessageBox::Show(recvStr, "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 						System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 						return;
 					}
@@ -512,8 +513,8 @@ namespace GUI {
 	}
 
 
-	public:
-		static string ConvertStr(String^ str)
+	private:
+		string ConvertStr(String^ str)
 		{
 			return msclr::interop::marshal_as<std::string>(str);
 		}

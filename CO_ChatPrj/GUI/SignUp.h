@@ -1,5 +1,8 @@
 ﻿#pragma once
+#include <msclr/marshal_cppstd.h>
+#include <string>
 
+extern SOCKET client_sock;
 namespace GUI {
 
 	using namespace System;
@@ -417,14 +420,17 @@ namespace GUI {
 		}
 #pragma endregion
 
-
+	public: std::string ConvertStr(String^ str)
+		{
+			return msclr::interop::marshal_as<std::string>(str);
+		}
 
 		// btnsubmit  회원가입 실행버튼
 		// 전화번호가 겹치거나 공백란이 있다면 오류를 반환
 	private: System::Void btnSubmit_Click(System::Object^ sender, System::EventArgs^ e) {
 
 		// 텍스트 상자에서 텍스트 가져오기
-		txtBoxID->Text;
+		txtBoxName->Text;
 		txtBoxBirth->Text;
 		txtBoxNickName->Text;
 		txtBoxPhone->Text;
@@ -447,12 +453,17 @@ namespace GUI {
 
 
 
-
 		   // ID 중복 확인하기버튼
 	private: System::Void btnIDduplicateChk_Click(System::Object^ sender, System::EventArgs^ e) {
-
+		
+		String^ textID_ = txtBoxID->Text;
+		const char* buffer = ConvertStr(textID_).c_str(); // string형을 char* 타입으로 변환후 buffer에 집어넣기
+		send(client_sock, buffer, strlen(buffer), 0);
+		
 		// DB의 ID랑 중복되는지 확인
-		// UI::MyForm::ConvertStr(txtBoxID->Text);
+		
+		
+
 			
 
 	}
@@ -460,7 +471,12 @@ namespace GUI {
 	private: System::Void btnNickNameduplicateChk_Click(System::Object^ sender, System::EventArgs^ e) {
 
 		// DB의 NickName이랑 중복되는지 확인
-		txtBoxNickName->Text;
+		
+
+		String^ textNickName_ = txtBoxNickName->Text;
+		const char* buffer = ConvertStr(textNickName_).c_str(); // string형을 char* 타입으로 변환후 buffer에 집어넣기
+		// send(client_sock, buffer, strlen(buffer), 0);
+
 	}
 
 		   // cnacle button 홈화면으로 되돌아가기
