@@ -10,6 +10,7 @@
 #include <string>
 #include <iostream>
 #include <thread>
+#include <sstream>
 #include <vector>
 #include <mysql/jdbc.h>#include <mysql/jdbc.h>
 
@@ -43,10 +44,17 @@ const string 참여방변경 = "17";
 
 //const string 친구 = "20";
 
-const string 친구목록 = "21";
-const string 친구요청 = "22";
-const string 친구검색 = "23";
-const string 친구신청 = "24";
+const string 친구목록_클 = "21";
+const string 친구요청_클 = "22";
+const string 친구검색_클 = "23";
+const string 친구신청_클 = "24";
+const string 친구수락거절_클 = "25";
+
+const string 친구목록_서 = "21";
+const string 친구요청_서 = "22";
+const string 친구검색_서 = "23";
+const string 친구신청_서 = "24";
+const string 친구수락거절_서 = "25";
 
 struct SOCKET_INFO { // 연결된 소켓 정보에 대한 틀 생성
     SOCKET sck;
@@ -64,7 +72,7 @@ void send_msg(const char* msg); // send() 함수 실행됨. 자세한 내용은 함수 구현부
 void recv_msg(int idx); // recv() 함수 실행됨. 자세한 내용은 함수 구현부에서 확인.
 void del_client(int idx); // 소켓에 연결되어 있는 client를 제거하는 함수. closesocket() 실행됨. 자세한 내용은 함수 구현부에서 확인.
 
-
+const string IDENTIFIER = " ";
 
 class MY_SQL {
 public:
@@ -102,18 +110,69 @@ public:
     }
 
     //login 쿼리 보내기
-    void check_pw(SOCKET server_sock, string mysql_check_id) {
-        res = stmt->executeQuery("SELECT member_PW FROM member WHERE Member_ID = '" + mysql_check_id + "'");
+    void send_login_check(SOCKET server_sock, string mysql_check_id, string mysql_check_pw) {
+        res = stmt->executeQuery("SELECT member_ID, member_PW FROM member WHERE Member_ID = '" + mysql_check_id + "'");
+
+        string resid, respw;
         string result;
-        if (res->next())
-            result = "00 " + res->getString(1);
-        else 
-            result = "00 ";
-        
+        while (res->next()) {
+            resid = res->getInt("member_ID");
+            respw = res->getString("member_PW");
+        }
+        if (resid != mysql_check_id || respw != mysql_check_pw)
+            result = 로그인시도 ;
+        else
+            result = 로그인시도 + IDENTIFIER + "have";
+
 
         send(server_sock, result.c_str(), MAX_SIZE, 0);
     }
 
+    const string 친구목록_클 = "21";
+    const string 친구요청_클 = "22";
+    const string 친구검색_클 = "23";
+    const string 친구신청_클 = "24";
+    const string 친구수락거절_클 = "25";
+
+
+    void send_friend_List(SOCKET server_sock, string mysql_check_id){
+        res = stmt->executeQuery("SELECT Friend_List_Index, My_ID, My_Friend_ID FROM friend_list  WHERE Member_ID = '" + mysql_check_id + "'");
+    string result;
+    if (res->next())
+        result = 친구목록_서 + " " + res->getString(1);
+    else
+        result = 친구목록_서 ;
+
+
+    send(server_sock, result.c_str(), MAX_SIZE, 0);
+}
+
+    void send_friend_request(SOCKET server_sock, string mysql_check_id) {
+        res = stmt->executeQuery("SELECT From_Friend_Request_ID, Request_Msg WHERE  Response=3 and To_Friend_Request_Id = '" + mysql_check_id + "'");
+        string result;
+        if (res->next())
+            result = 친구요청_서 + " " + res->getString(1);
+        else
+            result = 친구요청_서;
+
+
+        send(server_sock, result.c_str(), MAX_SIZE, 0);
+    }
+
+    void send_friend_search(SOCKET server_sock, string mysql_check_id) { //비교해서 have 값만 보내줘야한다.
+        res = stmt->executeQuery("SELECT member_ID, Request_Msg WHERE  Response=3 and To_Friend_Request_Id = '" + mysql_check_id + "'");
+        string result;
+        if (res->next())
+            result = 친구검색_서 + " " + "have";
+        else
+            result = 친구검색_서 + " ";
+
+        send(server_sock, result.c_str(), MAX_SIZE, 0);
+    }
+
+
+
+  
 private:
 };
 
@@ -233,7 +292,6 @@ void recv_from_client(SOCKET s, string reading, string msg) {// 메세지가 들어오�
     class MY_SQL mysql;
     if (server_func_num(reading)== 로그인시도)
         mysql.check_pw(s, msg);
-   
 
 }
 

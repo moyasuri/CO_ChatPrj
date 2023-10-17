@@ -1,5 +1,4 @@
 //조은수 연습파일 2......... 여기도 다 볼 거 아닙니다
-
 #pragma comment(lib, "ws2_32.lib") //명시적인 라이브러리의 링크. 윈속 라이브러리 참조
 
 #include <WinSock2.h>
@@ -43,10 +42,7 @@ void server_main();
 void mysql_login();
 int server_func_num();
 
-struct SOCKET_INFO { // 연결된 소켓 정보에 대한 틀 생성
-    SOCKET sck;
-    string user;
-};
+
 
 //class 나중에 정리 필요
 
@@ -56,7 +52,10 @@ class MY_SQL {
     sql::Connection* con;
     sql::Statement* stmt;
     sql::PreparedStatement* pstmt;
-   
+    struct SOCKET_INFO { // 연결된 소켓 정보에 대한 틀 생성
+        SOCKET sck;
+        string user;
+    };
 
     void set_database() {
         try {

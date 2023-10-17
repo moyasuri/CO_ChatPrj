@@ -137,10 +137,12 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="ManageUser.cpp" />
-    <ClCompile Include="practice.cpp" />
     <ClCompile Include="practice_main.cpp" />
-    <ClCompile Include="practice_main2.cpp" />
     <ClCompile Include="real_practice.cpp" />
+    <ClCompile Include="Server.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Server.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

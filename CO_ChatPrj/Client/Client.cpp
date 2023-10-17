@@ -12,6 +12,9 @@ send 와 receive는 무조건 짝꿍
 #include <vector>
 // user 헤더 추가
 #include "User.cpp"
+#include "Usage.h"
+
+
 
 using namespace std;
 
@@ -95,35 +98,32 @@ SOCKET client_info_sock;
 string my_nick;
 
 
-const string 로그인시도 = "00"; //send_id / recv_pw
-const string ID찾기 = "01";
-const string PW찾기 = "02";
+const string 로그인시도 = "00 "; //send_id / recv_pw
+const string ID찾기 = "01 ";
+const string PW찾기 = "02 ";
 
 
 //const string 정보 변경= "10";
-const string 비밀번호수정 = "11";
-const string 이메일수정 = "12";
-const string 전화번호수정="13";
-const string 생년월일수정 = "14";
-const string 닉네임수정= "15";
-const string 캐릭터수정= "16";
-const string 참여방변경 = "17";
+const string 비밀번호수정 = "11 ";
+const string 이메일수정 = "12 ";
+const string 전화번호수정="13 ";
+const string 생년월일수정 = "14 ";
+const string 닉네임수정= "15 ";
+const string 캐릭터수정= "16 ";
+const string 참여방변경 = "17 ";
 
 //const string 친구 = "20";
 
-const string 친구목록= "21";
-const string 친구요청= "22";
-const string 친구검색= "23";
-const string 친구신청= "24";
+
 //const string = "";
 //const string = "";
 //const string = "";
 
 //const string 쪽지 //친구검색 쓰임 30
-const string 쪽지목록 = "31";
-const string 쪽지읽기= "32";
-const string 쪽지보내기= "33";
-const string 쪽지삭제하기= "34";
+const string 쪽지목록 = "31 ";
+const string 쪽지읽기= "32 ";
+const string 쪽지보내기= "33 ";
+const string 쪽지삭제하기= "34 ";
 
 
 //쪽지 
@@ -172,6 +172,29 @@ vector<string> recv_from_server() {
     string msg;
     vector<string> server_msg;
     server_msg.clear();
+    msg = buf;
+    std::stringstream ss(msg);
+    ss >> _Index;
+    server_msg.push_back(_Contents);
+    _Contents = string(buf + 3);
+    server_msg.push_back(_Contents);
+    int _Index_I = stoi(_Index);
+    switch (_Index_I)
+    {
+    case e_try_Signin:
+    {
+        if (e_find_ID)
+        {
+        }
+    }
+    break;
+    case e_find_ID:
+    {
+    }
+    break;
+    }
+
+    server_msg.clear();
     string identify_num;
     string text;
 
@@ -187,6 +210,21 @@ vector<string> recv_from_server() {
     return server_msg;
 }
 
+vector<string> recv_list(string recv_text) {
+    string s;
+    vector<string> recv_list;
+        std::stringstream ss(recv_text);
+        while (ss >> s)
+            recv_list.push_back(s);
+        return recv_list;
+
+}
+
+void show_vector_list(vector<string> vector) {
+
+    
+
+}
 string want_exit() { //메뉴 닫기 while문에서 사용해준다.
     char answer;
     cout << "이 화면을 닫기를 원합니까? (Y/N) " << endl;
@@ -204,17 +242,9 @@ string want_exit() { //메뉴 닫기 while문에서 사용해준다.
     }
 }
 
-string recv_from_server_text() 
+void send_to_server_const(const string buffer)
 {
-    vector<string> text;
-    return text[1];
-}
-
-string recv_from_server_num()
-{
-    vector<string> num;
-    return num[0];
-
+    send(client_sock, buffer.c_str(), strlen(buffer.c_str()), 0);
 }
 
 void send_to_server(string buffer) 
@@ -228,6 +258,7 @@ const string 로그인시도 = "00"; //send_id / recv_pw
 
 void login_try() {
     while (1) {
+        want_exit();
         
         string login_id = "";
         string login_pw = "";
@@ -236,22 +267,18 @@ void login_try() {
         cout << "pw를 입력하세요 : " << endl;
         cin >> login_pw;
 
-        string send_login_id = 로그인시도 + login_id;
+        string send_login_id = 로그인시도 +" "+ login_id + " " + login_pw;
         send_to_server(send_login_id);
 
         vector<string> server_msg = recv_from_server();
         if (server_msg[0] == 로그인시도) //
         {
-            if (server_msg.size() == 1) //id가 존재하지 않아 server에서 00만 전송된 경우
+            if (server_msg.size() == 2) //id가 존재하지 않아 server에서 00만 전송된 경우
             {
-                cout << "ID가 존재하지 않습니다. "<<endl;
+                cout << "ID나 PW가 틀렸습니다. "<<endl;
                 continue; //원래는 clear 하고 다시 보여줌 (gui아닐 경우)
             }
-            else if (server_msg[1] != login_pw) //id에 따른 pw 불일치
-            {
-                cout << "비밀번호가 일치하지 않습니다. " << endl;
-                continue;
-            }
+            
             else if (server_msg[1] == login_pw) //로그인 가능
             {
                 cout << "로그인에 성공했습니다. "<<endl; //팝업으로 뜨겠죠?
@@ -259,6 +286,7 @@ void login_try() {
                 user.setMember_PW(login_pw);
                 break;
             }
+           
             else // 이상 오류
             {
                 cout << "오류가 발생해 종료하겠습니다. " << endl;
@@ -274,13 +302,15 @@ const string 친구목록_클 = "21";
 const string 친구요청_클 = "22";
 const string 친구검색_클 = "23";
 const string 친구신청_클 = "24";
+const string 친구수락거절_클 = "25";
 
 const string 친구목록_서 = "21";
 const string 친구요청_서 = "22";
 const string 친구검색_서 = "23";
 const string 친구신청_서 = "24";
+const string 친구수락거절_서 = "25";
 
-/*
+/*se
     친구 목록은 항상 보여짐
    친구요청버튼을 누르면 요청온 친구 목록이 보이고 수락 거절을 할수있음
    친구추가버튼을 누르면 완전한 아이디를 검색해서 친구 요청을 보낼 수 있음 
@@ -289,36 +319,49 @@ const string 친구신청_서 = "24";
 
 void friend_home() {
     while (1) {
-        
+        vector<string> friend_home;
         vector<string> friend_list; // 친구 테이블 받아와서 값을 각각 저장하는 벡터
+        friend_home.clear();
+        friend_list.clear();
+        vector<string> friend_request;
+        vector<string> friend_request_list; //나에게 온 친구 요청 리스트
+        friend_request_list.clear();
+        friend_request.clear();
+        vector<string>;
+
         send_to_server(친구목록_클);
-        recv_from_server();
-        string recv_friend_home_num = recv_from_server_num();
-        string recv_friend_home_text = recv_from_server_text();
+        friend_home =recv_from_server();
+        string recv_friend_home_num = friend_home[0];
+        string recv_friend_home_text = friend_home[1];
+
+        
         if (recv_friend_home_num == 친구목록_서)
-        {
-        string s;
-        std::stringstream ss(recv_friend_home_text);
-        while (ss >> s) {
-            friend_list.push_back(s);
-        }
-        //테이블처럼 보이게 다시 바꿔줘야 한다 -_-
-        if (recv_friend_home_num == 친구목록_클) {
-            while (1) {
-                //친구목록은 기본페이지에 들어와있다
-                string friend_num=""; //사용자의 선택
-                cout << "친구 홈에서 하고 싶은 메뉴 선택" << endl;
-                cin >> friend_num;
+        {   
+            if (recv_friend_home_num == 친구목록_클) {
+                while (1) {
+                    while (1) {
+                        friend_list = recv_list(recv_friend_home_text);
+                        show_vector_list(friend_list);
+                    //친구목록은 기본페이지에 들어와있다
+                         //테이블처럼 보이게 다시 바꿔줘야 한다 -_-
+                    string friend_num = ""; //사용자의 선택
+                    cout << "친구 홈에서 하고 싶은 메뉴 선택 " << endl;
+                    cin >> friend_num;
 
                     if (friend_num == 친구요청_클)
                     {
+                       
                         send_to_server(친구요청_클);
-                        recv_from_server();
-                        if (recv_friend_home_num == 친구요청_서)
-                            recv_from_server_text();
+                        friend_request = recv_from_server();
+                        if (friend_request[0] == 친구요청_서)
+                        {
+                            
+                          
+                             
+                        }
                     }
 
-                    
+
                     else if (friend_num == 친구검색_클)
                     {
                         while (1) {
@@ -328,20 +371,20 @@ void friend_home() {
                             cout << "검색할 아이디 입력" << endl;
                             cin >> search_friend_id;
                             send_to_server(친구검색_클 + search_friend_id);
-                            recv_from_server();
+                            vector<string> search_friend = recv_from_server();
                             if (recv_friend_home_num == 친구검색_클)
                             {
-                                if (recv_from_server_text() != "have")                   
+                                if (search_friend[0] != "have")
                                     cout << "ID가 확인되지 않습니다. 다시 시도해주세요. " << endl;
-                               
-                                while(recv_from_server_text() == "have") //존재하는지 확인해주는 내용 받음
+
+                                while (search_friend[0] == "have") //존재하는지 확인해주는 내용 받음
                                 {
                                     cout << search_friend_id << "는 존재합니다. \n 친구로 추가하시겠습니까? (Y/N)" << endl;//추가버튼 보여줌
                                     if (add_answer == 'Y')
                                     {
                                         ;
                                         friend_num == 친구신청_클;
-                                        send_to_server(친구신청_클 + search_friend_id);
+                                        send_to_server(친구신청_클 + " " +search_friend_id);
                                         recv_from_server();
                                     }
                                     else if (add_answer == 'N')
@@ -353,13 +396,14 @@ void friend_home() {
                                     }
                                 }
 
-                                
+
                             }
                         }
                     }
-                   
+
                     else
                         cout << "오류 발생" << endl;
+                }
             }
         }
     }
