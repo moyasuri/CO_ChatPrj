@@ -2,7 +2,6 @@
 #include "SignUp.h"
 #include "MainForm.h"
 #include "FindAccount.h"
-#include "MyFunc.h"
 #include <msclr/marshal_cppstd.h>
 #include <string>
 
@@ -410,7 +409,7 @@ namespace GUI {
 			// Server에 ID / PW를 보내기함수
 			int time_limit = 0;
 			
-			const char* buffer = MyFunc::ConvertStr(textID_).c_str(); // string형을 char* 타입으로 변환후 buffer에 집어넣기
+			const char* buffer = ConvertStr(textID_).c_str(); // string형을 char* 타입으로 변환후 buffer에 집어넣기
 			send(client_sock, buffer, strlen(buffer), 0);
 
 
@@ -498,8 +497,14 @@ namespace GUI {
 		HomeImageSound->Play();
 	}
 		   
-
 		   
+	public:
+	   static string ConvertStr(String^ str)
+	  {
+	   return msclr::interop::marshal_as<std::string>(str);
+	  }
+	;
+
 
 };
 }

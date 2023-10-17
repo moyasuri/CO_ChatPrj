@@ -135,7 +135,6 @@
     <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="MessageBox.cpp" />
     <ClCompile Include="MyForm.cpp" />
-    <ClCompile Include="MyFunc.cpp" />
     <ClCompile Include="NewMessage.cpp" />
     <ClCompile Include="PrivateRoom.cpp" />
     <ClCompile Include="PrivateRoomChat.cpp" />
@@ -187,9 +186,6 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="MyForm.h">
-      <FileType>CppForm</FileType>
-    </ClInclude>
-    <ClInclude Include="MyFunc.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="NewMessage.h">
