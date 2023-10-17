@@ -1,8 +1,9 @@
 ﻿#pragma once
 #include <msclr/marshal_cppstd.h>
 #include <string>
-
+#include "Usage.h"
 extern SOCKET client_sock;
+extern std::string Recv_str;
 namespace GUI {
 
 	using namespace System;
@@ -420,10 +421,6 @@ namespace GUI {
 		}
 #pragma endregion
 
-	public: std::string ConvertStr(String^ str)
-		{
-			return msclr::interop::marshal_as<std::string>(str);
-		}
 
 		// btnsubmit  회원가입 실행버튼
 		// 전화번호가 겹치거나 공백란이 있다면 오류를 반환
@@ -456,11 +453,66 @@ namespace GUI {
 		   // ID 중복 확인하기버튼
 	private: System::Void btnIDduplicateChk_Click(System::Object^ sender, System::EventArgs^ e) {
 		
-		String^ textID_ = txtBoxID->Text;
-		const char* buffer = ConvertStr(textID_).c_str(); // string형을 char* 타입으로 변환후 buffer에 집어넣기
-		send(client_sock, buffer, strlen(buffer), 0);
+		//테두리 없애기
+		btnIDduplicateChk->NotifyDefault(false);
+
+		// 텍스트 상자에서 텍스트 가져오기
+		String^ textID_ = txtBoxID->Text; // textBox는 해당 텍스트 상자의 이름입니다.
 		
-		// DB의 ID랑 중복되는지 확인
+
+		// ID와 PW의 문자열이 채워져있다면
+		if (!String::IsNullOrEmpty(textID_)) {
+
+
+
+			// Server에 ID / PW를 보내기함수
+			int time_limit = 0;
+
+			std::string temp_id = msclr::interop::marshal_as<std::string>(textID_);
+			
+			std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_id_try_Signin));
+
+			std::string _Index_Str_Result = _Index_Str + " " + temp_id;
+			const char* buffer = _Index_Str_Result.c_str();
+			send(client_sock, buffer, strlen(buffer), 0);
+
+
+
+
+			while (1)
+			{
+		
+				if (Recv_str == "true")// server 에서 오케이받는 함수
+				{
+
+		
+					return;
+				}
+				else if (Recv_str == "false") //  server에서 다른값보내면
+				{
+					System::Windows::Forms::MessageBox::Show("아이디가 일치하지 않습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+
+					return;
+				}
+				else // 무한반복되는건데 시간타이밍 주면 좋을거같음
+				{
+					Sleep(1000);
+					if (time_limit > 1)
+					{
+						System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+						return;
+					}
+					else
+					{
+						time_limit++;
+					}
+				}
+			}
+		}
+		// 입력값이 없다면,
+		else {
+			System::Windows::Forms::MessageBox::Show("ID / PW 를 다시입력해주세요. ", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		}
 		
 		
 
@@ -474,8 +526,7 @@ namespace GUI {
 		
 
 		String^ textNickName_ = txtBoxNickName->Text;
-		const char* buffer = ConvertStr(textNickName_).c_str(); // string형을 char* 타입으로 변환후 buffer에 집어넣기
-		// send(client_sock, buffer, strlen(buffer), 0);
+
 
 	}
 
