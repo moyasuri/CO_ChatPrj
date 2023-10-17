@@ -4,14 +4,14 @@
 #include "FindAccount.h"
 #include <msclr/marshal_cppstd.h>
 #include <string>
-
+// #include "MyFunc.h"
 
 static std::string my_nick;
 static SOCKET client_sock;
 static bool enterServer;
 static bool isExit;
 static int Temp_socket;
-static std::string temp_socket;
+static std::string Recv_str;
 
 
 namespace GUI {
@@ -36,7 +36,8 @@ namespace GUI {
 	private:
 		SignUp^ signupForm = nullptr;
 		FindAccount^ findaccountForm = nullptr;
-		MainForm^ mainForm =nullptr;
+		MainForm^ mainForm = nullptr;
+		
 	private: bool isFirstActivation = true;
 
 	
@@ -65,12 +66,15 @@ namespace GUI {
 			//TODO: 생성자 코드를 여기에 추가합니다.
 			//
 
-			// Image 추가
+
+			// sound 추가
+
 			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\constantmoderato.wav");
 			IntroImageSound->SoundLocation = relativePath; // SoundLocation에 CLI 문자열을 설정
 			IntroImageSound->Load();
 			IntroImageSound->Play();
-			
+
+			// Image 추가			
 			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\HomeIntro.gif");
 			PicBoxIntro->ImageLocation = relativePath;
 
@@ -98,8 +102,6 @@ namespace GUI {
 			// 이미지 추가 끝
 
 
-			// sound 추가
-						
 
 
 
@@ -184,6 +186,7 @@ namespace GUI {
 			this->btnSignin->Name = L"btnSignin";
 			this->btnSignin->Size = System::Drawing::Size(250, 120);
 			this->btnSignin->TabIndex = 1;
+			this->btnSignin->TabStop = false;
 			this->btnSignin->Text = L"Sign in";
 			this->btnSignin->UseVisualStyleBackColor = false;
 			this->btnSignin->Click += gcnew System::EventHandler(this, &MyForm::btnSignin_Click);
@@ -251,6 +254,7 @@ namespace GUI {
 			this->btnExit->Name = L"btnExit";
 			this->btnExit->Size = System::Drawing::Size(250, 120);
 			this->btnExit->TabIndex = 11;
+			this->btnExit->TabStop = false;
 			this->btnExit->Text = L"Exit";
 			this->btnExit->UseVisualStyleBackColor = false;
 			this->btnExit->Click += gcnew System::EventHandler(this, &MyForm::btnExit_Click);
@@ -270,6 +274,7 @@ namespace GUI {
 			this->btnSignup->Name = L"btnSignup";
 			this->btnSignup->Size = System::Drawing::Size(307, 120);
 			this->btnSignup->TabIndex = 12;
+			this->btnSignup->TabStop = false;
 			this->btnSignup->Text = L"Sign up";
 			this->btnSignup->UseVisualStyleBackColor = false;
 			this->btnSignup->Click += gcnew System::EventHandler(this, &MyForm::btn_signup_Click);
@@ -289,6 +294,7 @@ namespace GUI {
 			this->btnFindAccount->Name = L"btnFindAccount";
 			this->btnFindAccount->Size = System::Drawing::Size(322, 120);
 			this->btnFindAccount->TabIndex = 14;
+			this->btnFindAccount->TabStop = false;
 			this->btnFindAccount->Text = L"Find Account";
 			this->btnFindAccount->UseVisualStyleBackColor = false;
 			this->btnFindAccount->Click += gcnew System::EventHandler(this, &MyForm::btnFindAccount_Click);
@@ -332,7 +338,7 @@ namespace GUI {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage"))); // 나중에 경로 지정하자
+			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->ClientSize = System::Drawing::Size(1109, 646);
 			this->Controls->Add(this->btnSignup);
@@ -364,9 +370,12 @@ namespace GUI {
 
 		// sign up form을 띄우기.
 	private: System::Void btn_signup_Click(System::Object^ sender, System::EventArgs^ e) {
+		
+		btnSignup->NotifyDefault(false);
 		// 이미 생성된 SignUp 폼이 없는 경우에만 새로운 폼을 생성하고 엽니다.
 		if (signupForm == nullptr || signupForm->IsDisposed) {
 			signupForm = gcnew SignUp;
+			signupForm->Owner = this;
 			signupForm->Show();
 		}
 		// 이미 생성된 폼이 열려 있는 경우, 해당 폼을 활성화시킵니다.
@@ -385,12 +394,13 @@ namespace GUI {
 
 	private: System::Void btnSignin_Click(System::Object^ sender, System::EventArgs^ e) {
 
-
-
+		//테두리 없애기
+		btnSignin->NotifyDefault(false);
+		
 		// 텍스트 상자에서 텍스트 가져오기
 		String^ textID_ = txtBoxID->Text; // textBox는 해당 텍스트 상자의 이름입니다.
 		String^ textPW_ = txtBoxPW->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-		std::string stdString = msclr::interop::marshal_as<std::string>(textID_);
+		
 
 		// ID와 PW의 문자열이 채워져있다면
 		if (!String::IsNullOrEmpty(textID_)&& !String::IsNullOrEmpty(textPW_)) {
@@ -398,11 +408,14 @@ namespace GUI {
 			// Server에 ID / PW를 보내기함수
 			int time_limit = 0;
 			
-			const char* buffer = stdString.c_str(); // string형을 char* 타입으로 변환
-			send(client_sock, buffer, strlen(buffer), 0);
+			//const char* buffer = MyFunc::ConvertStr(textID_).c_str(); // string형을 char* 타입으로 변환후 buffer에 집어넣기
+			//send(client_sock, buffer, strlen(buffer), 0);
+
+
+			
 			while(1)
 			{
-				if (temp_socket=="3")// server 에서 오케이받는 함수
+				if (Recv_str=="3")// server 에서 오케이받는 함수
 				{
 
 					// Hide 할때의 동작			
@@ -413,7 +426,6 @@ namespace GUI {
 						this->HomeImageSound->Stop();
 						mainForm->Show();
 					}
-
 					return;
 				}
 				else if(0) //  server에서 다른값보내면
@@ -426,6 +438,7 @@ namespace GUI {
 					Sleep(1000);
 					if (time_limit > 1)
 					{
+						System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 						return;
 					}
 					else
@@ -440,17 +453,16 @@ namespace GUI {
 			System::Windows::Forms::MessageBox::Show("ID / PW 를 다시입력해주세요. ", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		}
 
-
 	}
 
 	private: System::Void btnExit_Click(System::Object^ sender, System::EventArgs^ e) {
-		
+		btnExit->NotifyDefault(false);
 		this->Close();
 	}
 
 
 	private: System::Void btnFindAccount_Click(System::Object^ sender, System::EventArgs^ e) {
-	
+		btnFindAccount->NotifyDefault(false);
 		// 이미 생성된 SignUp 폼이 없는 경우에만 새로운 폼을 생성하고 엽니다.
 		if (findaccountForm == nullptr || findaccountForm->IsDisposed) {
 			findaccountForm = gcnew FindAccount;
@@ -483,8 +495,9 @@ namespace GUI {
 
 		HomeImageSound->Play();
 	}
+		   
 
-
+		   
 
 };
 }

@@ -1,5 +1,5 @@
 ﻿#pragma once
-
+#include "MyFunc.h"
 
 namespace GUI {
 
@@ -435,11 +435,12 @@ namespace GUI {
 
 		if (!String::IsNullOrEmpty(textBoxText)) {
 			// 텍스트 상자에 텍스트가 비어 있지 않으면 Message Box로 출력
-			MessageBox::Show(textBoxText, "텍스트 상자 내용", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			System::Windows::Forms::MessageBox::Show(textBoxText, "텍스트 상자 내용", MessageBoxButtons::OK, MessageBoxIcon::Information);
 		}
 		else {
 			// 텍스트 상자가 비어 있을 때 메시지를 출력할 수 있습니다.
-			MessageBox::Show("텍스트 상자가 비어 있습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			System::Windows::Forms::MessageBox::Show("text가 비어있습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Information);
+
 		}
 
 
@@ -452,7 +453,8 @@ namespace GUI {
 	private: System::Void btnIDduplicateChk_Click(System::Object^ sender, System::EventArgs^ e) {
 
 		// DB의 ID랑 중복되는지 확인
-		txtBoxID->Text;
+		// UI::MyForm::ConvertStr(txtBoxID->Text);
+			
 
 	}
 		    

@@ -188,6 +188,7 @@
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="MyFunc.h" />
     <ClInclude Include="NewMessage.h">
       <FileType>CppForm</FileType>
     </ClInclude>

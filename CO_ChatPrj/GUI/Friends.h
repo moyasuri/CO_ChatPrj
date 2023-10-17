@@ -178,7 +178,7 @@ private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e
 	}
 
 }
-private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
+public: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
 	this->Close();
 }
 };

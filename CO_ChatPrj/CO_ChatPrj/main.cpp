@@ -144,7 +144,6 @@ void recv_msg(int idx) {
             //msg = sck_list[idx].user + " : " + buf;
             
             msg = buf;
-
             cout << buf << endl;
             if (msg == "cd")
             {
