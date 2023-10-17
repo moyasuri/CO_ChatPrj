@@ -22,6 +22,7 @@ struct SOCKET_INFO { // 연결된 소켓 정보에 대한 틀 생성
 std::vector<SOCKET_INFO> sck_list; // 연결된 클라이언트 소켓들을 저장할 배열 선언.
 SOCKET_INFO server_sock; // 서버 소켓에 대한 정보를 저장할 변수 선언.
 int client_count = 0; // 현재 접속해 있는 클라이언트를 count 할 변수 선언.
+int test = 123;
 
 void server_init(); // socket 초기화 함수. socket(), bind(), listen() 함수 실행됨. 자세한 내용은 함수 구현부에서 확인.
 void add_client(); // 소켓에 연결을 시도하는 client를 추가(accept)하는 함수. client accept() 함수 실행됨. 자세한 내용은 함수 구현부에서 확인.
@@ -143,7 +144,7 @@ void recv_msg(int idx) {
         ZeroMemory(&buf, MAX_SIZE);
         if (recv(sck_list[idx].sck, buf, MAX_SIZE, 0) > 0) { // 오류가 발생하지 않으면 recv는 수신된 바이트 수를 반환. 0보다 크다는 것은 메시지가 왔다는 것.
             //msg = sck_list[idx].user + " : " + buf;
-            
+     
             msg = buf;
             cout << buf << endl;
             if (msg == "cd")

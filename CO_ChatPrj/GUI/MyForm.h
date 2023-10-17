@@ -8,8 +8,8 @@
 
 
 static std::string my_nick;
-std::string Recv_str;
-SOCKET client_sock;
+extern std::string Recv_str;
+extern SOCKET client_sock;
 static bool enterServer;
 static bool isExit;
 
@@ -418,12 +418,20 @@ namespace GUI {
 		// ID와 PW의 문자열이 채워져있다면
 		if (!String::IsNullOrEmpty(textID_) && !String::IsNullOrEmpty(textPW_)) {
 
+			
+			
 			// Server에 ID / PW를 보내기함수
-			int time_limit = 0;
-
-			const char* buffer = ConvertStr(textID_).c_str(); // string형을 char* 타입으로 변환후 buffer에 집어넣기
-			//System::Windows::Forms::MessageBox::Show(textID_, "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			int time_limit = 0;			
+			string temp = msclr::interop::marshal_as<std::string>(textID_);
+			const char* buffer = temp.c_str();
 			send(client_sock, buffer, strlen(buffer), 0);
+
+			// const char* buffer = ConvertStr(textID_).c_str(); // string형을 char* 타입으로 변환후 buffer에 집어넣기 -> 미친생각
+			// String^ ttt = Convert::ToString(test);
+			// string test = msclr::interop::marshal_as<std::string>(textID_);
+			//int ret = send(client_sock, buffer, strlen(buffer), 0);
+			// String^ ttt2 = Convert::ToString(ret);
+			//System::Windows::Forms::MessageBox::Show(ttt2, ttt2, MessageBoxButtons::OK, MessageBoxIcon::Warning);
 
 
 			while (1)
@@ -443,7 +451,6 @@ namespace GUI {
 				}
 				else if (0) //  server에서 다른값보내면
 				{
-
 					return;
 				}
 				else // 무한반복되는건데 시간타이밍 주면 좋을거같음
@@ -451,8 +458,6 @@ namespace GUI {
 					Sleep(1000);
 					if (time_limit > 1)
 					{
-						System::String^ recvStr = gcnew System::String(Recv_str.c_str());
-						System::Windows::Forms::MessageBox::Show(recvStr, "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 						System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 						return;
 					}
@@ -511,14 +516,6 @@ namespace GUI {
 
 		HomeImageSound->Play();
 	}
-
-
-	private:
-		string ConvertStr(String^ str)
-		{
-			return msclr::interop::marshal_as<std::string>(str);
-		}
-		
 
 
 	};

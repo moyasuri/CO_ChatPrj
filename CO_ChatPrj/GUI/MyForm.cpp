@@ -7,8 +7,8 @@
 #include <iostream>
 #include <thread>
 
-// SOCKET client_sock;
-// std::string Recv_str;
+SOCKET client_sock;
+std::string Recv_str;
 
 #include "MyForm.h"
 #include "MainForm.h"
