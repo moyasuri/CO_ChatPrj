@@ -27,6 +27,27 @@ using std::cin;
 using std::endl;
 using std::string;
 
+const string 로그인시도 = "00"; //send_id / recv_pw
+const string ID찾기 = "01";
+const string PW찾기 = "02";
+
+
+//const string 정보 변경= "10";
+const string 비밀번호수정 = "11";
+const string 이메일수정 = "12";
+const string 전화번호수정 = "13";
+const string 생년월일수정 = "14";
+const string 닉네임수정 = "15";
+const string 캐릭터수정 = "16";
+const string 참여방변경 = "17";
+
+//const string 친구 = "20";
+
+const string 친구목록 = "21";
+const string 친구요청 = "22";
+const string 친구검색 = "23";
+const string 친구신청 = "24";
+
 struct SOCKET_INFO { // 연결된 소켓 정보에 대한 틀 생성
     SOCKET sck;
     string user;
@@ -46,6 +67,7 @@ void del_client(int idx); // 소켓에 연결되어 있는 client를 제거하는 함수. closes
 
 
 class MY_SQL {
+public:
     // MySQL Connector/C++ 초기화
     sql::mysql::MySQL_Driver* driver; // 추후 해제하지 않아도 Connector/C++가 자동으로 해제해 줌
     sql::Connection* con;
@@ -82,11 +104,17 @@ class MY_SQL {
     //login 쿼리 보내기
     void check_pw(SOCKET server_sock, string mysql_check_id) {
         res = stmt->executeQuery("SELECT member_PW FROM member WHERE Member_ID = '" + mysql_check_id + "'");
-        string result = "00 " + res->getString(1);
+        string result;
+        if (res->next())
+            result = "00 " + res->getString(1);
+        else 
+            result = "00 ";
+        
 
         send(server_sock, result.c_str(), MAX_SIZE, 0);
     }
 
+private:
 };
 
 
@@ -203,50 +231,17 @@ void del_client(int idx) {
 
 void recv_from_client(SOCKET s, string reading, string msg) {// 메세지가 들어오면 타입 구분 하는 기초 함수
     class MY_SQL mysql;
-    switch (server_func_num(reading))
-    {
-    case(0): //login_check pw
+    if (server_func_num(reading)== 로그인시도)
         mysql.check_pw(s, msg);
-        //리더님은 문제가 없다고 하셨는데..,,,, 추가 목록 다시 살펴봐야함
-        ; break;
-    case(1):
-        ; break;
-    case(2):
-        ; break;
-    case(3):
-        ; break;
-    case(4):
-        ; break;
-    case(5):
-        ; break;
-    case(6):
-        ; break;
-    case(7):
-        ; break;
-    }
+   
 
 }
 
-int server_func_num(string reading) { //들어오는 정보들을 기능별로 구분하기 위한 buf에 있는 값 받아오는 첫 번째 함수
+string server_func_num(string reading) { //들어오는 정보들을 기능별로 구분하기 위한 buf에 있는 값 받아오는 첫 번째 함수
     string strfunc_menu;
     strfunc_menu = reading[0] + reading[1];
+    return strfunc_menu;
 
-    if (strfunc_menu == "00")
-        return 0;
-    if (strfunc_menu == "01")
-        return 1;
-    if (strfunc_menu == "02")
-        return 2;
-    if (strfunc_menu == "03")
-        return 3;
-    if (strfunc_menu == "04")
-        return 4;
-    if (strfunc_menu == "05")
-        return 5;
-    if (strfunc_menu == "06")
-        return 6;
-    if (strfunc_menu == "07")
-        return 7;
 }
 
 

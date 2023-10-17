@@ -12,6 +12,72 @@
 
 using namespace std;
 
+class User {
+public:
+    string getMember_ID() {
+        return member_ID;
+    }
+    string getEmail() {
+        return email;
+    }
+    string getPhone() {
+        return phone;
+    }
+    string getBirth() {
+        return birth;
+    }
+    string getNickname() {
+        return nickname;
+    }
+    string getCha_num() {
+        return member_ID;
+    }
+    string getMember_PW() {
+        return member_ID;
+    }
+    string getJoin_room_index() {
+        return member_ID;
+    }
+
+    string setMember_ID(string member_ID) {
+        this->member_ID = member_ID;
+    }
+    string setEmail(string email) {
+        this->email = email;
+    }
+    string setPhone(string phone) {
+        this->phone = phone;
+    }
+    string setBirth(string birth) {
+        this->birth = birth;
+    }
+    string setNickname(string nickname) {
+        this->nickname = nickname;
+    }
+    string setCha_num(string cha_num) {
+        this->cha_num = cha_num;
+    }
+    string setMember_PW(string pw) {
+        this->member_PW = member_PW;
+    }
+    string setJoin_room_index(string join_room_index) {
+        this->join_room_index = join_room_index;
+    }
+
+private:
+    string member_ID = "";
+    string member_PW = "";
+    string email = "";
+    string phone = "";
+    string birth = "";
+    string nickname = "";
+    string cha_num = "";
+    string join_room_index = "";
+
+
+
+};
+
 //string으로 정보를 모두 받아줘야 하고 (socket에 char 형식으로만 전달 가능해 c_str 사용해야 하기 때문) 
 //서버에 전달 후 서버에서 string으로 다시 받아 int변환 등 처리해서 mysql로 보내준다.
 #define MAX_SIZE 1024
@@ -26,7 +92,7 @@ SOCKET client_info_sock;
 string my_nick;
 
 
-const string 로그인시도 = "00";
+const string 로그인시도 = "00"; //send_id / recv_pw
 const string ID찾기 = "01";
 const string PW찾기 = "02";
 
@@ -76,6 +142,7 @@ const string 쪽지삭제하기= "34";
 //const string = "";
 //const string = "";
 //const string = "";
+User user;
 
 int chat_recv() {
     char buf[MAX_SIZE] = { };
@@ -117,9 +184,31 @@ vector<string> recv_from_server() {
     return server_msg;
 }
 
+string recv_from_server_text() 
+{
+    vector<string> text;
+    return text[1];
+}
+
+string recv_from_server_num()
+{
+    vector<string> num;
+    return num[0];
+
+}
+
+void send_to_server(string buffer) 
+//신호만 보내는 경우 buffer에 const값만 적어주면 된다.
+//내용도 보내는 경우 buffer를 수정해 줘야한다.
+{
+    send(client_sock, buffer.c_str(), strlen(buffer.c_str()), 0);
+}
+
+const string 로그인시도 = "00"; //send_id / recv_pw
+
 void login_try() {
     while (1) {
-        User user;
+        
         string login_id = "";
         string login_pw = "";
         cout << "id를 입력하세요 : " << endl;
@@ -127,13 +216,10 @@ void login_try() {
         cout << "pw를 입력하세요 : " << endl;
         cin >> login_pw;
 
-        string send_login_id = "00 " + login_id;
-
-        send(client_sock, send_login_id.c_str(), send_login_id.length(), 0);
+        string send_login_id = 로그인시도 + login_id;
+        send_to_server(send_login_id);
 
         vector<string> server_msg = recv_from_server();
-
-
         if (server_msg[0] == 로그인시도) //
         {
             if (server_msg.size() == 1) //id가 존재하지 않아 server에서 00만 전송된 경우
@@ -161,42 +247,72 @@ void login_try() {
         }
     }
 }
+const string ID찾기 = "01";
+const string PW찾기 = "02";
 
-const string 친구목록 = "21";
-const string 친구요청 = "22";
-const string 친구검색 = "23";
-const string 친구신청 = "24";
+const string 친구목록_클 = "21";
+const string 친구요청_클 = "22";
+const string 친구검색_클 = "23";
+const string 친구신청_클 = "24";
+
+const string 친구목록_서 = "21";
+const string 친구요청_서 = "22";
+const string 친구검색_서 = "23";
+const string 친구신청_서 = "24";
+
+/*
+    친구 목록은 항상 보여짐
+   친구요청버튼을 누르면 요청온 친구 목록이 보이고 수락 거절을 할수있음
+   친구추가버튼을 누르면 완전한 아이디를 검색해서 친구 요청을 보낼 수 있음 
+   모든 화면에는 닫기 버튼이 존재함
+*/
 
 void friend_home() {
-    vector<string> friend_list;
-        vector<string> friends= recv_from_server();
-    if (friends[0] == 친구목록)
-    {
-        friends[1];
+    while (1) {
+        
+        vector<string> friend_list; // 친구 테이블 받아와서 값을 각각 저장하는 벡터
+        send_to_server(친구목록_클);
+        recv_from_server();
+        string recv_friend_home_num = recv_from_server_num();
+        string recv_friend_home_text = recv_from_server_text();
+        if (recv_friend_home_num == 친구목록_서)
+        {
         string s;
-        std::stringstream ss(friends[1]);
-        while( ss >> s){
+        std::stringstream ss(recv_friend_home_text);
+        while (ss >> s) {
             friend_list.push_back(s);
         }
+        //테이블처럼 보이게 다시 바꿔줘야 한다 -_-
+        if (recv_friend_home_num == 친구목록_클) {
+            while (1) {
+                //친구목록은 기본페이지에 들어와있다
+                string friend_num=""; //사용자의 선택
+                cout << "친구 홈에서 하고 싶은 메뉴 선택" << endl;
+                cin >> friend_num;
 
+                    if (friend_num == 친구요청_클)
+                    {
+                        send_to_server(친구요청_클);
+                        if (recv_friend_home_num == 친구요청_서)
+                            recv_from_server_text();
+                    }
+
+                    
+                    else if (friend_num == 친구검색_클)
+                    {
+
+                    }
+                    else if (friend_num == 친구신청_클)
+                    {
+
+                    }
+                    else
+                        cout << "오류 발생" << endl;
+            }
+        }
     }
-    else if (friends[0] == 친구요청)
-    {
-
-    }
-    else if (friends[0] == 친구검색)
-    {
-
-    }
-    else if (friends[0] == 친구신청)
-    {
-
-    }
-    else
-        cout << "오류 발생" << endl;
-
-
 }
+
     //WSADATA wsa;
     //User user;
 
@@ -281,16 +397,6 @@ void friend_home() {
                 while (1) {
                     if (!connect(client_sock, (SOCKADDR*)&client_addr, sizeof(client_addr))) { // 위에 설정한 정보에 해당하는 server로 연결!
                         cout << "Server Connect" << endl;
-                    }
-
-                    switch (client_func_num(recv_from_server)) {
-                    case 1:
-                        ;
-                        break;
-                    case (2):
-
-                    
-                    
                     }
 
                         send(client_sock, my_nick.c_str(), my_nick.length(), 0); // 연결에 성공하면 client 가 입력한 닉네임을 서버로 전송
