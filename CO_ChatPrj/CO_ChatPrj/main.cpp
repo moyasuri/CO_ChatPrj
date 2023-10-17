@@ -135,7 +135,14 @@ void send_msg(const char* msg) {
     }
 }
 
-// client별 확인을 만들어야겠네.
+
+//// client을 구별하는 방법
+//void send_msg(const char* msg, ) {
+//    for (int i = 0; i < client_count; i++) { // 접속해 있는 모든 client에게 메시지 전송
+//        send(sck_list[i].sck, msg, MAX_SIZE, 0);
+//    }
+//}
+//// client별 확인을 만들어야겠네.
 
 
 
@@ -170,7 +177,16 @@ void recv_msg(int idx) {
 
                 case e_try_Signin:
                 {
+                    // SignIn 정보일치하면
+                    
 
+                    if (server_msg[0] == "00") // 로그인이 온다면
+                    {
+                        e_Try_Signin + 
+                        send_msg("11 have"); 
+                        break;
+                    }
+                    
                 }
                 break;
                 case e_find_ID:
@@ -178,13 +194,70 @@ void recv_msg(int idx) {
 
                 }
                 break;
+                case e_find_PW:
+                {
+
+                }
+                break;
+                case e_modify_PW:
+                {
+
+                }
+                break;
+                case e_modify_Email:
+                {
+
+                }
+                break;
+                case e_modify_PhoneNum:
+                {
+
+                }
+                break;
+                case e_modify_Birth:
+                {
+
+                }
+                break;
+                case e_modify_NickName:
+                {
+
+                }
+                break;
+                case e_modify_Cha:
+                {
+
+                }
+                break;
+                case e_modify_JoinRoom:
+                {
+
+                }
+                break;
+                case e_message_List:
+                {
+
+                }
+                break;
+                case e_message_Read:
+                {
+
+                }
+                break;
+                case e_message_Send:
+                {
+
+                }
+                break;
+                case e_message_Delete:
+                {
+
+                }
+                break;
+
 
             }
-                
-            if (server_msg[0] == "00") // 로그인이 온다면
-            {
-                send_msg("00 have"); // 이거 수정
-            }
+             
             //cout << msg << endl;
             //send_msg(msg.c_str());
         }
