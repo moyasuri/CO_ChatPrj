@@ -5,6 +5,8 @@
 #include <iostream>
 #include <thread>
 #include <vector>
+#include <sstream>
+#include "Usage.h"
 
 #define MAX_SIZE 1024
 #define MAX_CLIENT 3
@@ -103,6 +105,7 @@ void add_client() {
     int addrsize = sizeof(addr);
     char buf[MAX_SIZE] = { };
 
+
     ZeroMemory(&addr, addrsize); // addr의 메모리 영역을 0으로 초기화
 
     SOCKET_INFO new_client = {};
@@ -131,30 +134,59 @@ void send_msg(const char* msg) {
         send(sck_list[i].sck, msg, MAX_SIZE, 0);
     }
 }
+
 // client별 확인을 만들어야겠네.
+
+
+
 
 void recv_msg(int idx) {
     char buf[MAX_SIZE] = { };
     string msg = "";
 
     //cout << sck_list[idx].user << endl;
-
+    std::vector<string> server_msg;
+    
+    string _Index;
+    string _Contents;
     
     while (1) {
         ZeroMemory(&buf, MAX_SIZE);
         if (recv(sck_list[idx].sck, buf, MAX_SIZE, 0) > 0) { // 오류가 발생하지 않으면 recv는 수신된 바이트 수를 반환. 0보다 크다는 것은 메시지가 왔다는 것.
             //msg = sck_list[idx].user + " : " + buf;
-     
+            server_msg.clear();
+            
             msg = buf;
-            cout << buf << endl;
-            if (msg == "cd")
+            std::stringstream ss(msg);
+            ss >> _Index;
+            server_msg.push_back(_Contents);
+            _Contents = string(buf + 3);
+            server_msg.push_back(_Contents);
+            
+            int _Index_I = stoi(_Index);
+            
+            switch (_Index_I)
             {
-                send_msg("3"); // 이거 수정
-            }
 
+                case e_try_Signin:
+                {
+
+                }
+                break;
+                case e_find_ID:
+                {
+
+                }
+                break;
+
+            }
+                
+            if (server_msg[0] == "00") // 로그인이 온다면
+            {
+                send_msg("00 have"); // 이거 수정
+            }
             //cout << msg << endl;
             //send_msg(msg.c_str());
-            
         }
         else { //그렇지 않을 경우 퇴장에 대한 신호로 생각하여 퇴장 메시지 전송
             msg = "[공지] " + sck_list[idx].user + " 님이 퇴장했습니다.";

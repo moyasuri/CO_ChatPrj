@@ -422,21 +422,31 @@ namespace GUI {
 			
 			// Server에 ID / PW를 보내기함수
 			int time_limit = 0;			
-			string temp = msclr::interop::marshal_as<std::string>(textID_);
-			const char* buffer = temp.c_str();
+
+			string temp_id = msclr::interop::marshal_as<std::string>(textID_);
+			// temp_id.c_str();
+			string temp_pw = msclr::interop::marshal_as<std::string>(textID_);
+			// temp_pw.c_str();
+			
+			string temp_idpw = "00 " + temp_id + " " + temp_pw;
+
+			const char* buffer = temp_idpw.c_str();
 			send(client_sock, buffer, strlen(buffer), 0);
 
 			// const char* buffer = ConvertStr(textID_).c_str(); // string형을 char* 타입으로 변환후 buffer에 집어넣기 -> 미친생각
 			// String^ ttt = Convert::ToString(test);
 			// string test = msclr::interop::marshal_as<std::string>(textID_);
-			//int ret = send(client_sock, buffer, strlen(buffer), 0);
+			// int ret = send(client_sock, buffer, strlen(buffer), 0);
 			// String^ ttt2 = Convert::ToString(ret);
-			//System::Windows::Forms::MessageBox::Show(ttt2, ttt2, MessageBoxButtons::OK, MessageBoxIcon::Warning);
-
+			// System::Windows::Forms::MessageBox::Show(ttt2, ttt2, MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			// System::Windows::Forms::MessageBox::Show(ttt2, ttt2, MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			
 
 			while (1)
 			{
-				if (Recv_str == "3")// server 에서 오케이받는 함수
+				//String^ dddd = gcnew String(Recv_str.c_str());
+				//System::Windows::Forms::MessageBox::Show(dddd, "ttt2", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				if (Recv_str == "00 have")// server 에서 오케이받는 함수
 				{
 
 					// Hide 할때의 동작			
@@ -449,8 +459,10 @@ namespace GUI {
 					}
 					return;
 				}
-				else if (0) //  server에서 다른값보내면
+				else if (Recv_str =="00") //  server에서 다른값보내면
 				{
+					System::Windows::Forms::MessageBox::Show("아이디가 일치하지 않습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+
 					return;
 				}
 				else // 무한반복되는건데 시간타이밍 주면 좋을거같음
