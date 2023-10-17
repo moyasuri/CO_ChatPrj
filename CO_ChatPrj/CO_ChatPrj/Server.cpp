@@ -56,8 +56,6 @@ class Server {
     //친구목록 데이터 가져오기
     void send_friend_list(const char* friendList) {
         stmt->execute("select Friend_List_Index, My_Friend_ID from chat.friend_list"); // DROP
-
-
     }
 
     

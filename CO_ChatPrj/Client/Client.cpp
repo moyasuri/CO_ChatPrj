@@ -25,7 +25,57 @@ SOCKET client_sock;
 SOCKET client_info_sock;
 string my_nick;
 
+
 const string 로그인시도 = "00";
+const string ID찾기 = "01";
+const string PW찾기 = "02";
+
+
+//const string 정보 변경= "10";
+const string 비밀번호수정 = "11";
+const string 이메일수정 = "12";
+const string 전화번호수정="13";
+const string 생년월일수정 = "14";
+const string 닉네임수정= "15";
+const string 캐릭터수정= "16";
+const string 참여방변경 = "17";
+
+//const string 친구 = "20";
+
+const string 친구목록= "21";
+const string 친구요청= "22";
+const string 친구검색= "23";
+const string 친구신청= "24";
+//const string = "";
+//const string = "";
+//const string = "";
+
+//const string 쪽지 //친구검색 쓰임 30
+const string 쪽지목록 = "31";
+const string 쪽지읽기= "32";
+const string 쪽지보내기= "33";
+const string 쪽지삭제하기= "34";
+
+
+//쪽지 
+//
+//const string = "";
+//const string = "";
+//const string = "";
+//const string = "";
+//const string = "";
+//const string = "";
+//const string = "";
+//const string = "";
+//
+//const string = "";
+//const string = "";
+//const string = "";
+//const string = "";
+//const string = "";
+//const string = "";
+//const string = "";
+//const string = "";
 
 int chat_recv() {
     char buf[MAX_SIZE] = { };
@@ -59,18 +109,15 @@ vector<string> recv_from_server() {
     if (recv(client_sock, buf, MAX_SIZE, 0) > 0) {
         msg = buf;
         std::stringstream ss(msg);  // 문자열을 스트림화
-        ss >> identify_num >> text;
+        ss >> identify_num ;
         server_msg.push_back(identify_num);
+        text = string(buf + 3);
         server_msg.push_back(text);
     }
     return server_msg;
 }
-    
-        
 
-
-
-class User login_try() {
+void login_try() {
     while (1) {
         User user;
         string login_id = "";
@@ -102,8 +149,8 @@ class User login_try() {
             else if (server_msg[1] == login_pw) //로그인 가능
             {
                 cout << "로그인에 성공했습니다. "<<endl; //팝업으로 뜨겠죠?
-                user.setMember_ID = login_id;
-                user.setMember_PW = login_pw;
+                user.setMember_ID(login_id);
+                user.setMember_PW(login_pw);
                 break;
             }
             else // 이상 오류
@@ -112,20 +159,52 @@ class User login_try() {
                 break;
             }
         }
-
-        return user;
     }
 }
 
+const string 친구목록 = "21";
+const string 친구요청 = "22";
+const string 친구검색 = "23";
+const string 친구신청 = "24";
 
-class Client
-{
-    WSADATA wsa;
-    User user;
+void friend_home() {
+    vector<string> friend_list;
+        vector<string> friends= recv_from_server();
+    if (friends[0] == 친구목록)
+    {
+        friends[1];
+        string s;
+        std::stringstream ss(friends[1]);
+        while( ss >> s){
+            friend_list.push_back(s);
+        }
+
+    }
+    else if (friends[0] == 친구요청)
+    {
+
+    }
+    else if (friends[0] == 친구검색)
+    {
+
+    }
+    else if (friends[0] == 친구신청)
+    {
+
+    }
+    else
+        cout << "오류 발생" << endl;
+
+
+}
+    //WSADATA wsa;
+    //User user;
 
     //user의 정보 입력받고 class User에 안전하게 저장하기
-    void correct_userInfo() {
-        string inputId;
+//회원가입,회원수정
+    void create_userInfo() {
+        User user;
+        string inputID;
         string inputEmail;
         string inputPhone;
         string inputBirth;
@@ -136,7 +215,7 @@ class Client
 
         cout << "ID를 입력하세요 " << endl;
         cin >> inputID;
-        user.setMember_ID(inputId);
+        user.setMember_ID(inputID);
 
         cout << "이메일을 입력하세요 " << endl;
         cin >> inputEmail;
@@ -166,67 +245,19 @@ class Client
     }
 
     //user의 정보들을 자동으로 돌려주기 위해 벡터에 저장해 준다.
-    vector<string> getUserInfo(User user1) {
-        vector <string> userinfo;
+    string getUserInfo(User user1) {
+        string userinfo = "";
         userinfo.clear();
 
-        userinfo.push_back(user1.getMember_ID());
-        userinfo.push_back(user1.getEmail());
-        userinfo.push_back(user1.getPhone());
-        userinfo.push_back(user1.getBirth());
-        userinfo.push_back(user1.getNickname());
-        userinfo.push_back(user1.getCha_num());
-        userinfo.push_back(user1.getMember_PW());
-        userinfo.push_back(user1.getJoin_room_index());
+        userinfo = user1.getMember_ID + " " +
+            user1.getEmail + " " + user1.getPhone + " " + user1.getBirth +
+            user1.getNickname + " " + user1.getCha_num + " " + user1.getMember_PW + " " + user1.getJoin_room_index;
+    
+
 
         return userinfo;
     }
 
-
-
-
-    void runCreateAccount() {
-        int code = WSAStartup(MAKEWORD(2, 2), &wsa);
-
-        if (!code) {
-            client_info_sock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP); // 
-
-            // 연결할 서버 정보 설정 부분
-            SOCKADDR_IN client_addr = {};
-            client_addr.sin_family = AF_INET;
-            client_addr.sin_port = htons(7777);
-            InetPton(AF_INET, TEXT("192.168.0.18"), &client_addr.sin_addr);
-
-            while (1) {
-                if (!connect(client_info_sock, (SOCKADDR*)&client_addr, sizeof(client_addr))) { // 위에 설정한 정보에 해당하는 server로 연결!
-                    cout << "Server Connect" << endl;
-                    for (auto info : getUserInfo(user))
-                    {
-                        send(client_info_sock, info.c_str(), info.length(), 0); // 연결에 성공하면 client 가 입력한 닉네임을 서버로 전송
-                        send(client_info_sock, " ", 1, 0);
-                    }
-                    break;
-                }
-
-                std::thread th2(chat_recv);
-
-                while (1) {
-                    string text;
-                    std::getline(cin, text);
-                    const char* buffer = text.c_str(); // string형을 char* 타입으로 변환
-                    send(client_info_sock, buffer, strlen(buffer), 0);
-                }
-                th2.join();
-                closesocket(client_info_sock);
-            }
-
-            WSACleanup();
-        }
-
-    }
-
-    
-};
 
         int main() {
             WSADATA wsa;
@@ -278,8 +309,7 @@ class Client
                 }
                 th2.join();
                 closesocket(client_sock);
-            }
-
+            
             WSACleanup();
             return 0;
         }

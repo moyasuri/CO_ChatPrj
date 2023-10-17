@@ -32,29 +32,29 @@ class User {
 		return member_ID;
 	}
 
-	string setMember_ID() {
-		
+	string setMember_ID(string member_ID) {
+		this->member_ID = member_ID;
 	}
-	string setEmail() {
-		
+	string setEmail(string email) {
+		this->email = email;
 	}
-	string setPhone() {
-		
+	string setPhone(string phone) {
+		this->phone = phone;
 	}
-	string setBirth() {
-	
+	string setBirth(string birth) {
+		this->birth = birth;
 	}
-	string setNickname() {
-		
+	string setNickname(string nickname) {
+		this->nickname = nickname;
 	}
-	string setCha_num() {
-		
+	string setCha_num(string cha_num) {
+		this->cha_num = cha_num;
 	}
-	string setMember_PW() {
-		
+	string setMember_PW(string pw) {
+		this->member_PW = member_PW;
 	}
-	string setJoin_room_index() {
-		
+	string setJoin_room_index(string join_room_index) {
+		this->join_room_index = join_room_index;
 	}
 
 private:
