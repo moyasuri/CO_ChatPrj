@@ -1,5 +1,4 @@
 ﻿#pragma once
-#include "MyFunc.h"
 
 namespace GUI {
 

@@ -2,9 +2,11 @@
 #include "SignUp.h"
 #include "MainForm.h"
 #include "FindAccount.h"
+#include "MyFunc.h"
 #include <msclr/marshal_cppstd.h>
 #include <string>
-// #include "MyFunc.h"
+
+
 
 static std::string my_nick;
 static SOCKET client_sock;
@@ -408,8 +410,8 @@ namespace GUI {
 			// Server에 ID / PW를 보내기함수
 			int time_limit = 0;
 			
-			//const char* buffer = MyFunc::ConvertStr(textID_).c_str(); // string형을 char* 타입으로 변환후 buffer에 집어넣기
-			//send(client_sock, buffer, strlen(buffer), 0);
+			const char* buffer = MyFunc::ConvertStr(textID_).c_str(); // string형을 char* 타입으로 변환후 buffer에 집어넣기
+			send(client_sock, buffer, strlen(buffer), 0);
 
 
 			
