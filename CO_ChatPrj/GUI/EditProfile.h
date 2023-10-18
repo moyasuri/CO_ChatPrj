@@ -234,6 +234,7 @@ namespace GUI {
 			this->txtBoxRechk->Location = System::Drawing::Point(353, 106);
 			this->txtBoxRechk->Margin = System::Windows::Forms::Padding(3, 4, 3, 4);
 			this->txtBoxRechk->Name = L"txtBoxRechk";
+			this->txtBoxRechk->PasswordChar = '*';
 			this->txtBoxRechk->Size = System::Drawing::Size(195, 27);
 			this->txtBoxRechk->TabIndex = 25;
 			// 
@@ -379,26 +380,26 @@ namespace GUI {
 
 private: System::Void btnPWchk_Click(System::Object^ sender, System::EventArgs^ e) {
 	btnPWchk->NotifyDefault(false);
-
+	
 	int time_limit = 0;
 
 	String^ tmptxt_1 = txtBoxPW->Text; // textBox는 해당 텍스트 상자의 이름입니다.
 	String^ tmptxt_2 = txtBoxRechk->Text; // textBox는 해당 텍스트 상자의 이름입니다.
 
 	if (!String::IsNullOrEmpty(tmptxt_1)|| !String::IsNullOrEmpty(tmptxt_2)) {
-		System::Windows::Forms::MessageBox::Show(" 비밀번호를 입력해주세요.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		System::Windows::Forms::MessageBox::Show("비밀번호를 입력해주세요.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		return;
 	}
 	if (txtBoxRechk->Text != txtBoxPW->Text)
 	{
-		System::Windows::Forms::MessageBox::Show(" 비밀번호가 일치하지 않습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		System::Windows::Forms::MessageBox::Show("비밀번호가 일치하지 않습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		return;
 	}
 
 	
 
 	std::string tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
-	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_edit_PWchk));
+	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_edit_Confirm));
 
 	std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_ ;
 	const char* buffer = _Index_Str_Result.c_str();

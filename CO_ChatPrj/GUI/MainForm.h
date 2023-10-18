@@ -336,5 +336,6 @@ private: System::Void btnEditProfile_Click(System::Object^ sender, System::Event
 		editprofileForm->Activate();
 	}
 }
+
 };
 }

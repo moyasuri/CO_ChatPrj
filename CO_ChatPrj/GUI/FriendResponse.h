@@ -1,7 +1,16 @@
 ﻿#pragma once
 
-namespace GUI {
+#include <msclr/marshal_cppstd.h>
+#include <string>
+#include <cliext/vector>
+#include <sstream>
 
+#include "UsageClient.h"
+extern SOCKET client_sock;
+extern std::string Recv_str;
+
+
+namespace GUI {
 	using namespace System;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;
@@ -35,11 +44,16 @@ namespace GUI {
 			}
 		}
 	private: System::Windows::Forms::Label^ label1;
+	private: System::Windows::Forms::ListBox^ listBoxFriendsResponse;
+	private: System::Windows::Forms::Button^ btnAccept;
+	private: System::Windows::Forms::Button^ btnReject;
+
 	protected:
-	private: System::Windows::Forms::ListBox^ listBox1;
-	private: System::Windows::Forms::Button^ button1;
-	private: System::Windows::Forms::Button^ button2;
-	private: System::Windows::Forms::Button^ button3;
+
+
+
+	private: System::Windows::Forms::Button^ btnClose;
+
 
 	private:
 		/// <summary>
@@ -55,10 +69,10 @@ namespace GUI {
 		void InitializeComponent(void)
 		{
 			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->listBox1 = (gcnew System::Windows::Forms::ListBox());
-			this->button1 = (gcnew System::Windows::Forms::Button());
-			this->button2 = (gcnew System::Windows::Forms::Button());
-			this->button3 = (gcnew System::Windows::Forms::Button());
+			this->listBoxFriendsResponse = (gcnew System::Windows::Forms::ListBox());
+			this->btnAccept = (gcnew System::Windows::Forms::Button());
+			this->btnReject = (gcnew System::Windows::Forms::Button());
+			this->btnClose = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// label1
@@ -70,62 +84,204 @@ namespace GUI {
 			this->label1->TabIndex = 0;
 			this->label1->Text = L"From";
 			// 
-			// listBox1
+			// listBoxFriendsResponse
 			// 
-			this->listBox1->FormattingEnabled = true;
-			this->listBox1->ItemHeight = 15;
-			this->listBox1->Location = System::Drawing::Point(73, 145);
-			this->listBox1->Name = L"listBox1";
-			this->listBox1->Size = System::Drawing::Size(181, 244);
-			this->listBox1->TabIndex = 1;
+			this->listBoxFriendsResponse->FormattingEnabled = true;
+			this->listBoxFriendsResponse->ItemHeight = 15;
+			this->listBoxFriendsResponse->Location = System::Drawing::Point(73, 145);
+			this->listBoxFriendsResponse->Name = L"listBoxFriendsResponse";
+			this->listBoxFriendsResponse->Size = System::Drawing::Size(181, 244);
+			this->listBoxFriendsResponse->TabIndex = 1;
 			// 
-			// button1
+			// btnAccept
 			// 
-			this->button1->Location = System::Drawing::Point(294, 176);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(75, 23);
-			this->button1->TabIndex = 2;
-			this->button1->Text = L"Accept";
-			this->button1->UseVisualStyleBackColor = true;
+			this->btnAccept->Location = System::Drawing::Point(294, 176);
+			this->btnAccept->Name = L"btnAccept";
+			this->btnAccept->Size = System::Drawing::Size(75, 23);
+			this->btnAccept->TabIndex = 2;
+			this->btnAccept->Text = L"Accept";
+			this->btnAccept->UseVisualStyleBackColor = true;
+			this->btnAccept->Click += gcnew System::EventHandler(this, &FriendResponse::btnAccept_Click);
 			// 
-			// button2
+			// btnReject
 			// 
-			this->button2->Location = System::Drawing::Point(284, 254);
-			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(110, 36);
-			this->button2->TabIndex = 3;
-			this->button2->Text = L"Reject";
-			this->button2->UseVisualStyleBackColor = true;
+			this->btnReject->Location = System::Drawing::Point(284, 254);
+			this->btnReject->Name = L"btnReject";
+			this->btnReject->Size = System::Drawing::Size(110, 36);
+			this->btnReject->TabIndex = 3;
+			this->btnReject->Text = L"Reject";
+			this->btnReject->UseVisualStyleBackColor = true;
+			this->btnReject->Click += gcnew System::EventHandler(this, &FriendResponse::btnReject_Click);
 			// 
-			// button3
+			// btnClose
 			// 
-			this->button3->Location = System::Drawing::Point(294, 345);
-			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(75, 23);
-			this->button3->TabIndex = 4;
-			this->button3->Text = L"Close";
-			this->button3->UseVisualStyleBackColor = true;
-			this->button3->Click += gcnew System::EventHandler(this, &FriendResponse::button3_Click);
+			this->btnClose->Location = System::Drawing::Point(294, 345);
+			this->btnClose->Name = L"btnClose";
+			this->btnClose->Size = System::Drawing::Size(75, 23);
+			this->btnClose->TabIndex = 4;
+			this->btnClose->Text = L"Close";
+			this->btnClose->UseVisualStyleBackColor = true;
+			this->btnClose->Click += gcnew System::EventHandler(this, &FriendResponse::btnClose_Click);
 			// 
 			// FriendResponse
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(573, 473);
-			this->Controls->Add(this->button3);
-			this->Controls->Add(this->button2);
-			this->Controls->Add(this->button1);
-			this->Controls->Add(this->listBox1);
+			this->Controls->Add(this->btnClose);
+			this->Controls->Add(this->btnReject);
+			this->Controls->Add(this->btnAccept);
+			this->Controls->Add(this->listBoxFriendsResponse);
 			this->Controls->Add(this->label1);
 			this->Name = L"FriendResponse";
 			this->Text = L"FriendResponse";
+			this->Activated += gcnew System::EventHandler(this, &FriendResponse::FriendResponse_Visible);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
-private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
+private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {
 	this->Close();
+}
+private: System::Void FriendResponse_Visible(System::Object^ sender, System::EventArgs^ e) {
+
+	listBoxFriendsResponse->Items->Clear();
+	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_friends_Response_List));
+	std::string _Index_Str_Result = _Index_Str;
+	const char* buffer = _Index_Str_Result.c_str();
+	send(client_sock, buffer, strlen(buffer), 0);
+
+	// std::stringstream ss(Recv_str);
+	//ss >> _Index;
+	//server_msg.push_back(_Contents);
+	//_Contents = string(buf + 3);
+	//server_msg.push_back(_Contents);
+
+	// C++/CLI CLI 배열
+	// cli::array<System::Object^>^ arr = gcnew cli::array<System::Object^>(1);
+
+	// 공백으로 문자열 분할
+	std::istringstream iss(Recv_str); // 살짝 문제가 있을거 같기도..
+	std::string token;
+	int count = 0;
+
+	while (iss >> token) {
+		if (count == 0 && token == "true") {
+			// 첫 번째 단어가 "true"인 경우 넘어감
+			count++;
+			continue;
+		}
+		//System::String^ str = marshal_as<String^>(token);
+		listBoxFriendsResponse->Items->Add(gcnew String(token.c_str()));
+	}
+
+	// List Box에 추가
+	// listBoxFriends->Items->AddRange(vect);
+
+
+
+}
+private: System::Void btnAccept_Click(System::Object^ sender, System::EventArgs^ e) {
+
+	btnAccept->NotifyDefault(false);
+	int time_limit = 0;
+	std::string tmptxt_1_;
+	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_friends_Accept));
+	if (listBoxFriendsResponse->SelectedItem == nullptr) {
+		System::Windows::Forms::MessageBox::Show("추가하실 아이디를 선택해주세요.", "친구추가", MessageBoxButtons::OK, MessageBoxIcon::Information);
+		return;
+	}
+
+
+	String^ tmptxt_1 = listBoxFriendsResponse->SelectedItem->ToString();
+	tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
+	std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_;
+
+	const char* buffer = _Index_Str_Result.c_str();
+	send(client_sock, buffer, strlen(buffer), 0);
+
+	while (1)
+	{
+		//if (Recv_str == "true")// server 에서 오케이받는 함수
+		if (1)// test
+		{
+			FriendResponse_Visible(sender, e);
+			System::Windows::Forms::MessageBox::Show("친구를 추가하였습니다.", "친구추가", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			return;
+		}
+		else if (Recv_str == "false") //  server에서 다른값보내면
+		{
+			System::Windows::Forms::MessageBox::Show("다른값을 보냈다고?", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+
+			return;
+		}
+		else // 무한반복되는건데 시간타이밍 주면 좋을거같음
+		{
+			Sleep(1000);
+			if (time_limit > 1)
+			{
+				System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				return;
+			}
+			else
+			{
+				time_limit++;
+			}
+		}
+	}
+
+
+}
+private: System::Void btnReject_Click(System::Object^ sender, System::EventArgs^ e) {
+
+	btnAccept->NotifyDefault(false);
+	int time_limit = 0;
+	std::string tmptxt_1_;
+	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_friends_Accept));
+	if (listBoxFriendsResponse->SelectedItem == nullptr) {
+		System::Windows::Forms::MessageBox::Show("추가하실 아이디를 선택해주세요.", "친구추가", MessageBoxButtons::OK, MessageBoxIcon::Information);
+		return;
+	}
+
+
+	String^ tmptxt_1 = listBoxFriendsResponse->SelectedItem->ToString();
+	tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
+	std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_;
+
+	const char* buffer = _Index_Str_Result.c_str();
+	send(client_sock, buffer, strlen(buffer), 0);
+
+	while (1)
+	{
+		//if (Recv_str == "true")// server 에서 오케이받는 함수
+		if (1)// test
+		{
+			FriendResponse_Visible(sender, e);
+			System::Windows::Forms::MessageBox::Show("친구를 추가하였습니다.", "친구추가", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			return;
+		}
+		else if (Recv_str == "false") //  server에서 다른값보내면
+		{
+			System::Windows::Forms::MessageBox::Show("다른값을 보냈다고?", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+
+			return;
+		}
+		else // 무한반복되는건데 시간타이밍 주면 좋을거같음
+		{
+			Sleep(1000);
+			if (time_limit > 1)
+			{
+				System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				return;
+			}
+			else
+			{
+				time_limit++;
+			}
+		}
+	}
+
 }
 };
 }

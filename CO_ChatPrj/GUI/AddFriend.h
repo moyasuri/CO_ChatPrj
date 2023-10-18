@@ -1,4 +1,9 @@
 ﻿#pragma once
+#include <msclr/marshal_cppstd.h>
+#include <string>
+#include "UsageClient.h"
+extern SOCKET client_sock;
+extern std::string Recv_str;
 
 namespace GUI {
 
@@ -34,11 +39,15 @@ namespace GUI {
 				delete components;
 			}
 		}
+	private: System::Windows::Forms::Button^ btnSendReq;
+	private: System::Windows::Forms::TextBox^ txtBoxID;
+	protected:
 
 	protected:
-	private: System::Windows::Forms::Button^ button2;
-	private: System::Windows::Forms::TextBox^ textBox1;
-	private: System::Windows::Forms::Button^ button3;
+
+
+	private: System::Windows::Forms::Button^ btnClose;
+
 
 	private:
 		/// <summary>
@@ -53,45 +62,46 @@ namespace GUI {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->button2 = (gcnew System::Windows::Forms::Button());
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
-			this->button3 = (gcnew System::Windows::Forms::Button());
+			this->btnSendReq = (gcnew System::Windows::Forms::Button());
+			this->txtBoxID = (gcnew System::Windows::Forms::TextBox());
+			this->btnClose = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
-			// button2
+			// btnSendReq
 			// 
-			this->button2->Location = System::Drawing::Point(33, 126);
-			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(189, 51);
-			this->button2->TabIndex = 1;
-			this->button2->Text = L"Send Request";
-			this->button2->UseVisualStyleBackColor = true;
+			this->btnSendReq->Location = System::Drawing::Point(33, 126);
+			this->btnSendReq->Name = L"btnSendReq";
+			this->btnSendReq->Size = System::Drawing::Size(189, 51);
+			this->btnSendReq->TabIndex = 1;
+			this->btnSendReq->Text = L"Send Request";
+			this->btnSendReq->UseVisualStyleBackColor = true;
+			this->btnSendReq->Click += gcnew System::EventHandler(this, &AddFriend::btnSendReq_Click);
 			// 
-			// textBox1
+			// txtBoxID
 			// 
-			this->textBox1->Location = System::Drawing::Point(33, 66);
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(215, 25);
-			this->textBox1->TabIndex = 2;
+			this->txtBoxID->Location = System::Drawing::Point(33, 66);
+			this->txtBoxID->Name = L"txtBoxID";
+			this->txtBoxID->Size = System::Drawing::Size(215, 25);
+			this->txtBoxID->TabIndex = 2;
 			// 
-			// button3
+			// btnClose
 			// 
-			this->button3->Location = System::Drawing::Point(33, 210);
-			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(189, 51);
-			this->button3->TabIndex = 3;
-			this->button3->Text = L"Close";
-			this->button3->UseVisualStyleBackColor = true;
-			this->button3->Click += gcnew System::EventHandler(this, &AddFriend::button3_Click);
+			this->btnClose->Location = System::Drawing::Point(33, 210);
+			this->btnClose->Name = L"btnClose";
+			this->btnClose->Size = System::Drawing::Size(189, 51);
+			this->btnClose->TabIndex = 3;
+			this->btnClose->Text = L"Close";
+			this->btnClose->UseVisualStyleBackColor = true;
+			this->btnClose->Click += gcnew System::EventHandler(this, &AddFriend::btnClose_Click);
 			// 
 			// AddFriend
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(545, 443);
-			this->Controls->Add(this->button3);
-			this->Controls->Add(this->textBox1);
-			this->Controls->Add(this->button2);
+			this->Controls->Add(this->btnClose);
+			this->Controls->Add(this->txtBoxID);
+			this->Controls->Add(this->btnSendReq);
 			this->Name = L"AddFriend";
 			this->Text = L"AddFriend";
 			this->ResumeLayout(false);
@@ -99,8 +109,68 @@ namespace GUI {
 
 		}
 #pragma endregion
-	private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
+
+
+	private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->Close();
+	}
+	private: System::Void btnSendReq_Click(System::Object^ sender, System::EventArgs^ e) {
+
+		////테두리 없애기
+		btnSendReq->NotifyDefault(false);
+
+		String^ tmptxt_1 = txtBoxID->Text; // textBox는 해당 텍스트 상자의 이름입니다.
+
+
+
+
+
+		// ID와 PW의 문자열이 채워져있다면
+		if (!String::IsNullOrEmpty(tmptxt_1)){
+
+			//// Server에 ID / PW를 보내기함수
+			int time_limit = 0;
+
+			std::string tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
+			std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_friends_Request));
+			std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_;
+			const char* buffer = _Index_Str_Result.c_str();
+			send(client_sock, buffer, strlen(buffer), 0);
+
+			while (1)
+			{
+				if (Recv_str == "true")// server 에서 오케이받는 함수
+				{
+					System::Windows::Forms::MessageBox::Show("친구 요청이 완료되었습니다.", "친구요청", MessageBoxButtons::OK, MessageBoxIcon::Information);
+					return;
+				}
+				else if (Recv_str == "false") //  server에서 다른값보내면
+				{
+					System::Windows::Forms::MessageBox::Show("존재하지 않는 아이디입니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+
+					return;
+				}
+				else // 무한반복되는건데 시간타이밍 주면 좋을거같음
+				{
+					Sleep(1000);
+					if (time_limit > 1)
+					{
+						System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+						return;
+					}
+					else
+					{
+						time_limit++;
+					}
+				}
+			}
+		}
+		// 입력값이 없다면,
+		else {
+			System::Windows::Forms::MessageBox::Show("아이디를 입력해주세요. ", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		}
+
+
 	}
 	};
 }

@@ -446,7 +446,8 @@ namespace GUI {
 			{
 				//String^ dddd = gcnew String(Recv_str.c_str());
 				//System::Windows::Forms::MessageBox::Show(dddd, "ttt2", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-				if (Recv_str == "true")// server 에서 오케이받는 함수
+				//if (Recv_str == "true")// server 에서 오케이받는 함수
+				if (1)// test용
 				{
 
 					// Hide 할때의 동작			
