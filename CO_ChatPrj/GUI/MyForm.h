@@ -2,7 +2,7 @@
 #include "SignUp.h"
 #include "MainForm.h"
 #include "FindAccount.h"
-#include "Usage.h"
+#include "UsageClient.h"
 #include <msclr/marshal_cppstd.h>
 #include <string>
 

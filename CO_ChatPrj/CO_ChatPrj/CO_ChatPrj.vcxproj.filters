@@ -5,6 +5,6 @@
     <ClCompile Include="proj.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Usage.h" />
+    <ClInclude Include="UsageServer.h" />
   </ItemGroup>
 </Project>

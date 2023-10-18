@@ -6,7 +6,7 @@
 #include <thread>
 #include <vector>
 #include <sstream>
-#include "Usage.h"
+#include "UsageServer.h"
 
 #define MAX_SIZE 1024
 #define MAX_CLIENT 3

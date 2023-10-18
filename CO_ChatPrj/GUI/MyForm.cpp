@@ -86,7 +86,7 @@ void CommunicateWithServer() {
                 break;
             }
             //cout << "Connecting..." << endl;
-            System::Windows::Forms::MessageBox::Show("서버가 꺼졌습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+            // System::Windows::Forms::MessageBox::Show("서버가 꺼졌습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
         }
 
         std::thread th2(chat_recv);
