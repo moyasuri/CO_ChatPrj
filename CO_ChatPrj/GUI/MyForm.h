@@ -190,10 +190,10 @@ namespace GUI {
 			this->btnSignin->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnSignin->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnSignin->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
-			this->btnSignin->Location = System::Drawing::Point(575, 451);
-			this->btnSignin->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->btnSignin->Location = System::Drawing::Point(719, 541);
+			this->btnSignin->Margin = System::Windows::Forms::Padding(4, 2, 4, 2);
 			this->btnSignin->Name = L"btnSignin";
-			this->btnSignin->Size = System::Drawing::Size(250, 120);
+			this->btnSignin->Size = System::Drawing::Size(312, 144);
 			this->btnSignin->TabIndex = 1;
 			this->btnSignin->TabStop = false;
 			this->btnSignin->Text = L"Sign in";
@@ -205,9 +205,10 @@ namespace GUI {
 			this->label2->AutoSize = true;
 			this->label2->BackColor = System::Drawing::Color::Transparent;
 			this->label2->Font = (gcnew System::Drawing::Font(L"Georgia", 12));
-			this->label2->Location = System::Drawing::Point(322, 468);
+			this->label2->Location = System::Drawing::Point(402, 562);
+			this->label2->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(33, 24);
+			this->label2->Size = System::Drawing::Size(40, 29);
 			this->label2->TabIndex = 2;
 			this->label2->Text = L"ID";
 			// 
@@ -216,9 +217,10 @@ namespace GUI {
 			this->label3->AutoSize = true;
 			this->label3->BackColor = System::Drawing::Color::Transparent;
 			this->label3->Font = (gcnew System::Drawing::Font(L"Georgia", 12));
-			this->label3->Location = System::Drawing::Point(322, 552);
+			this->label3->Location = System::Drawing::Point(402, 662);
+			this->label3->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(95, 24);
+			this->label3->Size = System::Drawing::Size(115, 29);
 			this->label3->TabIndex = 3;
 			this->label3->Text = L"Password";
 			// 
@@ -228,10 +230,10 @@ namespace GUI {
 			this->txtBoxID->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->txtBoxID->Font = (gcnew System::Drawing::Font(L"Georgia", 12));
 			this->txtBoxID->ForeColor = System::Drawing::SystemColors::WindowFrame;
-			this->txtBoxID->Location = System::Drawing::Point(327, 503);
-			this->txtBoxID->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->txtBoxID->Location = System::Drawing::Point(409, 604);
+			this->txtBoxID->Margin = System::Windows::Forms::Padding(4, 2, 4, 2);
 			this->txtBoxID->Name = L"txtBoxID";
-			this->txtBoxID->Size = System::Drawing::Size(201, 23);
+			this->txtBoxID->Size = System::Drawing::Size(251, 28);
 			this->txtBoxID->TabIndex = 7;
 			// 
 			// txtBoxPW
@@ -240,12 +242,12 @@ namespace GUI {
 			this->txtBoxPW->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->txtBoxPW->Font = (gcnew System::Drawing::Font(L"Georgia", 12));
 			this->txtBoxPW->ForeColor = System::Drawing::SystemColors::WindowFrame;
-			this->txtBoxPW->Location = System::Drawing::Point(327, 586);
-			this->txtBoxPW->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->txtBoxPW->Location = System::Drawing::Point(409, 703);
+			this->txtBoxPW->Margin = System::Windows::Forms::Padding(4, 2, 4, 2);
 			this->txtBoxPW->MaxLength = 16;
 			this->txtBoxPW->Name = L"txtBoxPW";
 			this->txtBoxPW->PasswordChar = '*';
-			this->txtBoxPW->Size = System::Drawing::Size(201, 23);
+			this->txtBoxPW->Size = System::Drawing::Size(251, 28);
 			this->txtBoxPW->TabIndex = 10;
 			// 
 			// btnExit
@@ -258,10 +260,10 @@ namespace GUI {
 			this->btnExit->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnExit->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
 			this->btnExit->ForeColor = System::Drawing::Color::Firebrick;
-			this->btnExit->Location = System::Drawing::Point(571, 540);
-			this->btnExit->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->btnExit->Location = System::Drawing::Point(714, 648);
+			this->btnExit->Margin = System::Windows::Forms::Padding(4, 2, 4, 2);
 			this->btnExit->Name = L"btnExit";
-			this->btnExit->Size = System::Drawing::Size(250, 120);
+			this->btnExit->Size = System::Drawing::Size(312, 144);
 			this->btnExit->TabIndex = 11;
 			this->btnExit->TabStop = false;
 			this->btnExit->Text = L"Exit";
@@ -278,10 +280,10 @@ namespace GUI {
 			this->btnSignup->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnSignup->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
 			this->btnSignup->ForeColor = System::Drawing::SystemColors::Desktop;
-			this->btnSignup->Location = System::Drawing::Point(792, 451);
-			this->btnSignup->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->btnSignup->Location = System::Drawing::Point(990, 541);
+			this->btnSignup->Margin = System::Windows::Forms::Padding(4, 2, 4, 2);
 			this->btnSignup->Name = L"btnSignup";
-			this->btnSignup->Size = System::Drawing::Size(307, 120);
+			this->btnSignup->Size = System::Drawing::Size(384, 144);
 			this->btnSignup->TabIndex = 12;
 			this->btnSignup->TabStop = false;
 			this->btnSignup->Text = L"Sign up";
@@ -298,10 +300,10 @@ namespace GUI {
 			this->btnFindAccount->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnFindAccount->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
 			this->btnFindAccount->ForeColor = System::Drawing::Color::Black;
-			this->btnFindAccount->Location = System::Drawing::Point(781, 540);
-			this->btnFindAccount->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->btnFindAccount->Location = System::Drawing::Point(976, 648);
+			this->btnFindAccount->Margin = System::Windows::Forms::Padding(4, 2, 4, 2);
 			this->btnFindAccount->Name = L"btnFindAccount";
-			this->btnFindAccount->Size = System::Drawing::Size(322, 120);
+			this->btnFindAccount->Size = System::Drawing::Size(402, 144);
 			this->btnFindAccount->TabIndex = 14;
 			this->btnFindAccount->TabStop = false;
 			this->btnFindAccount->Text = L"Find Account";
@@ -311,10 +313,10 @@ namespace GUI {
 			// PicBoxIntro
 			// 
 			this->PicBoxIntro->BackColor = System::Drawing::SystemColors::AppWorkspace;
-			this->PicBoxIntro->Location = System::Drawing::Point(-17, -5);
+			this->PicBoxIntro->Location = System::Drawing::Point(-21, -6);
 			this->PicBoxIntro->Margin = System::Windows::Forms::Padding(2);
 			this->PicBoxIntro->Name = L"PicBoxIntro";
-			this->PicBoxIntro->Size = System::Drawing::Size(1144, 655);
+			this->PicBoxIntro->Size = System::Drawing::Size(1430, 786);
 			this->PicBoxIntro->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
 			this->PicBoxIntro->TabIndex = 16;
 			this->PicBoxIntro->TabStop = false;
@@ -324,10 +326,10 @@ namespace GUI {
 			// 
 			this->PicBoxHomeLogo->BackColor = System::Drawing::Color::Transparent;
 			this->PicBoxHomeLogo->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
-			this->PicBoxHomeLogo->Location = System::Drawing::Point(76, 428);
+			this->PicBoxHomeLogo->Location = System::Drawing::Point(95, 514);
 			this->PicBoxHomeLogo->Margin = System::Windows::Forms::Padding(2);
 			this->PicBoxHomeLogo->Name = L"PicBoxHomeLogo";
-			this->PicBoxHomeLogo->Size = System::Drawing::Size(200, 208);
+			this->PicBoxHomeLogo->Size = System::Drawing::Size(250, 250);
 			this->PicBoxHomeLogo->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
 			this->PicBoxHomeLogo->TabIndex = 17;
 			this->PicBoxHomeLogo->TabStop = false;
@@ -335,21 +337,21 @@ namespace GUI {
 			// PicBoxNagareboshi
 			// 
 			this->PicBoxNagareboshi->BackColor = System::Drawing::Color::Transparent;
-			this->PicBoxNagareboshi->Location = System::Drawing::Point(-37, -46);
+			this->PicBoxNagareboshi->Location = System::Drawing::Point(-46, -55);
 			this->PicBoxNagareboshi->Margin = System::Windows::Forms::Padding(2);
 			this->PicBoxNagareboshi->Name = L"PicBoxNagareboshi";
-			this->PicBoxNagareboshi->Size = System::Drawing::Size(1183, 720);
+			this->PicBoxNagareboshi->Size = System::Drawing::Size(1479, 864);
 			this->PicBoxNagareboshi->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
 			this->PicBoxNagareboshi->TabIndex = 18;
 			this->PicBoxNagareboshi->TabStop = false;
 			// 
 			// MyForm
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
+			this->AutoScaleDimensions = System::Drawing::SizeF(10, 18);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->ClientSize = System::Drawing::Size(1109, 646);
+			this->ClientSize = System::Drawing::Size(1386, 775);
 			this->Controls->Add(this->btnSignup);
 			this->Controls->Add(this->btnSignin);
 			this->Controls->Add(this->PicBoxHomeLogo);
@@ -362,7 +364,7 @@ namespace GUI {
 			this->Controls->Add(this->PicBoxNagareboshi);
 			this->Controls->Add(this->PicBoxIntro);
 			this->DoubleBuffered = true;
-			this->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->Margin = System::Windows::Forms::Padding(4, 2, 4, 2);
 			this->Name = L"MyForm";
 			this->Text = L"MyForm";
 			this->VisibleChanged += gcnew System::EventHandler(this, &MyForm::MyForm_Visible);
@@ -444,8 +446,8 @@ namespace GUI {
 			{
 				//String^ dddd = gcnew String(Recv_str.c_str());
 				//System::Windows::Forms::MessageBox::Show(dddd, "ttt2", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-				//if (Recv_str == "true")// server 에서 오케이받는 함수
-				if (1)// test용
+				if (Recv_str == "true")// server 에서 오케이받는 함수
+				//if (1)// test용
 				{
 
 					// Hide 할때의 동작			

@@ -1,5 +1,6 @@
 #pragma once
-
+//#include <string>
+//using std::string;
 enum SignUp
 {
     e_signup_IDchk = 11,
@@ -41,11 +42,5 @@ enum Friends
     e_friends_Delete,
     e_friends_Response_List,
     e_friends_Accept,
-
-
-
+    
 };
-
-
-
-

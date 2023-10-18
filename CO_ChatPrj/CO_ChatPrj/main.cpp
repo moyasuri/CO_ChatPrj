@@ -6,15 +6,26 @@
 #include <thread>
 #include <vector>
 #include <sstream>
-#include "UsageClient.h"
+
+#include <mutex>
+
+#include "UserInfo.h"
+#include "UsageServer.h"
+#include "MySQL.h"
+
+
+
+
 
 #define MAX_SIZE 1024
-#define MAX_CLIENT 3
+#define MAX_CLIENT 100
 
 using std::cout;
 using std::cin;
 using std::endl;
 using std::string;
+std::mutex sck_list_mutex;
+bool isNumeric(const std::string& str);
 
 struct SOCKET_INFO { // 연결된 소켓 정보에 대한 틀 생성
     SOCKET sck;
@@ -27,12 +38,10 @@ std::vector<SOCKET_INFO> sck_list; // 연결된 클라이언트 소켓들을 저
 SOCKET_INFO server_sock; // 서버 소켓에 대한 정보를 저장할 변수 선언.
 int client_count = 0; // 현재 접속해 있는 클라이언트를 count 할 변수 선언.
 
-string _true = "true";
-const char* __true = _true.c_str();
-string _false = "false";
-const char* __false = _false.c_str();
+const char* __true = trueStr.c_str();
+const char* __false = falseStr.c_str();
 
-bool isNumeric(const std::string& str);
+//bool isNumeric(const std::string& str);
 void server_init(); // socket 초기화 함수. socket(), bind(), listen() 함수 실행됨. 자세한 내용은 함수 구현부에서 확인.
 void add_client(); // 소켓에 연결을 시도하는 client를 추가(accept)하는 함수. client accept() 함수 실행됨. 자세한 내용은 함수 구현부에서 확인.
 void send_msg(const char* msg); // send() 함수 실행됨. 자세한 내용은 함수 구현부에서 확인.
@@ -163,7 +172,9 @@ void recv_msg(int idx) {
     
     string _Index;
     string _Contents;
-    
+    MySQL *mySQL = new MySQL(); 
+    mySQL->Init_Mysql();
+    mySQL->set_database("practice");
     while (1) {
         ZeroMemory(&buf, MAX_SIZE);
         if (recv(sck_list[idx].sck, buf, MAX_SIZE, 0) > 0) { // 오류가 발생하지 않으면 recv는 수신된 바이트 수를 반환. 0보다 크다는 것은 메시지가 왔다는 것.
@@ -173,31 +184,33 @@ void recv_msg(int idx) {
             msg = buf;
             std::stringstream ss(msg);
             ss >> _Index;
-            server_msg.push_back(_Index);
-            _Contents = string(buf + 3);
-            server_msg.push_back(_Contents);
-            
+            string _ans;
+            // server_msg.push_back(_Index);
+            // _Contents = string(buf + 3);
+            // server_msg.push_back(_Contents);
+           
             if (isNumeric(_Index))
             {
                 int _Index_Int = stoi(_Index);
-        
-            
                 switch (_Index_Int)
                 {
 
                     case e_id_try_Signin:
                     {
-                    
-                        if (1) // ID에 해당하는 비밀번호가 일치한다면
+                        _ans=mySQL->QuerySql(msg);
+                        
+                        if (_ans==trueStr) // ID에 해당하는 비밀번호가 일치한다면
                         {
                             send_msg(__true);
                             break;
                         }
                         else
                         {
+                            cout << "false왓다" << endl;
                             send_msg(__false);
                             break;
                         }
+                        break;
                     
                     }
                     break;
@@ -235,8 +248,8 @@ void recv_msg(int idx) {
                 }
             else
             {
-                send_msg(__true);
-                cout << __true;
+                //send_msg(__true);
+                //cout << __true;
             }
 
              
@@ -254,10 +267,18 @@ void recv_msg(int idx) {
 }
 
 void del_client(int idx) {
-    closesocket(sck_list[idx].sck);
-    //sck_list.erase(sck_list.begin() + idx); // 배열에서 클라이언트를 삭제하게 될 경우 index가 달라지면서 런타임 오류 발생....ㅎ
-    client_count--;
-    
+    if (idx >= 0 && idx < sck_list.size()) {
+        closesocket(sck_list[idx].sck);
+
+        // 스레드 간 동기화를 사용하여 벡터에서 원소를 삭제합니다.
+        std::lock_guard<std::mutex> lock(sck_list_mutex);
+        sck_list.erase(sck_list.begin() + idx);
+        client_count--;
+    }
+    else {
+        // 유효하지 않은 인덱스에 대한 오류 처리
+        // 이 부분에서 오류 메시지 출력 또는 다른 처리를 수행할 수 있습니다.
+    }
 }
 
 bool isNumeric(const std::string& str) {

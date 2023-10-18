@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <mysql/jdbc.h>
+#include "UsageServer.h"
 
 using std::cout;
 using std::endl;
