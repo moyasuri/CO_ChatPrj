@@ -6,7 +6,7 @@
 #include <thread>
 #include <vector>
 #include <sstream>
-#include "UsageServer.h"
+#include "UsageClient.h"
 
 #define MAX_SIZE 1024
 #define MAX_CLIENT 3
@@ -173,7 +173,7 @@ void recv_msg(int idx) {
             msg = buf;
             std::stringstream ss(msg);
             ss >> _Index;
-            server_msg.push_back(_Contents);
+            server_msg.push_back(_Index);
             _Contents = string(buf + 3);
             server_msg.push_back(_Contents);
             
@@ -229,89 +229,14 @@ void recv_msg(int idx) {
                         }
                     }
                     break;
-                    case e_edit_PW:
-                    {
-                        if (1) // ID에 해당하는 비밀번호가 일치한다면
-                        {
-                            send_msg(__true);
-                            break;
-                        }
-                        else
-                        {
-                            send_msg(__false);
-                            break;
-                        }
-
-                    }
-                    break;
-                    case e_edit_Email:
-                    {
-                        if (1) // ID에 해당하는 이메일이 일치한다면
-                        {
-                            send_msg(__true);
-                            break;
-                        }
-                        else
-                        {
-                            send_msg(__false);
-                            break;
-                        }
-
-                    }
-                    break;
-                    case e_edit_NickName:
-                    {
-                        if (1) // 데이타베이스에 중복되는 닉네임이 없다면,
-                        {
-                            send_msg(__true);
-                            break;
-                        }
-                        else
-                        {
-                            send_msg(__false);
-                            break;
-                        }
-                    }
-                    break;
-                    case e_edit_Confirm:
-                    {
-                        if (1) // 핸드폰, 이메일이 중복되지 않는다면,
-                        {
-                            send_msg(__true);
-                            break;
-                        }
-                        else
-                        {
-                            send_msg(__false);
-                            break;
-                        }
-                    }
-                    case e_message_List:
-                    {
-
-                    }
-                    break;
-                    case e_message_Read:
-                    {
-
-                    }
-                    break;
-                    case e_message_Send:
-                    {
-
-                    }
-                    break;
-                    case e_message_Delete:
-                    {
-
-                    }
-                    break;
 
 
                 }
                 }
             else
             {
+                send_msg(__true);
+                cout << __true;
             }
 
              

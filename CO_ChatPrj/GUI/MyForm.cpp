@@ -26,6 +26,7 @@ using std::cin;
 using std::endl;
 using std::string;
 
+void chat_recv();
 
 
 
@@ -45,6 +46,7 @@ void chat_recv() {
             // if (user != my_nick) cout << buf << endl; // 내가 보낸 게 아닐 경우에만 출력하도록.
         }
         else {
+            
             System::Windows::Forms::MessageBox::Show("서버가 꺼졌습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
             
         }
@@ -85,16 +87,16 @@ void CommunicateWithServer() {
                 send(client_sock, my_nick.c_str(), my_nick.length(), 0); // 연결에 성공하면 client 가 입력한 닉네임을 서버로 전송
                 break;
             }
-            //cout << "Connecting..." << endl;
-            // System::Windows::Forms::MessageBox::Show("서버가 꺼졌습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+
+
+
         }
 
         std::thread th2(chat_recv);
 
         while (1) {
 
-            System::Windows::Forms::MessageBox::Show("서버가 꺼졌습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-            Sleep(1000);
+            //Sleep(1000);
             //string text;
             //std::getline(cin, text);
             //const char* buffer = text.c_str(); // string형을 char* 타입으로 변환

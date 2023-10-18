@@ -83,9 +83,7 @@ namespace GUI {
 			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\shootingstar.wav");
 			HomeImageSound->SoundLocation = relativePath;
 
-			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\nagareboshi2.gif");
-			PicBoxNagareboshi->ImageLocation = relativePath;
-
+	
 			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\nagareboshi2.gif");
 			PicBoxNagareboshi->ImageLocation = relativePath;
 
