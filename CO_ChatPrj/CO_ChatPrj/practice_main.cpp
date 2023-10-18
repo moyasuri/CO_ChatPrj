@@ -13,6 +13,7 @@
 #include <sstream>
 #include <vector>
 #include <mysql/jdbc.h>#include <mysql/jdbc.h>
+#include "Usage.h"
 
 #define MAX_SIZE 1024//소켓 박스크기
 #define MAX_CLIENT 3
@@ -56,6 +57,76 @@ const string 친구검색_서 = "23";
 const string 친구신청_서 = "24";
 const string 친구수락거절_서 = "25";
 
+
+class User {
+public:
+    string getMember_ID() {
+        return member_ID;
+    }
+    string getEmail() {
+        return email;
+    }
+    string getPhone() {
+        return phone;
+    }
+    string getBirth() {
+        return birth;
+    }
+    string getNickname() {
+        return nickname;
+    }
+    string getCha_num() {
+        return member_ID;
+    }
+    string getMember_PW() {
+        return member_ID;
+    }
+    string getJoin_room_index() {
+        return member_ID;
+    }
+
+    string setMember_ID(string member_ID) {
+        this->member_ID = member_ID;
+    }
+    string setEmail(string email) {
+        this->email = email;
+    }
+    string setPhone(string phone) {
+        this->phone = phone;
+    }
+    string setBirth(string birth) {
+        this->birth = birth;
+    }
+    string setNickname(string nickname) {
+        this->nickname = nickname;
+    }
+    string setCha_num(string cha_num) {
+        this->cha_num = cha_num;
+    }
+    string setMember_PW(string pw) {
+        this->member_PW = member_PW;
+    }
+    string setJoin_room_index(string join_room_index) {
+        this->join_room_index = join_room_index;
+    }
+
+private:
+    string member_ID = "";
+    string member_PW = "";
+    string email = "";
+    string phone = "";
+    string birth = "";
+    string nickname = "";
+    string cha_num = "";
+    string join_room_index = "";
+
+
+
+};
+string s_(int e_num) {
+    return to_string(e_num);
+}
+
 struct SOCKET_INFO { // 연결된 소켓 정보에 대한 틀 생성
     SOCKET sck;
     string user;
@@ -64,6 +135,7 @@ struct SOCKET_INFO { // 연결된 소켓 정보에 대한 틀 생성
 std::vector<SOCKET_INFO> sck_list; // 연결된 클라이언트 소켓들을 저장할 배열 선언.
 SOCKET_INFO server_sock; // 서버 소켓에 대한 정보를 저장할 변수 선언.
 int client_count = 0; // 현재 접속해 있는 클라이언트를 count 할 변수 선언.
+SOCKET Client_sck; // =  sck_list[];
 
 //기존함수들
 void server_init(); // socket 초기화 함수. socket(), bind(), listen() 함수 실행됨. 자세한 내용은 함수 구현부에서 확인.
@@ -73,6 +145,8 @@ void recv_msg(int idx); // recv() 함수 실행됨. 자세한 내용은 함수 구현부에서 확�
 void del_client(int idx); // 소켓에 연결되어 있는 client를 제거하는 함수. closesocket() 실행됨. 자세한 내용은 함수 구현부에서 확인.
 
 const string IDENTIFIER = " ";
+const string True = "True";
+const string False = "False";
 
 class MY_SQL {
 public:
@@ -80,9 +154,8 @@ public:
     sql::mysql::MySQL_Driver* driver; // 추후 해제하지 않아도 Connector/C++가 자동으로 해제해 줌
     sql::Connection* con;
     sql::Statement* stmt;
-    sql::PreparedStatement* pstmt;
+    sql::PreparedStatement* prep_stmt;
     sql::ResultSet* res;
-
 
     void set_database() {
         try {
@@ -109,24 +182,113 @@ public:
 
     }
 
-    //login 쿼리 보내기
-    void send_login_check(SOCKET server_sock, string mysql_check_id, string mysql_check_pw) {
-        res = stmt->executeQuery("SELECT member_ID, member_PW FROM member WHERE Member_ID = '" + mysql_check_id + "'");
+
+    void send_login_check( string mysql_check_id, string mysql_check_pw) {
+        res = stmt->executeQuery("SELECT Member_ID, Member_PW FROM member WHERE Member_ID = '" + mysql_check_id + "'");
 
         string resid, respw;
         string result;
         while (res->next()) {
-            resid = res->getInt("member_ID");
-            respw = res->getString("member_PW");
+            resid = res->getString("Member_ID");
+            respw = res->getString("Member_PW");
         }
         if (resid != mysql_check_id || respw != mysql_check_pw)
-            result = 로그인시도 ;
+        {
+            result = 로그인시도 + IDENTIFIER + "False";
+            
+        }
         else
-            result = 로그인시도 + IDENTIFIER + "have";
+            result = 로그인시도 + IDENTIFIER + "True";
 
-
-        send(server_sock, result.c_str(), MAX_SIZE, 0);
+        
+        send(Client_sck, result.c_str(), MAX_SIZE, 0);
     }
+
+
+        void send_find_ID( string mysql_check_name, string mysql_check_email)
+    { //보내진 email과 이름이 일치하는 멤버를 확인하고 거기에 올바른 id를 넘겨준다
+            string resid ="";
+            string result;
+        res = stmt->executeQuery("SELECT Member_ID FROM member WHERE Email = '" + mysql_check_email + "' AND Name = '"+ mysql_check_name +"'");
+        if(res->next()){
+            resid = res->getString("Member_ID");
+        }
+        if (resid.size() !=0)
+            result = ID찾기 + IDENTIFIER + True + resid; //true false 는 const string True = "True" 등으로 위에 있습니다
+        else 
+            result = ID찾기 + IDENTIFIER + False;
+    }
+
+        void send_find_PW(string mysql_check_id, string mysql_check_birth, string mysql_check_phone) 
+        {
+
+            string respw = "";
+            string result = "";
+            res = stmt->executeQuery("SELECT Member_PW FROM member WHERE Member_ID = '" +mysql_check_id+ "' AND Birth = '" + mysql_check_birth + "' AND Phone = '"+mysql_check_phone+ "'");
+            if (res->next()) {
+                respw = res->getString("Member_PW");
+            }
+            if (respw.size() != 0)
+                result = PW찾기 + IDENTIFIER + True +respw; 
+            else
+                result = PW찾기 + IDENTIFIER + False;
+            //client에서 반환되는 값이 true이면 비밀번호 재설정 창으로 넘어가야겠다.
+            send(Client_sck, result.c_str(), MAX_SIZE, 0);
+        }
+
+        //아이디 설정
+
+        string s_(int e_num) {
+            return to_string(e_num);
+        }
+
+        void send_signup_IDchk(string mysql_check_id) {
+            //클라이언트에게 name 설정 번호를 받은 상황
+            prep_stmt = con->prepareStatement("SELECT Member_ID FROM member WHERE Member_ID = '?'");
+            prep_stmt->setString(1, mysql_check_id);
+            string result;
+            if ((prep_stmt->execute()) == 1)
+                result = s_(e_signup_IDchk) + IDENTIFIER + False; //이미 존재하는 값이니 id 다른 거로 설정해
+            else
+                result = s_(e_signup_IDchk) + IDENTIFIER + True;
+
+            send(Client_sck, result.c_str(), MAX_SIZE, 0);
+        }
+
+        void send_signup_Nicknamechk(string mysql_check_nickname) {
+            prep_stmt = con->prepareStatement("SELECT Nickname FROM member WHERE Nickname = '?'");
+            prep_stmt->setString(1, mysql_check_nickname);
+            string result;
+            if ((prep_stmt->execute()) == 1)
+                result = s_(e_signup_NickNamechk) + IDENTIFIER + False; //이미 존재하는 값이니 id 다른 거로 설정해
+            else
+                result = s_(e_signup_NickNamechk) + IDENTIFIER + True;
+
+            send(Client_sck, result.c_str(), MAX_SIZE, 0);
+        }
+
+        //send함수만 따로 만들어놓는게 좋겠다. return string으로 result를 반환하고 
+        // pw 중복 체크,생일 체크 등은 이상값을 클라이언트에서 처리하고 mysql쿼리보내기만 전체적으로 실행한다.
+        void mysql_signup(string Member_ID, string Email, string Phone, string Birth, string Nickname, int Cha_Num, string Member_PW, string Name) {
+            prep_stmt = con->prepareStatement("INSERT INTO member VALUES ('?','?',NULL,'?','?','?','?','?',NULL,'?');");
+            prep_stmt->setString(1, Member_ID);
+            prep_stmt->setString(2, Email);
+            prep_stmt->setString(3,Phone);
+            prep_stmt->setString(4,Birth);
+            prep_stmt->setString(5, Nickname);
+            prep_stmt->setInt(6, Cha_Num);
+            prep_stmt->setString(7, Member_PW);
+            prep_stmt->setString(8, Name);
+            string result;
+            if ((prep_stmt->execute()) == 1)
+                result = s_(e_signup_Submit) + IDENTIFIER + True; //회원가입 등록 완
+            else
+                result = s_(e_signup_Submit) + IDENTIFIER + True;//등록 실패
+
+            send(Client_sck, result.c_str(), MAX_SIZE, 0);
+        }
+   
+
 
     const string 친구목록_클 = "21";
     const string 친구요청_클 = "22";
@@ -135,7 +297,7 @@ public:
     const string 친구수락거절_클 = "25";
 
 
-    void send_friend_List(SOCKET server_sock, string mysql_check_id){
+    void send_friend_List(string mysql_check_id){
         res = stmt->executeQuery("SELECT Friend_List_Index, My_ID, My_Friend_ID FROM friend_list  WHERE Member_ID = '" + mysql_check_id + "'");
     string result;
     if (res->next())
@@ -144,10 +306,10 @@ public:
         result = 친구목록_서 ;
 
 
-    send(server_sock, result.c_str(), MAX_SIZE, 0);
+    send(Client_sck, result.c_str(), MAX_SIZE, 0);
 }
 
-    void send_friend_request(SOCKET server_sock, string mysql_check_id) {
+    void send_friend_request( string mysql_check_id) {
         res = stmt->executeQuery("SELECT From_Friend_Request_ID, Request_Msg WHERE  Response=3 and To_Friend_Request_Id = '" + mysql_check_id + "'");
         string result;
         if (res->next())
@@ -156,7 +318,7 @@ public:
             result = 친구요청_서;
 
 
-        send(server_sock, result.c_str(), MAX_SIZE, 0);
+        send(Client_sck, result.c_str(), MAX_SIZE, 0);
     }
 
     void send_friend_search(SOCKET server_sock, string mysql_check_id) { //비교해서 have 값만 보내줘야한다.
