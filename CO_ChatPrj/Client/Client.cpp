@@ -11,78 +11,13 @@ send 와 receive는 무조건 짝꿍
 #include <thread>
 #include <vector>
 // user 헤더 추가
-#include "User.cpp"
 #include "Usage.h"
 
 
 
 using namespace std;
 
-class User {
-public:
-    string getMember_ID() {
-        return member_ID;
-    }
-    string getEmail() {
-        return email;
-    }
-    string getPhone() {
-        return phone;
-    }
-    string getBirth() {
-        return birth;
-    }
-    string getNickname() {
-        return nickname;
-    }
-    string getCha_num() {
-        return member_ID;
-    }
-    string getMember_PW() {
-        return member_ID;
-    }
-    string getJoin_room_index() {
-        return member_ID;
-    }
 
-    string setMember_ID(string member_ID) {
-        this->member_ID = member_ID;
-    }
-    string setEmail(string email) {
-        this->email = email;
-    }
-    string setPhone(string phone) {
-        this->phone = phone;
-    }
-    string setBirth(string birth) {
-        this->birth = birth;
-    }
-    string setNickname(string nickname) {
-        this->nickname = nickname;
-    }
-    string setCha_num(string cha_num) {
-        this->cha_num = cha_num;
-    }
-    string setMember_PW(string pw) {
-        this->member_PW = member_PW;
-    }
-    string setJoin_room_index(string join_room_index) {
-        this->join_room_index = join_room_index;
-    }
-
-private:
-    string member_ID = "";
-    string member_PW = "";
-    string email = "";
-    string phone = "";
-    string birth = "";
-    string nickname = "";
-    string cha_num = "";
-    string join_room_index = "";
-
-
-
-};
 
 //string으로 정보를 모두 받아줘야 하고 (socket에 char 형식으로만 전달 가능해 c_str 사용해야 하기 때문) 
 //서버에 전달 후 서버에서 string으로 다시 받아 int변환 등 처리해서 mysql로 보내준다.
@@ -94,58 +29,15 @@ using std::endl;
 using std::string;
 
 SOCKET client_sock;
-SOCKET client_info_sock;
+;
 string my_nick;
 
+string send_UserInfo();
 
-const string 로그인시도 = "00 "; //send_id / recv_pw
-const string ID찾기 = "01 ";
-const string PW찾기 = "02 ";
-
-
-//const string 정보 변경= "10";
-const string 비밀번호수정 = "11 ";
-const string 이메일수정 = "12 ";
-const string 전화번호수정="13 ";
-const string 생년월일수정 = "14 ";
-const string 닉네임수정= "15 ";
-const string 캐릭터수정= "16 ";
-const string 참여방변경 = "17 ";
-
-//const string 친구 = "20";
+const string True = "True";
+const string False = "False";
 
 
-//const string = "";
-//const string = "";
-//const string = "";
-
-//const string 쪽지 //친구검색 쓰임 30
-const string 쪽지목록 = "31 ";
-const string 쪽지읽기= "32 ";
-const string 쪽지보내기= "33 ";
-const string 쪽지삭제하기= "34 ";
-
-
-//쪽지 
-//
-//const string = "";
-//const string = "";
-//const string = "";
-//const string = "";
-//const string = "";
-//const string = "";
-//const string = "";
-//const string = "";
-//
-//const string = "";
-//const string = "";
-//const string = "";
-//const string = "";
-//const string = "";
-//const string = "";
-//const string = "";
-//const string = "";
-User user;
 
 int chat_recv() {
     char buf[MAX_SIZE] = { };
@@ -167,46 +59,35 @@ int chat_recv() {
     }
 }
 
+
 vector<string> recv_from_server() {
     char buf[MAX_SIZE] = { };
-    string msg;
+    string _Contents = buf;
+    string _Index;
+    string TF;
     vector<string> server_msg;
     server_msg.clear();
-    msg = buf;
+    string msg;
     std::stringstream ss(msg);
-    ss >> _Index;
-    server_msg.push_back(_Contents);
-    _Contents = string(buf + 3);
+    ss >> _Index>>TF>>_Contents;
+    server_msg.push_back(_Index);
     server_msg.push_back(_Contents);
     int _Index_I = stoi(_Index);
-    switch (_Index_I)
-    {
-    case e_try_Signin:
-    {
-        if (e_find_ID)
-        {
-        }
-    }
-    break;
-    case e_find_ID:
-    {
-    }
-    break;
-    }
+    //switch (_Index_I)
+    //{
+    //case e_try_Signin:
+    //{
+    //    if (e_find_ID)
+    //    {
+    //    }
+    //}
+    //break;
+    //case e_find_ID:
+    //{
+    //}
+    //break;
+    //}}
 
-    server_msg.clear();
-    string identify_num;
-    string text;
-
-    ZeroMemory(&buf, MAX_SIZE);
-    if (recv(client_sock, buf, MAX_SIZE, 0) > 0) {
-        msg = buf;
-        std::stringstream ss(msg);  // 문자열을 스트림화
-        ss >> identify_num ;
-        server_msg.push_back(identify_num);
-        text = string(buf + 3);
-        server_msg.push_back(text);
-    }
     return server_msg;
 }
 
@@ -225,6 +106,7 @@ void show_vector_list(vector<string> vector) {
     
 
 }
+
 string want_exit() { //메뉴 닫기 while문에서 사용해준다.
     char answer;
     cout << "이 화면을 닫기를 원합니까? (Y/N) " << endl;
@@ -267,23 +149,21 @@ void login_try() {
         cout << "pw를 입력하세요 : " << endl;
         cin >> login_pw;
 
-        string send_login_id = 로그인시도 +" "+ login_id + " " + login_pw;
-        send_to_server(send_login_id);
+        string send_try_login = 로그인시도 +" "+ login_id + " " + login_pw;
+        send_to_server(send_try_login);
 
         vector<string> server_msg = recv_from_server();
         if (server_msg[0] == 로그인시도) //
         {
-            if (server_msg.size() == 2) //id가 존재하지 않아 server에서 00만 전송된 경우
+            if (server_msg[1] == False) 
             {
                 cout << "ID나 PW가 틀렸습니다. "<<endl;
                 continue; //원래는 clear 하고 다시 보여줌 (gui아닐 경우)
             }
             
-            else if (server_msg[1] == login_pw) //로그인 가능
+            else if (server_msg[1] == True) //로그인 가능
             {
                 cout << "로그인에 성공했습니다. "<<endl; //팝업으로 뜨겠죠?
-                user.setMember_ID(login_id);
-                user.setMember_PW(login_pw);
                 break;
             }
            
@@ -295,20 +175,9 @@ void login_try() {
         }
     }
 }
-const string ID찾기 = "01";
-const string PW찾기 = "02";
 
-const string 친구목록_클 = "21";
-const string 친구요청_클 = "22";
-const string 친구검색_클 = "23";
-const string 친구신청_클 = "24";
-const string 친구수락거절_클 = "25";
 
-const string 친구목록_서 = "21";
-const string 친구요청_서 = "22";
-const string 친구검색_서 = "23";
-const string 친구신청_서 = "24";
-const string 친구수락거절_서 = "25";
+
 
 /*se
     친구 목록은 항상 보여짐
@@ -329,80 +198,82 @@ void friend_home() {
         friend_request.clear();
         vector<string>;
 
-        send_to_server(친구목록_클);
-        friend_home =recv_from_server();
+        send_to_server(" ");
+        friend_home = recv_from_server();
         string recv_friend_home_num = friend_home[0];
         string recv_friend_home_text = friend_home[1];
 
-        
-        if (recv_friend_home_num == 친구목록_서)
-        {   
-            if (recv_friend_home_num == 친구목록_클) {
+
+        if (recv_friend_home_num == "")
+        {
+            if (recv_friend_home_num =="") {
                 while (1) {
                     while (1) {
                         friend_list = recv_list(recv_friend_home_text);
                         show_vector_list(friend_list);
-                    //친구목록은 기본페이지에 들어와있다
-                         //테이블처럼 보이게 다시 바꿔줘야 한다 -_-
-                    string friend_num = ""; //사용자의 선택
-                    cout << "친구 홈에서 하고 싶은 메뉴 선택 " << endl;
-                    cin >> friend_num;
+                        //친구목록은 기본페이지에 들어와있다
+                             //테이블처럼 보이게 다시 바꿔줘야 한다 -_-
+                        string friend_num = ""; //사용자의 선택
+                        cout << "친구 홈에서 하고 싶은 메뉴 선택 " << endl;
+                        cin >> friend_num;
 
-                    if (friend_num == 친구요청_클)
-                    {
-                       
-                        send_to_server(친구요청_클);
-                        friend_request = recv_from_server();
-                        if (friend_request[0] == 친구요청_서)
+                        if (friend_num == "친구요청_클")
                         {
-                            
-                          
-                             
-                        }
-                    }
 
-
-                    else if (friend_num == 친구검색_클)
-                    {
-                        while (1) {
-                            want_exit();
-                            string search_friend_id = "";
-                            char add_answer;
-                            cout << "검색할 아이디 입력" << endl;
-                            cin >> search_friend_id;
-                            send_to_server(친구검색_클 + search_friend_id);
-                            vector<string> search_friend = recv_from_server();
-                            if (recv_friend_home_num == 친구검색_클)
+                            send_to_server("친구요청_클" );
+                            friend_request = recv_from_server();
+                            if (friend_request[0] == "친구요청_서")
                             {
-                                if (search_friend[0] != "have")
-                                    cout << "ID가 확인되지 않습니다. 다시 시도해주세요. " << endl;
 
-                                while (search_friend[0] == "have") //존재하는지 확인해주는 내용 받음
-                                {
-                                    cout << search_friend_id << "는 존재합니다. \n 친구로 추가하시겠습니까? (Y/N)" << endl;//추가버튼 보여줌
-                                    if (add_answer == 'Y')
-                                    {
-                                        ;
-                                        friend_num == 친구신청_클;
-                                        send_to_server(친구신청_클 + " " +search_friend_id);
-                                        recv_from_server();
-                                    }
-                                    else if (add_answer == 'N')
-                                        break;
-                                    else
-                                    {
-                                        cout << "잘못 입력하셨습니다. 다시 시도해주세요.";
-                                        continue;
-                                    }
-                                }
 
 
                             }
                         }
-                    }
 
-                    else
-                        cout << "오류 발생" << endl;
+
+                        else if (friend_num == "친구검색_클")
+                        {
+                            while (1) {
+                                want_exit();
+                                string search_friend_id = "";
+                                char add_answer;
+                                cout << "검색할 아이디 입력" << endl;
+                                cin >> search_friend_id;
+                                send_to_server("친구검색_클" + search_friend_id);
+                                vector<string> search_friend = recv_from_server();
+                                if (recv_friend_home_num == "친구검색_클")
+                                {
+                                    if (search_friend[0] != "have")
+                                        cout << "ID가 확인되지 않습니다. 다시 시도해주세요. " << endl;
+
+                                    while (search_friend[0] == "have") //존재하는지 확인해주는 내용 받음
+                                    {
+                                        cout << search_friend_id << "는 존재합니다. \n 친구로 추가하시겠습니까? (Y/N)" << endl;//추가버튼 보여줌
+                                        if (add_answer == 'Y')
+                                        {
+                                            ;
+                                            friend_num == "친구신청_클";
+                                            string msg = "친구신청_클"  + search_friend_id;
+                                            send_to_server(msg);
+                                            recv_from_server();
+                                        }
+                                        else if (add_answer == 'N')
+                                            break;
+                                        else
+                                        {
+                                            cout << "잘못 입력하셨습니다. 다시 시도해주세요.";
+                                            continue;
+                                        }
+                                    }
+
+
+                                }
+                            }
+                        }
+
+                        else
+                            cout << "오류 발생" << endl;
+                    }
                 }
             }
         }
@@ -414,105 +285,98 @@ void friend_home() {
 
     //user의 정보 입력받고 class User에 안전하게 저장하기
 //회원가입,회원수정
-    void create_userInfo() {
-        User user;
-        string inputID;
-        string inputEmail;
-        string inputPhone;
-        string inputBirth;
-        string inputNickname;
-        string inputPW;
-        string inputCha_num;
+    //void create_userInfo() {
+    //    User user;
+    //    string inputID;
+    //    string inputEmail;
+    //    string inputPhone;
+    //    string inputBirth;
+    //    string inputNickname;
+    //    string inputPW;
+    //    string inputCha_num;
 
 
-        cout << "ID를 입력하세요 " << endl;
-        cin >> inputID;
-        user.setMember_ID(inputID);
+    //    cout << "ID를 입력하세요 " << endl;
+    //    cin >> inputID;
+    //    user.setMember_ID(inputID);
 
-        cout << "이메일을 입력하세요 " << endl;
-        cin >> inputEmail;
-        user.setEmail(inputEmail);
+    //    cout << "이메일을 입력하세요 " << endl;
+    //    cin >> inputEmail;
+    //    user.setEmail(inputEmail);
 
-        cout << "전화번호를 입력하세요\n (010-0000-0000 형식) " << endl;
-        cin >> inputPhone;
-        user.setPhone(inputPhone);
+    //    cout << "전화번호를 입력하세요\n (010-0000-0000 형식) " << endl;
+    //    cin >> inputPhone;
+    //    user.setPhone(inputPhone);
 
-        cout << "주민번호 앞 6자리를 입력하세요. " << endl;
-        cin >> inputBirth;
-        user.setBirth(inputBirth);
+    //    cout << "주민번호 앞 6자리를 입력하세요. " << endl;
+    //    cin >> inputBirth;
+    //    user.setBirth(inputBirth);
 
-        cout << "닉네임을 입력하세요 " << endl;
-        cin >> inputNickname;
-        user.setNickname(inputNickname);
+    //    cout << "닉네임을 입력하세요 " << endl;
+    //    cin >> inputNickname;
+    //    user.setNickname(inputNickname);
 
-        cout << "비밀번호를 입력하세요 " << endl;
-        cin >> inputPW;
-        user.setMember_PW(inputPW);
+    //    cout << "비밀번호를 입력하세요 " << endl;
+    //    cin >> inputPW;
+    //    user.setMember_PW(inputPW);
 
-        cout << "캐릭터 번호를 입력하세요 " << endl;
-        cin >> inputCha_num;
-        user.setCha_num(inputCha_num);
+    //    cout << "캐릭터 번호를 입력하세요 " << endl;
+    //    cin >> inputCha_num;
+    //    user.setCha_num(inputCha_num);
 
 
-    }
+    //}
 
     //user의 정보들을 자동으로 돌려주기 위해 벡터에 저장해 준다.
-    string getUserInfo(User user1) {
+
+    string send_UserInfo() {
         string userinfo = "";
         userinfo.clear();
-
-        userinfo = user1.getMember_ID + " " +
-            user1.getEmail + " " + user1.getPhone + " " + user1.getBirth +
-            user1.getNickname + " " + user1.getCha_num + " " + user1.getMember_PW + " " + user1.getJoin_room_index;
-    
-
-
+        string id;
+        userinfo = id;
         return userinfo;
     }
 
 
-        int main() {
-            WSADATA wsa;
+    int main() {
+        WSADATA wsa;
 
-            // Winsock를 초기화하는 함수. MAKEWORD(2, 2)는 Winsock의 2.2 버전을 사용하겠다는 의미.
-            // 실행에 성공하면 0을, 실패하면 그 이외의 값을 반환.
-            // 0을 반환했다는 것은 Winsock을 사용할 준비가 되었다는 의미.
-            int code = WSAStartup(MAKEWORD(2, 2), &wsa);
-            int iclient_menu = 0;
+        // Winsock를 초기화하는 함수. MAKEWORD(2, 2)는 Winsock의 2.2 버전을 사용하겠다는 의미.
+        // 실행에 성공하면 0을, 실패하면 그 이외의 값을 반환.
+        // 0을 반환했다는 것은 Winsock을 사용할 준비가 되었다는 의미.
+        int code = WSAStartup(MAKEWORD(2, 2), &wsa);
 
-            if (!code) {
-
-                client_sock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP); 
-                SOCKADDR_IN client_addr = {};
-                client_addr.sin_family = AF_INET;
-                client_addr.sin_port = htons(7777);
-                InetPton(AF_INET, TEXT("127.0.0.1"), &client_addr.sin_addr);
-
-
-
-                while (1) {
-                    if (!connect(client_sock, (SOCKADDR*)&client_addr, sizeof(client_addr))) { // 위에 설정한 정보에 해당하는 server로 연결!
-                        cout << "Server Connect" << endl;
-                    }
-
-                        send(client_sock, my_nick.c_str(), my_nick.length(), 0); // 연결에 성공하면 client 가 입력한 닉네임을 서버로 전송
-                        break;
-                    }
-                    cout << "Connecting..." << endl;
-                }
-
-                std::thread th2(chat_recv);
-
-                while (1) {
-                    string text;
-                    std::getline(cin, text);
-                    const char* buffer = text.c_str(); // string형을 char* 타입으로 변환
-                    send(client_sock, buffer, strlen(buffer), 0);
-                }
-                th2.join();
-                closesocket(client_sock);
+        if (!code) {
             
-            WSACleanup();
-            return 0;
+            client_sock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP); // 
+
+            // 연결할 서버 정보 설정 부분
+            SOCKADDR_IN client_addr = {};
+            client_addr.sin_family = AF_INET;
+            client_addr.sin_port = htons(7777);
+            InetPton(AF_INET, TEXT("192.168.0.54"), &client_addr.sin_addr);
+
+            while (1) {
+                if (!connect(client_sock, (SOCKADDR*)&client_addr, sizeof(client_addr))) { // 위에 설정한 정보에 해당하는 server로 연결!
+                    cout << "Server Connect" << endl;
+                    //send(client_sock, my_nick.c_str(), my_nick.length(), 0); // 연결에 성공하면 client 가 입력한 닉네임을 서버로 전송
+                    break;
+                }
+                cout << "Connecting..." << endl;
+            }
+
+            std::thread th2(chat_recv);
+
+            while (1) {
+                string text;
+                std::getline(cin, text);
+                const char* buffer = text.c_str(); // string형을 char* 타입으로 변환
+                send(client_sock, buffer, strlen(buffer), 0);
+            }
+            th2.join();
+            closesocket(client_sock);
         }
 
+        WSACleanup();
+        return 0;
+    }
