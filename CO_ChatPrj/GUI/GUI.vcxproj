@@ -273,6 +273,15 @@
     <EmbeddedResource Include="MessageSent.resx">
       <DependentUpon>MessageSent.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PrivateRoom.resx">
+      <DependentUpon>PrivateRoom.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PublicRoom.resx">
+      <DependentUpon>PublicRoom.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PublicRoomChat.resx">
+      <DependentUpon>PublicRoomChat.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ServerChat.resx">
       <DependentUpon>ServerChat.h</DependentUpon>
     </EmbeddedResource>

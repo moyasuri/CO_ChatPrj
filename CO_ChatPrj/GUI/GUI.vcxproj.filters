@@ -13,79 +13,82 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
+    <Filter Include="cpp">
+      <UniqueIdentifier>{571d2841-1361-4536-9a74-7faec0b90c4d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MyForm.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="SignUp.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="test.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="MainForm.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="FindAccount.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Friends.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="F_Message.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="AddFriend.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="FriendResponse.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="NewMessage.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="MessageSent.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="MessageBox.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="ServerChat.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="PublicRoom.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="PublicRoomChat.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="PrivateRoom.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="PrivateRoomChat.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>cpp</Filter>
     </ClCompile>
     <ClCompile Include="CreateChatRoom.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>cpp</Filter>
     </ClCompile>
     <ClCompile Include="DeleteChatRoom.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>cpp</Filter>
     </ClCompile>
     <ClCompile Include="EditProfile.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="F_Message.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="FindAccount.cpp">
+      <Filter>cpp</Filter>
     </ClCompile>
     <ClCompile Include="FriendList.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>cpp</Filter>
     </ClCompile>
-    <ClCompile Include="JoinChatRoom.cpp">
-      <Filter>헤더 파일</Filter>
+    <ClCompile Include="FriendResponse.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Friends.cpp">
+      <Filter>cpp</Filter>
     </ClCompile>
     <ClCompile Include="GeneralChatIndex.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="JoinChatRoom.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="MainForm.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="MessageBox.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="MessageSent.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="MyForm.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="NewMessage.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="PrivateRoom.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="PrivateRoomChat.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="PublicRoom.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="PublicRoomChat.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerChat.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="SignUp.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="test.cpp">
+      <Filter>cpp</Filter>
     </ClCompile>
     <ClCompile Include="Imoji.cpp">
-      <Filter>헤더 파일</Filter>
+      <Filter>cpp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -102,9 +105,6 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="FindAccount.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Friends.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="F_Message.h">
@@ -152,9 +152,6 @@
     <ClInclude Include="FriendList.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
-    <ClInclude Include="JoinChatRoom.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="GeneralChatIndex.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -162,6 +159,12 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Imoji.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="JoinChatRoom.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Friends.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

@@ -48,11 +48,17 @@ namespace GUI {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->components = gcnew System::ComponentModel::Container();
-			this->Size = System::Drawing::Size(300,300);
-			this->Text = L"PrivateRoom";
-			this->Padding = System::Windows::Forms::Padding(0);
+			this->SuspendLayout();
+			// 
+			// PrivateRoom
+			// 
+			this->AutoScaleDimensions = System::Drawing::SizeF(10, 18);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->ClientSize = System::Drawing::Size(580, 548);
+			this->Name = L"PrivateRoom";
+			this->Text = L"PrivateRoom";
+			this->ResumeLayout(false);
+
 		}
 #pragma endregion
 	};

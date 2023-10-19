@@ -32,9 +32,17 @@ namespace GUI {
 		EditProfile^ editprofileForm = nullptr;
 
 	private: System::String^ currentDirectory = System::IO::Directory::GetCurrentDirectory();
-	private: System::Windows::Forms::Label^ label1;
-	private: System::Windows::Forms::Label^ label2;
-	private: System::Windows::Forms::Label^ label3;
+	private: System::Windows::Forms::Label^ label4;
+	private: System::Windows::Forms::Label^ label5;
+	private: System::Windows::Forms::Label^ label6;
+
+	private: System::Windows::Forms::Label^ NumMessage;
+	private: System::Windows::Forms::Panel^ panel1;
+
+
+
+
+
 	private: System::String^ relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\HomeIntro.gif");
 
 	public:
@@ -48,7 +56,7 @@ namespace GUI {
 			this->BackgroundImage = Image::FromFile(relativePath);
 			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\Others\\Img_Gacha_Char_SSR_Resume.png");
 			btnFriends->BackgroundImage = Image::FromFile(relativePath);
-			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\temp\\MomoTalk.png.png");
+			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\temp\\MomoTalk.png");
 			btnMessage->BackgroundImage = Image::FromFile(relativePath);
 			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\temp\\Document2.png");
 			btnEditProfile->BackgroundImage = Image::FromFile(relativePath);
@@ -111,31 +119,46 @@ namespace GUI {
 			this->btnFriends = (gcnew System::Windows::Forms::Button());
 			this->btnMessage = (gcnew System::Windows::Forms::Button());
 			this->btnSignOut = (gcnew System::Windows::Forms::Button());
-			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->label2 = (gcnew System::Windows::Forms::Label());
-			this->label3 = (gcnew System::Windows::Forms::Label());
+			this->label4 = (gcnew System::Windows::Forms::Label());
+			this->label5 = (gcnew System::Windows::Forms::Label());
+			this->label6 = (gcnew System::Windows::Forms::Label());
+			this->NumMessage = (gcnew System::Windows::Forms::Label());
+			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->panel1->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// btnDelChatRoom
 			// 
-			this->btnDelChatRoom->Location = System::Drawing::Point(147, 320);
+			this->btnDelChatRoom->BackColor = System::Drawing::Color::Transparent;
+			this->btnDelChatRoom->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnDelChatRoom.BackgroundImage")));
+			this->btnDelChatRoom->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnDelChatRoom->FlatAppearance->BorderSize = 0;
+			this->btnDelChatRoom->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnDelChatRoom->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnDelChatRoom->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnDelChatRoom->Location = System::Drawing::Point(129, 335);
 			this->btnDelChatRoom->Margin = System::Windows::Forms::Padding(4);
 			this->btnDelChatRoom->Name = L"btnDelChatRoom";
-			this->btnDelChatRoom->Size = System::Drawing::Size(491, 97);
+			this->btnDelChatRoom->Size = System::Drawing::Size(513, 119);
 			this->btnDelChatRoom->TabIndex = 0;
-			this->btnDelChatRoom->Text = L"Delete Chat Room";
-			this->btnDelChatRoom->UseVisualStyleBackColor = true;
+			this->btnDelChatRoom->UseVisualStyleBackColor = false;
 			this->btnDelChatRoom->Click += gcnew System::EventHandler(this, &MainForm::btnDelChatRoom_Click);
 			// 
 			// btnJoinChatRoom
 			// 
-			this->btnJoinChatRoom->Location = System::Drawing::Point(147, 49);
+			this->btnJoinChatRoom->BackColor = System::Drawing::Color::Transparent;
+			this->btnJoinChatRoom->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnJoinChatRoom.BackgroundImage")));
+			this->btnJoinChatRoom->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnJoinChatRoom->FlatAppearance->BorderSize = 0;
+			this->btnJoinChatRoom->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnJoinChatRoom->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnJoinChatRoom->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnJoinChatRoom->Location = System::Drawing::Point(123, 53);
 			this->btnJoinChatRoom->Margin = System::Windows::Forms::Padding(4);
 			this->btnJoinChatRoom->Name = L"btnJoinChatRoom";
-			this->btnJoinChatRoom->Size = System::Drawing::Size(491, 98);
+			this->btnJoinChatRoom->Size = System::Drawing::Size(519, 127);
 			this->btnJoinChatRoom->TabIndex = 1;
-			this->btnJoinChatRoom->Text = L"Join Chat Room";
-			this->btnJoinChatRoom->UseVisualStyleBackColor = true;
+			this->btnJoinChatRoom->UseVisualStyleBackColor = false;
 			this->btnJoinChatRoom->Click += gcnew System::EventHandler(this, &MainForm::btnJoinChatRoom_Click);
 			// 
 			// btnEditProfile
@@ -157,13 +180,19 @@ namespace GUI {
 			// 
 			// btnCreateChatRoom
 			// 
-			this->btnCreateChatRoom->Location = System::Drawing::Point(147, 179);
+			this->btnCreateChatRoom->BackColor = System::Drawing::Color::Transparent;
+			this->btnCreateChatRoom->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnCreateChatRoom.BackgroundImage")));
+			this->btnCreateChatRoom->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnCreateChatRoom->FlatAppearance->BorderSize = 0;
+			this->btnCreateChatRoom->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnCreateChatRoom->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnCreateChatRoom->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnCreateChatRoom->Location = System::Drawing::Point(129, 195);
 			this->btnCreateChatRoom->Margin = System::Windows::Forms::Padding(4);
 			this->btnCreateChatRoom->Name = L"btnCreateChatRoom";
-			this->btnCreateChatRoom->Size = System::Drawing::Size(491, 100);
+			this->btnCreateChatRoom->Size = System::Drawing::Size(513, 122);
 			this->btnCreateChatRoom->TabIndex = 3;
-			this->btnCreateChatRoom->Text = L"Create Chat Room";
-			this->btnCreateChatRoom->UseVisualStyleBackColor = true;
+			this->btnCreateChatRoom->UseVisualStyleBackColor = false;
 			this->btnCreateChatRoom->Click += gcnew System::EventHandler(this, &MainForm::btnCreateChatRoom_Click);
 			// 
 			// btnFriends
@@ -175,7 +204,7 @@ namespace GUI {
 			this->btnFriends->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnFriends->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnFriends->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnFriends->Location = System::Drawing::Point(307, 526);
+			this->btnFriends->Location = System::Drawing::Point(306, 526);
 			this->btnFriends->Margin = System::Windows::Forms::Padding(4);
 			this->btnFriends->Name = L"btnFriends";
 			this->btnFriends->Size = System::Drawing::Size(159, 186);
@@ -192,7 +221,7 @@ namespace GUI {
 			this->btnMessage->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnMessage->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnMessage->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnMessage->Location = System::Drawing::Point(552, 535);
+			this->btnMessage->Location = System::Drawing::Point(551, 538);
 			this->btnMessage->Margin = System::Windows::Forms::Padding(4);
 			this->btnMessage->Name = L"btnMessage";
 			this->btnMessage->Size = System::Drawing::Size(156, 180);
@@ -210,7 +239,7 @@ namespace GUI {
 			this->btnSignOut->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnSignOut->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnSignOut->Font = (gcnew System::Drawing::Font(L"Georgia", 10));
-			this->btnSignOut->Location = System::Drawing::Point(473, 820);
+			this->btnSignOut->Location = System::Drawing::Point(477, 822);
 			this->btnSignOut->Margin = System::Windows::Forms::Padding(4);
 			this->btnSignOut->Name = L"btnSignOut";
 			this->btnSignOut->Size = System::Drawing::Size(242, 66);
@@ -218,41 +247,64 @@ namespace GUI {
 			this->btnSignOut->UseVisualStyleBackColor = false;
 			this->btnSignOut->Click += gcnew System::EventHandler(this, &MainForm::btnSignOut_Click);
 			// 
-			// label1
+			// label4
 			// 
-			this->label1->AutoSize = true;
-			this->label1->BackColor = System::Drawing::Color::Transparent;
-			this->label1->Font = (gcnew System::Drawing::Font(L"Georgia", 15));
-			this->label1->Location = System::Drawing::Point(69, 744);
-			this->label1->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(167, 35);
-			this->label1->TabIndex = 7;
-			this->label1->Text = L"Edit Profile";
+			this->label4->AutoSize = true;
+			this->label4->BackColor = System::Drawing::Color::Transparent;
+			this->label4->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 16));
+			this->label4->ForeColor = System::Drawing::Color::DarkSlateBlue;
+			this->label4->Location = System::Drawing::Point(49, 744);
+			this->label4->Name = L"label4";
+			this->label4->Size = System::Drawing::Size(188, 37);
+			this->label4->TabIndex = 11;
+			this->label4->Text = L"Edit Profile";
 			// 
-			// label2
+			// label5
 			// 
-			this->label2->AutoSize = true;
-			this->label2->BackColor = System::Drawing::Color::Transparent;
-			this->label2->Font = (gcnew System::Drawing::Font(L"Georgia", 15));
-			this->label2->Location = System::Drawing::Point(330, 744);
-			this->label2->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(117, 35);
-			this->label2->TabIndex = 8;
-			this->label2->Text = L"Friends";
+			this->label5->AutoSize = true;
+			this->label5->BackColor = System::Drawing::Color::Transparent;
+			this->label5->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 16));
+			this->label5->ForeColor = System::Drawing::Color::DarkSlateBlue;
+			this->label5->Location = System::Drawing::Point(320, 743);
+			this->label5->Name = L"label5";
+			this->label5->Size = System::Drawing::Size(134, 37);
+			this->label5->TabIndex = 11;
+			this->label5->Text = L"Friends";
 			// 
-			// label3
+			// label6
 			// 
-			this->label3->AutoSize = true;
-			this->label3->BackColor = System::Drawing::Color::Transparent;
-			this->label3->Font = (gcnew System::Drawing::Font(L"Georgia", 15));
-			this->label3->Location = System::Drawing::Point(557, 746);
-			this->label3->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
-			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(129, 35);
-			this->label3->TabIndex = 9;
-			this->label3->Text = L"Message";
+			this->label6->AutoSize = true;
+			this->label6->BackColor = System::Drawing::Color::Transparent;
+			this->label6->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 16));
+			this->label6->ForeColor = System::Drawing::Color::DarkSlateBlue;
+			this->label6->Location = System::Drawing::Point(543, 744);
+			this->label6->Name = L"label6";
+			this->label6->Size = System::Drawing::Size(155, 37);
+			this->label6->TabIndex = 11;
+			this->label6->Text = L"Message";
+			// 
+			// NumMessage
+			// 
+			this->NumMessage->AutoSize = true;
+			this->NumMessage->BackColor = System::Drawing::Color::Transparent;
+			this->NumMessage->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 16));
+			this->NumMessage->ForeColor = System::Drawing::Color::SeaShell;
+			this->NumMessage->Location = System::Drawing::Point(25, 9);
+			this->NumMessage->Name = L"NumMessage";
+			this->NumMessage->Size = System::Drawing::Size(36, 37);
+			this->NumMessage->TabIndex = 13;
+			this->NumMessage->Text = L"1";
+			// 
+			// panel1
+			// 
+			this->panel1->BackColor = System::Drawing::Color::Transparent;
+			this->panel1->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"panel1.BackgroundImage")));
+			this->panel1->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->panel1->Controls->Add(this->NumMessage);
+			this->panel1->Location = System::Drawing::Point(673, 476);
+			this->panel1->Name = L"panel1";
+			this->panel1->Size = System::Drawing::Size(83, 72);
+			this->panel1->TabIndex = 14;
 			// 
 			// MainForm
 			// 
@@ -260,10 +312,11 @@ namespace GUI {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->ClientSize = System::Drawing::Size(790, 919);
-			this->Controls->Add(this->label3);
-			this->Controls->Add(this->label2);
-			this->Controls->Add(this->label1);
+			this->ClientSize = System::Drawing::Size(804, 919);
+			this->Controls->Add(this->panel1);
+			this->Controls->Add(this->label6);
+			this->Controls->Add(this->label5);
+			this->Controls->Add(this->label4);
 			this->Controls->Add(this->btnSignOut);
 			this->Controls->Add(this->btnMessage);
 			this->Controls->Add(this->btnFriends);
@@ -274,6 +327,9 @@ namespace GUI {
 			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"MainForm";
 			this->Text = L"MainForm";
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &MainForm::MainForm_FormClosing);
+			this->panel1->ResumeLayout(false);
+			this->panel1->PerformLayout();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -285,6 +341,7 @@ namespace GUI {
 		// 이미 생성된 SignUp 폼이 없는 경우에만 새로운 폼을 생성하고 엽니다.
 		if (friendsForm == nullptr || friendsForm->IsDisposed) {
 			friendsForm = gcnew Friends;
+			friendsForm->Owner = this;
 			friendsForm->Show();
 		}
 		// 이미 생성된 폼이 열려 있는 경우, 해당 폼을 활성화시킵니다.
@@ -298,6 +355,7 @@ private: System::Void btnMessage_Click(System::Object^ sender, System::EventArgs
 	// 이미 생성된 SignUp 폼이 없는 경우에만 새로운 폼을 생성하고 엽니다.
 	if (f_Message == nullptr || f_Message->IsDisposed) {
 		f_Message = gcnew F_Message;
+		f_Message->Owner = this;
 		f_Message->Show();
 	}
 	// 이미 생성된 폼이 열려 있는 경우, 해당 폼을 활성화시킵니다.
@@ -316,6 +374,7 @@ private: System::Void btnJoinChatRoom_Click(System::Object^ sender, System::Even
 	btnJoinChatRoom->NotifyDefault(false);
 	if (joinchatroomForm == nullptr || joinchatroomForm->IsDisposed) {
 		joinchatroomForm = gcnew JoinChatRoom;
+		joinchatroomForm->Owner=this;
 		joinchatroomForm->Show();
 
 	}
@@ -331,6 +390,7 @@ private: System::Void btnCreateChatRoom_Click(System::Object^ sender, System::Ev
 	btnCreateChatRoom->NotifyDefault(false);
 	if (createchatroomForm == nullptr || createchatroomForm->IsDisposed) {
 		createchatroomForm = gcnew CreateChatRoom;
+		createchatroomForm->Owner = this;
 		createchatroomForm->Show();
 
 	}
@@ -344,6 +404,7 @@ private: System::Void btnDelChatRoom_Click(System::Object^ sender, System::Event
 
 	if (deletechatroomForm == nullptr || deletechatroomForm->IsDisposed) {
 		deletechatroomForm = gcnew DeleteChatRoom;
+		deletechatroomForm->Owner = this;
 		deletechatroomForm->Show();
 
 	}
@@ -356,6 +417,7 @@ private: System::Void btnEditProfile_Click(System::Object^ sender, System::Event
 	btnEditProfile->NotifyDefault(false);
 	if (editprofileForm == nullptr || editprofileForm->IsDisposed) {
 		editprofileForm = gcnew EditProfile;
+		editprofileForm->Owner = this;
 		editprofileForm->Show();
 
 	}
@@ -365,5 +427,9 @@ private: System::Void btnEditProfile_Click(System::Object^ sender, System::Event
 	}
 }
 
+private: System::Void MainForm_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+	this->Owner->Activate();
+
+}
 };
 }

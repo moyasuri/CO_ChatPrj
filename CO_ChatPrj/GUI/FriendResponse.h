@@ -43,7 +43,7 @@ namespace GUI {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::Label^ label1;
+
 	private: System::Windows::Forms::ListBox^ listBoxFriendsResponse;
 	private: System::Windows::Forms::Button^ btnAccept;
 	private: System::Windows::Forms::Button^ btnReject;
@@ -52,7 +52,11 @@ namespace GUI {
 
 
 
+
+	private: System::Windows::Forms::Label^ label2;
 	private: System::Windows::Forms::Button^ btnClose;
+
+
 
 
 	private:
@@ -68,71 +72,99 @@ namespace GUI {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->label1 = (gcnew System::Windows::Forms::Label());
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(FriendResponse::typeid));
 			this->listBoxFriendsResponse = (gcnew System::Windows::Forms::ListBox());
 			this->btnAccept = (gcnew System::Windows::Forms::Button());
 			this->btnReject = (gcnew System::Windows::Forms::Button());
+			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->btnClose = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
-			// 
-			// label1
-			// 
-			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(79, 83);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(39, 15);
-			this->label1->TabIndex = 0;
-			this->label1->Text = L"From";
 			// 
 			// listBoxFriendsResponse
 			// 
 			this->listBoxFriendsResponse->FormattingEnabled = true;
-			this->listBoxFriendsResponse->ItemHeight = 15;
-			this->listBoxFriendsResponse->Location = System::Drawing::Point(73, 145);
+			this->listBoxFriendsResponse->ItemHeight = 18;
+			this->listBoxFriendsResponse->Location = System::Drawing::Point(91, 173);
+			this->listBoxFriendsResponse->Margin = System::Windows::Forms::Padding(4);
 			this->listBoxFriendsResponse->Name = L"listBoxFriendsResponse";
-			this->listBoxFriendsResponse->Size = System::Drawing::Size(181, 244);
+			this->listBoxFriendsResponse->Size = System::Drawing::Size(336, 382);
 			this->listBoxFriendsResponse->TabIndex = 1;
 			// 
 			// btnAccept
 			// 
-			this->btnAccept->Location = System::Drawing::Point(294, 176);
+			this->btnAccept->BackColor = System::Drawing::Color::Transparent;
+			this->btnAccept->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnAccept.BackgroundImage")));
+			this->btnAccept->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnAccept->FlatAppearance->BorderSize = 0;
+			this->btnAccept->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnAccept->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnAccept->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnAccept->Location = System::Drawing::Point(452, 166);
+			this->btnAccept->Margin = System::Windows::Forms::Padding(4);
 			this->btnAccept->Name = L"btnAccept";
-			this->btnAccept->Size = System::Drawing::Size(75, 23);
+			this->btnAccept->Size = System::Drawing::Size(184, 64);
 			this->btnAccept->TabIndex = 2;
-			this->btnAccept->Text = L"Accept";
-			this->btnAccept->UseVisualStyleBackColor = true;
+			this->btnAccept->UseVisualStyleBackColor = false;
 			this->btnAccept->Click += gcnew System::EventHandler(this, &FriendResponse::btnAccept_Click);
 			// 
 			// btnReject
 			// 
-			this->btnReject->Location = System::Drawing::Point(284, 254);
+			this->btnReject->BackColor = System::Drawing::Color::Transparent;
+			this->btnReject->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnReject.BackgroundImage")));
+			this->btnReject->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnReject->FlatAppearance->BorderSize = 0;
+			this->btnReject->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnReject->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnReject->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnReject->Location = System::Drawing::Point(452, 258);
+			this->btnReject->Margin = System::Windows::Forms::Padding(4);
 			this->btnReject->Name = L"btnReject";
-			this->btnReject->Size = System::Drawing::Size(110, 36);
+			this->btnReject->Size = System::Drawing::Size(184, 69);
 			this->btnReject->TabIndex = 3;
-			this->btnReject->Text = L"Reject";
-			this->btnReject->UseVisualStyleBackColor = true;
+			this->btnReject->UseVisualStyleBackColor = false;
 			this->btnReject->Click += gcnew System::EventHandler(this, &FriendResponse::btnReject_Click);
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->BackColor = System::Drawing::Color::Transparent;
+			this->label2->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 16));
+			this->label2->ForeColor = System::Drawing::Color::Cornsilk;
+			this->label2->Location = System::Drawing::Point(84, 99);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(107, 37);
+			this->label2->TabIndex = 12;
+			this->label2->Text = L"From.";
 			// 
 			// btnClose
 			// 
-			this->btnClose->Location = System::Drawing::Point(294, 345);
+			this->btnClose->BackColor = System::Drawing::Color::Transparent;
+			this->btnClose->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnClose.BackgroundImage")));
+			this->btnClose->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnClose->FlatAppearance->BorderSize = 0;
+			this->btnClose->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnClose->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnClose->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnClose->Location = System::Drawing::Point(452, 597);
+			this->btnClose->Margin = System::Windows::Forms::Padding(4);
 			this->btnClose->Name = L"btnClose";
-			this->btnClose->Size = System::Drawing::Size(75, 23);
-			this->btnClose->TabIndex = 4;
-			this->btnClose->Text = L"Close";
-			this->btnClose->UseVisualStyleBackColor = true;
-			this->btnClose->Click += gcnew System::EventHandler(this, &FriendResponse::btnClose_Click);
+			this->btnClose->Size = System::Drawing::Size(184, 60);
+			this->btnClose->TabIndex = 13;
+			this->btnClose->UseVisualStyleBackColor = false;
 			// 
 			// FriendResponse
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
+			this->AutoScaleDimensions = System::Drawing::SizeF(10, 18);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(573, 473);
+			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
+			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->ClientSize = System::Drawing::Size(689, 748);
 			this->Controls->Add(this->btnClose);
+			this->Controls->Add(this->label2);
 			this->Controls->Add(this->btnReject);
 			this->Controls->Add(this->btnAccept);
 			this->Controls->Add(this->listBoxFriendsResponse);
-			this->Controls->Add(this->label1);
+			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"FriendResponse";
 			this->Text = L"FriendResponse";
 			this->Activated += gcnew System::EventHandler(this, &FriendResponse::FriendResponse_Visible);

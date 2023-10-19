@@ -37,11 +37,14 @@ namespace GUI {
 	private: System::Windows::Forms::TextBox^ textBox1;
 	protected:
 	private: System::Windows::Forms::Button^ button1;
-	private: System::Windows::Forms::Label^ label1;
-	private: System::Windows::Forms::Label^ label2;
+
+
 	private: System::Windows::Forms::TextBox^ textBox2;
 	private: System::Windows::Forms::CheckBox^ checkBox1;
 	private: System::Windows::Forms::Button^ button2;
+	private: System::Windows::Forms::Label^ label4;
+	private: System::Windows::Forms::Label^ label1;
+	private: System::Windows::Forms::Label^ label2;
 
 	private:
 		/// <summary>
@@ -56,88 +59,129 @@ namespace GUI {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(CreateChatRoom::typeid));
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->button1 = (gcnew System::Windows::Forms::Button());
-			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
 			this->checkBox1 = (gcnew System::Windows::Forms::CheckBox());
 			this->button2 = (gcnew System::Windows::Forms::Button());
+			this->label4 = (gcnew System::Windows::Forms::Label());
+			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// textBox1
 			// 
-			this->textBox1->Location = System::Drawing::Point(134, 55);
+			this->textBox1->Location = System::Drawing::Point(235, 66);
+			this->textBox1->Margin = System::Windows::Forms::Padding(4);
 			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(200, 25);
+			this->textBox1->Size = System::Drawing::Size(249, 28);
 			this->textBox1->TabIndex = 0;
+			this->textBox1->TextChanged += gcnew System::EventHandler(this, &CreateChatRoom::textBox1_TextChanged);
 			// 
 			// button1
 			// 
-			this->button1->Location = System::Drawing::Point(189, 211);
+			this->button1->BackColor = System::Drawing::Color::Transparent;
+			this->button1->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button1.BackgroundImage")));
+			this->button1->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->button1->FlatAppearance->BorderSize = 0;
+			this->button1->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->button1->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->button1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->button1->Location = System::Drawing::Point(23, 406);
+			this->button1->Margin = System::Windows::Forms::Padding(4);
 			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(106, 41);
+			this->button1->Size = System::Drawing::Size(210, 61);
 			this->button1->TabIndex = 1;
-			this->button1->Text = L"Confirm";
-			this->button1->UseVisualStyleBackColor = true;
-			// 
-			// label1
-			// 
-			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(12, 58);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(82, 15);
-			this->label1->TabIndex = 2;
-			this->label1->Text = L"RoomName";
-			// 
-			// label2
-			// 
-			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(12, 109);
-			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(76, 15);
-			this->label2->TabIndex = 4;
-			this->label2->Text = L"PassWord";
+			this->button1->UseVisualStyleBackColor = false;
 			// 
 			// textBox2
 			// 
-			this->textBox2->Location = System::Drawing::Point(134, 106);
+			this->textBox2->Location = System::Drawing::Point(235, 164);
+			this->textBox2->Margin = System::Windows::Forms::Padding(4);
 			this->textBox2->Name = L"textBox2";
-			this->textBox2->Size = System::Drawing::Size(200, 25);
+			this->textBox2->Size = System::Drawing::Size(249, 28);
 			this->textBox2->TabIndex = 3;
 			// 
 			// checkBox1
 			// 
 			this->checkBox1->AutoSize = true;
-			this->checkBox1->Location = System::Drawing::Point(350, 61);
+			this->checkBox1->Location = System::Drawing::Point(525, 68);
+			this->checkBox1->Margin = System::Windows::Forms::Padding(4);
 			this->checkBox1->Name = L"checkBox1";
-			this->checkBox1->Size = System::Drawing::Size(74, 19);
+			this->checkBox1->Size = System::Drawing::Size(22, 21);
 			this->checkBox1->TabIndex = 5;
-			this->checkBox1->Text = L"Private";
 			this->checkBox1->UseVisualStyleBackColor = true;
 			// 
 			// button2
 			// 
-			this->button2->Location = System::Drawing::Point(340, 211);
+			this->button2->BackColor = System::Drawing::Color::Transparent;
+			this->button2->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button2.BackgroundImage")));
+			this->button2->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->button2->FlatAppearance->BorderSize = 0;
+			this->button2->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->button2->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->button2->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->button2->Location = System::Drawing::Point(520, 406);
+			this->button2->Margin = System::Windows::Forms::Padding(4);
 			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(106, 41);
+			this->button2->Size = System::Drawing::Size(212, 61);
 			this->button2->TabIndex = 6;
-			this->button2->Text = L"Close";
-			this->button2->UseVisualStyleBackColor = true;
+			this->button2->UseVisualStyleBackColor = false;
 			this->button2->Click += gcnew System::EventHandler(this, &CreateChatRoom::button2_Click);
+			// 
+			// label4
+			// 
+			this->label4->AutoSize = true;
+			this->label4->BackColor = System::Drawing::Color::Transparent;
+			this->label4->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 16));
+			this->label4->ForeColor = System::Drawing::Color::Cyan;
+			this->label4->Location = System::Drawing::Point(25, 59);
+			this->label4->Name = L"label4";
+			this->label4->Size = System::Drawing::Size(174, 37);
+			this->label4->TabIndex = 12;
+			this->label4->Text = L"RoomTitle";
+			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->BackColor = System::Drawing::Color::Transparent;
+			this->label1->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 16));
+			this->label1->ForeColor = System::Drawing::Color::Cyan;
+			this->label1->Location = System::Drawing::Point(25, 158);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(170, 37);
+			this->label1->TabIndex = 12;
+			this->label1->Text = L"Password";
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->BackColor = System::Drawing::Color::Transparent;
+			this->label2->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 10));
+			this->label2->ForeColor = System::Drawing::Color::DeepPink;
+			this->label2->Location = System::Drawing::Point(547, 66);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(79, 23);
+			this->label2->TabIndex = 12;
+			this->label2->Text = L"Private";
 			// 
 			// CreateChatRoom
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
+			this->AutoScaleDimensions = System::Drawing::SizeF(10, 18);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(487, 271);
+			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
+			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->ClientSize = System::Drawing::Size(745, 496);
+			this->Controls->Add(this->label1);
+			this->Controls->Add(this->label2);
+			this->Controls->Add(this->label4);
 			this->Controls->Add(this->button2);
 			this->Controls->Add(this->checkBox1);
-			this->Controls->Add(this->label2);
 			this->Controls->Add(this->textBox2);
-			this->Controls->Add(this->label1);
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->textBox1);
+			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"CreateChatRoom";
 			this->Text = L"CreateRoom";
 			this->ResumeLayout(false);
@@ -148,5 +192,7 @@ namespace GUI {
 	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->Close();
 	}
+private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+}
 };
 }

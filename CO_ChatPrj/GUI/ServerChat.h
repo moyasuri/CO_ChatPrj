@@ -184,6 +184,7 @@ namespace GUI {
 			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"ServerChat";
 			this->Text = L"ServerChat";
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &ServerChat::ServerChat_FormClosing);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->picBoxImojiMy))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->picBoxImojiYou))->EndInit();
 			this->ResumeLayout(false);
@@ -249,7 +250,9 @@ namespace GUI {
 	}
 
 	private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {
+		this->Owner->Show();
 		this->Close();
+		
 	}
 
 
@@ -270,5 +273,8 @@ namespace GUI {
 			   // 문자열에서 부분 문자열의 포함 여부를 확인합니다.
 			   return strCpp.find(searchStringCpp) != std::string::npos;
 		   }
+private: System::Void ServerChat_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+	this->Owner->Show();
+}
 };
 }

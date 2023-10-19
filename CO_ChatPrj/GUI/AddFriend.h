@@ -39,14 +39,20 @@ namespace GUI {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::Button^ btnSendReq;
+
 	private: System::Windows::Forms::TextBox^ txtBoxID;
-	protected:
-
-	protected:
-
+	private: System::Windows::Forms::Button^ btnSendReq;
 
 	private: System::Windows::Forms::Button^ btnClose;
+	private: System::Windows::Forms::Label^ label2;
+
+
+	protected:
+
+	protected:
+
+
+
 
 
 	private:
@@ -62,46 +68,79 @@ namespace GUI {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->btnSendReq = (gcnew System::Windows::Forms::Button());
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(AddFriend::typeid));
 			this->txtBoxID = (gcnew System::Windows::Forms::TextBox());
+			this->btnSendReq = (gcnew System::Windows::Forms::Button());
 			this->btnClose = (gcnew System::Windows::Forms::Button());
+			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
-			// 
-			// btnSendReq
-			// 
-			this->btnSendReq->Location = System::Drawing::Point(33, 126);
-			this->btnSendReq->Name = L"btnSendReq";
-			this->btnSendReq->Size = System::Drawing::Size(189, 51);
-			this->btnSendReq->TabIndex = 1;
-			this->btnSendReq->Text = L"Send Request";
-			this->btnSendReq->UseVisualStyleBackColor = true;
-			this->btnSendReq->Click += gcnew System::EventHandler(this, &AddFriend::btnSendReq_Click);
 			// 
 			// txtBoxID
 			// 
-			this->txtBoxID->Location = System::Drawing::Point(33, 66);
+			this->txtBoxID->Location = System::Drawing::Point(143, 100);
+			this->txtBoxID->Margin = System::Windows::Forms::Padding(4);
 			this->txtBoxID->Name = L"txtBoxID";
-			this->txtBoxID->Size = System::Drawing::Size(215, 25);
+			this->txtBoxID->Size = System::Drawing::Size(268, 28);
 			this->txtBoxID->TabIndex = 2;
+			// 
+			// btnSendReq
+			// 
+			this->btnSendReq->BackColor = System::Drawing::Color::Transparent;
+			this->btnSendReq->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnSendReq.BackgroundImage")));
+			this->btnSendReq->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnSendReq->FlatAppearance->BorderSize = 0;
+			this->btnSendReq->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnSendReq->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnSendReq->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnSendReq->Location = System::Drawing::Point(143, 239);
+			this->btnSendReq->Margin = System::Windows::Forms::Padding(4);
+			this->btnSendReq->Name = L"btnSendReq";
+			this->btnSendReq->Size = System::Drawing::Size(291, 60);
+			this->btnSendReq->TabIndex = 4;
+			this->btnSendReq->UseVisualStyleBackColor = false;
+			this->btnSendReq->Click += gcnew System::EventHandler(this, &AddFriend::btnSend_Click);
 			// 
 			// btnClose
 			// 
-			this->btnClose->Location = System::Drawing::Point(33, 210);
+			this->btnClose->BackColor = System::Drawing::Color::Transparent;
+			this->btnClose->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnClose.BackgroundImage")));
+			this->btnClose->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnClose->FlatAppearance->BorderSize = 0;
+			this->btnClose->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnClose->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnClose->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnClose->Location = System::Drawing::Point(224, 329);
+			this->btnClose->Margin = System::Windows::Forms::Padding(4);
 			this->btnClose->Name = L"btnClose";
-			this->btnClose->Size = System::Drawing::Size(189, 51);
-			this->btnClose->TabIndex = 3;
-			this->btnClose->Text = L"Close";
-			this->btnClose->UseVisualStyleBackColor = true;
-			this->btnClose->Click += gcnew System::EventHandler(this, &AddFriend::btnClose_Click);
+			this->btnClose->Size = System::Drawing::Size(187, 53);
+			this->btnClose->TabIndex = 4;
+			this->btnClose->UseVisualStyleBackColor = false;
+			this->btnClose->Click += gcnew System::EventHandler(this, &AddFriend::btnClose_Click_1);
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->BackColor = System::Drawing::Color::Transparent;
+			this->label2->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 16));
+			this->label2->ForeColor = System::Drawing::Color::Cornsilk;
+			this->label2->Location = System::Drawing::Point(57, 91);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(66, 37);
+			this->label2->TabIndex = 11;
+			this->label2->Text = L"To.";
 			// 
 			// AddFriend
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
+			this->AutoScaleDimensions = System::Drawing::SizeF(10, 18);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(545, 443);
+			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
+			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->ClientSize = System::Drawing::Size(488, 507);
+			this->Controls->Add(this->label2);
 			this->Controls->Add(this->btnClose);
-			this->Controls->Add(this->txtBoxID);
 			this->Controls->Add(this->btnSendReq);
+			this->Controls->Add(this->txtBoxID);
+			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"AddFriend";
 			this->Text = L"AddFriend";
 			this->ResumeLayout(false);
@@ -172,5 +211,11 @@ namespace GUI {
 
 
 	}
-	};
+	private: System::Void btnSend_Click(System::Object^ sender, System::EventArgs^ e) {
+	}
+private: System::Void btnClose_Click_1(System::Object^ sender, System::EventArgs^ e) {
+
+	this->Close();
+}
+};
 }

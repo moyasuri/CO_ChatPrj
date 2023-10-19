@@ -21,6 +21,8 @@ namespace GUI {
 			//
 			//TODO: 생성자 코드를 여기에 추가합니다.
 			//
+
+
 		}
 
 	protected:
@@ -34,20 +36,32 @@ namespace GUI {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::Label^ label1;
+
 	protected:
-	private: System::Windows::Forms::Label^ label2;
+
 	private: System::Windows::Forms::DataGridView^ dataGridView1;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ From;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Date;
-	private: System::Windows::Forms::Button^ button1;
+
+
+
 	private: System::Windows::Forms::DataGridView^ dataGridView2;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn1;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn2;
+
+
+	private: System::Windows::Forms::TextBox^ txtBoxMsg;
+
+
+
+
+
+	private: System::Windows::Forms::Button^ btnRead;
+	private: System::Windows::Forms::Button^ button1;
 	private: System::Windows::Forms::Button^ button2;
-	private: System::Windows::Forms::Button^ button3;
-	private: System::Windows::Forms::Button^ button4;
-	private: System::Windows::Forms::TextBox^ textBox1;
+	private: System::Windows::Forms::Label^ label3;
+	private: System::Windows::Forms::Label^ label1;
+	private: System::Windows::Forms::Button^ btnClose;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ViewUnread;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Date;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ViewRead;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn2;
 
 	private:
 		/// <summary>
@@ -62,58 +76,154 @@ namespace GUI {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->label2 = (gcnew System::Windows::Forms::Label());
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MessageBox::typeid));
 			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
-			this->From = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Date = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->dataGridView2 = (gcnew System::Windows::Forms::DataGridView());
-			this->dataGridViewTextBoxColumn1 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->dataGridViewTextBoxColumn2 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->txtBoxMsg = (gcnew System::Windows::Forms::TextBox());
+			this->btnRead = (gcnew System::Windows::Forms::Button());
+			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->button2 = (gcnew System::Windows::Forms::Button());
-			this->button3 = (gcnew System::Windows::Forms::Button());
-			this->button4 = (gcnew System::Windows::Forms::Button());
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
+			this->label3 = (gcnew System::Windows::Forms::Label());
+			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->btnClose = (gcnew System::Windows::Forms::Button());
+			this->ViewUnread = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Date = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->ViewRead = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->dataGridViewTextBoxColumn2 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView2))->BeginInit();
 			this->SuspendLayout();
 			// 
-			// label1
-			// 
-			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(82, 71);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(53, 15);
-			this->label1->TabIndex = 0;
-			this->label1->Text = L"Unread";
-			// 
-			// label2
-			// 
-			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(82, 306);
-			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(41, 15);
-			this->label2->TabIndex = 1;
-			this->label2->Text = L"Read";
-			// 
 			// dataGridView1
 			// 
 			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(2) { this->From, this->Date });
-			this->dataGridView1->Location = System::Drawing::Point(85, 89);
+			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(2) {
+				this->ViewUnread,
+					this->Date
+			});
+			this->dataGridView1->Location = System::Drawing::Point(70, 107);
+			this->dataGridView1->Margin = System::Windows::Forms::Padding(4);
 			this->dataGridView1->Name = L"dataGridView1";
 			this->dataGridView1->RowHeadersWidth = 51;
 			this->dataGridView1->RowTemplate->Height = 27;
-			this->dataGridView1->Size = System::Drawing::Size(240, 150);
+			this->dataGridView1->Size = System::Drawing::Size(522, 245);
 			this->dataGridView1->TabIndex = 2;
 			// 
-			// From
+			// dataGridView2
 			// 
-			this->From->HeaderText = L"From";
-			this->From->MinimumWidth = 6;
-			this->From->Name = L"From";
-			this->From->Width = 125;
+			this->dataGridView2->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dataGridView2->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(2) {
+				this->ViewRead,
+					this->dataGridViewTextBoxColumn2
+			});
+			this->dataGridView2->Location = System::Drawing::Point(70, 503);
+			this->dataGridView2->Margin = System::Windows::Forms::Padding(4);
+			this->dataGridView2->Name = L"dataGridView2";
+			this->dataGridView2->RowHeadersWidth = 51;
+			this->dataGridView2->RowTemplate->Height = 27;
+			this->dataGridView2->Size = System::Drawing::Size(522, 245);
+			this->dataGridView2->TabIndex = 4;
+			// 
+			// txtBoxMsg
+			// 
+			this->txtBoxMsg->Location = System::Drawing::Point(666, 107);
+			this->txtBoxMsg->Margin = System::Windows::Forms::Padding(4);
+			this->txtBoxMsg->Multiline = true;
+			this->txtBoxMsg->Name = L"txtBoxMsg";
+			this->txtBoxMsg->Size = System::Drawing::Size(517, 641);
+			this->txtBoxMsg->TabIndex = 8;
+			// 
+			// btnRead
+			// 
+			this->btnRead->BackColor = System::Drawing::Color::Transparent;
+			this->btnRead->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnRead.BackgroundImage")));
+			this->btnRead->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnRead->FlatAppearance->BorderSize = 0;
+			this->btnRead->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnRead->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnRead->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnRead->Location = System::Drawing::Point(300, 374);
+			this->btnRead->Name = L"btnRead";
+			this->btnRead->Size = System::Drawing::Size(136, 53);
+			this->btnRead->TabIndex = 9;
+			this->btnRead->UseVisualStyleBackColor = false;
+			// 
+			// button1
+			// 
+			this->button1->BackColor = System::Drawing::Color::Transparent;
+			this->button1->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button1.BackgroundImage")));
+			this->button1->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->button1->FlatAppearance->BorderSize = 0;
+			this->button1->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->button1->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->button1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->button1->Location = System::Drawing::Point(456, 377);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(136, 46);
+			this->button1->TabIndex = 9;
+			this->button1->UseVisualStyleBackColor = false;
+			// 
+			// button2
+			// 
+			this->button2->BackColor = System::Drawing::Color::Transparent;
+			this->button2->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button2.BackgroundImage")));
+			this->button2->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->button2->FlatAppearance->BorderSize = 0;
+			this->button2->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->button2->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->button2->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->button2->Location = System::Drawing::Point(446, 755);
+			this->button2->Name = L"button2";
+			this->button2->Size = System::Drawing::Size(136, 46);
+			this->button2->TabIndex = 9;
+			this->button2->UseVisualStyleBackColor = false;
+			// 
+			// label3
+			// 
+			this->label3->AutoSize = true;
+			this->label3->BackColor = System::Drawing::Color::Transparent;
+			this->label3->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 24));
+			this->label3->ForeColor = System::Drawing::SystemColors::ControlText;
+			this->label3->Location = System::Drawing::Point(60, 42);
+			this->label3->Name = L"label3";
+			this->label3->Size = System::Drawing::Size(198, 55);
+			this->label3->TabIndex = 11;
+			this->label3->Text = L"Unread";
+			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->BackColor = System::Drawing::Color::Transparent;
+			this->label1->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 24));
+			this->label1->ForeColor = System::Drawing::SystemColors::Highlight;
+			this->label1->Location = System::Drawing::Point(60, 444);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(147, 55);
+			this->label1->TabIndex = 11;
+			this->label1->Text = L"Read";
+			// 
+			// btnClose
+			// 
+			this->btnClose->BackColor = System::Drawing::Color::Transparent;
+			this->btnClose->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnClose.BackgroundImage")));
+			this->btnClose->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnClose->FlatAppearance->BorderSize = 0;
+			this->btnClose->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnClose->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnClose->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnClose->Location = System::Drawing::Point(984, 846);
+			this->btnClose->Name = L"btnClose";
+			this->btnClose->Size = System::Drawing::Size(199, 66);
+			this->btnClose->TabIndex = 9;
+			this->btnClose->UseVisualStyleBackColor = false;
+			this->btnClose->Click += gcnew System::EventHandler(this, &MessageBox::btnClose_Click);
+			// 
+			// ViewUnread
+			// 
+			this->ViewUnread->HeaderText = L"From";
+			this->ViewUnread->MinimumWidth = 6;
+			this->ViewUnread->Name = L"ViewUnread";
+			this->ViewUnread->Width = 125;
 			// 
 			// Date
 			// 
@@ -122,35 +232,12 @@ namespace GUI {
 			this->Date->Name = L"Date";
 			this->Date->Width = 125;
 			// 
-			// button1
+			// ViewRead
 			// 
-			this->button1->Location = System::Drawing::Point(358, 166);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(75, 23);
-			this->button1->TabIndex = 3;
-			this->button1->Text = L"Read";
-			this->button1->UseVisualStyleBackColor = true;
-			// 
-			// dataGridView2
-			// 
-			this->dataGridView2->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView2->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(2) {
-				this->dataGridViewTextBoxColumn1,
-					this->dataGridViewTextBoxColumn2
-			});
-			this->dataGridView2->Location = System::Drawing::Point(85, 324);
-			this->dataGridView2->Name = L"dataGridView2";
-			this->dataGridView2->RowHeadersWidth = 51;
-			this->dataGridView2->RowTemplate->Height = 27;
-			this->dataGridView2->Size = System::Drawing::Size(240, 150);
-			this->dataGridView2->TabIndex = 4;
-			// 
-			// dataGridViewTextBoxColumn1
-			// 
-			this->dataGridViewTextBoxColumn1->HeaderText = L"From";
-			this->dataGridViewTextBoxColumn1->MinimumWidth = 6;
-			this->dataGridViewTextBoxColumn1->Name = L"dataGridViewTextBoxColumn1";
-			this->dataGridViewTextBoxColumn1->Width = 125;
+			this->ViewRead->HeaderText = L"From";
+			this->ViewRead->MinimumWidth = 6;
+			this->ViewRead->Name = L"ViewRead";
+			this->ViewRead->Width = 125;
 			// 
 			// dataGridViewTextBoxColumn2
 			// 
@@ -159,56 +246,24 @@ namespace GUI {
 			this->dataGridViewTextBoxColumn2->Name = L"dataGridViewTextBoxColumn2";
 			this->dataGridViewTextBoxColumn2->Width = 125;
 			// 
-			// button2
-			// 
-			this->button2->Location = System::Drawing::Point(358, 216);
-			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(75, 23);
-			this->button2->TabIndex = 5;
-			this->button2->Text = L"Delete";
-			this->button2->UseVisualStyleBackColor = true;
-			// 
-			// button3
-			// 
-			this->button3->Location = System::Drawing::Point(358, 448);
-			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(75, 23);
-			this->button3->TabIndex = 6;
-			this->button3->Text = L"Delete";
-			this->button3->UseVisualStyleBackColor = true;
-			// 
-			// button4
-			// 
-			this->button4->Location = System::Drawing::Point(681, 480);
-			this->button4->Name = L"button4";
-			this->button4->Size = System::Drawing::Size(145, 53);
-			this->button4->TabIndex = 7;
-			this->button4->Text = L"Close";
-			this->button4->UseVisualStyleBackColor = true;
-			this->button4->Click += gcnew System::EventHandler(this, &MessageBox::button4_Click);
-			// 
-			// textBox1
-			// 
-			this->textBox1->Location = System::Drawing::Point(477, 89);
-			this->textBox1->Multiline = true;
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(349, 371);
-			this->textBox1->TabIndex = 8;
-			// 
 			// MessageBox
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
+			this->AutoScaleDimensions = System::Drawing::SizeF(10, 18);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(891, 545);
-			this->Controls->Add(this->textBox1);
-			this->Controls->Add(this->button4);
-			this->Controls->Add(this->button3);
-			this->Controls->Add(this->button2);
-			this->Controls->Add(this->dataGridView2);
-			this->Controls->Add(this->button1);
-			this->Controls->Add(this->dataGridView1);
-			this->Controls->Add(this->label2);
+			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
+			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->ClientSize = System::Drawing::Size(1227, 973);
 			this->Controls->Add(this->label1);
+			this->Controls->Add(this->label3);
+			this->Controls->Add(this->btnClose);
+			this->Controls->Add(this->button2);
+			this->Controls->Add(this->button1);
+			this->Controls->Add(this->btnRead);
+			this->Controls->Add(this->txtBoxMsg);
+			this->Controls->Add(this->dataGridView2);
+			this->Controls->Add(this->dataGridView1);
+			this->DoubleBuffered = true;
+			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"MessageBox";
 			this->Text = L"Message_Box";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
@@ -221,5 +276,10 @@ namespace GUI {
 	private: System::Void button4_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->Close();
 	}
+private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->Owner->Activate();
+	this->Close();
+
+}
 };
 }

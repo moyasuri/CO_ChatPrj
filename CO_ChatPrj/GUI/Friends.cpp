@@ -1,2 +1,2 @@
-﻿#include "Friends.h"
+#include "Friends.h"
 

@@ -1,19 +1,19 @@
-﻿#pragma once
+#pragma once
+#pragma once
 #include "AddFriend.h"
 #include "FriendResponse.h"
-
 #include <msclr/marshal_cppstd.h>
 #include <string>
 #include <cliext/vector>
 #include <sstream>
-
 #include "UsageClient.h"
+
+
 extern SOCKET client_sock;
 extern std::string Recv_str;
 
 
 namespace GUI {
-	
 
 	using namespace System;
 	using namespace System::ComponentModel;
@@ -21,17 +21,14 @@ namespace GUI {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
-	
 
 	/// <summary>
 	/// Friends에 대한 요약입니다.
 	/// </summary>
 	public ref class Friends : public System::Windows::Forms::Form
 	{
-	private:
-		AddFriend^ addfriendform = nullptr;
-	private: System::Windows::Forms::Button^ btnClose;
-
+	private:AddFriend^ addfriendform = nullptr;
+	private: System::Windows::Forms::Label^ label2;
 		   FriendResponse^ friendresponseform = nullptr;
 	public:
 		Friends(void)
@@ -53,19 +50,15 @@ namespace GUI {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::Button^ button3;
-	private: System::Windows::Forms::Button^ btnDelete;
-	protected:
-
-	private: System::Windows::Forms::Button^ button4;
-	private: System::Windows::Forms::Label^ label1;
+	private: System::Windows::Forms::Button^ btnAdd;
 	private: System::Windows::Forms::ListBox^ listBoxFriends;
-
-
-
+	protected:
 
 	protected:
 
+	private: System::Windows::Forms::Button^ btnResponse;
+	private: System::Windows::Forms::Button^ btnDelete;
+	private: System::Windows::Forms::Button^ btnClose;
 
 	private:
 		/// <summary>
@@ -80,83 +73,113 @@ namespace GUI {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->button3 = (gcnew System::Windows::Forms::Button());
-			this->btnDelete = (gcnew System::Windows::Forms::Button());
-			this->button4 = (gcnew System::Windows::Forms::Button());
-			this->label1 = (gcnew System::Windows::Forms::Label());
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(Friends::typeid));
+			this->btnAdd = (gcnew System::Windows::Forms::Button());
 			this->listBoxFriends = (gcnew System::Windows::Forms::ListBox());
+			this->btnResponse = (gcnew System::Windows::Forms::Button());
+			this->btnDelete = (gcnew System::Windows::Forms::Button());
 			this->btnClose = (gcnew System::Windows::Forms::Button());
+			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
-			// button3
+			// btnAdd
 			// 
-			this->button3->Location = System::Drawing::Point(316, 148);
-			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(153, 31);
-			this->button3->TabIndex = 5;
-			this->button3->Text = L"Request Response";
-			this->button3->UseVisualStyleBackColor = true;
-			this->button3->Click += gcnew System::EventHandler(this, &Friends::button3_Click);
-			// 
-			// btnDelete
-			// 
-			this->btnDelete->Location = System::Drawing::Point(316, 206);
-			this->btnDelete->Name = L"btnDelete";
-			this->btnDelete->Size = System::Drawing::Size(153, 31);
-			this->btnDelete->TabIndex = 6;
-			this->btnDelete->Text = L"Delete";
-			this->btnDelete->UseVisualStyleBackColor = true;
-			this->btnDelete->Click += gcnew System::EventHandler(this, &Friends::btnDelete_Click);
-			// 
-			// button4
-			// 
-			this->button4->Location = System::Drawing::Point(316, 91);
-			this->button4->Name = L"button4";
-			this->button4->Size = System::Drawing::Size(153, 31);
-			this->button4->TabIndex = 7;
-			this->button4->Text = L"Add Friend";
-			this->button4->UseVisualStyleBackColor = true;
-			this->button4->Click += gcnew System::EventHandler(this, &Friends::button4_Click);
-			// 
-			// label1
-			// 
-			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(41, 58);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(77, 15);
-			this->label1->TabIndex = 4;
-			this->label1->Text = L"Friends list";
+			this->btnAdd->BackColor = System::Drawing::Color::Transparent;
+			this->btnAdd->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnAdd.BackgroundImage")));
+			this->btnAdd->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnAdd->FlatAppearance->BorderSize = 0;
+			this->btnAdd->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnAdd->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnAdd->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnAdd->Location = System::Drawing::Point(584, 114);
+			this->btnAdd->Name = L"btnAdd";
+			this->btnAdd->Size = System::Drawing::Size(243, 80);
+			this->btnAdd->TabIndex = 0;
+			this->btnAdd->UseVisualStyleBackColor = false;
+			this->btnAdd->Click += gcnew System::EventHandler(this, &Friends::btnAdd_Click);
 			// 
 			// listBoxFriends
 			// 
 			this->listBoxFriends->FormattingEnabled = true;
-			this->listBoxFriends->ItemHeight = 15;
-			this->listBoxFriends->Location = System::Drawing::Point(44, 91);
+			this->listBoxFriends->ItemHeight = 18;
+			this->listBoxFriends->Location = System::Drawing::Point(132, 114);
 			this->listBoxFriends->Name = L"listBoxFriends";
-			this->listBoxFriends->Size = System::Drawing::Size(237, 259);
-			this->listBoxFriends->TabIndex = 3;
+			this->listBoxFriends->Size = System::Drawing::Size(411, 472);
+			this->listBoxFriends->TabIndex = 1;
+			// 
+			// btnResponse
+			// 
+			this->btnResponse->BackColor = System::Drawing::Color::Transparent;
+			this->btnResponse->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnResponse.BackgroundImage")));
+			this->btnResponse->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnResponse->FlatAppearance->BorderSize = 0;
+			this->btnResponse->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnResponse->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnResponse->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnResponse->Location = System::Drawing::Point(584, 226);
+			this->btnResponse->Name = L"btnResponse";
+			this->btnResponse->Size = System::Drawing::Size(243, 80);
+			this->btnResponse->TabIndex = 0;
+			this->btnResponse->UseVisualStyleBackColor = false;
+			this->btnResponse->Click += gcnew System::EventHandler(this, &Friends::btnResponse_Click);
+			// 
+			// btnDelete
+			// 
+			this->btnDelete->BackColor = System::Drawing::Color::Transparent;
+			this->btnDelete->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnDelete.BackgroundImage")));
+			this->btnDelete->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnDelete->FlatAppearance->BorderSize = 0;
+			this->btnDelete->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnDelete->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnDelete->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnDelete->Location = System::Drawing::Point(584, 340);
+			this->btnDelete->Name = L"btnDelete";
+			this->btnDelete->Size = System::Drawing::Size(243, 80);
+			this->btnDelete->TabIndex = 0;
+			this->btnDelete->UseVisualStyleBackColor = false;
+			this->btnDelete->Click += gcnew System::EventHandler(this, &Friends::btnDelete_Click);
 			// 
 			// btnClose
 			// 
-			this->btnClose->Location = System::Drawing::Point(316, 453);
+			this->btnClose->BackColor = System::Drawing::Color::Transparent;
+			this->btnClose->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnClose.BackgroundImage")));
+			this->btnClose->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnClose->FlatAppearance->BorderSize = 0;
+			this->btnClose->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnClose->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnClose->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnClose->Location = System::Drawing::Point(584, 772);
 			this->btnClose->Name = L"btnClose";
-			this->btnClose->Size = System::Drawing::Size(153, 31);
-			this->btnClose->TabIndex = 8;
-			this->btnClose->Text = L"Close";
-			this->btnClose->UseVisualStyleBackColor = true;
+			this->btnClose->Size = System::Drawing::Size(243, 80);
+			this->btnClose->TabIndex = 0;
+			this->btnClose->UseVisualStyleBackColor = false;
 			this->btnClose->Click += gcnew System::EventHandler(this, &Friends::btnClose_Click);
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->BackColor = System::Drawing::Color::Transparent;
+			this->label2->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 24));
+			this->label2->ForeColor = System::Drawing::Color::LightSlateGray;
+			this->label2->Location = System::Drawing::Point(132, 47);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(272, 55);
+			this->label2->TabIndex = 10;
+			this->label2->Text = L"Friend List";
 			// 
 			// Friends
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
+			this->AutoScaleDimensions = System::Drawing::SizeF(10, 18);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(533, 518);
-			this->Controls->Add(this->btnClose);
-			this->Controls->Add(this->button3);
-			this->Controls->Add(this->btnDelete);
-			this->Controls->Add(this->button4);
-			this->Controls->Add(this->label1);
+			this->BackColor = System::Drawing::SystemColors::Control;
+			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
+			this->ClientSize = System::Drawing::Size(1299, 881);
+			this->Controls->Add(this->label2);
 			this->Controls->Add(this->listBoxFriends);
+			this->Controls->Add(this->btnClose);
+			this->Controls->Add(this->btnDelete);
+			this->Controls->Add(this->btnResponse);
+			this->Controls->Add(this->btnAdd);
 			this->Name = L"Friends";
 			this->Text = L"Friends";
 			this->Activated += gcnew System::EventHandler(this, &Friends::Friends_Visible);
@@ -165,25 +188,142 @@ namespace GUI {
 
 		}
 #pragma endregion
+	private: System::Void btnAdd_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (addfriendform == nullptr || addfriendform->IsDisposed) {
+			addfriendform = gcnew AddFriend;
+			addfriendform->Owner = this;
+			addfriendform->Show();
 
-
-
-private: System::Void button4_Click(System::Object^ sender, System::EventArgs^ e) {
-	if (addfriendform == nullptr || addfriendform->IsDisposed) {
-		addfriendform = gcnew AddFriend;
-		addfriendform->Show();
-
+		}
+		// 이미 생성된 폼이 열려 있는 경우, 해당 폼을 활성화시킵니다.
+		else {
+			addfriendform->Activate();
+		}
 	}
-	// 이미 생성된 폼이 열려 있는 경우, 해당 폼을 활성화시킵니다.
-	else {
-		addfriendform->Activate();
+private: System::Void Friends_Visible(System::Object^ sender, System::EventArgs^ e) {
+	listBoxFriends->Items->Clear();
+	//String^ tmptxt_1; // textBox는 해당 텍스트 상자의 이름입니다.
+	// std::string tmptxt_7_ = msclr::interop::marshal_as<std::string>(tmptxt_7);
+
+	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_friends_List));
+
+	std::string _Index_Str_Result = _Index_Str;
+	const char* buffer = _Index_Str_Result.c_str();
+	send(client_sock, buffer, strlen(buffer), 0);
+	// std::stringstream ss(Recv_str);
+	//ss >> _Index;
+	//server_msg.push_back(_Contents);
+	//_Contents = string(buf + 3);
+	//server_msg.push_back(_Contents);
+
+
+	// std::string inputString = "true emilie jiwon suwan sibaaal";
+
+
+	// C++/CLI CLI 배열
+	// cli::array<System::Object^>^ arr = gcnew cli::array<System::Object^>(1);
+
+	// 공백으로 문자열 분할
+	std::istringstream iss(Recv_str); // 살짝 문제가 있을거 같기도..
+	std::string token;
+	int count = 0;
+
+	while (iss >> token) {
+		if (count == 0 && token == "true") {
+			// 첫 번째 단어가 "true"인 경우 넘어감
+			count++;
+			continue;
+		}
+		//System::String^ str = marshal_as<String^>(token);
+		listBoxFriends->Items->Add(gcnew String(token.c_str()));
+	}
+
+	// List Box에 추가
+	// listBoxFriends->Items->AddRange(vect);
+
+
+
+	if (Recv_str == "true")// server 에서 오케이받는 함수
+	{
+
+
+		return;
+	}
+	else
+	{
+		return;
 	}
 }
+private: System::Void btnDelete_Click(System::Object^ sender, System::EventArgs^ e) {
+	btnDelete->NotifyDefault(false);
 
-private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (listBoxFriends->SelectedItem == nullptr) {
+		System::Windows::Forms::MessageBox::Show("삭제하실 아이디를 선택해주세요", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		return;
+	}
 
-	if (friendresponseform == nullptr|| friendresponseform->IsDisposed) {
+	System::Windows::Forms::DialogResult result =
+		System::Windows::Forms::MessageBox::Show("진짜 삭제할거야?", "경고", \
+			MessageBoxButtons::YesNo, MessageBoxIcon::Warning);
+
+
+	if (result == System::Windows::Forms::DialogResult::Yes) {
+		// Yes 버튼을 클릭한 경우에 실행할 코드
+		// 여기에 Yes 버튼을 클릭했을 때 수행할 동작을 추가하세요.
+
+				//// Server에 ID / PW를 보내기함수
+		int time_limit = 0;
+		std::string tmptxt_1_;
+		std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_friends_Delete));
+
+		String^ tmptxt_1 = listBoxFriends->SelectedItem->ToString();
+		tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
+		std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_;
+
+		const char* buffer = _Index_Str_Result.c_str();
+		send(client_sock, buffer, strlen(buffer), 0);
+
+		while (1)
+		{
+			//if (Recv_str == "true")// server 에서 오케이받는 함수
+			if (1)// server 에서 오케이받는 함수
+			{
+				Friends_Visible(sender, e);
+				System::Windows::Forms::MessageBox::Show("그분은 당신을 아직 친구라고 생각하고있어요.", "친구삭제", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				return;
+			}
+			else if (Recv_str == "false") //  server에서 다른값보내면
+			{
+				System::Windows::Forms::MessageBox::Show("다른값을 보냈다고?", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+
+				return;
+			}
+			else // 무한반복되는건데 시간타이밍 주면 좋을거같음
+			{
+				Sleep(1000);
+				if (time_limit > 1)
+				{
+					System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+					return;
+				}
+				else
+				{
+					time_limit++;
+				}
+			}
+		}
+
+	}
+	else {
+		// No 버튼을 클릭한 경우에 실행할 코드
+		// 여기에 No 버튼을 클릭했을 때 수행할 동작을 추가하세요.
+		return;
+	}
+}
+private: System::Void btnResponse_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (friendresponseform == nullptr || friendresponseform->IsDisposed) {
 		friendresponseform = gcnew FriendResponse;
+		addfriendform->Owner = this;
 		friendresponseform->Show();
 
 	}
@@ -191,139 +331,11 @@ private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e
 	else {
 		friendresponseform->Activate();
 	}
+}
+private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->Owner->Activate();
+	this->Close();
 
 }
-
-
-	private: System::Void Friends_Visible(System::Object^ sender, System::EventArgs^ e) {
-
-			listBoxFriends->Items->Clear();
-			//String^ tmptxt_1; // textBox는 해당 텍스트 상자의 이름입니다.
-			// std::string tmptxt_7_ = msclr::interop::marshal_as<std::string>(tmptxt_7);
-
-			std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_friends_List));
-
-			std::string _Index_Str_Result = _Index_Str;
-			const char* buffer = _Index_Str_Result.c_str();
-			send(client_sock, buffer, strlen(buffer), 0);
-			// std::stringstream ss(Recv_str);
-			//ss >> _Index;
-			//server_msg.push_back(_Contents);
-			//_Contents = string(buf + 3);
-			//server_msg.push_back(_Contents);
-
-
-			// std::string inputString = "true emilie jiwon suwan sibaaal";
-
-
-			// C++/CLI CLI 배열
-			// cli::array<System::Object^>^ arr = gcnew cli::array<System::Object^>(1);
-
-			// 공백으로 문자열 분할
-			std::istringstream iss(Recv_str); // 살짝 문제가 있을거 같기도..
-			std::string token;
-			int count = 0;
-
-			while (iss >> token) {
-				if (count == 0 && token == "true") {
-					// 첫 번째 단어가 "true"인 경우 넘어감
-					count++;
-					continue;
-				}
-				//System::String^ str = marshal_as<String^>(token);
-				listBoxFriends->Items->Add(gcnew String(token.c_str()));
-			}
-
-			// List Box에 추가
-			// listBoxFriends->Items->AddRange(vect);
-
-
-
-			if (Recv_str == "true")// server 에서 오케이받는 함수
-			{
-				
-
-				return;
-			}
-			else 
-			{
-				return;
-			}
-	}
-
-
-	private: System::Void btnDelete_Click(System::Object^ sender, System::EventArgs^ e) {
-		btnDelete->NotifyDefault(false);
-
-		if (listBoxFriends->SelectedItem == nullptr) {
-			System::Windows::Forms::MessageBox::Show("삭제하실 아이디를 선택해주세요", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-			return;
-		}
-		
-		System::Windows::Forms::DialogResult result =
-			System::Windows::Forms::MessageBox::Show("진짜 삭제할거야?", "경고", \
-				MessageBoxButtons::YesNo, MessageBoxIcon::Warning);
-
-
-		if (result == System::Windows::Forms::DialogResult::Yes) {
-			// Yes 버튼을 클릭한 경우에 실행할 코드
-			// 여기에 Yes 버튼을 클릭했을 때 수행할 동작을 추가하세요.
-
-					//// Server에 ID / PW를 보내기함수
-			int time_limit = 0;
-			std::string tmptxt_1_;
-			std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_friends_Delete));
-
-			String^ tmptxt_1 = listBoxFriends->SelectedItem->ToString();
-			tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
-			std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_;
-
-			const char* buffer = _Index_Str_Result.c_str();
-			send(client_sock, buffer, strlen(buffer), 0);
-
-			while (1)
-			{
-				//if (Recv_str == "true")// server 에서 오케이받는 함수
-				if (1)// server 에서 오케이받는 함수
-				{
-					Friends_Visible(sender, e);
-					System::Windows::Forms::MessageBox::Show("그분은 당신을 아직 친구라고 생각하고있어요.", "친구삭제", MessageBoxButtons::OK, MessageBoxIcon::Information);
-					return;
-				}
-				else if (Recv_str == "false") //  server에서 다른값보내면
-				{
-					System::Windows::Forms::MessageBox::Show("다른값을 보냈다고?", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-
-					return;
-				}
-				else // 무한반복되는건데 시간타이밍 주면 좋을거같음
-				{
-					Sleep(1000);
-					if (time_limit > 1)
-					{
-						System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-						return;
-					}
-					else
-					{
-						time_limit++;
-					}
-				}
-			}
-
-		}
-		else {
-			// No 버튼을 클릭한 경우에 실행할 코드
-			// 여기에 No 버튼을 클릭했을 때 수행할 동작을 추가하세요.
-			return;
-		}
-
-
-	}
-	
-	private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {
-		this->Close();
-	}
-
 };
 }

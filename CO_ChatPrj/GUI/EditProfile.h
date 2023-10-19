@@ -245,11 +245,11 @@ namespace GUI {
 			// 
 			this->label3->AutoSize = true;
 			this->label3->BackColor = System::Drawing::Color::Transparent;
-			this->label3->Font = (gcnew System::Drawing::Font(L"Georgia", 12));
+			this->label3->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
 			this->label3->Location = System::Drawing::Point(412, 87);
 			this->label3->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(105, 29);
+			this->label3->Size = System::Drawing::Size(121, 32);
 			this->label3->TabIndex = 26;
 			this->label3->Text = L"re-check";
 			// 
@@ -369,7 +369,7 @@ namespace GUI {
 			this->btnEditConfirm->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnEditConfirm->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnEditConfirm->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnEditConfirm->Location = System::Drawing::Point(100, 753);
+			this->btnEditConfirm->Location = System::Drawing::Point(100, 770);
 			this->btnEditConfirm->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->btnEditConfirm->Name = L"btnEditConfirm";
 			this->btnEditConfirm->Size = System::Drawing::Size(200, 55);
@@ -386,7 +386,7 @@ namespace GUI {
 			this->btnClose->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnClose->Location = System::Drawing::Point(441, 753);
+			this->btnClose->Location = System::Drawing::Point(441, 770);
 			this->btnClose->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->btnClose->Name = L"btnClose";
 			this->btnClose->Size = System::Drawing::Size(218, 55);
@@ -433,12 +433,13 @@ namespace GUI {
 private: System::Void btnPWchk_Click(System::Object^ sender, System::EventArgs^ e) {
 	btnPWchk->NotifyDefault(false);
 	
+
 	int time_limit = 0;
 
 	String^ tmptxt_1 = txtBoxPW->Text; // textBox는 해당 텍스트 상자의 이름입니다.
 	String^ tmptxt_2 = txtBoxRechk->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-
-	if (!String::IsNullOrEmpty(tmptxt_1)|| !String::IsNullOrEmpty(tmptxt_2)) {
+	
+	if (String::IsNullOrEmpty(tmptxt_1)|| String::IsNullOrEmpty(tmptxt_2)) {
 		System::Windows::Forms::MessageBox::Show("비밀번호를 입력해주세요.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		return;
 	}
@@ -457,7 +458,7 @@ private: System::Void btnPWchk_Click(System::Object^ sender, System::EventArgs^ 
 	const char* buffer = _Index_Str_Result.c_str();
 	send(client_sock, buffer, strlen(buffer), 0);
 
-
+	
 	if(Recv_str == "true")
 	{
 		System::Windows::Forms::MessageBox::Show("확인되었습니다.", "PW 확인", MessageBoxButtons::OK, MessageBoxIcon::Information);
@@ -477,17 +478,11 @@ private: System::Void btnPWchk_Click(System::Object^ sender, System::EventArgs^ 
 	}
 	else // 무한반복되는건데 시간타이밍 주면 좋을거같음
 	{
-		Sleep(1000);
-		if (time_limit > 1)
-		{
+
 			System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-			return;
-		}
-		else
-		{
-			time_limit++;
-		}
+	
 	}
+
 
 
 }
@@ -576,7 +571,6 @@ private: System::Void btnEditConfirm_Click(System::Object^ sender, System::Event
 			else if (Recv_str == "false") //  server에서 다른값보내면
 			{
 				System::Windows::Forms::MessageBox::Show("email 또는 전화번호가 이미 있습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-
 				return;
 			}
 			else // 무한반복되는건데 시간타이밍 주면 좋을거같음

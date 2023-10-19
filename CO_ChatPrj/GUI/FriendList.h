@@ -36,8 +36,11 @@ namespace GUI {
 		}
 	private: System::Windows::Forms::ListView^ listView1;
 	protected:
-	private: System::Windows::Forms::Button^ button1;
-	private: System::Windows::Forms::Button^ button2;
+
+
+	private: System::Windows::Forms::Button^ btnNickNameduplicateChk;
+	private: System::Windows::Forms::Button^ btnClose;
+	private: System::Windows::Forms::Label^ label1;
 
 	private:
 		/// <summary>
@@ -52,55 +55,89 @@ namespace GUI {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(FriendList::typeid));
 			this->listView1 = (gcnew System::Windows::Forms::ListView());
-			this->button1 = (gcnew System::Windows::Forms::Button());
-			this->button2 = (gcnew System::Windows::Forms::Button());
+			this->btnNickNameduplicateChk = (gcnew System::Windows::Forms::Button());
+			this->btnClose = (gcnew System::Windows::Forms::Button());
+			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// listView1
 			// 
 			this->listView1->HideSelection = false;
-			this->listView1->Location = System::Drawing::Point(53, 42);
+			this->listView1->Location = System::Drawing::Point(68, 107);
+			this->listView1->Margin = System::Windows::Forms::Padding(4);
 			this->listView1->Name = L"listView1";
-			this->listView1->Size = System::Drawing::Size(210, 274);
+			this->listView1->Size = System::Drawing::Size(402, 421);
 			this->listView1->TabIndex = 0;
 			this->listView1->UseCompatibleStateImageBehavior = false;
 			// 
-			// button1
+			// btnNickNameduplicateChk
 			// 
-			this->button1->Location = System::Drawing::Point(72, 334);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(78, 36);
-			this->button1->TabIndex = 1;
-			this->button1->Text = L"Confirm";
-			this->button1->UseVisualStyleBackColor = true;
+			this->btnNickNameduplicateChk->BackColor = System::Drawing::Color::Transparent;
+			this->btnNickNameduplicateChk->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnNickNameduplicateChk.BackgroundImage")));
+			this->btnNickNameduplicateChk->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnNickNameduplicateChk->FlatAppearance->BorderSize = 0;
+			this->btnNickNameduplicateChk->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnNickNameduplicateChk->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnNickNameduplicateChk->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnNickNameduplicateChk->Location = System::Drawing::Point(68, 559);
+			this->btnNickNameduplicateChk->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
+			this->btnNickNameduplicateChk->Name = L"btnNickNameduplicateChk";
+			this->btnNickNameduplicateChk->Size = System::Drawing::Size(168, 55);
+			this->btnNickNameduplicateChk->TabIndex = 33;
+			this->btnNickNameduplicateChk->UseVisualStyleBackColor = false;
 			// 
-			// button2
+			// btnClose
 			// 
-			this->button2->Location = System::Drawing::Point(178, 334);
-			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(92, 36);
-			this->button2->TabIndex = 2;
-			this->button2->Text = L"Close";
-			this->button2->UseVisualStyleBackColor = true;
-			this->button2->Click += gcnew System::EventHandler(this, &FriendList::button2_Click);
+			this->btnClose->BackColor = System::Drawing::Color::Transparent;
+			this->btnClose->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnClose.BackgroundImage")));
+			this->btnClose->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnClose->FlatAppearance->BorderSize = 0;
+			this->btnClose->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnClose->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnClose->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnClose->Location = System::Drawing::Point(291, 559);
+			this->btnClose->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
+			this->btnClose->Name = L"btnClose";
+			this->btnClose->Size = System::Drawing::Size(179, 51);
+			this->btnClose->TabIndex = 47;
+			this->btnClose->UseVisualStyleBackColor = false;
+			this->btnClose->Click += gcnew System::EventHandler(this, &FriendList::btnClose_Click);
+			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->BackColor = System::Drawing::Color::Transparent;
+			this->label1->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 15));
+			this->label1->ForeColor = System::Drawing::Color::Cornsilk;
+			this->label1->Location = System::Drawing::Point(62, 50);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(68, 34);
+			this->label1->TabIndex = 48;
+			this->label1->Text = L"List";
 			// 
 			// FriendList
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
+			this->AutoScaleDimensions = System::Drawing::SizeF(10, 18);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(357, 427);
-			this->Controls->Add(this->button2);
-			this->Controls->Add(this->button1);
+			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
+			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->ClientSize = System::Drawing::Size(534, 670);
+			this->Controls->Add(this->label1);
+			this->Controls->Add(this->btnClose);
+			this->Controls->Add(this->btnNickNameduplicateChk);
 			this->Controls->Add(this->listView1);
+			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"FriendList";
 			this->Text = L"FriendList";
 			this->ResumeLayout(false);
+			this->PerformLayout();
 
 		}
 #pragma endregion
-	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->Close();
 	}
-	};
+};
 }
