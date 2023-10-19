@@ -190,10 +190,10 @@ namespace GUI {
 			this->btnSignin->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnSignin->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnSignin->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
-			this->btnSignin->Location = System::Drawing::Point(719, 541);
+			this->btnSignin->Location = System::Drawing::Point(787, 573);
 			this->btnSignin->Margin = System::Windows::Forms::Padding(4, 2, 4, 2);
 			this->btnSignin->Name = L"btnSignin";
-			this->btnSignin->Size = System::Drawing::Size(312, 144);
+			this->btnSignin->Size = System::Drawing::Size(217, 81);
 			this->btnSignin->TabIndex = 1;
 			this->btnSignin->TabStop = false;
 			this->btnSignin->Text = L"Sign in";
@@ -260,10 +260,10 @@ namespace GUI {
 			this->btnExit->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnExit->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
 			this->btnExit->ForeColor = System::Drawing::Color::Firebrick;
-			this->btnExit->Location = System::Drawing::Point(714, 648);
+			this->btnExit->Location = System::Drawing::Point(781, 675);
 			this->btnExit->Margin = System::Windows::Forms::Padding(4, 2, 4, 2);
 			this->btnExit->Name = L"btnExit";
-			this->btnExit->Size = System::Drawing::Size(312, 144);
+			this->btnExit->Size = System::Drawing::Size(212, 83);
 			this->btnExit->TabIndex = 11;
 			this->btnExit->TabStop = false;
 			this->btnExit->Text = L"Exit";
@@ -280,10 +280,10 @@ namespace GUI {
 			this->btnSignup->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnSignup->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
 			this->btnSignup->ForeColor = System::Drawing::SystemColors::Desktop;
-			this->btnSignup->Location = System::Drawing::Point(990, 541);
+			this->btnSignup->Location = System::Drawing::Point(1046, 562);
 			this->btnSignup->Margin = System::Windows::Forms::Padding(4, 2, 4, 2);
 			this->btnSignup->Name = L"btnSignup";
-			this->btnSignup->Size = System::Drawing::Size(384, 144);
+			this->btnSignup->Size = System::Drawing::Size(233, 92);
 			this->btnSignup->TabIndex = 12;
 			this->btnSignup->TabStop = false;
 			this->btnSignup->Text = L"Sign up";
@@ -300,10 +300,10 @@ namespace GUI {
 			this->btnFindAccount->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnFindAccount->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
 			this->btnFindAccount->ForeColor = System::Drawing::Color::Black;
-			this->btnFindAccount->Location = System::Drawing::Point(976, 648);
+			this->btnFindAccount->Location = System::Drawing::Point(1047, 675);
 			this->btnFindAccount->Margin = System::Windows::Forms::Padding(4, 2, 4, 2);
 			this->btnFindAccount->Name = L"btnFindAccount";
-			this->btnFindAccount->Size = System::Drawing::Size(402, 144);
+			this->btnFindAccount->Size = System::Drawing::Size(225, 83);
 			this->btnFindAccount->TabIndex = 14;
 			this->btnFindAccount->TabStop = false;
 			this->btnFindAccount->Text = L"Find Account";
@@ -446,8 +446,8 @@ namespace GUI {
 			{
 				//String^ dddd = gcnew String(Recv_str.c_str());
 				//System::Windows::Forms::MessageBox::Show(dddd, "ttt2", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-				if (Recv_str == "true")// server 에서 오케이받는 함수
-				//if (1)// test용
+				//if (Recv_str == "true")// server 에서 오케이받는 함수
+				if (1)// test용
 				{
 
 					// Hide 할때의 동작			

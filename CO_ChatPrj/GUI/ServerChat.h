@@ -34,12 +34,17 @@ namespace GUI {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::TextBox^ textBox1;
+	private: System::Windows::Forms::TextBox^ txtBoxChatWindow;
+	protected:
+
 	protected:
 	private: System::Windows::Forms::Label^ label1;
-	private: System::Windows::Forms::TextBox^ textBox2;
-	private: System::Windows::Forms::Button^ button1;
-	private: System::Windows::Forms::Button^ button2;
+	private: System::Windows::Forms::TextBox^ txtBoxMyChat;
+
+	private: System::Windows::Forms::Button^ btnSend;
+	private: System::Windows::Forms::Button^ btnClose;
+
+
 
 	private:
 		/// <summary>
@@ -54,66 +59,74 @@ namespace GUI {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
+			this->txtBoxChatWindow = (gcnew System::Windows::Forms::TextBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
-			this->button1 = (gcnew System::Windows::Forms::Button());
-			this->button2 = (gcnew System::Windows::Forms::Button());
+			this->txtBoxMyChat = (gcnew System::Windows::Forms::TextBox());
+			this->btnSend = (gcnew System::Windows::Forms::Button());
+			this->btnClose = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
-			// textBox1
+			// txtBoxChatWindow
 			// 
-			this->textBox1->Location = System::Drawing::Point(94, 92);
-			this->textBox1->Multiline = true;
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(562, 317);
-			this->textBox1->TabIndex = 0;
+			this->txtBoxChatWindow->Location = System::Drawing::Point(118, 110);
+			this->txtBoxChatWindow->Margin = System::Windows::Forms::Padding(4);
+			this->txtBoxChatWindow->Multiline = true;
+			this->txtBoxChatWindow->Name = L"txtBoxChatWindow";
+			this->txtBoxChatWindow->Size = System::Drawing::Size(702, 380);
+			this->txtBoxChatWindow->TabIndex = 0;
 			// 
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(44, 460);
+			this->label1->Location = System::Drawing::Point(55, 552);
+			this->label1->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(32, 15);
+			this->label1->Size = System::Drawing::Size(39, 18);
 			this->label1->TabIndex = 1;
 			this->label1->Text = L"you";
 			// 
-			// textBox2
+			// txtBoxMyChat
 			// 
-			this->textBox2->Location = System::Drawing::Point(94, 455);
-			this->textBox2->Name = L"textBox2";
-			this->textBox2->Size = System::Drawing::Size(562, 25);
-			this->textBox2->TabIndex = 2;
+			this->txtBoxMyChat->Location = System::Drawing::Point(118, 546);
+			this->txtBoxMyChat->Margin = System::Windows::Forms::Padding(4);
+			this->txtBoxMyChat->Name = L"txtBoxMyChat";
+			this->txtBoxMyChat->Size = System::Drawing::Size(702, 28);
+			this->txtBoxMyChat->TabIndex = 2;
+			this->txtBoxMyChat->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &ServerChat::txtBoxChat_KeyPress);
 			// 
-			// button1
+			// btnSend
 			// 
-			this->button1->Location = System::Drawing::Point(194, 505);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(149, 51);
-			this->button1->TabIndex = 3;
-			this->button1->Text = L"Send";
-			this->button1->UseVisualStyleBackColor = true;
+			this->btnSend->Location = System::Drawing::Point(242, 606);
+			this->btnSend->Margin = System::Windows::Forms::Padding(4);
+			this->btnSend->Name = L"btnSend";
+			this->btnSend->Size = System::Drawing::Size(186, 61);
+			this->btnSend->TabIndex = 3;
+			this->btnSend->Text = L"Send";
+			this->btnSend->UseVisualStyleBackColor = true;
+			this->btnSend->Click += gcnew System::EventHandler(this, &ServerChat::btnSend_Click);
 			// 
-			// button2
+			// btnClose
 			// 
-			this->button2->Location = System::Drawing::Point(417, 505);
-			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(149, 51);
-			this->button2->TabIndex = 4;
-			this->button2->Text = L"Exit";
-			this->button2->UseVisualStyleBackColor = true;
-			this->button2->Click += gcnew System::EventHandler(this, &ServerChat::button2_Click);
+			this->btnClose->Location = System::Drawing::Point(521, 606);
+			this->btnClose->Margin = System::Windows::Forms::Padding(4);
+			this->btnClose->Name = L"btnClose";
+			this->btnClose->Size = System::Drawing::Size(186, 61);
+			this->btnClose->TabIndex = 4;
+			this->btnClose->Text = L"Exit";
+			this->btnClose->UseVisualStyleBackColor = true;
+			this->btnClose->Click += gcnew System::EventHandler(this, &ServerChat::btnClose_Click);
 			// 
 			// ServerChat
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
+			this->AutoScaleDimensions = System::Drawing::SizeF(10, 18);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(752, 568);
-			this->Controls->Add(this->button2);
-			this->Controls->Add(this->button1);
-			this->Controls->Add(this->textBox2);
+			this->ClientSize = System::Drawing::Size(940, 682);
+			this->Controls->Add(this->btnClose);
+			this->Controls->Add(this->btnSend);
+			this->Controls->Add(this->txtBoxMyChat);
 			this->Controls->Add(this->label1);
-			this->Controls->Add(this->textBox1);
+			this->Controls->Add(this->txtBoxChatWindow);
+			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"ServerChat";
 			this->Text = L"ServerChat";
 			this->ResumeLayout(false);
@@ -121,8 +134,45 @@ namespace GUI {
 
 		}
 #pragma endregion
-	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
-		this->Close();
+
+
+
+	private: System::Void btnSend_Click(System::Object^ sender, System::EventArgs^ e) {
+		
+		// server에게 메세지 보내기
+
+
+		//-------------------임시-----------------//
+				// Get the text from txtBoxMyChat
+		String^ inputText = txtBoxMyChat->Text;
+
+		// Append the text to txtBoxChatWindow
+		txtBoxChatWindow->AppendText(inputText + Environment::NewLine);
+
+		// Clear txtBoxMyChat
+		txtBoxMyChat->Clear();
+		//-------------------임시-----------------//
+
+
+		if (inputText == "ㅋㅋㅋ") {
+			// Call your custom function (somefunction)
+			
+		}
+
+
 	}
+	
+private: System::Void txtBoxChat_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
+		   // Check if Enter key (carriage return) was pressed
+		   if (e->KeyChar == (char)Keys::Enter) {
+			   // Trigger the "Send" button's click event
+			   btnSend_Click(sender, e);
+		   }
+		   
+	}
+
+private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->Close();
+}
 };
 }
