@@ -323,7 +323,7 @@ private: System::Void btnDelete_Click(System::Object^ sender, System::EventArgs^
 private: System::Void btnResponse_Click(System::Object^ sender, System::EventArgs^ e) {
 	if (friendresponseform == nullptr || friendresponseform->IsDisposed) {
 		friendresponseform = gcnew FriendResponse;
-		addfriendform->Owner = this;
+		friendresponseform->Owner = this;
 		friendresponseform->Show();
 
 	}
