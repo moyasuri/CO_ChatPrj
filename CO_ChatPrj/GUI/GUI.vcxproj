@@ -131,6 +131,7 @@
     <ClCompile Include="Friends.cpp" />
     <ClCompile Include="F_Message.cpp" />
     <ClCompile Include="GeneralChatIndex.cpp" />
+    <ClCompile Include="Imoji.cpp" />
     <ClCompile Include="JoinChatRoom.cpp" />
     <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="MessageBox.cpp" />
@@ -174,6 +175,9 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="GeneralChatIndex.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="Imoji.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="JoinChatRoom.h">
@@ -247,6 +251,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GeneralChatIndex.resx">
       <DependentUpon>GeneralChatIndex.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Imoji.resx">
+      <DependentUpon>Imoji.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="JoinChatRoom.resx">
       <DependentUpon>JoinChatRoom.h</DependentUpon>

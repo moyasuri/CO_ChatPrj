@@ -1,5 +1,6 @@
 #pragma once
 
+
 enum SignUp
 {
     e_signup_IDchk = 11,
@@ -49,3 +50,12 @@ enum Friends
 
 
 
+enum Imoji
+{
+     e_imoji_k = 61,
+     e_imoji_kk,
+     e_imoji_kkk,
+
+
+
+};
