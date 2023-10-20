@@ -11,6 +11,7 @@
 
 extern SOCKET client_sock;
 extern std::string Recv_str;
+extern Ans ans;
 
 
 namespace GUI {
@@ -227,8 +228,37 @@ namespace GUI {
 	}
 private: System::Void Friends_Visible(System::Object^ sender, System::EventArgs^ e) {
 	listBoxFriends->Items->Clear();
-	//String^ tmptxt_1; // textBox는 해당 텍스트 상자의 이름입니다.
-	// std::string tmptxt_7_ = msclr::interop::marshal_as<std::string>(tmptxt_7);
+
+
+	int time_limit = 0;
+		ans.ansToeEnum(e_friends_List);
+		std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_friends_List));
+		std::string _Index_Str_Result = _Index_Str;
+		const char* buffer = _Index_Str_Result.c_str();
+		send(client_sock, buffer, strlen(buffer), 0);
+		ans.ansToeEnum(e_friends_List);
+		while (1)
+		{
+				if (time_limit > 1)
+				{
+					
+					return;
+				}
+				else
+				{
+					Sleep(500);
+					time_limit++;
+				}
+			}
+		}
+	}
+
+
+
+
+
+
+
 
 	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_friends_List));
 

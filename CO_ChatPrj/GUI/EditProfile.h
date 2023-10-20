@@ -3,8 +3,8 @@
 #include <msclr/marshal_cppstd.h>
 #include <string>
 #include "UsageClient.h"
-extern SOCKET client_sock;
 extern std::string Recv_str;
+extern SOCKET client_sock;
 extern Ans ans;
 
 namespace GUI {
@@ -62,7 +62,8 @@ namespace GUI {
 	private: System::Windows::Forms::Label^ label9;
 	protected:
 	private: System::Windows::Forms::TextBox^ txtBoxEmail;
-	private: System::Windows::Forms::ComboBox^ comboBox1;
+	private: System::Windows::Forms::ComboBox^ combBoxCha;
+
 	private: System::Windows::Forms::Button^ btnNickNameduplicateChk;
 	private: System::Windows::Forms::Label^ label7;
 	private: System::Windows::Forms::Label^ label5;
@@ -108,7 +109,7 @@ namespace GUI {
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(EditProfile::typeid));
 			this->label9 = (gcnew System::Windows::Forms::Label());
 			this->txtBoxEmail = (gcnew System::Windows::Forms::TextBox());
-			this->comboBox1 = (gcnew System::Windows::Forms::ComboBox());
+			this->combBoxCha = (gcnew System::Windows::Forms::ComboBox());
 			this->btnNickNameduplicateChk = (gcnew System::Windows::Forms::Button());
 			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->label5 = (gcnew System::Windows::Forms::Label());
@@ -133,10 +134,9 @@ namespace GUI {
 			this->label9->AutoSize = true;
 			this->label9->BackColor = System::Drawing::Color::Transparent;
 			this->label9->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
-			this->label9->Location = System::Drawing::Point(409, 514);
-			this->label9->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+			this->label9->Location = System::Drawing::Point(327, 428);
 			this->label9->Name = L"label9";
-			this->label9->Size = System::Drawing::Size(97, 32);
+			this->label9->Size = System::Drawing::Size(85, 29);
 			this->label9->TabIndex = 35;
 			this->label9->Text = L"E-mail";
 			// 
@@ -147,21 +147,21 @@ namespace GUI {
 			this->txtBoxEmail->Enabled = false;
 			this->txtBoxEmail->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
 			this->txtBoxEmail->ForeColor = System::Drawing::SystemColors::WindowFrame;
-			this->txtBoxEmail->Location = System::Drawing::Point(414, 562);
-			this->txtBoxEmail->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
+			this->txtBoxEmail->Location = System::Drawing::Point(331, 468);
+			this->txtBoxEmail->Margin = System::Windows::Forms::Padding(3, 4, 3, 4);
 			this->txtBoxEmail->Name = L"txtBoxEmail";
-			this->txtBoxEmail->Size = System::Drawing::Size(244, 32);
+			this->txtBoxEmail->Size = System::Drawing::Size(195, 27);
 			this->txtBoxEmail->TabIndex = 34;
 			// 
-			// comboBox1
+			// combBoxCha
 			// 
-			this->comboBox1->FormattingEnabled = true;
-			this->comboBox1->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"이즈나", L"아리스" });
-			this->comboBox1->Location = System::Drawing::Point(104, 681);
-			this->comboBox1->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
-			this->comboBox1->Name = L"comboBox1";
-			this->comboBox1->Size = System::Drawing::Size(240, 26);
-			this->comboBox1->TabIndex = 33;
+			this->combBoxCha->FormattingEnabled = true;
+			this->combBoxCha->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"이즈나", L"아리스" });
+			this->combBoxCha->Location = System::Drawing::Point(83, 568);
+			this->combBoxCha->Margin = System::Windows::Forms::Padding(3, 4, 3, 4);
+			this->combBoxCha->Name = L"combBoxCha";
+			this->combBoxCha->Size = System::Drawing::Size(193, 23);
+			this->combBoxCha->TabIndex = 33;
 			// 
 			// btnNickNameduplicateChk
 			// 
@@ -172,10 +172,10 @@ namespace GUI {
 			this->btnNickNameduplicateChk->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnNickNameduplicateChk->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnNickNameduplicateChk->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnNickNameduplicateChk->Location = System::Drawing::Point(401, 429);
-			this->btnNickNameduplicateChk->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
+			this->btnNickNameduplicateChk->Location = System::Drawing::Point(321, 358);
+			this->btnNickNameduplicateChk->Margin = System::Windows::Forms::Padding(3, 4, 3, 4);
 			this->btnNickNameduplicateChk->Name = L"btnNickNameduplicateChk";
-			this->btnNickNameduplicateChk->Size = System::Drawing::Size(157, 44);
+			this->btnNickNameduplicateChk->Size = System::Drawing::Size(126, 37);
 			this->btnNickNameduplicateChk->TabIndex = 32;
 			this->btnNickNameduplicateChk->UseVisualStyleBackColor = false;
 			this->btnNickNameduplicateChk->Click += gcnew System::EventHandler(this, &EditProfile::btnNickNameduplicateChk_Click);
@@ -185,10 +185,9 @@ namespace GUI {
 			this->label7->AutoSize = true;
 			this->label7->BackColor = System::Drawing::Color::Transparent;
 			this->label7->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
-			this->label7->Location = System::Drawing::Point(98, 633);
-			this->label7->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+			this->label7->Location = System::Drawing::Point(78, 528);
 			this->label7->Name = L"label7";
-			this->label7->Size = System::Drawing::Size(136, 32);
+			this->label7->Size = System::Drawing::Size(117, 29);
 			this->label7->TabIndex = 31;
 			this->label7->Text = L"Character";
 			// 
@@ -197,10 +196,9 @@ namespace GUI {
 			this->label5->AutoSize = true;
 			this->label5->BackColor = System::Drawing::Color::Transparent;
 			this->label5->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
-			this->label5->Location = System::Drawing::Point(98, 514);
-			this->label5->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+			this->label5->Location = System::Drawing::Point(78, 428);
 			this->label5->Name = L"label5";
-			this->label5->Size = System::Drawing::Size(94, 32);
+			this->label5->Size = System::Drawing::Size(81, 29);
 			this->label5->TabIndex = 30;
 			this->label5->Text = L"Phone";
 			// 
@@ -211,10 +209,10 @@ namespace GUI {
 			this->txtBoxPhone->Enabled = false;
 			this->txtBoxPhone->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
 			this->txtBoxPhone->ForeColor = System::Drawing::SystemColors::WindowFrame;
-			this->txtBoxPhone->Location = System::Drawing::Point(104, 562);
-			this->txtBoxPhone->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
+			this->txtBoxPhone->Location = System::Drawing::Point(83, 468);
+			this->txtBoxPhone->Margin = System::Windows::Forms::Padding(3, 4, 3, 4);
 			this->txtBoxPhone->Name = L"txtBoxPhone";
-			this->txtBoxPhone->Size = System::Drawing::Size(244, 32);
+			this->txtBoxPhone->Size = System::Drawing::Size(195, 27);
 			this->txtBoxPhone->TabIndex = 29;
 			// 
 			// label4
@@ -222,10 +220,9 @@ namespace GUI {
 			this->label4->AutoSize = true;
 			this->label4->BackColor = System::Drawing::Color::Transparent;
 			this->label4->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
-			this->label4->Location = System::Drawing::Point(98, 386);
-			this->label4->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+			this->label4->Location = System::Drawing::Point(78, 322);
 			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(152, 32);
+			this->label4->Size = System::Drawing::Size(131, 29);
 			this->label4->TabIndex = 28;
 			this->label4->Text = L"Nick Name";
 			// 
@@ -236,10 +233,10 @@ namespace GUI {
 			this->txtBoxNickName->Enabled = false;
 			this->txtBoxNickName->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
 			this->txtBoxNickName->ForeColor = System::Drawing::SystemColors::WindowFrame;
-			this->txtBoxNickName->Location = System::Drawing::Point(104, 441);
-			this->txtBoxNickName->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
+			this->txtBoxNickName->Location = System::Drawing::Point(83, 368);
+			this->txtBoxNickName->Margin = System::Windows::Forms::Padding(3, 4, 3, 4);
 			this->txtBoxNickName->Name = L"txtBoxNickName";
-			this->txtBoxNickName->Size = System::Drawing::Size(244, 32);
+			this->txtBoxNickName->Size = System::Drawing::Size(195, 27);
 			this->txtBoxNickName->TabIndex = 27;
 			// 
 			// label3
@@ -247,10 +244,9 @@ namespace GUI {
 			this->label3->AutoSize = true;
 			this->label3->BackColor = System::Drawing::Color::Transparent;
 			this->label3->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
-			this->label3->Location = System::Drawing::Point(412, 87);
-			this->label3->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+			this->label3->Location = System::Drawing::Point(330, 72);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(121, 32);
+			this->label3->Size = System::Drawing::Size(105, 29);
 			this->label3->TabIndex = 26;
 			this->label3->Text = L"re-check";
 			// 
@@ -260,11 +256,11 @@ namespace GUI {
 			this->txtBoxRechk->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->txtBoxRechk->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
 			this->txtBoxRechk->ForeColor = System::Drawing::SystemColors::WindowFrame;
-			this->txtBoxRechk->Location = System::Drawing::Point(415, 130);
-			this->txtBoxRechk->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
+			this->txtBoxRechk->Location = System::Drawing::Point(332, 108);
+			this->txtBoxRechk->Margin = System::Windows::Forms::Padding(3, 4, 3, 4);
 			this->txtBoxRechk->Name = L"txtBoxRechk";
 			this->txtBoxRechk->PasswordChar = '*';
-			this->txtBoxRechk->Size = System::Drawing::Size(244, 32);
+			this->txtBoxRechk->Size = System::Drawing::Size(195, 27);
 			this->txtBoxRechk->TabIndex = 25;
 			// 
 			// label2
@@ -272,10 +268,9 @@ namespace GUI {
 			this->label2->AutoSize = true;
 			this->label2->BackColor = System::Drawing::Color::Transparent;
 			this->label2->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
-			this->label2->Location = System::Drawing::Point(97, 80);
-			this->label2->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+			this->label2->Location = System::Drawing::Point(78, 67);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(58, 32);
+			this->label2->Size = System::Drawing::Size(51, 29);
 			this->label2->TabIndex = 24;
 			this->label2->Text = L"PW";
 			// 
@@ -285,12 +280,12 @@ namespace GUI {
 			this->txtBoxPW->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->txtBoxPW->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
 			this->txtBoxPW->ForeColor = System::Drawing::SystemColors::WindowFrame;
-			this->txtBoxPW->Location = System::Drawing::Point(103, 130);
-			this->txtBoxPW->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
+			this->txtBoxPW->Location = System::Drawing::Point(82, 108);
+			this->txtBoxPW->Margin = System::Windows::Forms::Padding(3, 4, 3, 4);
 			this->txtBoxPW->MaxLength = 16;
 			this->txtBoxPW->Name = L"txtBoxPW";
 			this->txtBoxPW->PasswordChar = '*';
-			this->txtBoxPW->Size = System::Drawing::Size(244, 32);
+			this->txtBoxPW->Size = System::Drawing::Size(195, 27);
 			this->txtBoxPW->TabIndex = 23;
 			// 
 			// label6
@@ -298,10 +293,9 @@ namespace GUI {
 			this->label6->AutoSize = true;
 			this->label6->BackColor = System::Drawing::Color::Transparent;
 			this->label6->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
-			this->label6->Location = System::Drawing::Point(98, 266);
-			this->label6->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+			this->label6->Location = System::Drawing::Point(78, 222);
 			this->label6->Name = L"label6";
-			this->label6->Size = System::Drawing::Size(58, 32);
+			this->label6->Size = System::Drawing::Size(51, 29);
 			this->label6->TabIndex = 39;
 			this->label6->Text = L"PW";
 			// 
@@ -312,12 +306,12 @@ namespace GUI {
 			this->txtBoxPW_new->Enabled = false;
 			this->txtBoxPW_new->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
 			this->txtBoxPW_new->ForeColor = System::Drawing::SystemColors::WindowFrame;
-			this->txtBoxPW_new->Location = System::Drawing::Point(104, 316);
-			this->txtBoxPW_new->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
+			this->txtBoxPW_new->Location = System::Drawing::Point(83, 263);
+			this->txtBoxPW_new->Margin = System::Windows::Forms::Padding(3, 4, 3, 4);
 			this->txtBoxPW_new->MaxLength = 16;
 			this->txtBoxPW_new->Name = L"txtBoxPW_new";
 			this->txtBoxPW_new->PasswordChar = '*';
-			this->txtBoxPW_new->Size = System::Drawing::Size(244, 32);
+			this->txtBoxPW_new->Size = System::Drawing::Size(195, 27);
 			this->txtBoxPW_new->TabIndex = 38;
 			// 
 			// label8
@@ -325,10 +319,9 @@ namespace GUI {
 			this->label8->AutoSize = true;
 			this->label8->BackColor = System::Drawing::Color::Transparent;
 			this->label8->Font = (gcnew System::Drawing::Font(L"Georgia", 10));
-			this->label8->Location = System::Drawing::Point(163, 87);
-			this->label8->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+			this->label8->Location = System::Drawing::Point(130, 72);
 			this->label8->Name = L"label8";
-			this->label8->Size = System::Drawing::Size(58, 24);
+			this->label8->Size = System::Drawing::Size(49, 20);
 			this->label8->TabIndex = 42;
 			this->label8->Text = L"(Old)";
 			// 
@@ -337,10 +330,9 @@ namespace GUI {
 			this->label10->AutoSize = true;
 			this->label10->BackColor = System::Drawing::Color::Transparent;
 			this->label10->Font = (gcnew System::Drawing::Font(L"Georgia", 10));
-			this->label10->Location = System::Drawing::Point(158, 273);
-			this->label10->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+			this->label10->Location = System::Drawing::Point(126, 228);
 			this->label10->Name = L"label10";
-			this->label10->Size = System::Drawing::Size(66, 24);
+			this->label10->Size = System::Drawing::Size(55, 20);
 			this->label10->TabIndex = 43;
 			this->label10->Text = L"(New)";
 			// 
@@ -353,10 +345,10 @@ namespace GUI {
 			this->btnPWchk->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnPWchk->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnPWchk->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnPWchk->Location = System::Drawing::Point(100, 184);
-			this->btnPWchk->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
+			this->btnPWchk->Location = System::Drawing::Point(80, 153);
+			this->btnPWchk->Margin = System::Windows::Forms::Padding(3, 4, 3, 4);
 			this->btnPWchk->Name = L"btnPWchk";
-			this->btnPWchk->Size = System::Drawing::Size(157, 44);
+			this->btnPWchk->Size = System::Drawing::Size(126, 37);
 			this->btnPWchk->TabIndex = 44;
 			this->btnPWchk->UseVisualStyleBackColor = false;
 			this->btnPWchk->Click += gcnew System::EventHandler(this, &EditProfile::btnPWchk_Click);
@@ -370,10 +362,10 @@ namespace GUI {
 			this->btnEditConfirm->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnEditConfirm->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnEditConfirm->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnEditConfirm->Location = System::Drawing::Point(100, 770);
-			this->btnEditConfirm->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
+			this->btnEditConfirm->Location = System::Drawing::Point(80, 642);
+			this->btnEditConfirm->Margin = System::Windows::Forms::Padding(3, 4, 3, 4);
 			this->btnEditConfirm->Name = L"btnEditConfirm";
-			this->btnEditConfirm->Size = System::Drawing::Size(200, 55);
+			this->btnEditConfirm->Size = System::Drawing::Size(160, 46);
 			this->btnEditConfirm->TabIndex = 45;
 			this->btnEditConfirm->UseVisualStyleBackColor = false;
 			this->btnEditConfirm->Click += gcnew System::EventHandler(this, &EditProfile::btnEditConfirm_Click);
@@ -387,20 +379,20 @@ namespace GUI {
 			this->btnClose->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnClose->Location = System::Drawing::Point(441, 770);
-			this->btnClose->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
+			this->btnClose->Location = System::Drawing::Point(353, 642);
+			this->btnClose->Margin = System::Windows::Forms::Padding(3, 4, 3, 4);
 			this->btnClose->Name = L"btnClose";
-			this->btnClose->Size = System::Drawing::Size(218, 55);
+			this->btnClose->Size = System::Drawing::Size(174, 46);
 			this->btnClose->TabIndex = 46;
 			this->btnClose->UseVisualStyleBackColor = false;
 			this->btnClose->Click += gcnew System::EventHandler(this, &EditProfile::btnClose_Click);
 			// 
 			// EditProfile
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(10, 18);
+			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
-			this->ClientSize = System::Drawing::Size(729, 898);
+			this->ClientSize = System::Drawing::Size(583, 748);
 			this->Controls->Add(this->btnClose);
 			this->Controls->Add(this->btnEditConfirm);
 			this->Controls->Add(this->btnPWchk);
@@ -410,7 +402,7 @@ namespace GUI {
 			this->Controls->Add(this->txtBoxPW_new);
 			this->Controls->Add(this->label9);
 			this->Controls->Add(this->txtBoxEmail);
-			this->Controls->Add(this->comboBox1);
+			this->Controls->Add(this->combBoxCha);
 			this->Controls->Add(this->btnNickNameduplicateChk);
 			this->Controls->Add(this->label7);
 			this->Controls->Add(this->label5);
@@ -421,7 +413,6 @@ namespace GUI {
 			this->Controls->Add(this->txtBoxRechk);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->txtBoxPW);
-			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"EditProfile";
 			this->Text = L"EditProfile";
 			this->ResumeLayout(false);
@@ -451,42 +442,47 @@ private: System::Void btnPWchk_Click(System::Object^ sender, System::EventArgs^ 
 	}
 
 	
-
+	ans.ansToeEnum(e_edit_PWchk);
 	std::string tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
 	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_edit_PWchk));
 
 	std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_ ;
 	const char* buffer = _Index_Str_Result.c_str();
 	send(client_sock, buffer, strlen(buffer), 0);
-	ans.ansToeEnum(e_edit_PWchk);
-
 	
-	if(Recv_str == ans.res)
-	{
-		System::Windows::Forms::MessageBox::Show("확인되었습니다.", "PW 확인", MessageBoxButtons::OK, MessageBoxIcon::Information);
-		txtBoxRechk->Enabled = false;
-		txtBoxPW-> Enabled = false;
-		txtBoxEmail -> Enabled = true;
-		txtBoxPhone -> Enabled = true;
-		txtBoxPW_new -> Enabled = true;
-		txtBoxNickName	-> Enabled = true;
-						
+	Sleep(500);
+	while(1){
+		if (Recv_str == ans.res) {
+			
+			System::Windows::Forms::MessageBox::Show("확인되었습니다.", "PW 확인", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			txtBoxRechk->Enabled = false;
+			txtBoxPW->Enabled = false;
+			txtBoxEmail->Enabled = true;
+			txtBoxPhone->Enabled = true;
+			txtBoxPW_new->Enabled = true;
+			txtBoxNickName->Enabled = true;
+			return;
+			}
+		else if (Recv_str == ans.res_r) //  server에서 다른값보내면
+		{
+			System::Windows::Forms::MessageBox::Show("email 혹은 전화번호가 이미 있습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+		else // 무한반복되는건데 시간타이밍 주면 좋을거같음
+		{
+			Sleep(1000);
+			if (time_limit > 1)
+			{
+				System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				return;
+			}
+			else
+			{
+				time_limit++;
+			}
+
+		}
 	}
-	else if (Recv_str == ans.res_r) //  server에서 다른값보내면
-	{
-		System::Windows::Forms::MessageBox::Show("email 혹은 전화번호가 이미 있습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-
-		return;
-	}
-	else // 무한반복되는건데 시간타이밍 주면 좋을거같음
-	{
-
-			System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-	
-	}
-
-
-
 }
 private: System::Void btnNickNameduplicateChk_Click(System::Object^ sender, System::EventArgs^ e) {
 
@@ -495,7 +491,7 @@ private: System::Void btnNickNameduplicateChk_Click(System::Object^ sender, Syst
 	
 	String^ tmptxt_1 = txtBoxNickName->Text; // textBox는 해당 텍스트 상자의 이름입니다.
 	
-	if (!String::IsNullOrEmpty(tmptxt_1))
+	if (String::IsNullOrEmpty(tmptxt_1))
 	{
 		System::Windows::Forms::MessageBox::Show("닉네임을 입력해주세요", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		return;
@@ -511,29 +507,30 @@ private: System::Void btnNickNameduplicateChk_Click(System::Object^ sender, Syst
 	ans.ansToeEnum(e_edit_NickNamechk);
 
 
-
-	if (Recv_str == ans.res)
-	{
-		System::Windows::Forms::MessageBox::Show("사용 가능한 닉네임입니다.", "닉네임 확인", MessageBoxButtons::OK, MessageBoxIcon::Information);
-		isChkNickName =true;
-
-	}
-	else if (Recv_str == ans.res_r) //  server에서 다른값보내면
-	{
-		System::Windows::Forms::MessageBox::Show("이미 존재하는 닉네임입니다.", "닉네임 확인", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-		return;
-	}
-	else // 무한반복되는건데 시간타이밍 주면 좋을거같음
-	{
-		Sleep(1000);
-		if (time_limit > 1)
+	while (1) {
+		if (Recv_str == ans.res)
 		{
-			System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			System::Windows::Forms::MessageBox::Show("사용 가능한 닉네임입니다.", "닉네임 확인", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			isChkNickName = true;
 			return;
 		}
-		else
+		else if (Recv_str == ans.res_r) //  server에서 다른값보내면
 		{
-			time_limit++;
+			System::Windows::Forms::MessageBox::Show("이미 존재하는 닉네임입니다.", "닉네임 확인", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+		else // 무한반복되는건데 시간타이밍 주면 좋을거같음
+		{
+			Sleep(1000);
+			if (time_limit > 1)
+			{
+				System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				return;
+			}
+			else
+			{
+				time_limit++;
+			}
 		}
 	}
 }
@@ -549,8 +546,14 @@ private: System::Void btnEditConfirm_Click(System::Object^ sender, System::Event
 
 	String^ tmptxt_1 = txtBoxEmail->Text;
 	String^ tmptxt_2 = txtBoxPhone->Text;
-	String^ tmptxt_3 = txtBoxPW_new->Text;
-	String^ tmptxt_4 = txtBoxNickName -> Text;
+	String^ tmptxt_3 = txtBoxNickName->Text;
+	String^ tmptxt_4 = combBoxCha->Text;
+	String^ tmptxt_5 = txtBoxPW_new->Text;
+
+
+
+
+	
 
 	if (!String::IsNullOrEmpty(tmptxt_1) && !String::IsNullOrEmpty(tmptxt_2) && !String::IsNullOrEmpty(tmptxt_2)\
 		&& !String::IsNullOrEmpty(tmptxt_3) && !String::IsNullOrEmpty(tmptxt_4))
@@ -560,9 +563,19 @@ private: System::Void btnEditConfirm_Click(System::Object^ sender, System::Event
 		std::string tmptxt_2_ = msclr::interop::marshal_as<std::string>(tmptxt_2);
 		std::string tmptxt_3_ = msclr::interop::marshal_as<std::string>(tmptxt_3);
 		std::string tmptxt_4_ = msclr::interop::marshal_as<std::string>(tmptxt_4);
+		std::string tmptxt_5_ = msclr::interop::marshal_as<std::string>(tmptxt_5);
 		std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_edit_Confirm));
 
-		std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_ + " " + tmptxt_2_ + " " + tmptxt_3_ + " " + tmptxt_4_;
+		if (tmptxt_4_ == "이즈나")
+		{
+			tmptxt_4_ = std::to_string(e_character_izuna);
+		}
+		else if (tmptxt_4_ == "아리스")
+		{
+			tmptxt_4_ = std::to_string(e_character_alice);
+		}
+
+		std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_ + " " + tmptxt_2_ + " " + tmptxt_3_ + " " + tmptxt_4_ + " " + tmptxt_5_;
 		const char* buffer = _Index_Str_Result.c_str();
 		send(client_sock, buffer, strlen(buffer), 0);
 		ans.ansToeEnum(e_edit_Confirm);
