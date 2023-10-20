@@ -15,8 +15,6 @@
 
 
 
-
-
 #define MAX_SIZE 1024
 #define MAX_CLIENT 100
 
@@ -30,6 +28,7 @@ bool isNumeric(const std::string& str);
 struct SOCKET_INFO { // 연결된 소켓 정보에 대한 틀 생성
     SOCKET sck;
     string user;
+    UserInfo _user;
 };
 
 
@@ -197,7 +196,7 @@ void recv_msg(int idx) {
 
                     case e_id_try_Signin:
                     {
-                        _ans=mySQL->QuerySql(msg);
+                        _ans=mySQL->QuerySql(msg,idx);
                         
                         if (_ans==trueStr) // ID에 해당하는 비밀번호가 일치한다면
                         {

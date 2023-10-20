@@ -35,6 +35,10 @@ public:
         return joinRoomIndex;
     }
 
+    std::string getEmail() const {
+        return email;
+    }
+
     // Setter 함수
     void setName(const std::string& newName) {
         name = newName;
@@ -56,6 +60,10 @@ public:
         birth = newBirth;
     }
 
+    void setEmail(const std::string& newEmail) {
+        email = newEmail;
+    }
+
     void setNickName(const std::string& newNickName) {
         nickName = newNickName;
     }
@@ -73,6 +81,7 @@ private:
     std::string id;
     std::string pw;
     std::string phone;
+    std::string email;
     std::string birth;
     std::string nickName;
     std::string chaNum;

@@ -138,12 +138,14 @@
     <ClCompile Include="main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="MySQL.cpp" />
     <ClCompile Include="MySQL.h" />
     <ClCompile Include="proj.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="main.h" />
     <ClInclude Include="UsageServer.h" />
     <ClInclude Include="UserInfo.h" />
   </ItemGroup>
