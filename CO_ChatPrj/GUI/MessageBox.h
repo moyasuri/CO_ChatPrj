@@ -78,7 +78,11 @@ namespace GUI {
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MessageBox::typeid));
 			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
+			this->ViewUnread = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Date = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->dataGridView2 = (gcnew System::Windows::Forms::DataGridView());
+			this->ViewRead = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->dataGridViewTextBoxColumn2 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->txtBoxMsg = (gcnew System::Windows::Forms::TextBox());
 			this->btnRead = (gcnew System::Windows::Forms::Button());
 			this->button1 = (gcnew System::Windows::Forms::Button());
@@ -86,10 +90,6 @@ namespace GUI {
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->btnClose = (gcnew System::Windows::Forms::Button());
-			this->ViewUnread = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Date = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->ViewRead = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->dataGridViewTextBoxColumn2 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView2))->BeginInit();
 			this->SuspendLayout();
@@ -101,122 +101,12 @@ namespace GUI {
 				this->ViewUnread,
 					this->Date
 			});
-			this->dataGridView1->Location = System::Drawing::Point(70, 107);
-			this->dataGridView1->Margin = System::Windows::Forms::Padding(4);
+			this->dataGridView1->Location = System::Drawing::Point(56, 89);
 			this->dataGridView1->Name = L"dataGridView1";
 			this->dataGridView1->RowHeadersWidth = 51;
 			this->dataGridView1->RowTemplate->Height = 27;
-			this->dataGridView1->Size = System::Drawing::Size(522, 245);
+			this->dataGridView1->Size = System::Drawing::Size(418, 204);
 			this->dataGridView1->TabIndex = 2;
-			// 
-			// dataGridView2
-			// 
-			this->dataGridView2->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView2->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(2) {
-				this->ViewRead,
-					this->dataGridViewTextBoxColumn2
-			});
-			this->dataGridView2->Location = System::Drawing::Point(70, 503);
-			this->dataGridView2->Margin = System::Windows::Forms::Padding(4);
-			this->dataGridView2->Name = L"dataGridView2";
-			this->dataGridView2->RowHeadersWidth = 51;
-			this->dataGridView2->RowTemplate->Height = 27;
-			this->dataGridView2->Size = System::Drawing::Size(522, 245);
-			this->dataGridView2->TabIndex = 4;
-			// 
-			// txtBoxMsg
-			// 
-			this->txtBoxMsg->Location = System::Drawing::Point(666, 107);
-			this->txtBoxMsg->Margin = System::Windows::Forms::Padding(4);
-			this->txtBoxMsg->Multiline = true;
-			this->txtBoxMsg->Name = L"txtBoxMsg";
-			this->txtBoxMsg->Size = System::Drawing::Size(517, 641);
-			this->txtBoxMsg->TabIndex = 8;
-			// 
-			// btnRead
-			// 
-			this->btnRead->BackColor = System::Drawing::Color::Transparent;
-			this->btnRead->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnRead.BackgroundImage")));
-			this->btnRead->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->btnRead->FlatAppearance->BorderSize = 0;
-			this->btnRead->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
-			this->btnRead->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
-			this->btnRead->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnRead->Location = System::Drawing::Point(300, 374);
-			this->btnRead->Name = L"btnRead";
-			this->btnRead->Size = System::Drawing::Size(136, 53);
-			this->btnRead->TabIndex = 9;
-			this->btnRead->UseVisualStyleBackColor = false;
-			// 
-			// button1
-			// 
-			this->button1->BackColor = System::Drawing::Color::Transparent;
-			this->button1->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button1.BackgroundImage")));
-			this->button1->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->button1->FlatAppearance->BorderSize = 0;
-			this->button1->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
-			this->button1->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
-			this->button1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->button1->Location = System::Drawing::Point(456, 377);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(136, 46);
-			this->button1->TabIndex = 9;
-			this->button1->UseVisualStyleBackColor = false;
-			// 
-			// button2
-			// 
-			this->button2->BackColor = System::Drawing::Color::Transparent;
-			this->button2->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button2.BackgroundImage")));
-			this->button2->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->button2->FlatAppearance->BorderSize = 0;
-			this->button2->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
-			this->button2->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
-			this->button2->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->button2->Location = System::Drawing::Point(446, 755);
-			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(136, 46);
-			this->button2->TabIndex = 9;
-			this->button2->UseVisualStyleBackColor = false;
-			// 
-			// label3
-			// 
-			this->label3->AutoSize = true;
-			this->label3->BackColor = System::Drawing::Color::Transparent;
-			this->label3->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 24));
-			this->label3->ForeColor = System::Drawing::SystemColors::ControlText;
-			this->label3->Location = System::Drawing::Point(60, 42);
-			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(198, 55);
-			this->label3->TabIndex = 11;
-			this->label3->Text = L"Unread";
-			// 
-			// label1
-			// 
-			this->label1->AutoSize = true;
-			this->label1->BackColor = System::Drawing::Color::Transparent;
-			this->label1->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 24));
-			this->label1->ForeColor = System::Drawing::SystemColors::Highlight;
-			this->label1->Location = System::Drawing::Point(60, 444);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(147, 55);
-			this->label1->TabIndex = 11;
-			this->label1->Text = L"Read";
-			// 
-			// btnClose
-			// 
-			this->btnClose->BackColor = System::Drawing::Color::Transparent;
-			this->btnClose->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnClose.BackgroundImage")));
-			this->btnClose->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->btnClose->FlatAppearance->BorderSize = 0;
-			this->btnClose->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
-			this->btnClose->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
-			this->btnClose->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnClose->Location = System::Drawing::Point(984, 846);
-			this->btnClose->Name = L"btnClose";
-			this->btnClose->Size = System::Drawing::Size(199, 66);
-			this->btnClose->TabIndex = 9;
-			this->btnClose->UseVisualStyleBackColor = false;
-			this->btnClose->Click += gcnew System::EventHandler(this, &MessageBox::btnClose_Click);
 			// 
 			// ViewUnread
 			// 
@@ -232,6 +122,20 @@ namespace GUI {
 			this->Date->Name = L"Date";
 			this->Date->Width = 125;
 			// 
+			// dataGridView2
+			// 
+			this->dataGridView2->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dataGridView2->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(2) {
+				this->ViewRead,
+					this->dataGridViewTextBoxColumn2
+			});
+			this->dataGridView2->Location = System::Drawing::Point(56, 419);
+			this->dataGridView2->Name = L"dataGridView2";
+			this->dataGridView2->RowHeadersWidth = 51;
+			this->dataGridView2->RowTemplate->Height = 27;
+			this->dataGridView2->Size = System::Drawing::Size(418, 204);
+			this->dataGridView2->TabIndex = 4;
+			// 
 			// ViewRead
 			// 
 			this->ViewRead->HeaderText = L"From";
@@ -246,13 +150,111 @@ namespace GUI {
 			this->dataGridViewTextBoxColumn2->Name = L"dataGridViewTextBoxColumn2";
 			this->dataGridViewTextBoxColumn2->Width = 125;
 			// 
+			// txtBoxMsg
+			// 
+			this->txtBoxMsg->Location = System::Drawing::Point(533, 89);
+			this->txtBoxMsg->Multiline = true;
+			this->txtBoxMsg->Name = L"txtBoxMsg";
+			this->txtBoxMsg->Size = System::Drawing::Size(414, 535);
+			this->txtBoxMsg->TabIndex = 8;
+			// 
+			// btnRead
+			// 
+			this->btnRead->BackColor = System::Drawing::Color::Transparent;
+			this->btnRead->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnRead.BackgroundImage")));
+			this->btnRead->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnRead->FlatAppearance->BorderSize = 0;
+			this->btnRead->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnRead->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnRead->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnRead->Location = System::Drawing::Point(240, 312);
+			this->btnRead->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->btnRead->Name = L"btnRead";
+			this->btnRead->Size = System::Drawing::Size(109, 44);
+			this->btnRead->TabIndex = 9;
+			this->btnRead->UseVisualStyleBackColor = false;
+			// 
+			// button1
+			// 
+			this->button1->BackColor = System::Drawing::Color::Transparent;
+			this->button1->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button1.BackgroundImage")));
+			this->button1->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->button1->FlatAppearance->BorderSize = 0;
+			this->button1->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->button1->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->button1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->button1->Location = System::Drawing::Point(365, 314);
+			this->button1->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(109, 38);
+			this->button1->TabIndex = 9;
+			this->button1->UseVisualStyleBackColor = false;
+			// 
+			// button2
+			// 
+			this->button2->BackColor = System::Drawing::Color::Transparent;
+			this->button2->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button2.BackgroundImage")));
+			this->button2->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->button2->FlatAppearance->BorderSize = 0;
+			this->button2->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->button2->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->button2->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->button2->Location = System::Drawing::Point(357, 629);
+			this->button2->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->button2->Name = L"button2";
+			this->button2->Size = System::Drawing::Size(109, 38);
+			this->button2->TabIndex = 9;
+			this->button2->UseVisualStyleBackColor = false;
+			// 
+			// label3
+			// 
+			this->label3->AutoSize = true;
+			this->label3->BackColor = System::Drawing::Color::Transparent;
+			this->label3->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 24));
+			this->label3->ForeColor = System::Drawing::SystemColors::ControlText;
+			this->label3->Location = System::Drawing::Point(48, 35);
+			this->label3->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->label3->Name = L"label3";
+			this->label3->Size = System::Drawing::Size(165, 46);
+			this->label3->TabIndex = 11;
+			this->label3->Text = L"Unread";
+			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->BackColor = System::Drawing::Color::Transparent;
+			this->label1->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 24));
+			this->label1->ForeColor = System::Drawing::SystemColors::Highlight;
+			this->label1->Location = System::Drawing::Point(48, 370);
+			this->label1->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(122, 46);
+			this->label1->TabIndex = 11;
+			this->label1->Text = L"Read";
+			// 
+			// btnClose
+			// 
+			this->btnClose->BackColor = System::Drawing::Color::Transparent;
+			this->btnClose->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnClose.BackgroundImage")));
+			this->btnClose->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnClose->FlatAppearance->BorderSize = 0;
+			this->btnClose->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnClose->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnClose->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnClose->Location = System::Drawing::Point(788, 640);
+			this->btnClose->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->btnClose->Name = L"btnClose";
+			this->btnClose->Size = System::Drawing::Size(159, 55);
+			this->btnClose->TabIndex = 9;
+			this->btnClose->UseVisualStyleBackColor = false;
+			this->btnClose->Click += gcnew System::EventHandler(this, &MessageBox::btnClose_Click);
+			// 
 			// MessageBox
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(10, 18);
-			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->ClientSize = System::Drawing::Size(1227, 973);
+			this->ClientSize = System::Drawing::Size(982, 704);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->label3);
 			this->Controls->Add(this->btnClose);
@@ -263,8 +265,8 @@ namespace GUI {
 			this->Controls->Add(this->dataGridView2);
 			this->Controls->Add(this->dataGridView1);
 			this->DoubleBuffered = true;
-			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"MessageBox";
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Message_Box";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView2))->EndInit();
