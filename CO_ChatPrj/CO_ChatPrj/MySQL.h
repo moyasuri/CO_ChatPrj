@@ -15,7 +15,7 @@ using std::string;
 const string IDENTIFIER = " ";
 const string trueStr = "true";
 const string falseStr = "false";
-
+const string delim = " ";
 
 const string server = "tcp://127.0.0.1:3306"; // 데이터베이스 주소
 const string username = "codingon"; // 데이터베이스 사용자
@@ -86,11 +86,11 @@ public:
         {
             case e_id_try_Signin:
             {
-                string _my_id, _my_pw;
-                ss >> _my_id >> _my_pw;
+                string _id, _pw;
+                ss >> _id >> _pw;
                 prep_stmt = con->prepareStatement("SELECT Member_ID FROM practice WHERE Member_ID = ? AND Member_PW = ?");
-                prep_stmt->setString(1, _my_id);
-                prep_stmt->setString(2, _my_pw);
+                prep_stmt->setString(1, _id);
+                prep_stmt->setString(2, _pw);
                 cout << "prep_stmt->execute() : " << prep_stmt->execute() << endl;
 
                 if (prep_stmt->execute())
@@ -104,7 +104,42 @@ public:
                     break;
                 }
             }
+            case e_id_find_ID:
+            {
+                string _name, _email, _id; 
+                ss >> _name >> _email;
+                res = stmt->executeQuery("SELECT Member_ID FROM member WHERE Email = '" + _id + "' AND Name = '" \
+                    + _name + "'");
+                if (res->next()) {
+                    _ret = trueStr + delim + res->getString("Member_ID");
+                    break;
+                }
+                else
+                {
+                    _ret = falseStr;
+                    break;
+                }
+            }
+            case e_id_find_PW:
+            {
+                string _id, _birth, _phone;
 
+                ss >> _id >> _birth >> _phone;
+                string respw = "";
+                string result = "";
+                res = stmt->executeQuery("SELECT Member_PW FROM member WHERE Member_ID = '" + _id + \
+                    "' AND Birth = '" + _birth + "' AND Phone = '" + _phone + "'");
+                if (res->next()) {
+                    _ret = trueStr + delim + res->getString("Member_PW");
+                    break;
+                }
+                else
+                {
+                    _ret = falseStr;
+                    break;
+                }
+            }
+            case 
         }
                 
         return _ret;
