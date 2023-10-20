@@ -58,6 +58,7 @@ namespace GUI {
 	private: System::Windows::Forms::DataGridView^ dataGridView1;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ FromWho;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Message;
+	private: System::Windows::Forms::ListBox^ listBoxFriendsResponse;
 
 
 
@@ -83,6 +84,7 @@ namespace GUI {
 			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
 			this->FromWho = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->Message = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->listBoxFriendsResponse = (gcnew System::Windows::Forms::ListBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -179,6 +181,15 @@ namespace GUI {
 			this->Message->ReadOnly = true;
 			this->Message->Width = 125;
 			// 
+			// listBoxFriendsResponse
+			// 
+			this->listBoxFriendsResponse->FormattingEnabled = true;
+			this->listBoxFriendsResponse->ItemHeight = 15;
+			this->listBoxFriendsResponse->Location = System::Drawing::Point(378, 54);
+			this->listBoxFriendsResponse->Name = L"listBoxFriendsResponse";
+			this->listBoxFriendsResponse->Size = System::Drawing::Size(170, 154);
+			this->listBoxFriendsResponse->TabIndex = 15;
+			// 
 			// FriendResponse
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
@@ -186,6 +197,7 @@ namespace GUI {
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->ClientSize = System::Drawing::Size(788, 623);
+			this->Controls->Add(this->listBoxFriendsResponse);
 			this->Controls->Add(this->dataGridView1);
 			this->Controls->Add(this->btnClose);
 			this->Controls->Add(this->label2);

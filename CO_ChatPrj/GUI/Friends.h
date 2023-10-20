@@ -249,22 +249,14 @@ private: System::Void Friends_Visible(System::Object^ sender, System::EventArgs^
 					Sleep(500);
 					time_limit++;
 				}
-			}
+			
 		}
-	}
 
+	//std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_friends_List));
 
-
-
-
-
-
-
-	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_friends_List));
-
-	std::string _Index_Str_Result = _Index_Str;
-	const char* buffer = _Index_Str_Result.c_str();
-	send(client_sock, buffer, strlen(buffer), 0);
+	//std::string _Index_Str_Result = _Index_Str;
+	//const char* buffer = _Index_Str_Result.c_str();
+	//send(client_sock, buffer, strlen(buffer), 0);
 	// std::stringstream ss(Recv_str);
 	//ss >> _Index;
 	//server_msg.push_back(_Contents);
@@ -296,12 +288,8 @@ private: System::Void Friends_Visible(System::Object^ sender, System::EventArgs^
 	// List Box에 추가
 	// listBoxFriends->Items->AddRange(vect);
 
-
-
 	if (Recv_str == "true")// server 에서 오케이받는 함수
 	{
-
-
 		return;
 	}
 	else
@@ -309,72 +297,73 @@ private: System::Void Friends_Visible(System::Object^ sender, System::EventArgs^
 		return;
 	}
 }
-private: System::Void btnDelete_Click(System::Object^ sender, System::EventArgs^ e) {
-	btnDelete->NotifyDefault(false);
+	private: System::Void btnDelete_Click(System::Object^ sender, System::EventArgs^ e) {
+		btnDelete->NotifyDefault(false);
 
-	if (listBoxFriends->SelectedItem == nullptr) {
-		System::Windows::Forms::MessageBox::Show("삭제하실 아이디를 선택해주세요", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-		return;
-	}
-
-	System::Windows::Forms::DialogResult result =
-		System::Windows::Forms::MessageBox::Show("진짜 삭제할거야?", "경고", \
-			MessageBoxButtons::YesNo, MessageBoxIcon::Warning);
-
-
-	if (result == System::Windows::Forms::DialogResult::Yes) {
-		// Yes 버튼을 클릭한 경우에 실행할 코드
-		// 여기에 Yes 버튼을 클릭했을 때 수행할 동작을 추가하세요.
-
-				//// Server에 ID / PW를 보내기함수
-		int time_limit = 0;
-		std::string tmptxt_1_;
-		std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_friends_Delete));
-
-		String^ tmptxt_1 = listBoxFriends->SelectedItem->ToString();
-		tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
-		std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_;
-
-		const char* buffer = _Index_Str_Result.c_str();
-		send(client_sock, buffer, strlen(buffer), 0);
-
-		while (1)
-		{
-			//if (Recv_str == "true")// server 에서 오케이받는 함수
-			if (1)// server 에서 오케이받는 함수
-			{
-				Friends_Visible(sender, e);
-				System::Windows::Forms::MessageBox::Show("그분은 당신을 아직 친구라고 생각하고있어요.", "친구삭제", MessageBoxButtons::OK, MessageBoxIcon::Information);
-				return;
-			}
-			else if (Recv_str == "false") //  server에서 다른값보내면
-			{
-				System::Windows::Forms::MessageBox::Show("다른값을 보냈다고?", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-
-				return;
-			}
-			else // 무한반복되는건데 시간타이밍 주면 좋을거같음
-			{
-				Sleep(1000);
-				if (time_limit > 1)
-				{
-					System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-					return;
-				}
-				else
-				{
-					time_limit++;
-				}
-			}
+		if (listBoxFriends->SelectedItem == nullptr) {
+			System::Windows::Forms::MessageBox::Show("삭제하실 아이디를 선택해주세요", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
 		}
 
+		System::Windows::Forms::DialogResult result =
+			System::Windows::Forms::MessageBox::Show("진짜 삭제할거야?", "경고", \
+				MessageBoxButtons::YesNo, MessageBoxIcon::Warning);
+
+
+		if (result == System::Windows::Forms::DialogResult::Yes) {
+			// Yes 버튼을 클릭한 경우에 실행할 코드
+			// 여기에 Yes 버튼을 클릭했을 때 수행할 동작을 추가하세요.
+
+					//// Server에 ID / PW를 보내기함수
+			int time_limit = 0;
+			std::string tmptxt_1_;
+			std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_friends_Delete));
+
+			String^ tmptxt_1 = listBoxFriends->SelectedItem->ToString();
+			tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
+			std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_;
+
+			const char* buffer = _Index_Str_Result.c_str();
+			send(client_sock, buffer, strlen(buffer), 0);
+
+			while (1)
+			{
+				//if (Recv_str == "true")// server 에서 오케이받는 함수
+				if (1)// server 에서 오케이받는 함수
+				{
+					Friends_Visible(sender, e);
+					System::Windows::Forms::MessageBox::Show("그분은 당신을 아직 친구라고 생각하고있어요.", "친구삭제", MessageBoxButtons::OK, MessageBoxIcon::Information);
+					return;
+				}
+				else if (Recv_str == "false") //  server에서 다른값보내면
+				{
+					System::Windows::Forms::MessageBox::Show("다른값을 보냈다고?", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+
+					return;
+				}
+				else // 무한반복되는건데 시간타이밍 주면 좋을거같음
+				{
+					Sleep(1000);
+					if (time_limit > 1)
+					{
+						System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+						return;
+					}
+					else
+					{
+						time_limit++;
+					}
+				}
+			}
+
+		}
+		else {
+			// No 버튼을 클릭한 경우에 실행할 코드
+			// 여기에 No 버튼을 클릭했을 때 수행할 동작을 추가하세요.
+			return;
+
+		}
 	}
-	else {
-		// No 버튼을 클릭한 경우에 실행할 코드
-		// 여기에 No 버튼을 클릭했을 때 수행할 동작을 추가하세요.
-		return;
-	}
-}
 private: System::Void btnResponse_Click(System::Object^ sender, System::EventArgs^ e) {
 	if (friendresponseform == nullptr || friendresponseform->IsDisposed) {
 		friendresponseform = gcnew FriendResponse;
