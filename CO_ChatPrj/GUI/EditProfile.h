@@ -5,6 +5,7 @@
 #include "UsageClient.h"
 extern SOCKET client_sock;
 extern std::string Recv_str;
+extern Ans ans;
 
 namespace GUI {
 
@@ -452,14 +453,15 @@ private: System::Void btnPWchk_Click(System::Object^ sender, System::EventArgs^ 
 	
 
 	std::string tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
-	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_edit_Confirm));
+	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_edit_PWchk));
 
 	std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_ ;
 	const char* buffer = _Index_Str_Result.c_str();
 	send(client_sock, buffer, strlen(buffer), 0);
+	ans.ansToeEnum(e_edit_PWchk);
 
 	
-	if(Recv_str == "true")
+	if(Recv_str == ans.res)
 	{
 		System::Windows::Forms::MessageBox::Show("확인되었습니다.", "PW 확인", MessageBoxButtons::OK, MessageBoxIcon::Information);
 		txtBoxRechk->Enabled = false;
@@ -470,7 +472,7 @@ private: System::Void btnPWchk_Click(System::Object^ sender, System::EventArgs^ 
 		txtBoxNickName	-> Enabled = true;
 						
 	}
-	else if (Recv_str == "false") //  server에서 다른값보내면
+	else if (Recv_str == ans.res_r) //  server에서 다른값보내면
 	{
 		System::Windows::Forms::MessageBox::Show("email 혹은 전화번호가 이미 있습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 
@@ -506,14 +508,17 @@ private: System::Void btnNickNameduplicateChk_Click(System::Object^ sender, Syst
 	const char* buffer = _Index_Str_Result.c_str();
 	send(client_sock, buffer, strlen(buffer), 0);
 
+	ans.ansToeEnum(e_edit_NickNamechk);
 
-	if (Recv_str == "true")
+
+
+	if (Recv_str == ans.res)
 	{
 		System::Windows::Forms::MessageBox::Show("사용 가능한 닉네임입니다.", "닉네임 확인", MessageBoxButtons::OK, MessageBoxIcon::Information);
 		isChkNickName =true;
 
 	}
-	else if (Recv_str == "false") //  server에서 다른값보내면
+	else if (Recv_str == ans.res_r) //  server에서 다른값보내면
 	{
 		System::Windows::Forms::MessageBox::Show("이미 존재하는 닉네임입니다.", "닉네임 확인", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		return;
@@ -555,20 +560,20 @@ private: System::Void btnEditConfirm_Click(System::Object^ sender, System::Event
 		std::string tmptxt_2_ = msclr::interop::marshal_as<std::string>(tmptxt_2);
 		std::string tmptxt_3_ = msclr::interop::marshal_as<std::string>(tmptxt_3);
 		std::string tmptxt_4_ = msclr::interop::marshal_as<std::string>(tmptxt_4);
-		std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_signup_Submit));
+		std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_edit_Confirm));
 
 		std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_ + " " + tmptxt_2_ + " " + tmptxt_3_ + " " + tmptxt_4_;
 		const char* buffer = _Index_Str_Result.c_str();
 		send(client_sock, buffer, strlen(buffer), 0);
-
+		ans.ansToeEnum(e_edit_Confirm);
 		while (1)
 		{
-			if (Recv_str == "true")// server 에서 오케이받는 함수
+			if (Recv_str == ans.res)// server 에서 오케이받는 함수
 			{
 				System::Windows::Forms::MessageBox::Show("회원정보 수정완료", "회원정보 수정", MessageBoxButtons::OK, MessageBoxIcon::Information);
 				return;
 			}
-			else if (Recv_str == "false") //  server에서 다른값보내면
+			else if (Recv_str == ans.res_r) //  server에서 다른값보내면
 			{
 				System::Windows::Forms::MessageBox::Show("email 또는 전화번호가 이미 있습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 				return;

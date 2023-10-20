@@ -145,6 +145,7 @@
     <ClCompile Include="ServerChat.cpp" />
     <ClCompile Include="SignUp.cpp" />
     <ClCompile Include="test.cpp" />
+    <ClCompile Include="UsageClient.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AddFriend.h">

@@ -241,10 +241,10 @@ namespace GUI {
 			this->btnClose->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnClose->Location = System::Drawing::Point(788, 640);
+			this->btnClose->Location = System::Drawing::Point(801, 640);
 			this->btnClose->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->btnClose->Name = L"btnClose";
-			this->btnClose->Size = System::Drawing::Size(159, 55);
+			this->btnClose->Size = System::Drawing::Size(146, 40);
 			this->btnClose->TabIndex = 9;
 			this->btnClose->UseVisualStyleBackColor = false;
 			this->btnClose->Click += gcnew System::EventHandler(this, &MessageBox::btnClose_Click);
@@ -254,7 +254,7 @@ namespace GUI {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->ClientSize = System::Drawing::Size(982, 704);
+			this->ClientSize = System::Drawing::Size(982, 696);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->label3);
 			this->Controls->Add(this->btnClose);

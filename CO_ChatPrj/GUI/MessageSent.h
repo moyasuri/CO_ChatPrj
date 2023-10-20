@@ -100,7 +100,7 @@ namespace GUI {
 			// 
 			// textBox1
 			// 
-			this->textBox1->Location = System::Drawing::Point(50, 366);
+			this->textBox1->Location = System::Drawing::Point(50, 362);
 			this->textBox1->Multiline = true;
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->Size = System::Drawing::Size(474, 263);
@@ -130,7 +130,7 @@ namespace GUI {
 			this->btnClose->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnClose->Location = System::Drawing::Point(377, 646);
+			this->btnClose->Location = System::Drawing::Point(377, 642);
 			this->btnClose->Name = L"btnClose";
 			this->btnClose->Size = System::Drawing::Size(147, 50);
 			this->btnClose->TabIndex = 10;

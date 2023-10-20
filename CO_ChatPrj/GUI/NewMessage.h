@@ -1,6 +1,12 @@
 ﻿#pragma once
 #include "FriendList.h"
 
+#include "UsageClient.h"
+#include <msclr/marshal_cppstd.h>
+#include <string>
+extern std::string Recv_str;
+extern SOCKET client_sock;
+
 namespace GUI {
 
 	using namespace System;
@@ -37,12 +43,15 @@ namespace GUI {
 				delete components;
 			}
 		}
+	private: System::Windows::Forms::TextBox^ txtBoxToID;
+	protected:
 
 	protected:
-	private: System::Windows::Forms::TextBox^ textBox1;
-	private: System::Windows::Forms::Button^ btnFriends;
 
-	private: System::Windows::Forms::TextBox^ textBox2;
+	private: System::Windows::Forms::Button^ btnFriends;
+	private: System::Windows::Forms::TextBox^ txtBoxMsg;
+
+
 
 
 	private: System::Windows::Forms::Label^ label2;
@@ -65,21 +74,20 @@ namespace GUI {
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(NewMessage::typeid));
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
+			this->txtBoxToID = (gcnew System::Windows::Forms::TextBox());
 			this->btnFriends = (gcnew System::Windows::Forms::Button());
-			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
+			this->txtBoxMsg = (gcnew System::Windows::Forms::TextBox());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->btnSend = (gcnew System::Windows::Forms::Button());
 			this->btnClose = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
-			// textBox1
+			// txtBoxToID
 			// 
-			this->textBox1->Location = System::Drawing::Point(111, 83);
-			this->textBox1->Margin = System::Windows::Forms::Padding(4);
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(232, 28);
-			this->textBox1->TabIndex = 1;
+			this->txtBoxToID->Location = System::Drawing::Point(89, 69);
+			this->txtBoxToID->Name = L"txtBoxToID";
+			this->txtBoxToID->Size = System::Drawing::Size(186, 25);
+			this->txtBoxToID->TabIndex = 1;
 			// 
 			// btnFriends
 			// 
@@ -90,22 +98,20 @@ namespace GUI {
 			this->btnFriends->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnFriends->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnFriends->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnFriends->Location = System::Drawing::Point(380, 78);
-			this->btnFriends->Margin = System::Windows::Forms::Padding(4);
+			this->btnFriends->Location = System::Drawing::Point(304, 65);
 			this->btnFriends->Name = L"btnFriends";
-			this->btnFriends->Size = System::Drawing::Size(109, 40);
+			this->btnFriends->Size = System::Drawing::Size(87, 33);
 			this->btnFriends->TabIndex = 2;
 			this->btnFriends->UseVisualStyleBackColor = false;
 			this->btnFriends->Click += gcnew System::EventHandler(this, &NewMessage::btnFriends_Click);
 			// 
-			// textBox2
+			// txtBoxMsg
 			// 
-			this->textBox2->Location = System::Drawing::Point(111, 154);
-			this->textBox2->Margin = System::Windows::Forms::Padding(4);
-			this->textBox2->Multiline = true;
-			this->textBox2->Name = L"textBox2";
-			this->textBox2->Size = System::Drawing::Size(378, 376);
-			this->textBox2->TabIndex = 3;
+			this->txtBoxMsg->Location = System::Drawing::Point(89, 128);
+			this->txtBoxMsg->Multiline = true;
+			this->txtBoxMsg->Name = L"txtBoxMsg";
+			this->txtBoxMsg->Size = System::Drawing::Size(303, 314);
+			this->txtBoxMsg->TabIndex = 3;
 			// 
 			// label2
 			// 
@@ -113,9 +119,10 @@ namespace GUI {
 			this->label2->BackColor = System::Drawing::Color::Transparent;
 			this->label2->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 16));
 			this->label2->ForeColor = System::Drawing::Color::Cornsilk;
-			this->label2->Location = System::Drawing::Point(38, 74);
+			this->label2->Location = System::Drawing::Point(30, 62);
+			this->label2->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(66, 37);
+			this->label2->Size = System::Drawing::Size(55, 32);
 			this->label2->TabIndex = 10;
 			this->label2->Text = L"To.";
 			// 
@@ -128,12 +135,12 @@ namespace GUI {
 			this->btnSend->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnSend->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnSend->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnSend->Location = System::Drawing::Point(148, 576);
-			this->btnSend->Margin = System::Windows::Forms::Padding(4);
+			this->btnSend->Location = System::Drawing::Point(118, 480);
 			this->btnSend->Name = L"btnSend";
-			this->btnSend->Size = System::Drawing::Size(133, 45);
+			this->btnSend->Size = System::Drawing::Size(106, 38);
 			this->btnSend->TabIndex = 2;
 			this->btnSend->UseVisualStyleBackColor = false;
+			this->btnSend->Click += gcnew System::EventHandler(this, &NewMessage::btnSend_Click);
 			// 
 			// btnClose
 			// 
@@ -144,28 +151,26 @@ namespace GUI {
 			this->btnClose->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnClose->Location = System::Drawing::Point(354, 575);
-			this->btnClose->Margin = System::Windows::Forms::Padding(4);
+			this->btnClose->Location = System::Drawing::Point(283, 479);
 			this->btnClose->Name = L"btnClose";
-			this->btnClose->Size = System::Drawing::Size(135, 49);
+			this->btnClose->Size = System::Drawing::Size(108, 41);
 			this->btnClose->TabIndex = 2;
 			this->btnClose->UseVisualStyleBackColor = false;
 			this->btnClose->Click += gcnew System::EventHandler(this, &NewMessage::btnClose_Click);
 			// 
 			// NewMessage
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(10, 18);
+			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->ClientSize = System::Drawing::Size(598, 682);
+			this->ClientSize = System::Drawing::Size(478, 568);
 			this->Controls->Add(this->label2);
-			this->Controls->Add(this->textBox2);
+			this->Controls->Add(this->txtBoxMsg);
 			this->Controls->Add(this->btnClose);
 			this->Controls->Add(this->btnSend);
 			this->Controls->Add(this->btnFriends);
-			this->Controls->Add(this->textBox1);
-			this->Margin = System::Windows::Forms::Padding(4);
+			this->Controls->Add(this->txtBoxToID);
 			this->Name = L"NewMessage";
 			this->Text = L"NewMessage";
 			this->ResumeLayout(false);
@@ -181,6 +186,7 @@ namespace GUI {
 private: System::Void btnFriends_Click(System::Object^ sender, System::EventArgs^ e) {
 	if (friendlistForm == nullptr || friendlistForm->IsDisposed) {
 		friendlistForm = gcnew FriendList;
+		friendlistForm->Owner = this;
 		friendlistForm->Show();
 
 	}
@@ -188,6 +194,68 @@ private: System::Void btnFriends_Click(System::Object^ sender, System::EventArgs
 	else {
 		friendlistForm->Activate();
 	}
+}
+private: System::Void btnSend_Click(System::Object^ sender, System::EventArgs^ e) {
+
+	//테두리 없애기
+	btnSend->NotifyDefault(false);
+
+	// 텍스트 상자에서 텍스트 가져오기
+	String^ tmptxt_1 = txtBoxToID->Text; // textBox는 해당 텍스트 상자의 이름입니다.
+	String^ tmptxt_2 = txtBoxMsg->Text; // textBox는 해당 텍스트 상자의 이름입니다.
+
+
+	// ID와 PW의 문자열이 채워져있다면
+	if (!String::IsNullOrEmpty(tmptxt_1)&& !String::IsNullOrEmpty(tmptxt_2)) {
+
+
+
+		// Server에 ID / PW를 보내기함수
+		int time_limit = 0;
+
+		std::string tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
+		std::string tmptxt_2_ = msclr::interop::marshal_as<std::string>(tmptxt_2);
+		std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_message_Send));
+		std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_+ "\n " + tmptxt_2_;
+		const char* buffer = _Index_Str_Result.c_str();
+		send(client_sock, buffer, strlen(buffer), 0);
+
+
+		while (1)
+		{
+			if (Recv_str == "true")// server 에서 오케이받는 함수
+			{
+				System::Windows::Forms::MessageBox::Show("성공했습니다..", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+
+				return;
+			}
+			else if (Recv_str == "false") //  server에서 다른값보내면
+			{
+				System::Windows::Forms::MessageBox::Show("아이디가 일치하지 않습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+
+				return;
+			}
+			else
+			{
+				Sleep(1000);
+				if (time_limit > 1)
+				{
+					System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+					return;
+				}
+				else
+				{
+					time_limit++;
+				}
+			}
+		}
+	}
+	// 입력값이 없다면,
+	else {
+		System::Windows::Forms::MessageBox::Show("보낼사람과 내용을 입력해주세요 ", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+	}
+
+
 }
 };
 }

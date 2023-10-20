@@ -9,6 +9,7 @@
 
 extern std::string Recv_str;
 extern SOCKET client_sock;
+extern Ans ans;
 static bool enterServer;
 static bool isExit;
 
@@ -52,6 +53,7 @@ namespace GUI {
 	private: System::Windows::Forms::PictureBox^ PicBoxNagareboshi;
 
 	private: System::String^ relativePath;
+	
 
 
 
@@ -397,36 +399,33 @@ namespace GUI {
 
 
 
-		   // Signin button : database 에서 ID : password  일치하는지 확인하는 함수
-		   // ID PW 가 일치하지 않을때는 : ID 또는 PW가 일치하지 않습니다는 메세지를 송출
-		   // 없으면 없다고 하기
 
 	private: System::Void btnSignin_Click(System::Object^ sender, System::EventArgs^ e) {
 
-
-		//테두리 없애기
+		// 테두리 없애기
 		btnSignin->NotifyDefault(false);
 
 		// 텍스트 상자에서 텍스트 가져오기
-		String^ textID_ = txtBoxID->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-		String^ textPW_ = txtBoxPW->Text; // textBox는 해당 텍스트 상자의 이름입니다.
+		String^ tmptxt_1 = txtBoxID->Text; // textBox는 해당 텍스트 상자의 이름입니다.
+		String^ tmptxt_2 = txtBoxPW->Text; // textBox는 해당 텍스트 상자의 이름입니다.
 
 
 		// ID와 PW의 문자열이 채워져있다면
-		if (!String::IsNullOrEmpty(textID_) && !String::IsNullOrEmpty(textPW_)) {
+		if (!String::IsNullOrEmpty(tmptxt_1) && !String::IsNullOrEmpty(tmptxt_2)) {
 
 			
-			
+
+			ans.ansToeEnum(e_id_try_Signin);
 			// Server에 ID / PW를 보내기함수
 			int time_limit = 0;			
 
-			string temp_id = msclr::interop::marshal_as<std::string>(textID_);
+			string tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
 			// temp_id.c_str();
-			string temp_pw = msclr::interop::marshal_as<std::string>(textPW_);
+			string tmptxt_2_ = msclr::interop::marshal_as<std::string>(tmptxt_2);
 			// temp_pw.c_str();
 			string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_id_try_Signin));
 			
-			string _Index_Str_Result = _Index_Str + " " + temp_id + " " + temp_pw;
+			string _Index_Str_Result = _Index_Str + " " + tmptxt_1_ + " " + tmptxt_2_;
 
 			const char* buffer = _Index_Str_Result.c_str();
 			send(client_sock, buffer, strlen(buffer), 0);
@@ -444,8 +443,8 @@ namespace GUI {
 			{
 				//String^ dddd = gcnew String(Recv_str.c_str());
 				//System::Windows::Forms::MessageBox::Show(dddd, "ttt2", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-				//if (Recv_str == "true")// server 에서 오케이받는 함수
-				if (1)// test용
+				if (Recv_str == ans.res)// server 에서 오케이받는 함수
+				//if (1)// test용
 				{
 
 					// Hide 할때의 동작			
@@ -458,7 +457,7 @@ namespace GUI {
 					}
 					return;
 				}
-				else if (Recv_str =="false") //  server에서 다른값보내면
+				else if (Recv_str == ans.res_r) //  server에서 다른값보내면
 				{
 					System::Windows::Forms::MessageBox::Show("아이디가 일치하지 않습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 
@@ -498,6 +497,7 @@ namespace GUI {
 		// 이미 생성된 SignUp 폼이 없는 경우에만 새로운 폼을 생성하고 엽니다.
 		if (findaccountForm == nullptr || findaccountForm->IsDisposed) {
 			findaccountForm = gcnew FindAccount;
+			findaccountForm->Owner = this;
 			findaccountForm->Show();
 		}
 		// 이미 생성된 폼이 열려 있는 경우, 해당 폼을 활성화시킵니다.

@@ -1,5 +1,21 @@
 #pragma once
+#include <string>
 
+
+
+struct Ans
+{
+    std::string res;  
+    std::string res_r;
+
+    void ansToeEnum(int _enum)
+    {
+
+        this->res = std::to_string(_enum) + " " + "true";
+        this->res_r = std::to_string(_enum) + " " + "false";
+    };
+    
+};
 
 enum SignUp
 {
@@ -58,4 +74,10 @@ enum Imoji
 
 
 
+};
+
+enum Character
+{
+    e_character_izuna = 71,
+    e_character_alice,
 };
