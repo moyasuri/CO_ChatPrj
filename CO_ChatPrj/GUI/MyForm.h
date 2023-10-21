@@ -9,7 +9,7 @@
 
 extern std::string Recv_str;
 extern SOCKET client_sock;
-extern Ans ans;
+// extern Ans ans;
 static bool enterServer;
 static bool isExit;
 
@@ -415,7 +415,6 @@ namespace GUI {
 
 			
 
-			ans.ansToeEnum(e_id_try_Signin);
 			// Server에 ID / PW를 보내기함수
 			int time_limit = 0;			
 
@@ -443,7 +442,7 @@ namespace GUI {
 			{
 				//String^ dddd = gcnew String(Recv_str.c_str());
 				//System::Windows::Forms::MessageBox::Show(dddd, "ttt2", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-				if (Recv_str == ans.res)// server 에서 오케이받는 함수
+				if (Recv_str == trueStr)// server 에서 오케이받는 함수
 				//if (1)// test용
 				{
 
@@ -457,7 +456,7 @@ namespace GUI {
 					}
 					return;
 				}
-				else if (Recv_str == ans.res_r) //  server에서 다른값보내면
+				else if (Recv_str == falseStr) //  server에서 다른값보내면
 				{
 					System::Windows::Forms::MessageBox::Show("아이디가 일치하지 않습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 

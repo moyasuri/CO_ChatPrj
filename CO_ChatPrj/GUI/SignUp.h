@@ -4,7 +4,6 @@
 #include "UsageClient.h"
 extern SOCKET client_sock;
 extern std::string Recv_str;
-extern Ans ans;
 
 
 namespace GUI {
@@ -541,16 +540,15 @@ namespace GUI {
 			const char* buffer = _Index_Str_Result.c_str();
 			send(client_sock, buffer, strlen(buffer), 0);
 			
-			ans.ansToeEnum(e_signup_Submit);
 
 			while (1)
 			{
-				if (Recv_str == ans.res)// server 에서 오케이받는 함수
+				if (Recv_str == trueStr)// server 에서 오케이받는 함수
 				{
 					System::Windows::Forms::MessageBox::Show("회원가입 완료", "회원가입", MessageBoxButtons::OK, MessageBoxIcon::Information);
 					return;
 				}
-				else if (Recv_str == ans.res_r) //  server에서 다른값보내면
+				else if (Recv_str == falseStr) //  server에서 다른값보내면
 				{
 					System::Windows::Forms::MessageBox::Show("email 또는 전화번호가 이미 있습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 
@@ -603,13 +601,12 @@ namespace GUI {
 			const char* buffer = _Index_Str_Result.c_str();
 			send(client_sock, buffer, strlen(buffer), 0);
 
-			ans.ansToeEnum(e_signup_IDchk);
 
 			// String^ ex = msclr::interop::marshal_as<System::String^>(Recv_str);
 			// System::Windows::Forms::MessageBox::Show(ex, "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			while (1)
 			{
-				if (Recv_str == ans.res)// server 에서 오케이받는 함수
+				if (Recv_str == trueStr)// server 에서 오케이받는 함수
 				{
 
 					isChkIDDup = true;
@@ -617,7 +614,7 @@ namespace GUI {
 					System::Windows::Forms::MessageBox::Show("사용할 수 있는 아이디입니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Information);
 					return;
 				}
-				else if (Recv_str == ans.res_r) //  server에서 다른값보내면
+				else if (Recv_str == falseStr) //  server에서 다른값보내면
 				{
 					System::Windows::Forms::MessageBox::Show("이미 있는 아이디입니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 
@@ -666,18 +663,15 @@ namespace GUI {
 
 			int time_limit = 0;
 
-			std::string res = std::to_string(e_signup_NickNamechk) + " " + "true";
-			std::string res_r = std::to_string(e_signup_NickNamechk) + " " + "false";
 			std::string temp_txt_1_ = msclr::interop::marshal_as<std::string>(temp_txt_1);
 			std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_signup_NickNamechk));
 			std::string _Index_Str_Result = _Index_Str + " " + temp_txt_1_;
 			const char* buffer = _Index_Str_Result.c_str();
 			send(client_sock, buffer, strlen(buffer), 0);
-			ans.ansToeEnum(e_signup_NickNamechk);
 
 			while (1)
 			{ 
-				if (Recv_str == ans.res)// server 에서 오케이받는 함수
+				if (Recv_str == trueStr)// server 에서 오케이받는 함수
 				{
 
 					isChkNickNameDup = true;
@@ -685,7 +679,7 @@ namespace GUI {
 					System::Windows::Forms::MessageBox::Show("사용할 수 있는 닉네임입니다..", "경고", MessageBoxButtons::OK, MessageBoxIcon::Information);
 					return;
 				}
-				else if (Recv_str == ans.res_r) //  server에서 다른값보내면
+				else if (Recv_str == falseStr) //  server에서 다른값보내면
 				{
 					System::Windows::Forms::MessageBox::Show("이미 있는 NickName입니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 

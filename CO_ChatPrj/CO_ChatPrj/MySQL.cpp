@@ -7,7 +7,6 @@
 #include <sstream>
 #include <vector>
 #include "UsageServer.h"
-#include "UserInfo.h"
 
 using std::cout;
 using std::endl;
@@ -33,6 +32,7 @@ MySQL::MySQL() {
 MySQL::~MySQL() {
     // 소멸자에서 메모리 정리
     delete pstmt;
+    delete prep_stmt;
     delete con;
 }
 
@@ -80,7 +80,6 @@ string MySQL::QuerySql(string msg, int idx) {
             prep_stmt = con->prepareStatement("SELECT Member_ID FROM practice WHERE Member_ID = ? AND Member_PW = ?");
             prep_stmt->setString(1, _id);
             prep_stmt->setString(2, _pw);
-            cout << "prep_stmt->execute() : " << prep_stmt->execute() << endl;
 
             if (prep_stmt->execute())
             {

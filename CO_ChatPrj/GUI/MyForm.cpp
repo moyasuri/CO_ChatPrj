@@ -9,9 +9,9 @@
 
 
 SOCKET client_sock;
-
 std::string Recv_str;
 std::string my_nick;
+
 #include "MyForm.h"
 #include "MainForm.h"
 
@@ -80,7 +80,7 @@ void CommunicateWithServer() {
             SOCKADDR_IN client_addr = {};
             client_addr.sin_family = AF_INET;
             client_addr.sin_port = htons(7777);
-            InetPton(AF_INET, TEXT("192.168.0.54"), &client_addr.sin_addr);
+            InetPton(AF_INET, TEXT("127.0.0.1"), &client_addr.sin_addr);
 
             // AF_INTE 과 PF_INET은 정확히 동일한 의미
 

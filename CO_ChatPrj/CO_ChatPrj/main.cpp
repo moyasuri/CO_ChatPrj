@@ -173,7 +173,7 @@ void recv_msg(int idx) {
     string _Contents;
     MySQL *mySQL = new MySQL(); 
     mySQL->Init_Mysql();
-    mySQL->set_database("practice");
+    mySQL->set_database("chat");
     while (1) {
         ZeroMemory(&buf, MAX_SIZE);
         if (recv(sck_list[idx].sck, buf, MAX_SIZE, 0) > 0) { // 오류가 발생하지 않으면 recv는 수신된 바이트 수를 반환. 0보다 크다는 것은 메시지가 왔다는 것.
@@ -244,10 +244,12 @@ void recv_msg(int idx) {
 
 
                 }
-                }
+
+                send_msg(__false);
+            }
             else
             {
-                //send_msg(__true);
+                send_msg(__false);
                 //cout << __true;
             }
 
