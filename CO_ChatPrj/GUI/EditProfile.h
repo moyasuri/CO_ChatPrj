@@ -426,9 +426,9 @@ namespace GUI {
 
 private: System::Void btnPWchk_Click(System::Object^ sender, System::EventArgs^ e) {
 	btnPWchk->NotifyDefault(false);
-	
+	IniMsg();
 
-	int time_limit = 0;
+
 
 	String^ tmptxt_1 = txtBoxPW->Text; // textBox는 해당 텍스트 상자의 이름입니다.
 	String^ tmptxt_2 = txtBoxRechk->Text; // textBox는 해당 텍스트 상자의 이름입니다.
@@ -443,20 +443,21 @@ private: System::Void btnPWchk_Click(System::Object^ sender, System::EventArgs^ 
 		return;
 	}
 
-	
+	int time_limit = 0;
 	std::string tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
 	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_edit_PWchk));
-
 	std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_ ;
 	const char* buffer = _Index_Str_Result.c_str();
-	send(client_sock, buffer, strlen(buffer), 0);
 	
-	Sleep(500);
+	
+	send(client_sock, buffer, strlen(buffer), 0);
+	Sleep(100);
+	DivStr(Recv_str, svrMsg);
 
 
 	while(1){
-		if (Recv_str == trueStr) {
-			
+
+		if (isTrue == trueStr) {
 			System::Windows::Forms::MessageBox::Show("확인되었습니다.", "PW 확인", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			txtBoxRechk->Enabled = false;
 			txtBoxPW->Enabled = false;
@@ -466,7 +467,7 @@ private: System::Void btnPWchk_Click(System::Object^ sender, System::EventArgs^ 
 			txtBoxNickName->Enabled = true;
 			return;
 			}
-		else if (Recv_str == falseStr) //  server에서 다른값보내면
+		else if (isTrue == falseStr) 
 		{
 			System::Windows::Forms::MessageBox::Show("email 혹은 전화번호가 이미 있습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			return;
@@ -490,31 +491,32 @@ private: System::Void btnPWchk_Click(System::Object^ sender, System::EventArgs^ 
 private: System::Void btnNickNameduplicateChk_Click(System::Object^ sender, System::EventArgs^ e) {
 
 	btnNickNameduplicateChk->NotifyDefault(false);
-	int time_limit = 0;
 	
 	String^ tmptxt_1 = txtBoxNickName->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-	
 	if (String::IsNullOrEmpty(tmptxt_1))
 	{
 		System::Windows::Forms::MessageBox::Show("닉네임을 입력해주세요", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		return;
 	}
 
+	int time_limit = 0;
 	std::string tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
 	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_edit_NickNamechk));
-
 	std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_;
 	const char* buffer = _Index_Str_Result.c_str();
+	
 	send(client_sock, buffer, strlen(buffer), 0);
+	Sleep(100);
+	DivStr(Recv_str, svrMsg);
 
 	while (1) {
-		if (Recv_str == trueStr)
+		if (isTrue == trueStr)
 		{
 			System::Windows::Forms::MessageBox::Show("사용 가능한 닉네임입니다.", "닉네임 확인", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			isChkNickName = true;
 			return;
 		}
-		else if (Recv_str == falseStr) //  server에서 다른값보내면
+		else if (isTrue == falseStr) //  server에서 다른값보내면
 		{
 			System::Windows::Forms::MessageBox::Show("이미 존재하는 닉네임입니다.", "닉네임 확인", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			return;
@@ -538,12 +540,15 @@ private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ 
 	this->Close();
 }
 private: System::Void btnEditConfirm_Click(System::Object^ sender, System::EventArgs^ e) {
+
+	
 	if (!isChkNickName)
 	{
 		System::Windows::Forms::MessageBox::Show(" 닉네임 중복확인을 해주세요.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		return;
 	}
-
+	btnEditConfirm->NotifyDefault(false);
+	IniMsg();
 	String^ tmptxt_1 = txtBoxEmail->Text;
 	String^ tmptxt_2 = txtBoxPhone->Text;
 	String^ tmptxt_3 = txtBoxNickName->Text;
@@ -565,7 +570,6 @@ private: System::Void btnEditConfirm_Click(System::Object^ sender, System::Event
 		std::string tmptxt_4_ = msclr::interop::marshal_as<std::string>(tmptxt_4);
 		std::string tmptxt_5_ = msclr::interop::marshal_as<std::string>(tmptxt_5);
 		std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_edit_Confirm));
-
 		if (tmptxt_4_ == "이즈나")
 		{
 			tmptxt_4_ = std::to_string(e_character_izuna);
@@ -574,18 +578,22 @@ private: System::Void btnEditConfirm_Click(System::Object^ sender, System::Event
 		{
 			tmptxt_4_ = std::to_string(e_character_alice);
 		}
-
 		std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_ + " " + tmptxt_2_ + " " + tmptxt_3_ + " " + tmptxt_4_ + " " + tmptxt_5_;
 		const char* buffer = _Index_Str_Result.c_str();
+		
 		send(client_sock, buffer, strlen(buffer), 0);
+		Sleep(100);
+		DivStr(Recv_str, svrMsg);
+
+
 		while (1)
 		{
-			if (Recv_str == trueStr)// server 에서 오케이받는 함수
+			if (isTrue == trueStr)// server 에서 오케이받는 함수
 			{
 				System::Windows::Forms::MessageBox::Show("회원정보 수정완료", "회원정보 수정", MessageBoxButtons::OK, MessageBoxIcon::Information);
 				return;
 			}
-			else if (Recv_str == falseStr) //  server에서 다른값보내면
+			else if (isTrue == falseStr) //  server에서 다른값보내면
 			{
 				System::Windows::Forms::MessageBox::Show("email 또는 전화번호가 이미 있습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 				return;

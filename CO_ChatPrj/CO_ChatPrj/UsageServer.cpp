@@ -13,6 +13,7 @@ const char* __false = falseStr.c_str();
 
 
 
+
 void clrisTrue()
 {
 	isTrue.clear();
@@ -29,4 +30,11 @@ void clrsqlMsg()
 {
 
 	sqlMsg.clear();
+}
+
+void IniMsg()
+{
+	clrisTrue();
+	clrsvrMsg();
+	clrsqlMsg();
 }

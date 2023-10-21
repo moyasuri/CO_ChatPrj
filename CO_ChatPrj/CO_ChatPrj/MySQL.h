@@ -37,5 +37,6 @@ private:
     sql::PreparedStatement* pstmt;
     sql::PreparedStatement* prep_stmt;
     sql::ResultSet* res;
+    sql::ResultSet* res2;
      
 };

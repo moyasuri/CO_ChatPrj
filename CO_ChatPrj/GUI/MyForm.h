@@ -404,46 +404,28 @@ namespace GUI {
 
 		// 테두리 없애기
 		btnSignin->NotifyDefault(false);
-		clrisTrue();
-
-		// 텍스트 상자에서 텍스트 가져오기
+		IniMsg();
 		String^ tmptxt_1 = txtBoxID->Text; // textBox는 해당 텍스트 상자의 이름입니다.
 		String^ tmptxt_2 = txtBoxPW->Text; // textBox는 해당 텍스트 상자의 이름입니다.
 
+		if (!String::IsNullOrEmpty(tmptxt_1) && !String::IsNullOrEmpty(tmptxt_2)){
 
-		// ID와 PW의 문자열이 채워져있다면
-		if (!String::IsNullOrEmpty(tmptxt_1) && !String::IsNullOrEmpty(tmptxt_2)) {
-
-			
-
-			// Server에 ID / PW를 보내기함수
-			int time_limit = 0;			
-
-			string tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
-			// temp_id.c_str();
-			string tmptxt_2_ = msclr::interop::marshal_as<std::string>(tmptxt_2);
-			// temp_pw.c_str();
-			string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_id_try_Signin));
-			
-			string _Index_Str_Result = _Index_Str + " " + tmptxt_1_ + " " + tmptxt_2_;
-
+			int time_limit = 0;
+			std::string tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
+			std::string tmptxt_2_ = msclr::interop::marshal_as<std::string>(tmptxt_2);
+			std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_id_try_Signin));
+			std::string _Index_Str_Result = _Index_Str + delim + tmptxt_1_ + delim + tmptxt_2_;
 			const char* buffer = _Index_Str_Result.c_str();
+
+
 			send(client_sock, buffer, strlen(buffer), 0);
-			
 			Sleep(100);
-			// const char* buffer = ConvertStr(textID_).c_str(); // string형을 char* 타입으로 변환후 buffer에 집어넣기 -> 미친생각
-			// String^ ttt = Convert::ToString(test);
-			// string test = msclr::interop::marshal_as<std::string>(textID_);
-			// int ret = send(client_sock, buffer, strlen(buffer), 0);
-			// String^ ttt2 = Convert::ToString(ret);
-			// System::Windows::Forms::MessageBox::Show(ttt2, ttt2, MessageBoxButtons::OK, MessageBoxIcon::Warning);
-			// System::Windows::Forms::MessageBox::Show(ttt2, ttt2, MessageBoxButtons::OK, MessageBoxIcon::Warning);
-			
+			DivStr(Recv_str, svrMsg);
+
 			while (1)
 			{
-				//String^ dddd = gcnew String(Recv_str.c_str());
-				//System::Windows::Forms::MessageBox::Show(dddd, "ttt2", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-				if (Recv_str == trueStr)// server 에서 오케이받는 함수
+				
+				if (isTrue == trueStr)// server 에서 오케이받는 함수
 				//if (1)// test용
 				{
 
@@ -457,7 +439,7 @@ namespace GUI {
 					}
 					return;
 				}
-				else if (Recv_str == falseStr) //  server에서 다른값보내면
+				else if (isTrue == falseStr) //  server에서 다른값보내면
 				{
 					System::Windows::Forms::MessageBox::Show("아이디가 일치하지 않습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 

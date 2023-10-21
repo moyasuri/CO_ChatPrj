@@ -27,6 +27,7 @@ MySQL::MySQL() {
     pstmt = nullptr;
     prep_stmt = nullptr;
     res = nullptr;
+    res2 = nullptr;
 }
 
 MySQL::~MySQL() {
@@ -87,25 +88,45 @@ string MySQL::QuerySql(string msg, int idx) {
             prep_stmt = con->prepareStatement("SELECT Member_ID FROM member WHERE Member_ID = ? AND Member_PW = ?");
             prep_stmt->setString(1, _id);
             prep_stmt->setString(2, _pw);
-            
             sql::ResultSet* res = prep_stmt->executeQuery();
+            
+            
+
             if(res->next())
             {
+                
+                sck_list[idx]._user.setID(_id);
+                
+                std::string query = "SELECT Nickname FROM member WHERE Member_ID = '" + _id + "'";
+                std::string result = "";
+                res = stmt->executeQuery(query);
+
+
+                while (res->next()) {
+                    sck_list[idx]._user.setNickName(res->getString("Nickname"));
+                }
+
+                cout << sck_list[idx]._user.getNickName();
                 _ret = trueStr;
                 break;
+
             }
             else
             {
                 _ret = falseStr;
                 break;
             }
+
+
+
+
         }
         case e_id_find_ID:
         {
             string _name, _email;
             ss >> _name >> _email;
             
-            sql::ResultSet* res = stmt->executeQuery("SELECT Member_ID FROM member WHERE Email = '" + _email + "' AND Name = '" + _name + "'");
+            res = stmt->executeQuery("SELECT Member_ID FROM member WHERE Email = '" + _email + "' AND Name = '" + _name + "'");
             if (res->next()) {
                 _ret = trueStr + delim + res->getString("Member_ID");
                 break;
@@ -119,12 +140,13 @@ string MySQL::QuerySql(string msg, int idx) {
         case e_id_find_PW:
         {
             string _id, _birth, _phone;
-
             ss >> _id >> _birth >> _phone;
+
             string respw = "";
             string result = "";
             res = stmt->executeQuery("SELECT Member_PW FROM member WHERE Member_ID = '" + _id + \
                 "' AND Birth = '" + _birth + "' AND Phone = '" + _phone + "'");
+
             if (res->next()) {
                 _ret = trueStr + delim + res->getString("Member_PW");
                 break;
@@ -275,21 +297,21 @@ string MySQL::QuerySql(string msg, int idx) {
         }
         case e_friends_List:
         {
-            string _id = sck_list[idx]._user.getID();
-            prep_stmt = con->prepareStatement("SELECT Distinct My_Friend_ID From friend_list WHERE My_ID = ?;");
-            prep_stmt->setString(1, _id);
-            sql::ResultSet* res = prep_stmt->executeQuery();
-
             
-            string friendIDs = "";
-            while (res->next()) {
-                string friendID = res->getString("My_Friend_ID");
-                friendIDs += friendID + delim;
-            }
+            string _id = sck_list[idx]._user.getID();
+            string query = "SELECT m.Nickname FROM friend_list f INNER JOIN member m ON f.My_Friend_ID\
+ = m.Member_ID WHERE f.My_ID = '" + _id + "'";
+            res = stmt->executeQuery(query);
 
-            if (!friendIDs.empty()) {
-                // 적어도 하나의 친구 아이디를 찾았을 때
-                _ret = trueStr + delim + friendIDs;
+            string result = "";
+
+            while (res->next()) {
+                result += res->getString("Nickname") + delim;
+            }
+            
+ 
+            if (!result.empty()) {
+                _ret = trueStr + delim + result;
             }
             else {
                 // 친구 아이디를 찾지 못했을 때

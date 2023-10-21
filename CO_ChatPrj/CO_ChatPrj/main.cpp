@@ -217,12 +217,8 @@ void recv_msg(int idx) {
                         if (isTrue == trueStr) // Name과 E-mail이 일치한다면
                         {
                             // 단순히 true만 보낼수는 없어 ID값도 같이 보내야돼.
-                            string temp;
-                            sssql >> temp;
                             
-                            svrMsg = isTrue + delim + temp;
-                            std::cout << svrMsg;
-                            send_msg(svrMsg.c_str());
+                            send_msg(sqlMsg.c_str());
                         }
                         else 
                         {
@@ -230,14 +226,26 @@ void recv_msg(int idx) {
                         }
                         break;
                     }
-                    
                     case e_id_find_PW:
                     {
-                        if (1) // ID와 생일(6자리)와 Phone번호(대쉬없이)가 일치한다면
+                        if (isTrue == trueStr) // ID와 생일(6자리)와 Phone번호(대쉬없이)가 일치한다면
                         {
-                            send_msg(__true);
+                            send_msg(sqlMsg.c_str());
                         }
                         else 
+                        {
+                            send_msg(__false);
+                        }
+                        break;
+                    }
+                    case e_friends_List:
+                    {
+                        if (isTrue == trueStr)  
+                        {
+                            cout << sqlMsg;
+                            send_msg(sqlMsg.c_str());
+                        }
+                        else
                         {
                             send_msg(__false);
                         }

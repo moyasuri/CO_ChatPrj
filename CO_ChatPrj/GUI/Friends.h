@@ -95,10 +95,10 @@ namespace GUI {
 			this->btnAdd->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnAdd->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnAdd->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnAdd->Location = System::Drawing::Point(384, 120);
-			this->btnAdd->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->btnAdd->Location = System::Drawing::Point(461, 144);
+			this->btnAdd->Margin = System::Windows::Forms::Padding(2);
 			this->btnAdd->Name = L"btnAdd";
-			this->btnAdd->Size = System::Drawing::Size(194, 55);
+			this->btnAdd->Size = System::Drawing::Size(233, 66);
 			this->btnAdd->TabIndex = 0;
 			this->btnAdd->UseVisualStyleBackColor = false;
 			this->btnAdd->Click += gcnew System::EventHandler(this, &Friends::btnAdd_Click);
@@ -106,11 +106,11 @@ namespace GUI {
 			// listBoxFriends
 			// 
 			this->listBoxFriends->FormattingEnabled = true;
-			this->listBoxFriends->ItemHeight = 15;
-			this->listBoxFriends->Location = System::Drawing::Point(45, 108);
-			this->listBoxFriends->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->listBoxFriends->ItemHeight = 18;
+			this->listBoxFriends->Location = System::Drawing::Point(54, 130);
+			this->listBoxFriends->Margin = System::Windows::Forms::Padding(2);
 			this->listBoxFriends->Name = L"listBoxFriends";
-			this->listBoxFriends->Size = System::Drawing::Size(316, 394);
+			this->listBoxFriends->Size = System::Drawing::Size(378, 472);
 			this->listBoxFriends->TabIndex = 1;
 			// 
 			// btnResponse
@@ -122,10 +122,10 @@ namespace GUI {
 			this->btnResponse->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnResponse->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnResponse->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnResponse->Location = System::Drawing::Point(384, 210);
-			this->btnResponse->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->btnResponse->Location = System::Drawing::Point(461, 252);
+			this->btnResponse->Margin = System::Windows::Forms::Padding(2);
 			this->btnResponse->Name = L"btnResponse";
-			this->btnResponse->Size = System::Drawing::Size(194, 55);
+			this->btnResponse->Size = System::Drawing::Size(233, 66);
 			this->btnResponse->TabIndex = 0;
 			this->btnResponse->UseVisualStyleBackColor = false;
 			this->btnResponse->Click += gcnew System::EventHandler(this, &Friends::btnResponse_Click);
@@ -139,10 +139,10 @@ namespace GUI {
 			this->btnDelete->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnDelete->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnDelete->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnDelete->Location = System::Drawing::Point(384, 310);
-			this->btnDelete->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->btnDelete->Location = System::Drawing::Point(461, 372);
+			this->btnDelete->Margin = System::Windows::Forms::Padding(2);
 			this->btnDelete->Name = L"btnDelete";
-			this->btnDelete->Size = System::Drawing::Size(194, 55);
+			this->btnDelete->Size = System::Drawing::Size(233, 66);
 			this->btnDelete->TabIndex = 0;
 			this->btnDelete->UseVisualStyleBackColor = false;
 			this->btnDelete->Click += gcnew System::EventHandler(this, &Friends::btnDelete_Click);
@@ -156,10 +156,10 @@ namespace GUI {
 			this->btnClose->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnClose->Location = System::Drawing::Point(384, 447);
-			this->btnClose->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->btnClose->Location = System::Drawing::Point(461, 536);
+			this->btnClose->Margin = System::Windows::Forms::Padding(2);
 			this->btnClose->Name = L"btnClose";
-			this->btnClose->Size = System::Drawing::Size(194, 55);
+			this->btnClose->Size = System::Drawing::Size(233, 66);
 			this->btnClose->TabIndex = 0;
 			this->btnClose->UseVisualStyleBackColor = false;
 			this->btnClose->Click += gcnew System::EventHandler(this, &Friends::btnClose_Click);
@@ -170,10 +170,10 @@ namespace GUI {
 			this->label2->BackColor = System::Drawing::Color::Transparent;
 			this->label2->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 24));
 			this->label2->ForeColor = System::Drawing::Color::SlateGray;
-			this->label2->Location = System::Drawing::Point(37, 38);
+			this->label2->Location = System::Drawing::Point(44, 46);
 			this->label2->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(227, 46);
+			this->label2->Size = System::Drawing::Size(272, 55);
 			this->label2->TabIndex = 10;
 			this->label2->Text = L"Friend List";
 			// 
@@ -182,19 +182,20 @@ namespace GUI {
 			this->pictureBox1->BackColor = System::Drawing::Color::Transparent;
 			this->pictureBox1->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.BackgroundImage")));
 			this->pictureBox1->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->pictureBox1->Location = System::Drawing::Point(589, -17);
+			this->pictureBox1->Location = System::Drawing::Point(707, -20);
+			this->pictureBox1->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
 			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->Size = System::Drawing::Size(751, 581);
+			this->pictureBox1->Size = System::Drawing::Size(901, 697);
 			this->pictureBox1->TabIndex = 11;
 			this->pictureBox1->TabStop = false;
 			// 
 			// Friends
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(120, 120);
+			this->AutoScaleDimensions = System::Drawing::SizeF(144, 144);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Dpi;
 			this->BackColor = System::Drawing::Color::FloralWhite;
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->ClientSize = System::Drawing::Size(950, 561);
+			this->ClientSize = System::Drawing::Size(1140, 673);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->listBoxFriends);
 			this->Controls->Add(this->btnClose);
@@ -202,7 +203,7 @@ namespace GUI {
 			this->Controls->Add(this->btnResponse);
 			this->Controls->Add(this->btnAdd);
 			this->Controls->Add(this->pictureBox1);
-			this->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->Margin = System::Windows::Forms::Padding(2);
 			this->Name = L"Friends";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Friends";
@@ -226,74 +227,32 @@ namespace GUI {
 		}
 	}
 private: System::Void Friends_Visible(System::Object^ sender, System::EventArgs^ e) {
-	listBoxFriends->Items->Clear();
-
-
+	IniMsg();
 	int time_limit = 0;
-				std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_friends_List));
-		std::string _Index_Str_Result = _Index_Str;
-		const char* buffer = _Index_Str_Result.c_str();
-		send(client_sock, buffer, strlen(buffer), 0);
-		/*while (1)
+	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_friends_List));
+	std::string _Index_Str_Result = _Index_Str;
+	const char* buffer = _Index_Str_Result.c_str();
+	send(client_sock, buffer, strlen(buffer), 0);
+	Sleep(100);
+	DivStr(Recv_str, svrMsg);
+
+	if (isTrue == trueStr)// server 에서 오케이받는 함수
+	{
+		listBoxFriends->Items->Clear();
+		std::istringstream iss(svrMsg);
+
+		std::string token;
+		while (iss>>token)
 		{
-				if (time_limit > 1)
-				{
-					
-					return;
-				}
-				else
-				{
-					Sleep(500);
-					time_limit++;
-				}
-			
-		}*/
 
-	//std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_friends_List));
-
-	//std::string _Index_Str_Result = _Index_Str;
-	//const char* buffer = _Index_Str_Result.c_str();
-	//send(client_sock, buffer, strlen(buffer), 0);
-	// std::stringstream ss(Recv_str);
-	//ss >> _Index;
-	//server_msg.push_back(_Contents);
-	//_Contents = string(buf + 3);
-	//server_msg.push_back(_Contents);
-
-
-	// std::string inputString = "true emilie jiwon suwan sibaaal";
-
-
-	// C++/CLI CLI 배열
-	// cli::array<System::Object^>^ arr = gcnew cli::array<System::Object^>(1);
-
-	// 공백으로 문자열 분할
-	std::istringstream iss(Recv_str); // 살짝 문제가 있을거 같기도..
-	std::string token;
-	int count = 0;
-
-	while (iss >> token) {
-		if (count == 0 && token == "true") {
-			// 첫 번째 단어가 "true"인 경우 넘어감
-			count++;
-			continue;
+			listBoxFriends->Items->Add(gcnew String(token.c_str()));
 		}
-		//System::String^ str = marshal_as<String^>(token);
-		listBoxFriends->Items->Add(gcnew String(token.c_str()));
-	}
-
-	// List Box에 추가
-	// listBoxFriends->Items->AddRange(vect);
-
-	if (Recv_str == "true")// server 에서 오케이받는 함수
-	{
-		return;
-	}
-	else
-	{
 		return;
 	}
 }
+
+
+
 	private: System::Void btnDelete_Click(System::Object^ sender, System::EventArgs^ e) {
 		btnDelete->NotifyDefault(false);
 		svrMsg.clear();

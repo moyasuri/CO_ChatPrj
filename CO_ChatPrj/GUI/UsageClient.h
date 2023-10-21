@@ -9,8 +9,10 @@ extern const char* __true;
 extern const char* __false;
 extern const std::string delim;
 
-void clrisTrue();
-void clrsvrMsg();
+void clrisTrue(); // true false 초기화
+void clrsvrMsg(); // contents 초기화
+void IniMsg(); 
+void DivStr(std::string& _Recv_str, std::string& _svrMsg);
 
 
 

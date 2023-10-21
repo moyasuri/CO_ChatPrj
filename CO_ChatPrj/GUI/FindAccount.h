@@ -388,67 +388,37 @@ namespace GUI {
 		
 private: System::Void btnSubmit_ID_Click(System::Object^ sender, System::EventArgs^ e) {
 	
-
-	clrisTrue();
-	clrsvrMsg();
-
-
-	// 텍스트 상자에서 텍스트 가져오기
+	IniMsg();
 	String^ tmptxt_1 = txtBoxName->Text; // textBox는 해당 텍스트 상자의 이름입니다.
 	String^ tmptxt_2 = txtBoxEmail->Text; // textBox는 해당 텍스트 상자의 이름입니다.
 
-	// DB ->  이름과 email 일치하는지 확인하고 알려주기
-
-	// ID와 PW의 문자열이 채워져있다면
 	if (!String::IsNullOrEmpty(tmptxt_1) && !String::IsNullOrEmpty(tmptxt_2)) {
 
 
-		// Server에 ID / PW를 보내기함수
 		int time_limit = 0;
-
 		std::string tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
-		
 		std::string tmptxt_2_ = msclr::interop::marshal_as<std::string>(tmptxt_2);
-		// temp_pw.c_str();
 		std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_id_find_ID));
-
 		std::string _Index_Str_Result = _Index_Str + delim + tmptxt_1_ + delim + tmptxt_2_;
-
 		const char* buffer = _Index_Str_Result.c_str();
+
 		send(client_sock, buffer, strlen(buffer), 0);
 		Sleep(100);
-		
-		std::istringstream iss(Recv_str);
-		std::string token;
-		int count = 0;
-		
-		while (iss >> token) {
-			if (count == 0 )
-			{
-				// 첫 번째 단어가 "true"인 경우 넘어감
-				isTrue = token;
-				count++;
-				continue;
-			}
-			else
-			{
-				svrMsg += token;
-			}
-		}
+		DivStr(Recv_str, svrMsg);
+
 
 		while (1)
 		{
 			if (isTrue == trueStr)// server 에서 오케이받는 함수
 			{
+				svrMsg = "ID :  " + svrMsg;
 				System::String^ clrString = msclr::interop::marshal_as<System::String^>(svrMsg);
-				System::Windows::Forms::MessageBox::Show(clrString, "회원가입", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				System::Windows::Forms::MessageBox::Show(clrString, "아이디 찾기", MessageBoxButtons::OK, MessageBoxIcon::Information);
 				return;
-
 			}
 			else if (isTrue == falseStr) //  server에서 다른값보내면
 			{
 				System::Windows::Forms::MessageBox::Show("아이디랑 이메일이 일치하지 않습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-
 				return;
 			}
 			else // 무한반복되는건데 시간타이밍 주면 좋을거같음
@@ -466,17 +436,68 @@ private: System::Void btnSubmit_ID_Click(System::Object^ sender, System::EventAr
 			}
 		}
 	}
-	// 입력값이 없다면,
 	else {
 		System::Windows::Forms::MessageBox::Show("ID / PW 를 다시입력해주세요. ", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 	}
 
 }
 private: System::Void btnSubmit_PW_Click(System::Object^ sender, System::EventArgs^ e) {
-	txtBoxID->Text;
-	txtBoxBirth->Text;
-	txtBoxPhone->Text;
-	// DB ->  아이디와 생년월일 폰번호  일치하는지 확인하고 알려주기
+
+
+	IniMsg();
+	String^ tmptxt_1 = txtBoxID->Text;
+	String^ tmptxt_2 = txtBoxBirth->Text;
+	String^ tmptxt_3 = txtBoxPhone->Text;
+	
+	if (!String::IsNullOrEmpty(tmptxt_1) && !String::IsNullOrEmpty(tmptxt_2) && !String::IsNullOrEmpty(tmptxt_3)) {
+		
+		int time_limit = 0;
+		std::string tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
+		std::string tmptxt_2_ = msclr::interop::marshal_as<std::string>(tmptxt_2);
+		std::string tmptxt_3_ = msclr::interop::marshal_as<std::string>(tmptxt_3);
+		std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_id_find_PW));
+		std::string _Index_Str_Result = _Index_Str + delim + tmptxt_1_ + delim + tmptxt_2_ + delim + tmptxt_3_;
+		const char* buffer = _Index_Str_Result.c_str();
+		
+		
+		send(client_sock, buffer, strlen(buffer), 0);
+		Sleep(100);
+		DivStr(Recv_str, svrMsg);
+
+
+
+		while (1)
+		{
+			if (isTrue == trueStr)// server 에서 오케이받는 함수
+			{
+				svrMsg = "Password :  " + svrMsg;
+				System::String^ clrString = msclr::interop::marshal_as<System::String^>(svrMsg);
+				System::Windows::Forms::MessageBox::Show(clrString, "비밀번호찾기", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				return;
+			}
+			else if (isTrue == falseStr) //  server에서 다른값보내면
+			{
+				System::Windows::Forms::MessageBox::Show("내용이 일치하지 않습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				return;
+			}
+			else
+			{
+				Sleep(1000);
+				if (time_limit > 1)
+				{
+					System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+					return;
+				}
+				else
+				{
+					time_limit++;
+				}
+			}
+		}
+	}
+	else {
+		System::Windows::Forms::MessageBox::Show("ID / PW 를 다시입력해주세요. ", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+	}
 }
 private: System::Void btnCancle_Click(System::Object^ sender, System::EventArgs^ e) {
 	this->Close();

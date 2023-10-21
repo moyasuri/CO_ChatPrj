@@ -452,9 +452,8 @@ namespace GUI {
 		// btnsubmit  회원가입 실행버튼
 		// 전화번호가 겹치거나 공백란이 있다면 오류를 반환
 	private: System::Void btnSubmit_Click(System::Object^ sender, System::EventArgs^ e) {
-			// 테두리 없애기
 			btnSubmit->NotifyDefault(false);
-
+			
 			if (!isChkIDDup)
 			{
 				System::Windows::Forms::MessageBox::Show("ID 중복체크를 해주세요.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
@@ -473,18 +472,10 @@ namespace GUI {
 				return;
 			}
 
-
-			// 텍스트 상자에서 텍스트 가져오기
-			//txtBoxName->Text;
-			//txtBoxID->Text;
-			//txtBoxPW->Text;
-			//txtBoxNickName->Text;
-			//txtBoxBirth->Text;
-			//txtBoxEmail->Text;
-			//Name ID PW NickName Birth E-mail Phone Cha 다 줘야돼
+			IniMsg();
 
 
-			// 텍스트 상자에서 텍스트 가져오기
+
 
 			String^ tmptxt_1 = txtBoxID->Text; // textBox는 해당 텍스트 상자의 이름입니다.
 			String^ tmptxt_2 = txtBoxEmail->Text; // textBox는 해당 텍스트 상자의 이름입니다.
@@ -494,12 +485,6 @@ namespace GUI {
 			String^ tmptxt_6 = combBoxCha->Text; // textBox는 해당 텍스트 상자의 이름입니다.
 			String^ tmptxt_7 = txtBoxPW->Text; // textBox는 해당 텍스트 상자의 이름입니다.
 			String^ tmptxt_8 = txtBoxName->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-
-			
-
-
-
-
 
 		// ID와 PW의 문자열이 채워져있다면
 		if (!String::IsNullOrEmpty(tmptxt_1) && !String::IsNullOrEmpty(tmptxt_2) && !String::IsNullOrEmpty(tmptxt_2)\
@@ -529,26 +514,23 @@ namespace GUI {
 			{
 				tmptxt_6_ = std::to_string(e_character_alice);
 			}
-				
-
-
-
 			std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_signup_Submit));
 
 			std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_ + " " + tmptxt_2_ + " " + tmptxt_3_ + " " + tmptxt_4_\
 				+ " " + tmptxt_5_ + " " + tmptxt_6_ + " " + tmptxt_7_ + " " + tmptxt_8_ ;
 			const char* buffer = _Index_Str_Result.c_str();
 			send(client_sock, buffer, strlen(buffer), 0);
-			
+			Sleep(100);
+			DivStr(Recv_str, svrMsg);
 
 			while (1)
 			{
-				if (Recv_str == trueStr)// server 에서 오케이받는 함수
+				if (isTrue == trueStr)// server 에서 오케이받는 함수
 				{
 					System::Windows::Forms::MessageBox::Show("회원가입 완료", "회원가입", MessageBoxButtons::OK, MessageBoxIcon::Information);
 					return;
 				}
-				else if (Recv_str == falseStr) //  server에서 다른값보내면
+				else if (isTrue == falseStr) //  server에서 다른값보내면
 				{
 					System::Windows::Forms::MessageBox::Show("email 또는 전화번호가 이미 있습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 
@@ -576,48 +558,41 @@ namespace GUI {
 
 
 	}
-
-		   // ID 중복 확인하기버튼
+	
+	// ID 중복 확인하기버튼
 	private: System::Void btnIDduplicateChk_Click(System::Object^ sender, System::EventArgs^ e) {
 		
 		//테두리 없애기
 		btnIDduplicateChk->NotifyDefault(false);
+		IniMsg();
 
-		// 텍스트 상자에서 텍스트 가져오기
 		String^ tmptxt_1 = txtBoxID->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-		
 
-		// ID와 PW의 문자열이 채워져있다면
 		if (!String::IsNullOrEmpty(tmptxt_1)) {
 
-
-
-			// Server에 ID / PW를 보내기함수
 			int time_limit = 0;
-
 			std::string tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
 			std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_signup_IDchk));
-			std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_;
+			std::string _Index_Str_Result = _Index_Str + delim + tmptxt_1_;
 			const char* buffer = _Index_Str_Result.c_str();
+
+
 			send(client_sock, buffer, strlen(buffer), 0);
+			Sleep(100);
+			DivStr(Recv_str, svrMsg);
 
-
-			// String^ ex = msclr::interop::marshal_as<System::String^>(Recv_str);
-			// System::Windows::Forms::MessageBox::Show(ex, "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			while (1)
 			{
-				if (Recv_str == trueStr)// server 에서 오케이받는 함수
+				if (isTrue == trueStr)// server 에서 오케이받는 함수
 				{
-
 					isChkIDDup = true;
 					txtBoxID->Enabled = false;
 					System::Windows::Forms::MessageBox::Show("사용할 수 있는 아이디입니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Information);
 					return;
 				}
-				else if (Recv_str == falseStr) //  server에서 다른값보내면
+				else if (isTrue == falseStr) //  server에서 다른값보내면
 				{
 					System::Windows::Forms::MessageBox::Show("이미 있는 아이디입니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-
 					return;
 				}
 				else 
@@ -639,39 +614,31 @@ namespace GUI {
 		else {
 			System::Windows::Forms::MessageBox::Show("ID / PW 를 다시입력해주세요. ", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		}
-		
-		
-
-			
-
 	}
 		    
-		   // NIck Name 중복 확인버튼
+	// NIck Name 중복 확인버튼
 	private: System::Void btnNickNameduplicateChk_Click(System::Object^ sender, System::EventArgs^ e) {
 
-		//테두리 없애기
 		btnNickNameduplicateChk->NotifyDefault(false);
+		IniMsg();
+		String^ tmptxt_1 = txtBoxNickName->Text; // textBox는 해당 텍스트 상자의 이름입니다.
 
-		// 텍스트 상자에서 텍스트 가져오기
-		String^ temp_txt_1 = txtBoxNickName->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-	
-
-		// ID와 PW의 문자열이 채워져있다면
-		if (!String::IsNullOrEmpty(temp_txt_1)) {
-
-
+		if (!String::IsNullOrEmpty(tmptxt_1)) {
 
 			int time_limit = 0;
-
-			std::string temp_txt_1_ = msclr::interop::marshal_as<std::string>(temp_txt_1);
+			std::string tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
 			std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_signup_NickNamechk));
-			std::string _Index_Str_Result = _Index_Str + " " + temp_txt_1_;
+			std::string _Index_Str_Result = _Index_Str + delim + tmptxt_1_ ;
 			const char* buffer = _Index_Str_Result.c_str();
+
+
 			send(client_sock, buffer, strlen(buffer), 0);
+			Sleep(100);
+			DivStr(Recv_str, svrMsg);
 
 			while (1)
 			{ 
-				if (Recv_str == trueStr)// server 에서 오케이받는 함수
+				if (isTrue == trueStr)// server 에서 오케이받는 함수
 				{
 
 					isChkNickNameDup = true;
@@ -679,10 +646,9 @@ namespace GUI {
 					System::Windows::Forms::MessageBox::Show("사용할 수 있는 닉네임입니다..", "경고", MessageBoxButtons::OK, MessageBoxIcon::Information);
 					return;
 				}
-				else if (Recv_str == falseStr) //  server에서 다른값보내면
+				else if (isTrue == falseStr) //  server에서 다른값보내면
 				{
 					System::Windows::Forms::MessageBox::Show("이미 있는 NickName입니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-
 					return;
 				}
 				else // 무한반복되는건데 시간타이밍 주면 좋을거같음
@@ -704,8 +670,6 @@ namespace GUI {
 		else {
 			System::Windows::Forms::MessageBox::Show("입력값이 없습니다. ", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		}
-
-
 	}
 
 		   // cnacle button 홈화면으로 되돌아가기

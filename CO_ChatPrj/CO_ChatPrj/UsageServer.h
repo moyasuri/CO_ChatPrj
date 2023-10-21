@@ -13,7 +13,7 @@ extern const char* __false;
 void clrisTrue();
 void clrsvrMsg();
 void clrsqlMsg();
-
+void IniMsg();
 
 
 enum SignUp
@@ -52,9 +52,14 @@ enum ShortMessage
 
 enum Friends
 {
-    e_friends_Request= 51,
-    e_friends_List,
-    e_friends_Delete,
+    e_friends_List = 510,
+    e_friends_Delete , 
+    e_friends_search , 
+    e_friends_Request_Send ,
+    e_friends_Request_List ,
+    e_friends_Request_Accept,
+    e_friends_Request_Decline,
+    e_friends_Request,
     e_friends_Response_List,
     e_friends_Accept,
     
