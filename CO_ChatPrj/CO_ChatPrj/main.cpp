@@ -8,7 +8,6 @@
 #include <sstream>
 
 #include <mutex>
-
 #include "UserInfo.h"
 #include "UsageServer.h"
 #include "MySQL.h"
@@ -37,8 +36,6 @@ std::vector<SOCKET_INFO> sck_list; // 연결된 클라이언트 소켓들을 저
 SOCKET_INFO server_sock; // 서버 소켓에 대한 정보를 저장할 변수 선언.
 int client_count = 0; // 현재 접속해 있는 클라이언트를 count 할 변수 선언.
 
-const char* __true = trueStr.c_str();
-const char* __false = falseStr.c_str();
 
 //bool isNumeric(const std::string& str);
 void server_init(); // socket 초기화 함수. socket(), bind(), listen() 함수 실행됨. 자세한 내용은 함수 구현부에서 확인.
@@ -166,57 +163,66 @@ void send_msg(const char* msg) {
 
 void recv_msg(int idx) {
     char buf[MAX_SIZE] = { };
-    string msg = "";
-
-    cout << sck_list[idx].user << endl;
-    std::vector<string> server_msg;
     
+    
+    string msg = "";
     string _Index;
     string _Contents;
     MySQL *mySQL = new MySQL(); 
     mySQL->Init_Mysql();
     mySQL->set_database("chat");
+    
+    
     while (1) {
         ZeroMemory(&buf, MAX_SIZE);
         if (recv(sck_list[idx].sck, buf, MAX_SIZE, 0) > 0) { // 오류가 발생하지 않으면 recv는 수신된 바이트 수를 반환. 0보다 크다는 것은 메시지가 왔다는 것.
             //msg = sck_list[idx].user + " : " + buf;
-            server_msg.clear();
-            
+            clrisTrue();
+            clrsvrMsg();
+            clrsqlMsg();
             msg = buf;
+
+            // Client의 메세지 index
             std::stringstream ss(msg);
             ss >> _Index;
-            string _ans;
-            // server_msg.push_back(_Index);
-            // _Contents = string(buf + 3);
-            // server_msg.push_back(_Contents);
-           
             if (isNumeric(_Index))
             {
                 int _Index_Int = stoi(_Index);
+
+                cout << "sql 직전" << endl;
+                sqlMsg = mySQL->QuerySql(msg, idx); // sql ret값
+                cout << "sql 확인" << endl;
+
+                std::stringstream sssql(sqlMsg); 
+                sssql >> isTrue; // sql return 값의 true false;
+
                 switch (_Index_Int)
                 {
-
                     case e_id_try_Signin:
                     {
-                        _ans=mySQL->QuerySql(msg,idx);
-                        
-                        if (_ans==trueStr) // ID에 해당하는 비밀번호가 일치한다면
+                        if (isTrue == trueStr) // ID에 해당하는 비밀번호가 일치한다면
                         {
                             send_msg(__true);
-                         
+                            cout << "true" << endl;
                         }
                         else
                         {
-                            cout << "false왓다" << endl;
                             send_msg(__false);
+                            cout << "false" << endl;
                         }
                         break;
                     }
                     case e_id_find_ID:
                     {
-                        if (1) // Name과 E-mail이 일치한다면
+                        if (isTrue == trueStr) // Name과 E-mail이 일치한다면
                         {
-                            send_msg(__true);
+                            // 단순히 true만 보낼수는 없어 ID값도 같이 보내야돼.
+                            string temp;
+                            sssql >> temp;
+                            
+                            svrMsg = isTrue + delim + temp;
+                            std::cout << svrMsg;
+                            send_msg(svrMsg.c_str());
                         }
                         else 
                         {
@@ -236,7 +242,6 @@ void recv_msg(int idx) {
                             send_msg(__false);
                         }
                         break;
-
                     }
                     default:
                     {

@@ -404,6 +404,7 @@ namespace GUI {
 
 		// 테두리 없애기
 		btnSignin->NotifyDefault(false);
+		clrisTrue();
 
 		// 텍스트 상자에서 텍스트 가져오기
 		String^ tmptxt_1 = txtBoxID->Text; // textBox는 해당 텍스트 상자의 이름입니다.
@@ -428,7 +429,8 @@ namespace GUI {
 
 			const char* buffer = _Index_Str_Result.c_str();
 			send(client_sock, buffer, strlen(buffer), 0);
-
+			
+			Sleep(100);
 			// const char* buffer = ConvertStr(textID_).c_str(); // string형을 char* 타입으로 변환후 buffer에 집어넣기 -> 미친생각
 			// String^ ttt = Convert::ToString(test);
 			// string test = msclr::interop::marshal_as<std::string>(textID_);
@@ -437,7 +439,6 @@ namespace GUI {
 			// System::Windows::Forms::MessageBox::Show(ttt2, ttt2, MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			// System::Windows::Forms::MessageBox::Show(ttt2, ttt2, MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			
-
 			while (1)
 			{
 				//String^ dddd = gcnew String(Recv_str.c_str());
@@ -481,8 +482,6 @@ namespace GUI {
 		else {
 			System::Windows::Forms::MessageBox::Show("ID / PW 를 다시입력해주세요. ", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		}
-
-
 	}
 
 	private: System::Void btnExit_Click(System::Object^ sender, System::EventArgs^ e) {

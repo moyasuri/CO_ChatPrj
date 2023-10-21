@@ -1,22 +1,19 @@
 #pragma once
 #include <string>
 
-const std::string trueStr = "true";
-const std::string falseStr = "false";
+extern const std::string trueStr;
+extern const std::string falseStr;
+extern std::string isTrue;
+extern std::string svrMsg;
+extern const char* __true;
+extern const char* __false;
+extern const std::string delim;
 
-//struct Ans
-//{
-//    std::string res;  
-//    std::string res_r;
-//
-//    void ansToeEnum(int _enum)
-//    {
-//
-//        this->res = std::to_string(_enum) + " " + "true";
-//        this->res_r = std::to_string(_enum) + " " + "false";
-//    };
-//    
-//};
+void clrisTrue();
+void clrsvrMsg();
+
+
+
 
 enum SignUp
 {

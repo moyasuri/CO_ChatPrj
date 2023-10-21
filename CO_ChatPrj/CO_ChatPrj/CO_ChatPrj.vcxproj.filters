@@ -5,6 +5,7 @@
     <ClCompile Include="proj.cpp" />
     <ClCompile Include="MySQL.h" />
     <ClCompile Include="MySQL.cpp" />
+    <ClCompile Include="UsageServer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UsageServer.h" />

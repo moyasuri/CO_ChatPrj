@@ -1,10 +1,11 @@
 ﻿#pragma once
-
 #include <msclr/marshal_cppstd.h>
 #include <string>
 #include "UsageClient.h"
 
 extern std::string Recv_str;
+extern std::string isTrue;
+extern std::string svrMsg;
 extern SOCKET client_sock;
 
 
@@ -451,6 +452,8 @@ private: System::Void btnPWchk_Click(System::Object^ sender, System::EventArgs^ 
 	send(client_sock, buffer, strlen(buffer), 0);
 	
 	Sleep(500);
+
+
 	while(1){
 		if (Recv_str == trueStr) {
 			

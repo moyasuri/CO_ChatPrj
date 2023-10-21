@@ -296,6 +296,8 @@ private: System::Void Friends_Visible(System::Object^ sender, System::EventArgs^
 }
 	private: System::Void btnDelete_Click(System::Object^ sender, System::EventArgs^ e) {
 		btnDelete->NotifyDefault(false);
+		svrMsg.clear();
+
 
 		if (listBoxFriends->SelectedItem == nullptr) {
 			System::Windows::Forms::MessageBox::Show("삭제하실 아이디를 선택해주세요", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);

@@ -52,21 +52,13 @@ void MySQL::Init_Mysql() {
 
 void MySQL::set_database(string str) {
 
-    //// 데이터베이스 선택
-    //con->setSchema(str);
-    //// db 한글 저장을 위한 셋팅 
-    //stmt = con->createStatement();
-    //stmt->execute("set names 'utf8'");
-    //if (stmt) { delete stmt; stmt = nullptr; }
-
     try {
         // 데이터베이스 선택
         con->setSchema(str);
         // db 한글 저장을 위한 셋팅 
         stmt = con->createStatement();
-        stmt->execute("set names 'utf8'");
-        if (stmt) { delete stmt; stmt = nullptr; }
-        //std::cout << "ddd?" << std::endl;
+        stmt->execute("set names euckr");
+        // if (stmt) { delete stmt; stmt = nullptr; }
     }
     catch (sql::SQLException& e) {
         // 예외 처리
@@ -76,12 +68,12 @@ void MySQL::set_database(string str) {
 }
 
 string MySQL::QuerySql(string msg, int idx) {
-    string _Index, _ret;
 
+    // indxe retrun값 선언
+    string _Index, _ret;
     std::stringstream ss(msg);
 
     ss >> _Index;
-
     int _Index_Int = stoi(_Index);
 
     switch (_Index_Int)
@@ -95,9 +87,9 @@ string MySQL::QuerySql(string msg, int idx) {
             prep_stmt = con->prepareStatement("SELECT Member_ID FROM member WHERE Member_ID = ? AND Member_PW = ?");
             prep_stmt->setString(1, _id);
             prep_stmt->setString(2, _pw);
-
-            //prep_stmt->execute();
-            if(1)
+            
+            sql::ResultSet* res = prep_stmt->executeQuery();
+            if(res->next())
             {
                 _ret = trueStr;
                 break;
@@ -110,10 +102,10 @@ string MySQL::QuerySql(string msg, int idx) {
         }
         case e_id_find_ID:
         {
-            string _name, _email, _id;
+            string _name, _email;
             ss >> _name >> _email;
-            res = stmt->executeQuery("SELECT Member_ID FROM member WHERE Email = '" + _id + "' AND Name = '" \
-                + _name + "'");
+            
+            sql::ResultSet* res = stmt->executeQuery("SELECT Member_ID FROM member WHERE Email = '" + _email + "' AND Name = '" + _name + "'");
             if (res->next()) {
                 _ret = trueStr + delim + res->getString("Member_ID");
                 break;

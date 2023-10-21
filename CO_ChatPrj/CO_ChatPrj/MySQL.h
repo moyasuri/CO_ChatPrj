@@ -2,13 +2,11 @@
 
 #include <string>
 #include <mysql/jdbc.h>
-
+#include "UsageServer.h"
 using std::string;
 
 
 const string IDENTIFIER = " ";
-const string trueStr = "true";
-const string falseStr = "false";
 const string delim = " ";
 const string server = "tcp://127.0.0.1:3306"; // 데이터베이스 주소
 const string username = "codingon"; // 데이터베이스 사용자

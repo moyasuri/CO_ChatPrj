@@ -1,6 +1,21 @@
 #pragma once
-//#include <string>
-//using std::string;
+#include <string>
+
+
+extern std::string isTrue;
+extern std::string svrMsg;
+extern std::string sqlMsg;
+extern const std::string trueStr;
+extern const std::string falseStr;
+extern const char* __true;
+extern const char* __false;
+
+void clrisTrue();
+void clrsvrMsg();
+void clrsqlMsg();
+
+
+
 enum SignUp
 {
     e_signup_IDchk = 11,
