@@ -251,10 +251,25 @@ void recv_msg(int idx) {
                         }
                         break;
                     }
-                    default:
+
+                    case e_friends_Request:
+                    {
+                        if (isTrue == trueStr)
+                        {
+                            cout << sqlMsg;
+                            send_msg(sqlMsg.c_str());
+                        }
+                        else
+                        {
+                            send_msg(__false);
+                        }
+                        break;
+
+                    }
+               /*     default:
                     {
                         break;
-                    }
+                    }*/
                 }
             }
             else

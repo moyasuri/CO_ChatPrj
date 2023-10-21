@@ -236,6 +236,8 @@ private: System::Void Friends_Visible(System::Object^ sender, System::EventArgs^
 	Sleep(100);
 	DivStr(Recv_str, svrMsg);
 
+	/*System::String^ clrString = msclr::interop::marshal_as<System::String^>(svrMsg);
+	System::Windows::Forms::MessageBox::Show(clrString, "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);*/
 	if (isTrue == trueStr)// server 에서 오케이받는 함수
 	{
 		listBoxFriends->Items->Clear();

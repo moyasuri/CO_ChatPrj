@@ -107,6 +107,7 @@ string MySQL::QuerySql(string msg, int idx) {
                 }
 
                 cout << sck_list[idx]._user.getNickName();
+                cout << sck_list[idx]._user.getID();
                 _ret = trueStr;
                 break;
 
@@ -312,13 +313,63 @@ string MySQL::QuerySql(string msg, int idx) {
  
             if (!result.empty()) {
                 _ret = trueStr + delim + result;
+                break;
             }
             else {
                 // 친구 아이디를 찾지 못했을 때
                 _ret = falseStr;
+                break;
             }
         }
-    }
+        case e_friends_Request:
+        {
+            string _id = sck_list[idx]._user.getID();
+            string _to_nickname,msg;
+            ss >> _to_nickname >>msg;
 
+    
+            string query = "SELECT Member_ID FROM member WHERE Nickname = '" + _to_nickname + "'";
+            stmt = con->createStatement();
+            res = stmt->executeQuery(query);
+
+            if (res->next()) {
+                string b_id = res->getString("Member_ID");
+
+                // Friend_Request 테이블 업데이트
+                // PreparedStatement를 사용하여 쿼리 준비
+                sql::PreparedStatement* insertFriendRequestStmt;
+                insertFriendRequestStmt = con->prepareStatement("INSERT INTO friend_request (From_Friend_Request_ID, To_Friend_Request_ID, Response, Request_Msg) "
+                    "SELECT ?, ?, 1, ? WHERE NOT EXISTS (SELECT 1 FROM friend_request WHERE (From_Friend_Request_ID = ? AND To_Friend_Request_ID = ?) OR (From_Friend_Request_ID = ? AND To_Friend_Request_ID = ?))");
+                insertFriendRequestStmt->setString(1, _id);
+                insertFriendRequestStmt->setString(2, b_id);
+                insertFriendRequestStmt->setString(3, msg);
+                insertFriendRequestStmt->setString(4, _id);
+                insertFriendRequestStmt->setString(5, b_id);
+                insertFriendRequestStmt->setString(6, b_id);
+                insertFriendRequestStmt->setString(7, _id);
+
+
+                int updateCount = insertFriendRequestStmt->executeUpdate();
+
+                if (updateCount > 0) {
+                    _ret = trueStr;
+                }
+                else {
+                    _ret = falseStr + delim + "친구수락을 받아주세요.";
+                }
+
+            }
+            else
+            {
+                _ret = falseStr;
+                break;
+
+            }
+
+
+        }
+        default:
+            break;
+    }
     return _ret;
 }
