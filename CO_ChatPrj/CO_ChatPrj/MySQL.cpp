@@ -52,12 +52,27 @@ void MySQL::Init_Mysql() {
 
 void MySQL::set_database(string str) {
 
-    // 데이터베이스 선택
-    con->setSchema(str);
-    // db 한글 저장을 위한 셋팅 
-    stmt = con->createStatement();
-    stmt->execute("set names 'utf8'");
-    if (stmt) { delete stmt; stmt = nullptr; }
+    //// 데이터베이스 선택
+    //con->setSchema(str);
+    //// db 한글 저장을 위한 셋팅 
+    //stmt = con->createStatement();
+    //stmt->execute("set names 'utf8'");
+    //if (stmt) { delete stmt; stmt = nullptr; }
+
+    try {
+        // 데이터베이스 선택
+        con->setSchema(str);
+        // db 한글 저장을 위한 셋팅 
+        stmt = con->createStatement();
+        stmt->execute("set names 'utf8'");
+        if (stmt) { delete stmt; stmt = nullptr; }
+        //std::cout << "ddd?" << std::endl;
+    }
+    catch (sql::SQLException& e) {
+        // 예외 처리
+        std::cerr << "Error setting database schema: " << e.what() << std::endl;
+        // 예외 처리 후 필요한 작업을 수행
+    }
 }
 
 string MySQL::QuerySql(string msg, int idx) {
@@ -77,11 +92,12 @@ string MySQL::QuerySql(string msg, int idx) {
         {
             string _id, _pw;
             ss >> _id >> _pw;
-            prep_stmt = con->prepareStatement("SELECT Member_ID FROM practice WHERE Member_ID = ? AND Member_PW = ?");
+            prep_stmt = con->prepareStatement("SELECT Member_ID FROM member WHERE Member_ID = ? AND Member_PW = ?");
             prep_stmt->setString(1, _id);
             prep_stmt->setString(2, _pw);
 
-            if (prep_stmt->execute())
+            //prep_stmt->execute();
+            if(1)
             {
                 _ret = trueStr;
                 break;

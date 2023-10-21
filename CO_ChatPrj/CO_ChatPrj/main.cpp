@@ -57,7 +57,9 @@ int main() {
 
     if (!code) {
         server_init();
-
+        /*MySQL* mySQL = new MySQL();
+        mySQL->Init_Mysql();
+        mySQL->set_database("chat");*/
         std::thread th1[MAX_CLIENT];
         for (int i = 0; i < MAX_CLIENT; i++) {
             // 인원 수 만큼 thread 생성해서 각각의 클라이언트가 동시에 소통할 수 있도록 함.
@@ -201,51 +203,46 @@ void recv_msg(int idx) {
                         if (_ans==trueStr) // ID에 해당하는 비밀번호가 일치한다면
                         {
                             send_msg(__true);
-                            break;
+                         
                         }
                         else
                         {
                             cout << "false왓다" << endl;
                             send_msg(__false);
-                            break;
                         }
                         break;
-                    
                     }
-                    break;
                     case e_id_find_ID:
                     {
                         if (1) // Name과 E-mail이 일치한다면
                         {
                             send_msg(__true);
-                            break;
                         }
                         else 
                         {
                             send_msg(__false);
-                            break;
                         }
+                        break;
                     }
-                    break;
+                    
                     case e_id_find_PW:
                     {
                         if (1) // ID와 생일(6자리)와 Phone번호(대쉬없이)가 일치한다면
                         {
                             send_msg(__true);
-                            break;
                         }
                         else 
                         {
                             send_msg(__false);
-                            break;
                         }
+                        break;
+
                     }
-                    break;
-
-
+                    default:
+                    {
+                        break;
+                    }
                 }
-
-                send_msg(__false);
             }
             else
             {
