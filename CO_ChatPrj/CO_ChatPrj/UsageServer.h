@@ -57,7 +57,9 @@ enum RoomList
     e_room_Create = 60,
     e_room_Exit,
     e_room_Enter,
-    e_room_Delete
+    e_room_Delete,
+    e_room_List,
+    e_room_myList
 };
 
 enum Character

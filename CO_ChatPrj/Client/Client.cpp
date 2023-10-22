@@ -371,6 +371,7 @@ void friend_home() {
                 string text;
                 std::getline(cin, text);
                 const char* buffer = text.c_str(); // string형을 char* 타입으로 변환
+                
                 send(client_sock, buffer, strlen(buffer), 0);
             }
             th2.join();
