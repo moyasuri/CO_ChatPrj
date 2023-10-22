@@ -226,21 +226,20 @@ namespace GUI {
 #pragma endregion
 
 private: System::Void FriendResponse_Visible(System::Object^ sender, System::EventArgs^ e) {
-
-
-
-
-
-
+	
 	IniMsg();
 	int time_limit = 0;
 	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_friends_Response_List));
 	std::string _Index_Str_Result = _Index_Str;
 	const char* buffer = _Index_Str_Result.c_str();
+	
+	
 	send(client_sock, buffer, strlen(buffer), 0);
 	Sleep(100);
 	DivStr(Recv_str, svrMsg);
-
+	ViewResponseList->Rows->Clear();
+	
+	
 	/*System::String^ clrString = msclr::interop::marshal_as<System::String^>(svrMsg);
 	System::Windows::Forms::MessageBox::Show(clrString, "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);*/
 	if (isTrue == trueStr)// server 에서 오케이받는 함수
@@ -301,118 +300,132 @@ private: System::Void FriendResponse_Visible(System::Object^ sender, System::Eve
 }
 private: System::Void btnAccept_Click(System::Object^ sender, System::EventArgs^ e) {
 
-	//btnAccept->NotifyDefault(false);
-	//IniMsg();
+	btnAccept->NotifyDefault(false);
+	IniMsg();
 
-	//String^ tmptxt_1 = ViewResponseList->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-	//// 선택한 행의 정보를 저장할 DataGridViewRow 객체를 선언합니다.
-	//DataGridViewRow^ selectedRow = nullptr;
+	String^ tmptxt_1;
+	// 선택한 행의 정보를 저장할 DataGridViewRow 객체를 선언합니다.
+	DataGridViewRow^ selectedRow = nullptr;
 
-	//if (ViewResponseList->SelectedRows->Count > 0) {
-	//	// 하나 이상의 행이 선택되었을 때 첫 번째 선택된 행을 가져옵니다.
-	//	selectedRow = ViewResponseList->SelectedRows[0];
-	//	String^ tmptxt_1 = safe_cast<String^>(selectedRow->Cells[1]->Value);
-	//	// 선택한 행의 데이터를 처리합니다.
-	//	// 예를 들어, 특정 열의 데이터를 얻기 위해 selectedRow->Cells[columnIndex]->Value를 사용할 수 있습니다.
-	//}
-	//else
-	//{
-	//	System::Windows::Forms::MessageBox::Show("친구신청을 허가할사람을 선택해주세요.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-	//	return;
-	//}
+	if (ViewResponseList->SelectedRows->Count > 0) {
+		// 하나 이상의 행이 선택되었을 때 첫 번째 선택된 행을 가져옵니다.
+		selectedRow = ViewResponseList->SelectedRows[0];
+		tmptxt_1 = safe_cast<String^>(selectedRow->Cells[1]->Value);
+		// 선택한 행의 데이터를 처리합니다.
+		// 예를 들어, 특정 열의 데이터를 얻기 위해 selectedRow->Cells[columnIndex]->Value를 사용할 수 있습니다.
+	}
+	else
+	{
+		System::Windows::Forms::MessageBox::Show("친구신청을 허가할사람을 선택해주세요.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		return;
+	}
 
-	//	//// Server에 ID / PW를 보내기함수
-	//	int time_limit = 0;
+		//// Server에 ID / PW를 보내기함수
+		int time_limit = 0;
 
 
-	//	std::string tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
-	//	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_friends_Accept));
+		std::string tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
+		std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_friends_Accept));
 
-	//	std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_;
-	//	const char* buffer = _Index_Str_Result.c_str();
-	//	send(client_sock, buffer, strlen(buffer), 0);
-	//	Sleep(100);
-	//	DivStr(Recv_str, svrMsg);
+		std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_;
+		const char* buffer = _Index_Str_Result.c_str();
+		send(client_sock, buffer, strlen(buffer), 0);
+		Sleep(100);
+		DivStr(Recv_str, svrMsg);
 
-	//	while (1)
-	//	{
-	//		if (isTrue == trueStr)// server 에서 오케이받는 함수
-	//		{
-	//			System::Windows::Forms::MessageBox::Show("친구 신청을 완료했습니다.", "친구신청", MessageBoxButtons::OK, MessageBoxIcon::Information);
-	//			return;
-	//		}
-	//		else if (isTrue == falseStr) //  server에서 다른값보내면
-	//		{
-	//			System::Windows::Forms::MessageBox::Show("에러가 발생했습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		while (1)
+		{
+			if (isTrue == trueStr)// server 에서 오케이받는 함수
+			{
+				System::Windows::Forms::MessageBox::Show("친구 신청을 완료했습니다.", "친구신청", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				return;
+			}
+			else if (isTrue == falseStr) //  server에서 다른값보내면
+			{
+				System::Windows::Forms::MessageBox::Show("에러가 발생했습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 
-	//			return;
-	//		}
-	//		else // 무한반복되는건데 시간타이밍 주면 좋을거같음
-	//		{
-	//			Sleep(1000);
-	//			if (time_limit > 1)
-	//			{
-	//				System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-	//				return;
-	//			}
-	//			else
-	//			{
-	//				time_limit++;
-	//			}
-	//		}
-	//	}
-	//
+				return;
+			}
+			else // 무한반복되는건데 시간타이밍 주면 좋을거같음
+			{
+				Sleep(1000);
+				if (time_limit > 1)
+				{
+					System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+					return;
+				}
+				else
+				{
+					time_limit++;
+				}
+			}
+		}
+	
 
 
 }
 private: System::Void btnReject_Click(System::Object^ sender, System::EventArgs^ e) {
 
-	//btnAccept->NotifyDefault(false);
-	//int time_limit = 0;
-	//std::string tmptxt_1_;
-	//std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_friends_Accept));
-	//if (listBoxFriendsResponse->SelectedItem == nullptr) {
-	//	System::Windows::Forms::MessageBox::Show("추가하실 아이디를 선택해주세요.", "친구추가", MessageBoxButtons::OK, MessageBoxIcon::Information);
-	//	return;
-	//}
+	btnReject->NotifyDefault(false);
+	IniMsg();
+
+	String^ tmptxt_1;
+	// 선택한 행의 정보를 저장할 DataGridViewRow 객체를 선언합니다.
+	DataGridViewRow^ selectedRow = nullptr;
+
+	if (ViewResponseList->SelectedRows->Count > 0) {
+		// 하나 이상의 행이 선택되었을 때 첫 번째 선택된 행을 가져옵니다.
+		selectedRow = ViewResponseList->SelectedRows[0];
+		tmptxt_1 = safe_cast<String^>(selectedRow->Cells[1]->Value);
+		// 선택한 행의 데이터를 처리합니다.
+		// 예를 들어, 특정 열의 데이터를 얻기 위해 selectedRow->Cells[columnIndex]->Value를 사용할 수 있습니다.
+	}
+	else
+	{
+		System::Windows::Forms::MessageBox::Show("친구신청을 거절할 사람을 선택해주세요.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		return;
+	}
+
+	//// Server에 ID / PW를 보내기함수
+	int time_limit = 0;
 
 
-	//String^ tmptxt_1 = listBoxFriendsResponse->SelectedItem->ToString();
-	//tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
-	//std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_;
+	std::string tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
+	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_friends_Request_Decline));
 
-	//const char* buffer = _Index_Str_Result.c_str();
-	//send(client_sock, buffer, strlen(buffer), 0);
+	std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_;
+	const char* buffer = _Index_Str_Result.c_str();
+	send(client_sock, buffer, strlen(buffer), 0);
+	Sleep(100);
+	DivStr(Recv_str, svrMsg);
 
-	//while (1)
-	//{
-	//	//if (Recv_str == "true")// server 에서 오케이받는 함수
-	//	if (1)// test
-	//	{
-	//		FriendResponse_Visible(sender, e);
-	//		System::Windows::Forms::MessageBox::Show("친구를 추가하였습니다.", "친구추가", MessageBoxButtons::OK, MessageBoxIcon::Information);
-	//		return;
-	//	}
-	//	else if (Recv_str == "false") //  server에서 다른값보내면
-	//	{
-	//		System::Windows::Forms::MessageBox::Show("다른값을 보냈다고?", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+	while (1)
+	{
+		if (isTrue == trueStr)// server 에서 오케이받는 함수
+		{
+			System::Windows::Forms::MessageBox::Show("친구 신청을 거절하였습니다.", "친구신청", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			return;
+		}
+		else if (isTrue == falseStr) //  server에서 다른값보내면
+		{
+			System::Windows::Forms::MessageBox::Show("에러가 발생했습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 
-	//		return;
-	//	}
-	//	else // 무한반복되는건데 시간타이밍 주면 좋을거같음
-	//	{
-	//		Sleep(1000);
-	//		if (time_limit > 1)
-	//		{
-	//			System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-	//			return;
-	//		}
-	//		else
-	//		{
-	//			time_limit++;
-	//		}
-	//	}
-	//}
+			return;
+		}
+		else // 무한반복되는건데 시간타이밍 주면 좋을거같음
+		{
+			Sleep(1000);
+			if (time_limit > 1)
+			{
+				System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				return;
+			}
+			else
+			{
+				time_limit++;
+			}
+		}
+	}
 
 }
 private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {

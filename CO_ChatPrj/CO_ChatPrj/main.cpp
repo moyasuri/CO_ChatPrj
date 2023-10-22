@@ -181,6 +181,8 @@ void recv_msg(int idx) {
             msg = buf;
 
             // Client의 메세지 index
+            cout << "받은 메세지 : " << msg << endl;
+
             std::stringstream ss(msg);
             sqlMsg = mySQL->QuerySql(msg, idx); // sql ret값
             std::stringstream sssql(sqlMsg);

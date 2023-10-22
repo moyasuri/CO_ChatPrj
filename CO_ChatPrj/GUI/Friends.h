@@ -228,6 +228,7 @@ namespace GUI {
 	}
 private: System::Void Friends_Visible(System::Object^ sender, System::EventArgs^ e) {
 	IniMsg();
+	listBoxFriends->Items->Clear();
 	int time_limit = 0;
 	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_friends_List));
 	std::string _Index_Str_Result = _Index_Str;
@@ -240,7 +241,6 @@ private: System::Void Friends_Visible(System::Object^ sender, System::EventArgs^
 	System::Windows::Forms::MessageBox::Show(clrString, "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);*/
 	if (isTrue == trueStr)// server 에서 오케이받는 함수
 	{
-		listBoxFriends->Items->Clear();
 		std::istringstream iss(svrMsg);
 
 		std::string token;
