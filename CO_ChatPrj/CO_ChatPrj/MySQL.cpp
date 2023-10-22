@@ -392,8 +392,8 @@ string MySQL::QuerySql(string msg, int idx) {
             std::stringstream ss_id_from, ss_msg_from;
             
             while (res->next()) {
-                ss_id_from << res->getString("From_Friend_Request_ID"); // 결과 값을 스트림에 추가
-                ss_msg_from << res->getString("Request_Msg");
+                ss_id_from << res->getString("From_Friend_Request_ID") + delim; // 결과 값을 스트림에 추가
+                ss_msg_from << res->getString("Request_Msg") + "\n";
             }
 
             string _id_from = "", _nick_from = "", _msg = "";
@@ -407,7 +407,7 @@ string MySQL::QuerySql(string msg, int idx) {
                 res = stmt->executeQuery(query);
                 if (res->next()) {
                     _nick_from = "*/" + res->getString("Nickname");
-                    ss_msg_from >> _msg_temp;
+                    getline(ss_msg_from, _msg_temp);
                     result += _nick_from + delim+ _msg_temp + delim;
                 }
 ;           }

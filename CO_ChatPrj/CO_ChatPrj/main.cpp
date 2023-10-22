@@ -150,17 +150,6 @@ void send_msg(const char* msg) {
 }
 
 
-//// client을 구별하는 방법
-//void send_msg(const char* msg, ) {
-//    for (int i = 0; i < client_count; i++) { // 접속해 있는 모든 client에게 메시지 전송
-//        send(sck_list[i].sck, msg, MAX_SIZE, 0);
-//    }
-//}
-//// client별 확인을 만들어야겠네.
-
-
-
-
 void recv_msg(int idx) {
     char buf[MAX_SIZE] = { };
     
@@ -182,12 +171,11 @@ void recv_msg(int idx) {
 
             // Client의 메세지 index
             cout << "받은 메세지 : " << msg << endl;
-
             std::stringstream ss(msg);
             sqlMsg = mySQL->QuerySql(msg, idx); // sql ret값
             std::stringstream sssql(sqlMsg);
             sssql >> isTrue; // sql return 값의 true false;
-            cout << sqlMsg << endl;
+            cout << "보낸 메세지 : " << sqlMsg << endl;
             send_msg(sqlMsg.c_str());
             
            
