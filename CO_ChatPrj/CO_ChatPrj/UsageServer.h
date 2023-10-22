@@ -34,6 +34,7 @@ enum ShortMessage
     e_message_read_Delete = 44,
     e_message_Read= 45,
     e_message_Send= 46,
+    e_message_Delete
     
 
 };

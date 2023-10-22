@@ -412,6 +412,33 @@ public:
            
         }
 
+        string message_read_List(int this_idx) {
+            string my_ID = sck_list[this_idx].user.getID();
+            string result;
+            string from_ID;
+            string datetime;
+            string text;
+            sql::ResultSet* res = stmt->executeQuery("SELECT From_Short_Note_ID, Short_Note_Datetime, Short_Note_text FROM short_note WHERE To_Short_Note_ID = '" + my_ID + "' AND Respond_Short_Note = 1;");
+            string value = "";
+
+            while (res->next())
+            {
+                value = value + "\n" + res->getString(1) + IDENTIFIER + res->getString(2) + IDENTIFIER + res->getString(3);
+            }
+            if (value.size() > 0)
+                result = s_(e_message_read_List) + IDENTIFIER + value;
+            else
+                result = s_(e_message_read_List) + IDENTIFIER + False;
+
+            cout << "result : " << result;
+            //주의? 한 열씩 가는 거 인지해두기
+
+
+
+            return result;
+
+        }
+
         //읽음 처리를 위해 메시지의 시간을 받아온다 
         string message_Read(string recv_content, int this_idx) {
             string my_ID = sck_list[this_idx].user.getID();
@@ -482,7 +509,7 @@ public:
             return result;
         }
 
-        string message_Delete(string recv_content, int this_idx) {
+        string message_unread_Delete(string recv_content, int this_idx) {
             string my_ID = sck_list[this_idx].user.getID();
             string from_ID;
             string date;
@@ -493,7 +520,7 @@ public:
             cout << "datetime : " << datetime << endl;
             cout << "from_ID: " << from_ID << endl;
             string result;
-            prep_stmt = con->prepareStatement("DELETE FROM short_note WHERE  To_Short_Note_ID = ? AND Short_Note_Datetime =? AND From_Short_Note_ID = ? ;");
+            prep_stmt = con->prepareStatement("DELETE FROM short_note WHERE  To_Short_Note_ID = ? AND Short_Note_Datetime =? AND From_Short_Note_ID = ? AND Respond_Short_Note=3  ;");
 
             prep_stmt->setString(1, my_ID);
             prep_stmt->setString(2, datetime);
@@ -517,9 +544,45 @@ public:
 
 
             return result;
-            send(Client_sck, result.c_str(), result.size(), 0);
         }
      
+        string message_read_Delete(string recv_content, int this_idx) {
+            string my_ID = sck_list[this_idx].user.getID();
+            string from_ID;
+            string date;
+            string time;
+            std::stringstream ss(recv_content);
+            ss >> from_ID >> date >> time;
+            string datetime = date + IDENTIFIER + time;
+            cout << "datetime : " << datetime << endl;
+            cout << "from_ID: " << from_ID << endl;
+            string result;
+            prep_stmt = con->prepareStatement("DELETE FROM short_note WHERE  To_Short_Note_ID = ? AND Short_Note_Datetime =? AND From_Short_Note_ID = ? AND Respond_Short_Note=1 ;");
+
+            prep_stmt->setString(1, my_ID);
+            prep_stmt->setString(2, datetime);
+            prep_stmt->setString(3, from_ID);
+            cout << "prep_stmt->setString(2, from_ID); : good" << endl;
+            /*bool res = prep_stmt->execute();
+            cout << " res:  " << res << endl;*/
+            //질문 execute도 정상수행되어 값이 변경되었음에도 계속 result값이 false로 나옴
+            int rows_affected = prep_stmt->executeUpdate();
+            cout << "rows_affected : " << rows_affected << endl;
+            if (rows_affected > 0)
+            {
+                result = s_(e_message_read_Delete) + IDENTIFIER + True;
+                cout << "result = s_(e_message_) + IDENTIFIER + True;" << endl;
+            }
+            else
+            {
+                result = s_(e_message_read_Delete) + IDENTIFIER + False;
+                cout << "result = s_(e_message_Read) + IDENTIFIER + False;" << endl;
+            }
+
+
+            return result;
+            send(Client_sck, result.c_str(), result.size(), 0);
+        }
 
         //response 1 수락 2 거절 3 무응답
         string friends_List(int this_idx) {
@@ -1170,13 +1233,19 @@ void recv_from_client(int idx) {// 메세지가 들어오면 타입 구분 하는 기초 함수
             case e_message_unread_List:
                 cout << "  " << endl;
                 result = mysql.message_unread_List(idx); send(Client_sck, result.c_str(), result.size(), 0); break;
+            case e_message_read_List:
+                cout << "  " << endl;
+                result = mysql.message_read_List(idx); send(Client_sck, result.c_str(), result.size(), 0); break;
             case e_message_Read:
                 result = mysql.message_Read(recv_content,idx); send(Client_sck, result.c_str(), result.size(), 0); break;
             case e_message_Send:
                 result = mysql.message_Send(recv_content, idx); send(Client_sck, result.c_str(), result.size(), 0); break;
             case e_message_unread_Delete:
                 cout << "  " << endl;
-                result = mysql.message_Delete(recv_content, idx); send(Client_sck, result.c_str(), result.size(), 0); break;
+                result = mysql.message_unread_Delete(recv_content, idx); send(Client_sck, result.c_str(), result.size(), 0); break;
+            case e_message_read_Delete:
+                cout << "  " << endl;
+                result = mysql.message_read_Delete(recv_content, idx); send(Client_sck, result.c_str(), result.size(), 0); break; 
             case e_friends_List:
                 cout << " case e_friends_List: " << endl;
                 result = mysql.friends_List(idx); send(Client_sck, result.c_str(), result.size(), 0); cout<<"send 완료";break;
