@@ -30,23 +30,23 @@ public:
 		return Room_PW;
 	}
 
-	int setRoom_Index(const int& Room_Index) {
+	void setRoom_Index(const int& Room_Index) {
 		this->Room_Index= Room_Index;
 	}
-	int setRoom_Type(const int& Room_Type) {
+	void setRoom_Type(const int& Room_Type) {
 		this->Room_Type = Room_Type;
 	}
-	std::string setRoom_Title(const std::string& Room_Title) {
+	void setRoom_Title(const std::string& Room_Title) {
 		this->Room_Master= Room_Title;
 	}
-	std::string setRoom_Master(const std::string& Room_Master) {
+	void setRoom_Master(const std::string& Room_Master) {
 		this->Room_Master = Room_Master;
 	}
-	std::string setRoom_Date(const std::string& Room_Date) {
+	void setRoom_Date(const std::string& Room_Date) {
 		this->Room_Date = Room_Date;
 	}
 
-	std::string setRoom_PW(const std::string& Room_PW)
+	void setRoom_PW(const std::string& Room_PW)
 	{
 		this->Room_PW = Room_PW;
 	}

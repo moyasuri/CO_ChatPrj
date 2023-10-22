@@ -465,7 +465,7 @@ public:
             dis_content.erase(dis_content.begin());
             for (auto msgLine : dis_content)
                 text +=  msgLine+"\n"; //정보 뺀 메시지 내용만 string으로 받아줌
-           
+            
             prep_stmt = con->prepareStatement("INSERT INTO short_note VALUES (NULL,?,?,3,?,?);");
             prep_stmt->setString(1, my_ID);
             prep_stmt->setString(2, friend_ID);
@@ -693,6 +693,9 @@ public:
         }
 
         //room type (서버 1 공개 2 비공개 3) - room_Name - room_PW(없으면 0(공개방)) 순으로 보내주세요!
+        // 방을 만들경우 바로 해당 방으로 입장됨( 해당 방 index가 내가 속한 방 index가 됨
+        //반환값 e_num + IDENTIFIER + True/False + IDETIFIER + 내가 속한 방 index
+        //클라이언트 :같은 방 타입에서 방 이름 중복되면 못들어오게 처리
         string room_Create(string recv_content, int index) {
             std::stringstream ss(recv_content);
             string result;
@@ -705,32 +708,48 @@ public:
             ss >> room_Type >> room_Name >> room_PW; // pw가 없는 경우에 0이라도 보내주길 요청
             cout << room_Type << IDENTIFIER << room_Name << IDENTIFIER << room_PW << endl;
             i_room_Type = std::stoi(room_Type);
-            if (i_room_Type == (2 || 3))
+            cout << "i_room_Type : " << i_room_Type << endl;
+            if ((i_room_Type == 2) || (i_room_Type== 3))
             {
-                prep_stmt = con->prepareStatement("INSERT INTO room_list (Room_Type,Room_Title,Room_Master,Room_Date,Room_PW) VALUES (?,?,?,?,?);");
+                if (i_room_Type == 2)
+                     prep_stmt = con->prepareStatement("INSERT INTO room_list (Room_Type, Room_Title, Room_Master, Room_Date) VALUES (?,?,?,?);");
+                if (i_room_Type == 3)
+                {
+                    prep_stmt = con->prepareStatement("INSERT INTO room_list (Room_Type, Room_Title, Room_Master, Room_Date, Room_PW) VALUES (?,?,?,?,?);");
+                    prep_stmt->setString(5, room_PW);
+                }
                 prep_stmt->setInt(1, i_room_Type);
                 prep_stmt->setString(2, room_Name);
                 prep_stmt->setString(3, my_ID);
                 prep_stmt->setString(4, room_date);
-                prep_stmt->setString(5, room_PW);
-                bool t_or_f = prep_stmt->execute();
+                int t_or_f = prep_stmt->executeUpdate();
                 cout << "t_or_f :" << t_or_f << endl;
-                if (t_or_f == 1)
+                if (t_or_f >0)
                 {
-                    prep_stmt = con->prepareStatement("SELECT* from room_list WHERE room_Type =? AND room_Name = ?;");
+                    prep_stmt = con->prepareStatement("SELECT* from room_list WHERE Room_Type =? AND Room_Title = ?;");
                     prep_stmt->setInt(1, i_room_Type);
                     prep_stmt->setString(2, room_Name);
+                    cout << "prep_stmt = con->prepareStatement);"<<endl;
                     sql::ResultSet* res = prep_stmt->executeQuery();
-                    if (res->next())
+                    cout << "prep_stmt = con->prepareStatement);" << endl;
+                    if ((res->next()))
                     {
                         sck_list[index].room.setRoom_Index(res->getInt(1));
                         sck_list[index].room.setRoom_Type(res->getInt(2));
                         sck_list[index].room.setRoom_Title(res->getString(3));
                         sck_list[index].room.setRoom_Master(res->getString(4));
                         sck_list[index].room.setRoom_Date(res->getString(5));
-                        sck_list[index].room.setRoom_PW(res->getString(6));
+                        if (i_room_Type == 3)
+                        {
+                            sck_list[index].room.setRoom_PW(res->getString(6));
+                        }
                         sck_list[index].user.setJoinRoomIndex(s_(sck_list[index].room.getRoom_Index()));
-                        cout << "정보 저장 완료";
+                        cout << "방 정보 저장 완료" << endl;
+                        prep_stmt = con->prepareStatement("UPDATE member set Join_Room_Index = ? WHERE member_ID = ? ");
+                        prep_stmt->setInt(1, std::stoi(sck_list[index].user.getJoinRoomIndex()));
+                        prep_stmt->setString(2, my_ID);
+                        res = prep_stmt->executeQuery();
+                        cout << "update member query 완료;"<<endl;
                         result = s_(e_room_Create) + IDENTIFIER + True + IDENTIFIER + sck_list[index].user.getJoinRoomIndex();
                         cout << "result : " << result << endl;
                         return result;
@@ -761,32 +780,72 @@ public:
         string room_Exit(int index) {
             string my_ID = sck_list[index].user.getID();
             string result;
-            prep_stmt = con->prepareStatement("UPDATE member set Join_Room_Index = NULL member_ID = ? ;");
+            prep_stmt = con->prepareStatement("UPDATE member set Join_Room_Index = NULL WHERE member_ID = ? ;");
             prep_stmt->setString(1, my_ID);          
             int rows_affected = prep_stmt->executeUpdate();
             cout << "int rows_affected = prep_stmt->executeUpdate(); " << rows_affected << endl;
             if (rows_affected > 0) {
                 sck_list[index].room.room_init();//방정보 초기화
                 result = s_(e_room_Exit) + IDENTIFIER + True;
-                sck_list[index].user.setJoinRoomIndex(NULL);
+                cout << "result = s_(e_room_Exit) + IDENTIFIER + True; :" << result << endl;
+                sck_list[index].user.setJoinRoomIndex("");
+                cout << "내가 속한 방 :"<<sck_list[index].user.getJoinRoomIndex() << endl;
             }
             else 
                 result = s_(e_room_Exit) + IDENTIFIER + False;
         }
         
         //들어가는 방 type , 방 제목, pw 받아오기 공개방의 경우 pw =0
-        string room_Enter(string recv_content, int index) {
-            string my_ID = sck_list[index].user.getID();
-            string result;
-            string room_Type;
-            string room_Name;
-            string room_PW;
-            int i_room_Type = std::stoi(room_Type);
-            std::stringstream ss(recv_content);
-            ss >> room_Type >> room_Name >> room_PW;
-            prep_stmt = con->prepareStatement("UPDATE member set Join_Room_Index = ? member_ID = ? ;");
-            prep_stmt->setString(1, my_ID);
-        }
+        //string room_Enter(string recv_content, int index) {
+        //    string my_ID = sck_list[index].user.getID();
+        //    string result;
+        //    string room_Type;
+        //    string room_Name;
+        //    string room_PW;
+        //    std::stringstream ss(recv_content);
+        //    ss >> room_Type >> room_Name >> room_PW;
+        //    cout << room_Type << IDENTIFIER << room_Name << IDENTIFIER << room_PW << endl;
+        //    int i_room_Type = std::stoi(room_Type);
+        //    if (i_room_Type == (2 || 3))
+        //    {
+        //        prep_stmt = con->prepareStatement("SELECT Room_Index from room_list WHERE Room_Type=?,Room_Name")
+        //        prep_stmt = con->prepareStatement("UPDATE member set Join_Room_Index = ? WHERE member_ID=?");
+        //        prep_stmt->setInt(1, i_room_Type);
+        //        prep_stmt->setString(2, room_Name);
+        //        prep_stmt->setString(3, my_ID);
+        //        prep_stmt->setString(4, room_date);
+        //        if (i_room_Type == 3)
+        //            prep_stmt->setString(5, room_PW);
+        //        bool t_or_f = prep_stmt->execute();
+        //        cout << "t_or_f :" << t_or_f << endl;
+        //        if (t_or_f == 1)
+        //        {
+        //            prep_stmt = con->prepareStatement("SELECT* from room_list WHERE room_Type =? AND room_Name = ?;");
+        //            prep_stmt->setInt(1, i_room_Type);
+        //            prep_stmt->setString(2, room_Name);
+        //            sql::ResultSet* res = prep_stmt->executeQuery();
+        //            if (res->next())
+        //            {
+        //                sck_list[index].room.setRoom_Index(res->getInt(1));
+        //                sck_list[index].room.setRoom_Type(res->getInt(2));
+        //                sck_list[index].room.setRoom_Title(res->getString(3));
+        //                sck_list[index].room.setRoom_Master(res->getString(4));
+        //                sck_list[index].room.setRoom_Date(res->getString(5));
+        //                sck_list[index].room.setRoom_PW(res->getString(6));
+        //                sck_list[index].user.setJoinRoomIndex(s_(sck_list[index].room.getRoom_Index()));
+        //                cout << "정보 저장 완료";
+        //                result = s_(e_room_Create) + IDENTIFIER + True + IDENTIFIER + sck_list[index].user.getJoinRoomIndex();
+        //                cout << "result : " << result << endl;
+        //                return result;
+
+        //                //성공시 들어가는 방의 index (room_list의 primary key) 보내줌
+        //            }
+        //            else {
+        //                cout << "등록은 성공 but 정보 저장 실패" << endl;
+        //                result = s_(e_room_Create) + IDENTIFIER + False;
+        //                return result;
+        //            }
+        //}
   
 private:
 };
@@ -1007,7 +1066,14 @@ void recv_from_client(int idx) {// 메세지가 들어오면 타입 구분 하는 기초 함수
                  break;
             case e_friends_Request_Decline:
                 break;
-            
+            case e_room_Create:
+                cout << "  case e_room_Create:: " << endl;
+                result = mysql.room_Create(recv_content,idx); send(Client_sck, result.c_str(), result.size(), 0);
+                break;
+            case e_room_Exit:
+                cout << "  case e_room_Exit: " << endl;
+                result = mysql.room_Exit( idx); send(Client_sck, result.c_str(), result.size(), 0);
+                break;
          /*   case e_edit_PWchk:
                 cout << "e_edit_PWchk = 31 " << endl;
                 mysql.(recv_content); break;
