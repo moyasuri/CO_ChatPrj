@@ -9,6 +9,7 @@ extern std::string svrMsg;
 extern const char* __true;
 extern const char* __false;
 extern const std::string delim;
+extern std::string frListPickup;
 
 void clrisTrue(); // true false 초기화
 void clrsvrMsg(); // contents 초기화

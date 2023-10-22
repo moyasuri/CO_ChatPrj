@@ -3,6 +3,7 @@
 #include <msclr/marshal_cppstd.h>
 std::string isTrue = "";
 std::string svrMsg = "";
+std::string frListPickup = "";
 const std::string delim = " ";
 
 const std::string trueStr = "true";

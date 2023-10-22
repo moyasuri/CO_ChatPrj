@@ -273,29 +273,27 @@ private: System::Void Friends_Visible(System::Object^ sender, System::EventArgs^
 		if (result == System::Windows::Forms::DialogResult::Yes) {
 			// Yes 버튼을 클릭한 경우에 실행할 코드
 			// 여기에 Yes 버튼을 클릭했을 때 수행할 동작을 추가하세요.
-
+			String^ tmptxt_1 = listBoxFriends->SelectedItem->ToString();
 					//// Server에 ID / PW를 보내기함수
 			int time_limit = 0;
-			std::string tmptxt_1_;
+			std::string tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
 			std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_friends_Delete));
-
-			String^ tmptxt_1 = listBoxFriends->SelectedItem->ToString();
-			tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
 			std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_;
-
 			const char* buffer = _Index_Str_Result.c_str();
+
 			send(client_sock, buffer, strlen(buffer), 0);
+			Sleep(100);
+			DivStr(Recv_str, svrMsg);
 
 			while (1)
 			{
-				//if (Recv_str == "true")// server 에서 오케이받는 함수
-				if (1)// server 에서 오케이받는 함수
+				if (isTrue == trueStr)// server 에서 오케이받는 함수
 				{
 					Friends_Visible(sender, e);
 					System::Windows::Forms::MessageBox::Show("그분은 당신을 아직 친구라고 생각하고있어요.", "친구삭제", MessageBoxButtons::OK, MessageBoxIcon::Information);
 					return;
 				}
-				else if (Recv_str == "false") //  server에서 다른값보내면
+				else if (isTrue == falseStr) //  server에서 다른값보내면
 				{
 					System::Windows::Forms::MessageBox::Show("다른값을 보냈다고?", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 

@@ -18,6 +18,7 @@ void clrsqlMsg();
 void IniMsg();
 
 
+
 enum SignUp
 {
     e_signup_IDchk = 11,
