@@ -52,6 +52,14 @@ enum Friends
 
 };
 
+enum RoomList
+{
+    e_room_Create = 60,
+    e_room_Exit,
+    e_room_Enter,
+    e_room_Delete
+};
+
 enum Character
 {
     e_character_izuna = 71,
