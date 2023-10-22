@@ -230,61 +230,58 @@ public: System::Void btnSend_Click(System::Object^ sender, System::EventArgs^ e)
 	//테두리 없애기
 	btnSend->NotifyDefault(false);
 
-	// 텍스트 상자에서 텍스트 가져오기
-	String^ tmptxt_1 = txtBoxNickname->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-	String^ tmptxt_2 = txtBoxMsg->Text; // textBox는 해당 텍스트 상자의 이름입니다.
 
 
-	// ID와 PW의 문자열이 채워져있다면
-	if (!String::IsNullOrEmpty(tmptxt_1)&& !String::IsNullOrEmpty(tmptxt_2)) {
+		IniMsg();
+		String^ tmptxt_1 = txtBoxNickname->Text;
+		String^ tmptxt_2 = txtBoxMsg->Text;
+		
+		if (!String::IsNullOrEmpty(tmptxt_1) && !String::IsNullOrEmpty(tmptxt_2)) {
+
+			int time_limit = 0;
+			std::string tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
+			std::string tmptxt_2_ = msclr::interop::marshal_as<std::string>(tmptxt_2);
+			std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_message_Send));
+			std::string _Index_Str_Result = _Index_Str + delim + tmptxt_1_ + delim + tmptxt_2_;
+			const char* buffer = _Index_Str_Result.c_str();
+
+
+			send(client_sock, buffer, strlen(buffer), 0);
+			Sleep(100);
+			DivStr(Recv_str, svrMsg);
 
 
 
-		// Server에 ID / PW를 보내기함수
-		int time_limit = 0;
-
-		std::string tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
-		std::string tmptxt_2_ = msclr::interop::marshal_as<std::string>(tmptxt_2);
-		std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_message_Send));
-		std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_+ "\n " + tmptxt_2_;
-		const char* buffer = _Index_Str_Result.c_str();
-		send(client_sock, buffer, strlen(buffer), 0);
-
-
-		while (1)
-		{
-			if (Recv_str == "true")// server 에서 오케이받는 함수
+			while (1)
 			{
-				System::Windows::Forms::MessageBox::Show("성공했습니다..", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-
-				return;
-			}
-			else if (Recv_str == "false") //  server에서 다른값보내면
-			{
-				System::Windows::Forms::MessageBox::Show("아이디가 일치하지 않습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-
-				return;
-			}
-			else
-			{
-				Sleep(1000);
-				if (time_limit > 1)
+				if (isTrue == trueStr)// server 에서 오케이받는 함수
 				{
-					System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+					System::Windows::Forms::MessageBox::Show("쪽지를 성공적으로 보냈습니다.", "메세지", MessageBoxButtons::OK, MessageBoxIcon::Information);
+					return;
+				}
+				else if (isTrue == falseStr) //  server에서 다른값보내면
+				{
+					System::Windows::Forms::MessageBox::Show("보내시는분의 닉네임을 확인해주세요.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 					return;
 				}
 				else
 				{
-					time_limit++;
+					Sleep(1000);
+					if (time_limit > 1)
+					{
+						System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+						return;
+					}
+					else
+					{
+						time_limit++;
+					}
 				}
 			}
 		}
-	}
-	// 입력값이 없다면,
-	else {
-		System::Windows::Forms::MessageBox::Show("보낼사람과 내용을 입력해주세요 ", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-	}
-
+		else {
+			System::Windows::Forms::MessageBox::Show("ID / PW 를 다시입력해주세요. ", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		}
 
 }
 

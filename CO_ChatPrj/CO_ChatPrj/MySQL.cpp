@@ -68,6 +68,20 @@ void MySQL::set_database(string str) {
     }
 }
 
+
+
+
+
+
+string MySQL::getCurrentTime() {
+    std::time_t now = std::time(nullptr);
+    struct tm timeInfo;
+    localtime_s(&timeInfo, &now);
+
+    char buffer[80];
+    std::strftime(buffer, sizeof(buffer), "%Y%m%d%H%M%S", &timeInfo);
+    return buffer;
+}
 string MySQL::QuerySql(string msg, int idx) {
 
     // indxe retrun값 선언
@@ -326,7 +340,7 @@ string MySQL::QuerySql(string msg, int idx) {
             string _id = sck_list[idx]._user.getID();
             string _to_nickname,_msg;
             ss >> _to_nickname >> std::ws;;
-            getline(ss,_msg);
+            getline(ss,_msg,'\0');
 
             string query = "SELECT Member_ID FROM member WHERE Nickname = '" + _to_nickname + "'";
             stmt = con->createStatement();
@@ -516,9 +530,49 @@ string MySQL::QuerySql(string msg, int idx) {
                 break;
             }
         }
+        case e_message_Send:
+        {
+            string _id = sck_list[idx]._user.getID();
+            string _to_nickname, _msg;
+
+            ss >> _to_nickname >> std::ws;;
+            getline(ss, _msg,'\0');
+
+            string query = "SELECT Member_ID FROM member WHERE Nickname = '" + _to_nickname + "'";
+            stmt = con->createStatement();
+            res = stmt->executeQuery(query);
 
 
 
+            if (res->next()) {
+
+                string b_id = res->getString("Member_ID");
+
+
+
+                cout << getCurrentTime()<<endl;
+
+                prep_stmt = con->prepareStatement("INSERT INTO short_note(From_Short_Note_ID, To_Short_Note_ID, Respond_Short_Note, Short_Note_Datetime, Short_Note_Text) VALUES(?, ? , 3, ?, ? );");
+
+                
+                prep_stmt->setString(1, _id);
+                prep_stmt->setString(2, b_id);
+                prep_stmt->setString(3, getCurrentTime());
+                prep_stmt->setString(4, _msg);
+                //datetime 서버에서 설정 
+                int rows_affected = prep_stmt->executeUpdate();
+                if (rows_affected > 0)
+                {
+                    _ret = trueStr;
+                    break;
+                }
+                else
+                {
+                    _ret = falseStr;
+                    break;
+                }
+            }
+        }
 
         default:
             break;

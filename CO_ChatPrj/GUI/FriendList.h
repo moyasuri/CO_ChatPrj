@@ -213,7 +213,7 @@ private: System::Void btnConfirm_Click(System::Object^ sender, System::EventArgs
 	RaiseEvent();
 	//dynamic_cast<NewMessage^>(this->Owner)->txtBoxNickname->Text = "설정할 텍스트";
 	//System::Windows::Forms::MessageBox::Show(tmptxt_1, "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-
+	this->Close();
 
 
 }

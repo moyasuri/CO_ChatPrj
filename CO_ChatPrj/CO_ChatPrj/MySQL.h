@@ -27,7 +27,8 @@ public:
     void set_database(string str);
 
     string QuerySql(string msg, int idx);
-
+    string getCurrentTime();
+    
 
 private:
     // MySQL Connector/C++ 초기화
