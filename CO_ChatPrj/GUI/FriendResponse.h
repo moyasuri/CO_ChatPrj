@@ -171,6 +171,7 @@ namespace GUI {
 			this->ViewResponseList->Name = L"ViewResponseList";
 			this->ViewResponseList->RowHeadersWidth = 51;
 			this->ViewResponseList->RowTemplate->Height = 27;
+			this->ViewResponseList->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
 			this->ViewResponseList->Size = System::Drawing::Size(630, 412);
 			this->ViewResponseList->TabIndex = 14;
 			// 
@@ -300,67 +301,67 @@ private: System::Void FriendResponse_Visible(System::Object^ sender, System::Eve
 }
 private: System::Void btnAccept_Click(System::Object^ sender, System::EventArgs^ e) {
 
-	btnAccept->NotifyDefault(false);
-	IniMsg();
+	//btnAccept->NotifyDefault(false);
+	//IniMsg();
 
-	String^ tmptxt_1 = ViewResponseList->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-	// 선택한 행의 정보를 저장할 DataGridViewRow 객체를 선언합니다.
-	DataGridViewRow^ selectedRow = nullptr;
+	//String^ tmptxt_1 = ViewResponseList->Text; // textBox는 해당 텍스트 상자의 이름입니다.
+	//// 선택한 행의 정보를 저장할 DataGridViewRow 객체를 선언합니다.
+	//DataGridViewRow^ selectedRow = nullptr;
 
-	if (ViewResponseList->SelectedRows->Count > 0) {
-		// 하나 이상의 행이 선택되었을 때 첫 번째 선택된 행을 가져옵니다.
-		selectedRow = ViewResponseList->SelectedRows[0];
-		String^ tmptxt_1 = safe_cast<String^>(selectedRow->Cells[1]->Value);
-		// 선택한 행의 데이터를 처리합니다.
-		// 예를 들어, 특정 열의 데이터를 얻기 위해 selectedRow->Cells[columnIndex]->Value를 사용할 수 있습니다.
-	}
-	else
-	{
-		System::Windows::Forms::MessageBox::Show("친구신청을 허가할사람을 선택해주세요.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-		return;
-	}
+	//if (ViewResponseList->SelectedRows->Count > 0) {
+	//	// 하나 이상의 행이 선택되었을 때 첫 번째 선택된 행을 가져옵니다.
+	//	selectedRow = ViewResponseList->SelectedRows[0];
+	//	String^ tmptxt_1 = safe_cast<String^>(selectedRow->Cells[1]->Value);
+	//	// 선택한 행의 데이터를 처리합니다.
+	//	// 예를 들어, 특정 열의 데이터를 얻기 위해 selectedRow->Cells[columnIndex]->Value를 사용할 수 있습니다.
+	//}
+	//else
+	//{
+	//	System::Windows::Forms::MessageBox::Show("친구신청을 허가할사람을 선택해주세요.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+	//	return;
+	//}
 
-		//// Server에 ID / PW를 보내기함수
-		int time_limit = 0;
+	//	//// Server에 ID / PW를 보내기함수
+	//	int time_limit = 0;
 
 
-		std::string tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
-		std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_friends_Accept));
+	//	std::string tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
+	//	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_friends_Accept));
 
-		std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_;
-		const char* buffer = _Index_Str_Result.c_str();
-		send(client_sock, buffer, strlen(buffer), 0);
-		Sleep(100);
-		DivStr(Recv_str, svrMsg);
+	//	std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_;
+	//	const char* buffer = _Index_Str_Result.c_str();
+	//	send(client_sock, buffer, strlen(buffer), 0);
+	//	Sleep(100);
+	//	DivStr(Recv_str, svrMsg);
 
-		while (1)
-		{
-			if (isTrue == trueStr)// server 에서 오케이받는 함수
-			{
-				System::Windows::Forms::MessageBox::Show("친구 신청을 완료했습니다.", "친구신청", MessageBoxButtons::OK, MessageBoxIcon::Information);
-				return;
-			}
-			else if (isTrue == falseStr) //  server에서 다른값보내면
-			{
-				System::Windows::Forms::MessageBox::Show("에러가 발생했습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+	//	while (1)
+	//	{
+	//		if (isTrue == trueStr)// server 에서 오케이받는 함수
+	//		{
+	//			System::Windows::Forms::MessageBox::Show("친구 신청을 완료했습니다.", "친구신청", MessageBoxButtons::OK, MessageBoxIcon::Information);
+	//			return;
+	//		}
+	//		else if (isTrue == falseStr) //  server에서 다른값보내면
+	//		{
+	//			System::Windows::Forms::MessageBox::Show("에러가 발생했습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 
-				return;
-			}
-			else // 무한반복되는건데 시간타이밍 주면 좋을거같음
-			{
-				Sleep(1000);
-				if (time_limit > 1)
-				{
-					System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-					return;
-				}
-				else
-				{
-					time_limit++;
-				}
-			}
-		}
-	
+	//			return;
+	//		}
+	//		else // 무한반복되는건데 시간타이밍 주면 좋을거같음
+	//		{
+	//			Sleep(1000);
+	//			if (time_limit > 1)
+	//			{
+	//				System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+	//				return;
+	//			}
+	//			else
+	//			{
+	//				time_limit++;
+	//			}
+	//		}
+	//	}
+	//
 
 
 }

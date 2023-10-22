@@ -504,6 +504,8 @@ namespace GUI {
 			isFirstActivation = false;
 			return; // 처음 활성화 시 함수 실행을 건너뛰기
 		}
+		this->txtBoxID->Clear();
+		this->txtBoxPW->Clear();
 
 		HomeImageSound->Play();
 	}

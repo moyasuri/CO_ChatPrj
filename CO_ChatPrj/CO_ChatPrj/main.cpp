@@ -177,121 +177,18 @@ void recv_msg(int idx) {
         ZeroMemory(&buf, MAX_SIZE);
         if (recv(sck_list[idx].sck, buf, MAX_SIZE, 0) > 0) { // 오류가 발생하지 않으면 recv는 수신된 바이트 수를 반환. 0보다 크다는 것은 메시지가 왔다는 것.
             //msg = sck_list[idx].user + " : " + buf;
-            clrisTrue();
-            clrsvrMsg();
-            clrsqlMsg();
+            IniMsg();
             msg = buf;
 
             // Client의 메세지 index
             std::stringstream ss(msg);
-            ss >> _Index;
-            if (isNumeric(_Index))
-            {
-                int _Index_Int = stoi(_Index);
-
-                cout << "sql 직전" << endl;
-                sqlMsg = mySQL->QuerySql(msg, idx); // sql ret값
-                cout << "sql 확인" << endl;
-
-                std::stringstream sssql(sqlMsg); 
-                sssql >> isTrue; // sql return 값의 true false;
-
-                switch (_Index_Int)
-                {
-                    case e_id_try_Signin:
-                    {
-                        if (isTrue == trueStr) // ID에 해당하는 비밀번호가 일치한다면
-                        {
-                            send_msg(__true);
-                            cout << "true" << endl;
-                        }
-                        else
-                        {
-                            send_msg(__false);
-                            cout << "false" << endl;
-                        }
-                        break;
-                    }
-                    case e_id_find_ID:
-                    {
-                        if (isTrue == trueStr) // Name과 E-mail이 일치한다면
-                        {
-                            // 단순히 true만 보낼수는 없어 ID값도 같이 보내야돼.
-                            
-                            send_msg(sqlMsg.c_str());
-                        }
-                        else 
-                        {
-                            send_msg(__false);
-                        }
-                        break;
-                    }
-                    case e_id_find_PW:
-                    {
-                        if (isTrue == trueStr) // ID와 생일(6자리)와 Phone번호(대쉬없이)가 일치한다면
-                        {
-                            send_msg(sqlMsg.c_str());
-                        }
-                        else 
-                        {
-                            send_msg(__false);
-                        }
-                        break;
-                    }
-                    case e_friends_List:
-                    {
-                        if (isTrue == trueStr)  
-                        {
-                            send_msg(sqlMsg.c_str());
-                        }
-                        else
-                        {
-                            send_msg(__false);
-                        }
-                        break;
-                    }
-
-                    case e_friends_Response_List:
-                    {
-                        if (isTrue == trueStr)
-                        {
-                            send_msg(sqlMsg.c_str());
-                        }
-                        else
-                        {
-                            send_msg(sqlMsg.c_str());
-                        }
-                        break;
-
-                    }
-                    case e_friends_Request:
-                    {
-                        if (isTrue == trueStr)
-                        {
-                            send_msg(sqlMsg.c_str());
-                        }
-                        else
-                        {
-                            send_msg(sqlMsg.c_str());
-                        }
-                        break;
-
-                    }
-               /*     default:
-                    {
-                        break;
-                    }*/
-                }
-            }
-            else
-            {
-                send_msg(__false);
-                //cout << __true;
-            }
-
-             
-            //cout << msg << endl;
-            //send_msg(msg.c_str());
+            sqlMsg = mySQL->QuerySql(msg, idx); // sql ret값
+            std::stringstream sssql(sqlMsg);
+            sssql >> isTrue; // sql return 값의 true false;
+            cout << sqlMsg << endl;
+            send_msg(sqlMsg.c_str());
+            
+           
         }
         else { //그렇지 않을 경우 퇴장에 대한 신호로 생각하여 퇴장 메시지 전송
             msg = "[공지] " + sck_list[idx].user + " 님이 퇴장했습니다.";

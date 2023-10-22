@@ -222,6 +222,7 @@ private: System::Void btnSendReq_Click(System::Object^ sender, System::EventArgs
 			else if (isTrue == elseStr)
 			{
 				System::Windows::Forms::MessageBox::Show("이미 친구인 회원이거나, 신청목록에서 친구 신청을 허가해주세요.", "친구신청", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				return;
 
 			}
 			else
