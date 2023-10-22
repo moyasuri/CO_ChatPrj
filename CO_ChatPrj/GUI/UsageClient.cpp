@@ -7,6 +7,7 @@ const std::string delim = " ";
 
 const std::string trueStr = "true";
 const std::string falseStr = "false";
+const std::string elseStr = "else";
 const char* __true = trueStr.c_str();
 const char* __false = falseStr.c_str();
 

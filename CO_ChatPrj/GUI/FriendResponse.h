@@ -55,10 +55,17 @@ namespace GUI {
 
 	private: System::Windows::Forms::Label^ label2;
 	private: System::Windows::Forms::Button^ btnClose;
-	private: System::Windows::Forms::DataGridView^ dataGridView1;
+	private: System::Windows::Forms::DataGridView^ ViewResponseList;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ NumOfList;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ FromWho;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Message;
-	private: System::Windows::Forms::ListBox^ listBoxFriendsResponse;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ReqMsg;
+
+
+
+
+
+
+
 
 
 
@@ -81,11 +88,11 @@ namespace GUI {
 			this->btnReject = (gcnew System::Windows::Forms::Button());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->btnClose = (gcnew System::Windows::Forms::Button());
-			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
+			this->ViewResponseList = (gcnew System::Windows::Forms::DataGridView());
+			this->NumOfList = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->FromWho = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Message = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->listBoxFriendsResponse = (gcnew System::Windows::Forms::ListBox());
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
+			this->ReqMsg = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ViewResponseList))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// btnAccept
@@ -97,9 +104,10 @@ namespace GUI {
 			this->btnAccept->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnAccept->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnAccept->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnAccept->Location = System::Drawing::Point(601, 171);
+			this->btnAccept->Location = System::Drawing::Point(751, 205);
+			this->btnAccept->Margin = System::Windows::Forms::Padding(4);
 			this->btnAccept->Name = L"btnAccept";
-			this->btnAccept->Size = System::Drawing::Size(147, 53);
+			this->btnAccept->Size = System::Drawing::Size(184, 64);
 			this->btnAccept->TabIndex = 2;
 			this->btnAccept->UseVisualStyleBackColor = false;
 			this->btnAccept->Click += gcnew System::EventHandler(this, &FriendResponse::btnAccept_Click);
@@ -113,9 +121,10 @@ namespace GUI {
 			this->btnReject->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnReject->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnReject->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnReject->Location = System::Drawing::Point(601, 248);
+			this->btnReject->Location = System::Drawing::Point(751, 298);
+			this->btnReject->Margin = System::Windows::Forms::Padding(4);
 			this->btnReject->Name = L"btnReject";
-			this->btnReject->Size = System::Drawing::Size(147, 58);
+			this->btnReject->Size = System::Drawing::Size(184, 70);
 			this->btnReject->TabIndex = 3;
 			this->btnReject->UseVisualStyleBackColor = false;
 			this->btnReject->Click += gcnew System::EventHandler(this, &FriendResponse::btnReject_Click);
@@ -126,10 +135,10 @@ namespace GUI {
 			this->label2->BackColor = System::Drawing::Color::Transparent;
 			this->label2->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 20));
 			this->label2->ForeColor = System::Drawing::Color::Cornsilk;
-			this->label2->Location = System::Drawing::Point(54, 54);
+			this->label2->Location = System::Drawing::Point(68, 65);
 			this->label2->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(115, 39);
+			this->label2->Size = System::Drawing::Size(134, 46);
 			this->label2->TabIndex = 12;
 			this->label2->Text = L"From.";
 			// 
@@ -142,26 +151,37 @@ namespace GUI {
 			this->btnClose->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnClose->Location = System::Drawing::Point(601, 531);
+			this->btnClose->Location = System::Drawing::Point(751, 637);
+			this->btnClose->Margin = System::Windows::Forms::Padding(4);
 			this->btnClose->Name = L"btnClose";
-			this->btnClose->Size = System::Drawing::Size(147, 50);
+			this->btnClose->Size = System::Drawing::Size(184, 60);
 			this->btnClose->TabIndex = 13;
 			this->btnClose->UseVisualStyleBackColor = false;
 			this->btnClose->Click += gcnew System::EventHandler(this, &FriendResponse::btnClose_Click);
 			// 
-			// dataGridView1
+			// ViewResponseList
 			// 
-			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(2) {
-				this->FromWho,
-					this->Message
+			this->ViewResponseList->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->ViewResponseList->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(3) {
+				this->NumOfList,
+					this->FromWho, this->ReqMsg
 			});
-			this->dataGridView1->Location = System::Drawing::Point(61, 130);
-			this->dataGridView1->Name = L"dataGridView1";
-			this->dataGridView1->RowHeadersWidth = 51;
-			this->dataGridView1->RowTemplate->Height = 27;
-			this->dataGridView1->Size = System::Drawing::Size(474, 451);
-			this->dataGridView1->TabIndex = 14;
+			this->ViewResponseList->Location = System::Drawing::Point(76, 139);
+			this->ViewResponseList->Margin = System::Windows::Forms::Padding(4);
+			this->ViewResponseList->Name = L"ViewResponseList";
+			this->ViewResponseList->RowHeadersWidth = 51;
+			this->ViewResponseList->RowTemplate->Height = 27;
+			this->ViewResponseList->Size = System::Drawing::Size(630, 412);
+			this->ViewResponseList->TabIndex = 14;
+			// 
+			// NumOfList
+			// 
+			this->NumOfList->Frozen = true;
+			this->NumOfList->HeaderText = L"#";
+			this->NumOfList->MinimumWidth = 8;
+			this->NumOfList->Name = L"NumOfList";
+			this->NumOfList->ReadOnly = true;
+			this->NumOfList->Width = 50;
 			// 
 			// FromWho
 			// 
@@ -172,41 +192,32 @@ namespace GUI {
 			this->FromWho->ReadOnly = true;
 			this->FromWho->Width = 125;
 			// 
-			// Message
+			// ReqMsg
 			// 
-			this->Message->Frozen = true;
-			this->Message->HeaderText = L"Req Message";
-			this->Message->MinimumWidth = 6;
-			this->Message->Name = L"Message";
-			this->Message->ReadOnly = true;
-			this->Message->Width = 125;
-			// 
-			// listBoxFriendsResponse
-			// 
-			this->listBoxFriendsResponse->FormattingEnabled = true;
-			this->listBoxFriendsResponse->ItemHeight = 15;
-			this->listBoxFriendsResponse->Location = System::Drawing::Point(378, 54);
-			this->listBoxFriendsResponse->Name = L"listBoxFriendsResponse";
-			this->listBoxFriendsResponse->Size = System::Drawing::Size(170, 154);
-			this->listBoxFriendsResponse->TabIndex = 15;
+			this->ReqMsg->Frozen = true;
+			this->ReqMsg->HeaderText = L"Req Message";
+			this->ReqMsg->MinimumWidth = 6;
+			this->ReqMsg->Name = L"ReqMsg";
+			this->ReqMsg->ReadOnly = true;
+			this->ReqMsg->Width = 125;
 			// 
 			// FriendResponse
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
+			this->AutoScaleDimensions = System::Drawing::SizeF(10, 18);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->ClientSize = System::Drawing::Size(788, 623);
-			this->Controls->Add(this->listBoxFriendsResponse);
-			this->Controls->Add(this->dataGridView1);
+			this->ClientSize = System::Drawing::Size(975, 748);
+			this->Controls->Add(this->ViewResponseList);
 			this->Controls->Add(this->btnClose);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->btnReject);
 			this->Controls->Add(this->btnAccept);
+			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"FriendResponse";
 			this->Text = L"FriendResponse";
 			this->Activated += gcnew System::EventHandler(this, &FriendResponse::FriendResponse_Visible);
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ViewResponseList))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -215,141 +226,192 @@ namespace GUI {
 
 private: System::Void FriendResponse_Visible(System::Object^ sender, System::EventArgs^ e) {
 
-	listBoxFriendsResponse->Items->Clear();
+
+
+
+
+
+	IniMsg();
+	int time_limit = 0;
 	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_friends_Response_List));
 	std::string _Index_Str_Result = _Index_Str;
 	const char* buffer = _Index_Str_Result.c_str();
 	send(client_sock, buffer, strlen(buffer), 0);
+	Sleep(100);
+	DivStr(Recv_str, svrMsg);
 
-	// std::stringstream ss(Recv_str);
-	//ss >> _Index;
-	//server_msg.push_back(_Contents);
-	//_Contents = string(buf + 3);
-	//server_msg.push_back(_Contents);
+	/*System::String^ clrString = msclr::interop::marshal_as<System::String^>(svrMsg);
+	System::Windows::Forms::MessageBox::Show(clrString, "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);*/
+	if (isTrue == trueStr)// server 에서 오케이받는 함수
+	{
 
-	// C++/CLI CLI 배열
-	// cli::array<System::Object^>^ arr = gcnew cli::array<System::Object^>(1);
+		ViewResponseList->Rows->Clear();
+		/////
 
-	// 공백으로 문자열 분할
-	std::istringstream iss(Recv_str); // 살짝 문제가 있을거 같기도..
-	std::string token;
-	int count = 0;
+		std::string msg = svrMsg;
+		std::vector<std::pair<std::string, std::string>> messages;
 
-	while (iss >> token) {
-		if (count == 0 && token == "true") {
-			// 첫 번째 단어가 "true"인 경우 넘어감
-			count++;
-			continue;
+		size_t startPos = 0;
+		size_t delimiterPos;
+
+		while ((delimiterPos = msg.find("*/", startPos)) != std::string::npos) {
+			size_t nickStart = delimiterPos + 2;
+			size_t nickEnd = msg.find(' ', nickStart);
+			if (nickEnd == std::string::npos) {
+				nickEnd = msg.length();
+			}
+			size_t messageStart = nickEnd + 1;
+			//
+					// Find the end of the message
+			size_t nextDelimiterPos = msg.find("*/", messageStart);
+			size_t messageEnd;
+			//
+			if (nextDelimiterPos != std::string::npos) {
+				messageEnd = nextDelimiterPos - 1;
+			}
+			else {
+				messageEnd = msg.length();
+			}
+
+			std::string id = msg.substr(nickStart, nickEnd - nickStart);
+			std::string message = msg.substr(messageStart, messageEnd - messageStart);
+
+			messages.push_back(std::make_pair(id, message));
+
+			// Move the start position to the end of the current message
+			startPos = messageEnd + 1;
 		}
-		//System::String^ str = marshal_as<String^>(token);
-		listBoxFriendsResponse->Items->Add(gcnew String(token.c_str()));
+		// Output the parsed messages
+		int count = 0;
+		for (const auto& message : messages) {
+
+			ViewResponseList->Rows->Add();
+			ViewResponseList->Rows[count]->Cells["NumOfList"]->Value = System::Convert::ToString(count);
+			System::String^ tempwho = msclr::interop::marshal_as<System::String^>(message.first);
+			ViewResponseList->Rows[count]->Cells["FromWho"]->Value = tempwho;
+			System::String^ tempmsg = msclr::interop::marshal_as<System::String^>(message.second);
+			ViewResponseList->Rows[count]->Cells["ReqMsg"]->Value = tempmsg;
+			count++;
+		}
+
 	}
-
-	// List Box에 추가
-	// listBoxFriends->Items->AddRange(vect);
-
 
 
 }
 private: System::Void btnAccept_Click(System::Object^ sender, System::EventArgs^ e) {
 
 	btnAccept->NotifyDefault(false);
-	int time_limit = 0;
-	std::string tmptxt_1_;
-	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_friends_Accept));
-	if (listBoxFriendsResponse->SelectedItem == nullptr) {
-		System::Windows::Forms::MessageBox::Show("추가하실 아이디를 선택해주세요.", "친구추가", MessageBoxButtons::OK, MessageBoxIcon::Information);
+	IniMsg();
+
+	String^ tmptxt_1 = ViewResponseList->Text; // textBox는 해당 텍스트 상자의 이름입니다.
+	// 선택한 행의 정보를 저장할 DataGridViewRow 객체를 선언합니다.
+	DataGridViewRow^ selectedRow = nullptr;
+
+	if (ViewResponseList->SelectedRows->Count > 0) {
+		// 하나 이상의 행이 선택되었을 때 첫 번째 선택된 행을 가져옵니다.
+		selectedRow = ViewResponseList->SelectedRows[0];
+		String^ tmptxt_1 = safe_cast<String^>(selectedRow->Cells[1]->Value);
+		// 선택한 행의 데이터를 처리합니다.
+		// 예를 들어, 특정 열의 데이터를 얻기 위해 selectedRow->Cells[columnIndex]->Value를 사용할 수 있습니다.
+	}
+	else
+	{
+		System::Windows::Forms::MessageBox::Show("친구신청을 허가할사람을 선택해주세요.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		return;
 	}
 
+		//// Server에 ID / PW를 보내기함수
+		int time_limit = 0;
 
-	String^ tmptxt_1 = listBoxFriendsResponse->SelectedItem->ToString();
-	tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
-	std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_;
 
-	const char* buffer = _Index_Str_Result.c_str();
-	send(client_sock, buffer, strlen(buffer), 0);
+		std::string tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
+		std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_friends_Accept));
 
-	while (1)
-	{
-		//if (Recv_str == "true")// server 에서 오케이받는 함수
-		if (1)// test
+		std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_;
+		const char* buffer = _Index_Str_Result.c_str();
+		send(client_sock, buffer, strlen(buffer), 0);
+		Sleep(100);
+		DivStr(Recv_str, svrMsg);
+
+		while (1)
 		{
-			FriendResponse_Visible(sender, e);
-			System::Windows::Forms::MessageBox::Show("친구를 추가하였습니다.", "친구추가", MessageBoxButtons::OK, MessageBoxIcon::Information);
-			return;
-		}
-		else if (Recv_str == "false") //  server에서 다른값보내면
-		{
-			System::Windows::Forms::MessageBox::Show("다른값을 보냈다고?", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-
-			return;
-		}
-		else // 무한반복되는건데 시간타이밍 주면 좋을거같음
-		{
-			Sleep(1000);
-			if (time_limit > 1)
+			if (isTrue == trueStr)// server 에서 오케이받는 함수
 			{
-				System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				System::Windows::Forms::MessageBox::Show("친구 신청을 완료했습니다.", "친구신청", MessageBoxButtons::OK, MessageBoxIcon::Information);
 				return;
 			}
-			else
+			else if (isTrue == falseStr) //  server에서 다른값보내면
 			{
-				time_limit++;
+				System::Windows::Forms::MessageBox::Show("에러가 발생했습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+
+				return;
+			}
+			else // 무한반복되는건데 시간타이밍 주면 좋을거같음
+			{
+				Sleep(1000);
+				if (time_limit > 1)
+				{
+					System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+					return;
+				}
+				else
+				{
+					time_limit++;
+				}
 			}
 		}
-	}
+	
 
 
 }
 private: System::Void btnReject_Click(System::Object^ sender, System::EventArgs^ e) {
 
-	btnAccept->NotifyDefault(false);
-	int time_limit = 0;
-	std::string tmptxt_1_;
-	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_friends_Accept));
-	if (listBoxFriendsResponse->SelectedItem == nullptr) {
-		System::Windows::Forms::MessageBox::Show("추가하실 아이디를 선택해주세요.", "친구추가", MessageBoxButtons::OK, MessageBoxIcon::Information);
-		return;
-	}
+	//btnAccept->NotifyDefault(false);
+	//int time_limit = 0;
+	//std::string tmptxt_1_;
+	//std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_friends_Accept));
+	//if (listBoxFriendsResponse->SelectedItem == nullptr) {
+	//	System::Windows::Forms::MessageBox::Show("추가하실 아이디를 선택해주세요.", "친구추가", MessageBoxButtons::OK, MessageBoxIcon::Information);
+	//	return;
+	//}
 
 
-	String^ tmptxt_1 = listBoxFriendsResponse->SelectedItem->ToString();
-	tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
-	std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_;
+	//String^ tmptxt_1 = listBoxFriendsResponse->SelectedItem->ToString();
+	//tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
+	//std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_;
 
-	const char* buffer = _Index_Str_Result.c_str();
-	send(client_sock, buffer, strlen(buffer), 0);
+	//const char* buffer = _Index_Str_Result.c_str();
+	//send(client_sock, buffer, strlen(buffer), 0);
 
-	while (1)
-	{
-		//if (Recv_str == "true")// server 에서 오케이받는 함수
-		if (1)// test
-		{
-			FriendResponse_Visible(sender, e);
-			System::Windows::Forms::MessageBox::Show("친구를 추가하였습니다.", "친구추가", MessageBoxButtons::OK, MessageBoxIcon::Information);
-			return;
-		}
-		else if (Recv_str == "false") //  server에서 다른값보내면
-		{
-			System::Windows::Forms::MessageBox::Show("다른값을 보냈다고?", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+	//while (1)
+	//{
+	//	//if (Recv_str == "true")// server 에서 오케이받는 함수
+	//	if (1)// test
+	//	{
+	//		FriendResponse_Visible(sender, e);
+	//		System::Windows::Forms::MessageBox::Show("친구를 추가하였습니다.", "친구추가", MessageBoxButtons::OK, MessageBoxIcon::Information);
+	//		return;
+	//	}
+	//	else if (Recv_str == "false") //  server에서 다른값보내면
+	//	{
+	//		System::Windows::Forms::MessageBox::Show("다른값을 보냈다고?", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 
-			return;
-		}
-		else // 무한반복되는건데 시간타이밍 주면 좋을거같음
-		{
-			Sleep(1000);
-			if (time_limit > 1)
-			{
-				System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-				return;
-			}
-			else
-			{
-				time_limit++;
-			}
-		}
-	}
+	//		return;
+	//	}
+	//	else // 무한반복되는건데 시간타이밍 주면 좋을거같음
+	//	{
+	//		Sleep(1000);
+	//		if (time_limit > 1)
+	//		{
+	//			System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+	//			return;
+	//		}
+	//		else
+	//		{
+	//			time_limit++;
+	//		}
+	//	}
+	//}
 
 }
 private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {

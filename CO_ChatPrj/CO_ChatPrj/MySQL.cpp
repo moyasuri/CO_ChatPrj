@@ -324,25 +324,35 @@ string MySQL::QuerySql(string msg, int idx) {
         case e_friends_Request:
         {
             string _id = sck_list[idx]._user.getID();
-            string _to_nickname,msg;
-            ss >> _to_nickname >>msg;
+            string _to_nickname,_msg;
+            ss >> _to_nickname >> std::ws;;
+            getline(ss,_msg);
 
-    
             string query = "SELECT Member_ID FROM member WHERE Nickname = '" + _to_nickname + "'";
             stmt = con->createStatement();
             res = stmt->executeQuery(query);
 
+
             if (res->next()) {
                 string b_id = res->getString("Member_ID");
 
+                string query = "SELECT My_ID FROM friend_list WHERE My_Friend_ID = '" + b_id + "'";
+                stmt = con->createStatement();
+                res = stmt->executeQuery(query);
+                if (res->next())
+                {
+                    // 입력한 회원 닉네임이 잘못된 경우
+                    _ret = elseStr;
+                    break;
+                }
                 // Friend_Request 테이블 업데이트
                 // PreparedStatement를 사용하여 쿼리 준비
                 sql::PreparedStatement* insertFriendRequestStmt;
-                insertFriendRequestStmt = con->prepareStatement("INSERT INTO friend_request (From_Friend_Request_ID, To_Friend_Request_ID, Response, Request_Msg) "
-                    "SELECT ?, ?, 1, ? WHERE NOT EXISTS (SELECT 1 FROM friend_request WHERE (From_Friend_Request_ID = ? AND To_Friend_Request_ID = ?) OR (From_Friend_Request_ID = ? AND To_Friend_Request_ID = ?))");
+                insertFriendRequestStmt = con->prepareStatement("INSERT INTO friend_request (From_Friend_Request_ID, To_Friend_Request_ID, Request_Msg) "
+                    "SELECT ?, ?, ? WHERE NOT EXISTS (SELECT 1 FROM friend_request WHERE (From_Friend_Request_ID = ? AND To_Friend_Request_ID = ?) OR (From_Friend_Request_ID = ? AND To_Friend_Request_ID = ?))");
                 insertFriendRequestStmt->setString(1, _id);
                 insertFriendRequestStmt->setString(2, b_id);
-                insertFriendRequestStmt->setString(3, msg);
+                insertFriendRequestStmt->setString(3, _msg);
                 insertFriendRequestStmt->setString(4, _id);
                 insertFriendRequestStmt->setString(5, b_id);
                 insertFriendRequestStmt->setString(6, b_id);
@@ -353,9 +363,11 @@ string MySQL::QuerySql(string msg, int idx) {
 
                 if (updateCount > 0) {
                     _ret = trueStr;
+                    break;
                 }
                 else {
-                    _ret = falseStr + delim + "친구수락을 받아주세요.";
+                    _ret = elseStr;
+                    break;
                 }
 
             }
@@ -368,6 +380,107 @@ string MySQL::QuerySql(string msg, int idx) {
 
 
         }
+
+        case e_friends_Response_List:
+        {
+            string _id = sck_list[idx]._user.getID();
+
+            string query = "SELECT From_Friend_Request_ID, Request_Msg FROM friend_request WHERE To_Friend_Request_ID =  '" + _id + "'";
+            stmt = con->createStatement();
+            res = stmt->executeQuery(query);
+
+            std::stringstream ss_id_from, ss_msg_from;
+            
+            while (res->next()) {
+                ss_id_from << res->getString("From_Friend_Request_ID"); // 결과 값을 스트림에 추가
+                ss_msg_from << res->getString("Request_Msg");
+            }
+
+            string _id_from = "", _nick_from = "", _msg = "";
+
+            string _id_temp = "", _msg_temp = "", result = "";
+
+            while (ss_id_from >> _id_temp)
+            {
+                string query = "SELECT Nickname FROM Member WHERE Member_ID =  '" + _id_temp + "'";
+                stmt = con->createStatement();
+                res = stmt->executeQuery(query);
+                if (res->next()) {
+                    _nick_from = "*/" + res->getString("Nickname");
+                    ss_msg_from >> _msg_temp;
+                    result += _nick_from + delim+ _msg_temp + delim;
+                }
+;           }
+
+            if (!result.empty())
+            {
+                 _ret = trueStr + delim +  result;
+                 cout << _ret << endl;
+                 break;
+
+            }
+            else
+            {
+                 _ret = falseStr;
+                 break;
+            }
+        }
+
+        case e_friends_Accept:
+        {
+            string _id = sck_list[idx]._user.getID();
+            string _nick_from;
+            ss >> _nick_from;
+
+            string query = "SELECT Member_ID FROM member WHERE Nickname = '" + _nick_from + "'";
+            stmt = con->createStatement();
+            res = stmt->executeQuery(query);
+
+            if (res->next()) {
+
+                string b_id = res->getString("Member_ID");
+                sql::PreparedStatement* Acc_Stmt;
+                Acc_Stmt = con->prepareStatement("SELECT From_Friend_Request_ID, To_Friend_Request_ID FROM Friend_Request WHERE From_Friend_Request_ID = ? AND To_Friend_Request_ID = ?");
+                Acc_Stmt->setString(1, b_id);
+                Acc_Stmt->setString(2, _id);
+         
+
+                int updateCount = Acc_Stmt->executeUpdate();
+
+                if (updateCount > 0) {
+
+                    Acc_Stmt = con->prepareStatement("DELETE FROM Friend_Request WHERE From_Friend_Request_ID = ? AND To_Friend_Request_ID = ?");
+                    Acc_Stmt->setString(1, b_id);
+                    Acc_Stmt->setString(2, _id);
+
+                    int deleteCount = Acc_Stmt->executeUpdate();
+
+                    if (deleteCount > 0) {
+
+                        Acc_Stmt = con->prepareStatement("INSERT INTO Friend_list (My_ID, My_Friend_ID) VALUES (?, ?)"); 
+                        Acc_Stmt->setString(1, b_id);
+                        Acc_Stmt->setString(2, _id);
+                        Acc_Stmt->executeUpdate();
+                        Acc_Stmt->setString(1, _id);
+                        Acc_Stmt->setString(2, b_id);
+                        Acc_Stmt->executeUpdate();
+
+                        // 요청이 성공적으로 삭제되었음을 나타내는 처리
+                        _ret = trueStr;
+                        break;
+                    }
+          
+                }
+            }
+            else
+            {
+                _ret = falseStr;
+                break;
+            }
+        }
+
+
+
         default:
             break;
     }

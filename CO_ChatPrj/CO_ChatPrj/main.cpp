@@ -242,7 +242,6 @@ void recv_msg(int idx) {
                     {
                         if (isTrue == trueStr)  
                         {
-                            cout << sqlMsg;
                             send_msg(sqlMsg.c_str());
                         }
                         else
@@ -252,16 +251,28 @@ void recv_msg(int idx) {
                         break;
                     }
 
-                    case e_friends_Request:
+                    case e_friends_Response_List:
                     {
                         if (isTrue == trueStr)
                         {
-                            cout << sqlMsg;
                             send_msg(sqlMsg.c_str());
                         }
                         else
                         {
-                            send_msg(__false);
+                            send_msg(sqlMsg.c_str());
+                        }
+                        break;
+
+                    }
+                    case e_friends_Request:
+                    {
+                        if (isTrue == trueStr)
+                        {
+                            send_msg(sqlMsg.c_str());
+                        }
+                        else
+                        {
+                            send_msg(sqlMsg.c_str());
                         }
                         break;
 

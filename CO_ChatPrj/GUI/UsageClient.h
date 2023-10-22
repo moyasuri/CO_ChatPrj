@@ -3,6 +3,7 @@
 
 extern const std::string trueStr;
 extern const std::string falseStr;
+extern const std::string elseStr;
 extern std::string isTrue;
 extern std::string svrMsg;
 extern const char* __true;

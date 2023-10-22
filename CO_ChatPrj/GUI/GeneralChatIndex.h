@@ -47,7 +47,7 @@ namespace GUI {
 			//InitializeDataGridView();
 
 			// BindingList를 사용하여 DataGridView 초기화
-			ViewRoomList->Rows->Add();
+	/*		ViewRoomList->Rows->Add();
 			ViewRoomList->Rows[0]->Cells["NumOfRoom"]->Value = 1;
 			ViewRoomList->Rows[0]->Cells["RoomName"]->Value = "불타는 금요일 !";
 			ViewRoomList->Rows[0]->Cells["PrivateCheck"]->Value = "Private";
@@ -55,7 +55,7 @@ namespace GUI {
 
 			ViewRoomList->Rows[1]->Cells["NumOfRoom"]->Value = 2;
 			ViewRoomList->Rows[1]->Cells["RoomName"]->Value = "개발자 연봉상담";
-			ViewRoomList->Rows[1]->Cells["PrivateCheck"]->Value = "Public";
+			ViewRoomList->Rows[1]->Cells["PrivateCheck"]->Value = "Public";*/
 
 		}
 

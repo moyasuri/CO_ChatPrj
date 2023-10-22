@@ -7,6 +7,8 @@ extern std::string svrMsg;
 extern std::string sqlMsg;
 extern const std::string trueStr;
 extern const std::string falseStr;
+extern const std::string elseStr;
+
 extern const char* __true;
 extern const char* __false;
 

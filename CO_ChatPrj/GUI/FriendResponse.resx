@@ -165,7 +165,7 @@
         m10DywfODjoMXrjleuvyba/b1++svDMwFDJ0dzhyeOQu++7kvaR7L+9n3J9/sOkh+mHhI6lH5Y+VHtf9
         qPdj64jlyJlR19G+J0FPHoyxxp7/lP7Th/H8p+Sn5ROqE42TZpOnp9ynbj5b/Wz8eerz+emCn6V/rn6h
         ++K7Xxx/6ZtZNTP+kv9y4dfiV/Kvjrxe9rp71n/28ZvkN/NzhW/l3x59x3jX+z7s/cR85gfsh4qPeh+7
-        Pnl/eriQvLDwG/eE8/s6uL5TAAAACXBIWXMAAAsNAAALDQHtB8AsAAAIRklEQVR4Xu2dO48cRRSFkSwc
+        Pnl/eriQvLDwG/eE8/s6uL5TAAAACXBIWXMAAAsMAAALDAE/QCLIAAAIRklEQVR4Xu2dO48cRRSFkSwc
         88NMDL+EEEFGyEsEkEGEBBIJEhEk2BAQQQYRAQIMIuBp8xruN95aesvn1lRPT83Mus+RPlm6rrrd23VP
         VXXNSPPYZrMxxgxABo0xy5FBY8xyZNAYsxwZNMYsRwaNMcuRQWPMcmQQfn7jmR4eD24FLwV3gu+Ce8HG
         mGsGdUv9UsfUM3VNfau6v4LyD8ggqCQTngieC+4G6kaNeRT4IaDOqXflgy3KPyCDoJJc8HSAw9XNGPMo
@@ -251,7 +251,7 @@
         m10DywfODjoMXrjleuvyba/b1++svDMwFDJ0dzhyeOQu++7kvaR7L+9n3J9/sOkh+mHhI6lH5Y+VHtf9
         qPdj64jlyJlR19G+J0FPHoyxxp7/lP7Th/H8p+Sn5ROqE42TZpOnp9ynbj5b/Wz8eerz+emCn6V/rn6h
         ++K7Xxx/6ZtZNTP+kv9y4dfiV/Kvjrxe9rp71n/28ZvkN/NzhW/l3x59x3jX+z7s/cR85gfsh4qPeh+7
-        Pnl/eriQvLDwG/eE8/s6uL5TAAAACXBIWXMAAAsNAAALDQHtB8AsAAAIRklEQVR4Xu2dTascRRSGAyF3
+        Pnl/eriQvLDwG/eE8/s6uL5TAAAACXBIWXMAAAsMAAALDAE/QCLIAAAIRklEQVR4Xu2dTascRRSGAyF3
         nR8W18nPiQvXogkBt67Nzq07owiRCAayCCr4Rb5QCCheUcbz3Ezf9JRvdVd39dTtufMeeLhwbtXpmqnz
         Vp2qGZgrm83GGLMHpNMYU490GmPqkU5jTD3SaYypRzqNMfVIpzGmHumE9x5+VcK14EbwQfBF8Cz4K9gY
         c2CQt+QveUw+k9fkt8r7HZR+QDpBBelxPbgdvAjUQI25DLwMyHPyXengDKUfkE5QQbbcClC4GowxlxHy
@@ -376,10 +376,13 @@
         cpWcJXfJ4c7bH7ko7YF0Oo6zXqTTcZz1Ip2O46wX6XQcZ50sjvwP3DbKpVOCXEUAAAAASUVORK5CYII=
 </value>
   </data>
+  <metadata name="NumOfList.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <metadata name="FromWho.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="Message.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="ReqMsg.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <data name="$this.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

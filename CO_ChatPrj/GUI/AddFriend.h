@@ -39,8 +39,10 @@ namespace GUI {
 				delete components;
 			}
 		}
+	private: System::Windows::Forms::TextBox^ txtBoxNickname;
+	protected:
 
-	private: System::Windows::Forms::TextBox^ txtBoxID;
+
 	private: System::Windows::Forms::Button^ btnSendReq;
 
 	private: System::Windows::Forms::Button^ btnClose;
@@ -72,7 +74,7 @@ namespace GUI {
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(AddFriend::typeid));
-			this->txtBoxID = (gcnew System::Windows::Forms::TextBox());
+			this->txtBoxNickname = (gcnew System::Windows::Forms::TextBox());
 			this->btnSendReq = (gcnew System::Windows::Forms::Button());
 			this->btnClose = (gcnew System::Windows::Forms::Button());
 			this->label2 = (gcnew System::Windows::Forms::Label());
@@ -80,13 +82,13 @@ namespace GUI {
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
-			// txtBoxID
+			// txtBoxNickname
 			// 
-			this->txtBoxID->Location = System::Drawing::Point(143, 65);
-			this->txtBoxID->Margin = System::Windows::Forms::Padding(4);
-			this->txtBoxID->Name = L"txtBoxID";
-			this->txtBoxID->Size = System::Drawing::Size(268, 28);
-			this->txtBoxID->TabIndex = 2;
+			this->txtBoxNickname->Location = System::Drawing::Point(143, 65);
+			this->txtBoxNickname->Margin = System::Windows::Forms::Padding(4);
+			this->txtBoxNickname->Name = L"txtBoxNickname";
+			this->txtBoxNickname->Size = System::Drawing::Size(268, 28);
+			this->txtBoxNickname->TabIndex = 2;
 			// 
 			// btnSendReq
 			// 
@@ -166,7 +168,7 @@ namespace GUI {
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->btnClose);
 			this->Controls->Add(this->btnSendReq);
-			this->Controls->Add(this->txtBoxID);
+			this->Controls->Add(this->txtBoxNickname);
 			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"AddFriend";
 			this->Text = L"AddFriend";
@@ -188,7 +190,7 @@ private: System::Void btnSendReq_Click(System::Object^ sender, System::EventArgs
 	btnSendReq->NotifyDefault(false);
 	IniMsg();
 
-	String^ tmptxt_1 = txtBoxID->Text; // textBox는 해당 텍스트 상자의 이름입니다.
+	String^ tmptxt_1 = txtBoxNickname->Text; // textBox는 해당 텍스트 상자의 이름입니다.
 	String^ tmptxt_2 = txtBoxReqMsg->Text; // textBox는 해당 텍스트 상자의 이름입니다.
 
 	if (!String::IsNullOrEmpty(tmptxt_1)) {
@@ -214,8 +216,13 @@ private: System::Void btnSendReq_Click(System::Object^ sender, System::EventArgs
 			}
 			else if (isTrue == falseStr) //  server에서 다른값보내면
 			{
-				System::Windows::Forms::MessageBox::Show("해당하는 회원이 없습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				System::Windows::Forms::MessageBox::Show("해당하는 회원이 없습니다", "친구신청", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 				return;
+			}
+			else if (isTrue == elseStr)
+			{
+				System::Windows::Forms::MessageBox::Show("이미 친구인 회원이거나, 신청목록에서 친구 신청을 허가해주세요.", "친구신청", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+
 			}
 			else
 			{
