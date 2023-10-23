@@ -4,6 +4,7 @@
 #include <sstream>
 #include <msclr/marshal_cppstd.h>
 #include "UsageClient.h"
+#include <vector>
 extern SOCKET client_sock;
 extern std::string Recv_str;
 
@@ -353,8 +354,6 @@ private: System::Void MessageBox_Activated(System::Object^ sender, System::Event
 	{
 
 
-		/////
-
 		std::string msg = svrMsg;
 		std::vector<std::pair<std::string, std::string>> messagesR;
 
@@ -393,157 +392,16 @@ private: System::Void MessageBox_Activated(System::Object^ sender, System::Event
 		for (const auto& message : messagesR) {
 
 			ViewRead->Rows->Add();
-			ViewRead->Rows[count]->Cells["NufOfSentMsg"]->Value = System::Convert::ToString(count);
+			ViewRead->Rows[count]->Cells["NufOfUnread"]->Value = System::Convert::ToString(count);
 			System::String^ tempwho = msclr::interop::marshal_as<System::String^>(message.first);
-			ViewRead->Rows[count]->Cells["To"]->Value = tempwho;
+			ViewRead->Rows[count]->Cells["U_From"]->Value = tempwho;
 			System::String^ tempmsg = msclr::interop::marshal_as<System::String^>(message.second);
-			ViewRead->Rows[count]->Cells["Date"]->Value = tempmsg;
+			ViewRead->Rows[count]->Cells["U_Date"]->Value = tempmsg;
 			count++;
 		}
 
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	IniMsg();
-	int time_limit = 0;
-	std::string tmptxt_1_, tmptxt_2_;
-
-
-
-	if (ViewRead->SelectedRows->Count > 0) {
-		// 선택한 행의 인덱스를 가져옵니다.
-		int selectedRowIndex = ViewRead->SelectedRows[0]->Index;
-
-		// 1열, 2열, 3열의 데이터를 가져옵니다.
-		System::Object^ column1ValueObj = ViewRead->Rows[selectedRowIndex]->Cells["NufOfSentMsg"]->Value;
-		System::Object^ column2ValueObj = ViewRead->Rows[selectedRowIndex]->Cells["To"]->Value;
-		System::Object^ column3ValueObj = ViewRead->Rows[selectedRowIndex]->Cells["Date"]->Value;
-
-		// null 체크
-		if (column1ValueObj != nullptr && column2ValueObj != nullptr && column3ValueObj != nullptr) {
-			System::String^ column1Value = column1ValueObj->ToString();
-			System::String^ column2Value = column2ValueObj->ToString();
-			System::String^ column3Value = column3ValueObj->ToString();
-
-			tmptxt_1_ = msclr::interop::marshal_as<std::string>(column2Value) + delim + msclr::interop::marshal_as<std::string>(column3Value);
-		}
-		else {
-			// 선택한 행의 하나 이상의 열이 null일 때 처리할 내용
-			// 예를 들어, 오류 메시지 출력 또는 다른 작업을 수행할 수 있습니다.
-			return;
-		}
-	}
-
-	if (ViewRead->SelectedRows->Count > 0) {
-		// 선택한 행의 인덱스를 가져옵니다.
-		int selectedRowIndex = ViewRead->SelectedRows[0]->Index;
-
-		// 1열, 2열, 3열의 데이터를 가져옵니다.
-		System::Object^ _column1ValueObj = ViewUnread->Rows[selectedRowIndex]->Cells["NufOfSentMsg"]->Value;
-		System::Object^ _column2ValueObj = ViewUnread->Rows[selectedRowIndex]->Cells["To"]->Value;
-		System::Object^ _column3ValueObj = ViewUnread->Rows[selectedRowIndex]->Cells["Date"]->Value;
-
-		// null 체크
-		if (_column1ValueObj != nullptr && _column2ValueObj != nullptr && _column3ValueObj != nullptr) {
-			System::String^ _column1Value = _column1ValueObj->ToString();
-			System::String^ _column2Value = _column2ValueObj->ToString();
-			System::String^ _column3Value = _column3ValueObj->ToString();
-
-			tmptxt_2_ = msclr::interop::marshal_as<std::string>(_column2Value) + delim + msclr::interop::marshal_as<std::string>(_column3Value);
-		}
-		else {
-			// 선택한 행의 하나 이상의 열이 null일 때 처리할 내용
-			// 예를 들어, 오류 메시지 출력 또는 다른 작업을 수행할 수 있습니다.
-			return;
-		}
-	}
-
-
-
-	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_message_Sent_msg));
-	std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_;
-	const char* buffer = _Index_Str_Result.c_str();
-
-
-	send(client_sock, buffer, strlen(buffer), 0);
-	Sleep(100);
-	DivStrMsg(Recv_str, svrMsg);
-	txtBoxMsg->Clear();
-
-	/*System::String^ clrString = msclr::interop::marshal_as<System::String^>(svrMsg);
-	System::Windows::Forms::MessageBox::Show(clrString, "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);*/
-	if (isTrue == trueStr)// server 에서 오케이받는 함수
-	{
-
-		System::String^ clrString = msclr::interop::marshal_as<System::String^>(svrMsg);
-		txtBoxMsg->Text = clrString;
-
-	}
-
-	else if (isTrue == falseStr) //  server에서 다른값보내면 그럴리없겟지만
-	{
-		System::Windows::Forms::MessageBox::Show("오류발생.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-		return;
-	}
-	else // 무한반복되는건데 시간타이밍 주면 좋을거같음
-	{
-		Sleep(1000);
-		if (time_limit > 1)
-		{
-			System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-			return;
-		}
-		else
-		{
-			time_limit++;
-		}
-	}
-}
 }
 };
 }

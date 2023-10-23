@@ -743,38 +743,31 @@ string MySQL::QuerySql(string msg, int idx) {
             string _id = sck_list[idx]._user.getID();
             string _to_nickname, _msg;
 
-
-            std::stringstream ss_id_from, ss_date_from;
+            
+            std::stringstream ss_id, ss_date;
             prep_stmt = con->prepareStatement("SELECT * FROM short_note WHERE To_Short_Note_ID = ? AND (Respond_Short_Note = 0 OR Respond_Short_Note = 4);");
             prep_stmt->setString(1, _id);
-
             res = prep_stmt->executeQuery();
 
-            _msg_temp = "";
-            // 이거는 엔터가 들어간 메세지를 구분해야하는 다른곳에서도 쓰일수 있어.
             while (res->next()) {
 
-                ss_id_from << res->getString("From_Short_Note_ID") + delim; // 결과 값을 스트림에 추가
-                ss_date_from << res->getString("Short_Note_Datetime") + "\n";
+                ss_id << res->getString("From_Short_Note_ID") + delim; // 결과 값을 스트림에 추가
+                ss_date << res->getString("Short_Note_Datetime") + "\n";
 
                 // 결과 처리
             }
             _id_from = "", _nick_from = "", _msg = "";
             _id_temp = "", _msg_temp = "", result = "";
 
-            while (ss_id_from >> _id_temp)
+            while (ss_id >> _id_temp)
             {
                 string query = "SELECT Nickname FROM Member WHERE Member_ID =  '" + _id_temp + "'";
                 stmt = con->createStatement();
                 res = stmt->executeQuery(query);
                 if (res->next()) {
-                    getline(ss_date_from, _msg_temp, '\0');
-                    if (ss_date_from.peek() == '\0') {
-                        // 다음 문자가 '\0'이면 마지막 '\0'이므로 추가하지 않음
-                        continue;
-                    }
+                    getline(ss_date, _msg_temp, '\n');
                     _nick_from = "*/" + res->getString("Nickname");
-                    result += _nick_from + delim + _msg_temp + delim;
+                    result += _nick_from + delim + _msg_temp + "\n";
 
                 }
             }
