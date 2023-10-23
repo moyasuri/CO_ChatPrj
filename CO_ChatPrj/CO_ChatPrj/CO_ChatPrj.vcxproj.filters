@@ -11,5 +11,6 @@
     <ClInclude Include="UsageServer.h" />
     <ClInclude Include="UserInfo.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="Room.h" />
   </ItemGroup>
 </Project>

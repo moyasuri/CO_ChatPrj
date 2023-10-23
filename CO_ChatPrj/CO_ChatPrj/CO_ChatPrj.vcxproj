@@ -147,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
+    <ClInclude Include="Room.h" />
     <ClInclude Include="UsageServer.h" />
     <ClInclude Include="UserInfo.h" />
   </ItemGroup>

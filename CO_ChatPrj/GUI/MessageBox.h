@@ -109,7 +109,13 @@ namespace GUI {
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MessageBox::typeid));
 			this->ViewUnread = (gcnew System::Windows::Forms::DataGridView());
+			this->NumOfUnread = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->U_From = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->U_Date = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->ViewRead = (gcnew System::Windows::Forms::DataGridView());
+			this->NumOfRead = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->R_From = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->R_Date = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->txtBoxMsg = (gcnew System::Windows::Forms::TextBox());
 			this->btnRead = (gcnew System::Windows::Forms::Button());
 			this->btnDelete_U = (gcnew System::Windows::Forms::Button());
@@ -117,12 +123,6 @@ namespace GUI {
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->btnClose = (gcnew System::Windows::Forms::Button());
-			this->NumOfUnread = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->U_From = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->U_Date = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->NumOfRead = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->R_From = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->R_Date = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ViewUnread))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ViewRead))->BeginInit();
 			this->SuspendLayout();
@@ -135,11 +135,39 @@ namespace GUI {
 					this->U_From, this->U_Date
 			});
 			this->ViewUnread->Location = System::Drawing::Point(56, 89);
+			this->ViewUnread->MultiSelect = false;
 			this->ViewUnread->Name = L"ViewUnread";
+			this->ViewUnread->ReadOnly = true;
 			this->ViewUnread->RowHeadersWidth = 51;
 			this->ViewUnread->RowTemplate->Height = 27;
+			this->ViewUnread->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
 			this->ViewUnread->Size = System::Drawing::Size(418, 204);
 			this->ViewUnread->TabIndex = 2;
+			this->ViewUnread->CellClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MessageBox::ViewUnread_CellClick);
+			// 
+			// NumOfUnread
+			// 
+			this->NumOfUnread->HeaderText = L"#";
+			this->NumOfUnread->MinimumWidth = 6;
+			this->NumOfUnread->Name = L"NumOfUnread";
+			this->NumOfUnread->ReadOnly = true;
+			this->NumOfUnread->Width = 125;
+			// 
+			// U_From
+			// 
+			this->U_From->HeaderText = L"From";
+			this->U_From->MinimumWidth = 6;
+			this->U_From->Name = L"U_From";
+			this->U_From->ReadOnly = true;
+			this->U_From->Width = 125;
+			// 
+			// U_Date
+			// 
+			this->U_Date->HeaderText = L"Date";
+			this->U_Date->MinimumWidth = 6;
+			this->U_Date->Name = L"U_Date";
+			this->U_Date->ReadOnly = true;
+			this->U_Date->Width = 125;
 			// 
 			// ViewRead
 			// 
@@ -149,11 +177,39 @@ namespace GUI {
 					this->R_Date
 			});
 			this->ViewRead->Location = System::Drawing::Point(56, 419);
+			this->ViewRead->MultiSelect = false;
 			this->ViewRead->Name = L"ViewRead";
+			this->ViewRead->ReadOnly = true;
 			this->ViewRead->RowHeadersWidth = 51;
 			this->ViewRead->RowTemplate->Height = 27;
+			this->ViewRead->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
 			this->ViewRead->Size = System::Drawing::Size(418, 204);
 			this->ViewRead->TabIndex = 4;
+			this->ViewRead->CellClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MessageBox::ViewRead_CellClick);
+			// 
+			// NumOfRead
+			// 
+			this->NumOfRead->HeaderText = L"#";
+			this->NumOfRead->MinimumWidth = 6;
+			this->NumOfRead->Name = L"NumOfRead";
+			this->NumOfRead->ReadOnly = true;
+			this->NumOfRead->Width = 125;
+			// 
+			// R_From
+			// 
+			this->R_From->HeaderText = L"From";
+			this->R_From->MinimumWidth = 6;
+			this->R_From->Name = L"R_From";
+			this->R_From->ReadOnly = true;
+			this->R_From->Width = 125;
+			// 
+			// R_Date
+			// 
+			this->R_Date->HeaderText = L"Date";
+			this->R_Date->MinimumWidth = 6;
+			this->R_Date->Name = L"R_Date";
+			this->R_Date->ReadOnly = true;
+			this->R_Date->Width = 125;
 			// 
 			// txtBoxMsg
 			// 
@@ -220,7 +276,7 @@ namespace GUI {
 			this->label3->Location = System::Drawing::Point(48, 35);
 			this->label3->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(165, 46);
+			this->label3->Size = System::Drawing::Size(198, 55);
 			this->label3->TabIndex = 11;
 			this->label3->Text = L"Unread";
 			// 
@@ -233,7 +289,7 @@ namespace GUI {
 			this->label1->Location = System::Drawing::Point(48, 370);
 			this->label1->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(122, 46);
+			this->label1->Size = System::Drawing::Size(147, 55);
 			this->label1->TabIndex = 11;
 			this->label1->Text = L"Read";
 			// 
@@ -253,50 +309,6 @@ namespace GUI {
 			this->btnClose->TabIndex = 9;
 			this->btnClose->UseVisualStyleBackColor = false;
 			this->btnClose->Click += gcnew System::EventHandler(this, &MessageBox::btnClose_Click);
-			// 
-			// NumOfUnread
-			// 
-			this->NumOfUnread->HeaderText = L"#";
-			this->NumOfUnread->MinimumWidth = 6;
-			this->NumOfUnread->Name = L"NumOfUnread";
-			this->NumOfUnread->ReadOnly = true;
-			this->NumOfUnread->Width = 125;
-			// 
-			// U_From
-			// 
-			this->U_From->HeaderText = L"From";
-			this->U_From->MinimumWidth = 6;
-			this->U_From->Name = L"U_From";
-			this->U_From->Width = 125;
-			// 
-			// U_Date
-			// 
-			this->U_Date->HeaderText = L"Date";
-			this->U_Date->MinimumWidth = 6;
-			this->U_Date->Name = L"U_Date";
-			this->U_Date->Width = 125;
-			// 
-			// NumOfRead
-			// 
-			this->NumOfRead->HeaderText = L"#";
-			this->NumOfRead->MinimumWidth = 6;
-			this->NumOfRead->Name = L"NumOfRead";
-			this->NumOfRead->ReadOnly = true;
-			this->NumOfRead->Width = 125;
-			// 
-			// R_From
-			// 
-			this->R_From->HeaderText = L"From";
-			this->R_From->MinimumWidth = 6;
-			this->R_From->Name = L"R_From";
-			this->R_From->Width = 125;
-			// 
-			// R_Date
-			// 
-			this->R_Date->HeaderText = L"Date";
-			this->R_Date->MinimumWidth = 6;
-			this->R_Date->Name = L"R_Date";
-			this->R_Date->Width = 125;
 			// 
 			// MessageBox
 			// 
@@ -335,17 +347,21 @@ private: System::Void MessageBox_Activated(System::Object^ sender, System::Event
 
 
 	IniMsg();
+	ViewRead->Rows->Clear();
+	ViewUnread->Rows->Clear();
+
 	int time_limit = 0;
-	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_message_Given));
+	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_message_UGiven));
 	std::string _Index_Str_Result = _Index_Str;
 	const char* buffer = _Index_Str_Result.c_str();
+
+
 
 
 	send(client_sock, buffer, strlen(buffer), 0);
 	Sleep(100);
 	DivStr(Recv_str, svrMsg);
-	ViewRead->Rows->Clear();
-	ViewUnread->Rows->Clear();
+	
 
 
 	/*System::String^ clrString = msclr::interop::marshal_as<System::String^>(svrMsg);
@@ -391,16 +407,237 @@ private: System::Void MessageBox_Activated(System::Object^ sender, System::Event
 		int count = 0;
 		for (const auto& message : messagesR) {
 
-			ViewRead->Rows->Add();
-			ViewRead->Rows[count]->Cells["NufOfUnread"]->Value = System::Convert::ToString(count);
+			ViewUnread->Rows->Add();
+			ViewUnread->Rows[count]->Cells["NumOfUnread"]->Value = System::Convert::ToString(count);
 			System::String^ tempwho = msclr::interop::marshal_as<System::String^>(message.first);
-			ViewRead->Rows[count]->Cells["U_From"]->Value = tempwho;
+			ViewUnread->Rows[count]->Cells["U_From"]->Value = tempwho;
 			System::String^ tempmsg = msclr::interop::marshal_as<System::String^>(message.second);
-			ViewRead->Rows[count]->Cells["U_Date"]->Value = tempmsg;
+			ViewUnread->Rows[count]->Cells["U_Date"]->Value = tempmsg;
 			count++;
 		}
 
 	}
+
+	IniMsg();
+
+	_Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_message_RGiven));
+	_Index_Str_Result = _Index_Str;
+	buffer = _Index_Str_Result.c_str();
+
+	send(client_sock, buffer, strlen(buffer), 0);
+	Sleep(100);
+	DivStr(Recv_str, svrMsg);
+	
+	if (isTrue == trueStr)// server 에서 오케이받는 함수
+	{
+
+
+		std::string msg = svrMsg;
+		std::vector<std::pair<std::string, std::string>> messagesR;
+
+		size_t startPos = 0;
+		size_t delimiterPos;
+
+		while ((delimiterPos = msg.find("*/", startPos)) != std::string::npos) {
+			size_t nickStart = delimiterPos + 2;
+			size_t nickEnd = msg.find(' ', nickStart);
+			if (nickEnd == std::string::npos) {
+				nickEnd = msg.length();
+			}
+			size_t messageStart = nickEnd + 1;
+			//
+					// Find the end of the message
+			size_t nextDelimiterPos = msg.find("*/", messageStart);
+			size_t messageEnd;
+			//
+			if (nextDelimiterPos != std::string::npos) {
+				messageEnd = nextDelimiterPos - 1;
+			}
+			else {
+				messageEnd = msg.length();
+			}
+
+			std::string id = msg.substr(nickStart, nickEnd - nickStart);
+			std::string message = msg.substr(messageStart, messageEnd - messageStart);
+
+			messagesR.push_back(std::make_pair(id, message));
+
+			// Move the start position to the end of the current message
+			startPos = messageEnd + 1;
+		}
+		// Output the parsed messages
+		int count = 0;
+		for (const auto& message : messagesR) {
+
+			ViewRead->Rows->Add();
+			ViewRead->Rows[count]->Cells["NumOfRead"]->Value = System::Convert::ToString(count);
+			System::String^ tempwho = msclr::interop::marshal_as<System::String^>(message.first);
+			ViewRead->Rows[count]->Cells["R_From"]->Value = tempwho;
+			System::String^ tempmsg = msclr::interop::marshal_as<System::String^>(message.second);
+			ViewRead->Rows[count]->Cells["R_Date"]->Value = tempmsg;
+			count++;
+		}
+
+	}
+
+
+}
+private: System::Void ViewUnread_CellClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
+
+	IniMsg();
+	int time_limit = 0;
+	std::string tmptxt_1_;
+
+
+
+	if (ViewUnread->SelectedRows->Count > 0) {
+		// 선택한 행의 인덱스를 가져옵니다.
+		int selectedRowIndex = ViewUnread->SelectedRows[0]->Index;
+
+		// 1열, 2열, 3열의 데이터를 가져옵니다.
+		System::Object^ column1ValueObj = ViewUnread->Rows[selectedRowIndex]->Cells["NumOfUnread"]->Value;
+		System::Object^ column2ValueObj = ViewUnread->Rows[selectedRowIndex]->Cells["U_From"]->Value;
+		System::Object^ column3ValueObj = ViewUnread->Rows[selectedRowIndex]->Cells["U_Date"]->Value;
+
+		// null 체크
+		if (column1ValueObj != nullptr && column2ValueObj != nullptr && column3ValueObj != nullptr) {
+			System::String^ column1Value = column1ValueObj->ToString();
+			System::String^ column2Value = column2ValueObj->ToString();
+			System::String^ column3Value = column3ValueObj->ToString();
+
+			tmptxt_1_ = msclr::interop::marshal_as<std::string>(column2Value) + delim + msclr::interop::marshal_as<std::string>(column3Value);
+		}
+		else {
+			// 선택한 행의 하나 이상의 열이 null일 때 처리할 내용
+			// 예를 들어, 오류 메시지 출력 또는 다른 작업을 수행할 수 있습니다.
+			return;
+		}
+	}
+	else {
+		// 선택한 행이 없을 때 처리할 내용
+		// 예를 들어, 오류 메시지 출력 또는 다른 작업을 수행할 수 있습니다.
+		return;
+	}
+
+
+	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_message_UGiven_msg));
+	std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_;
+	const char* buffer = _Index_Str_Result.c_str();
+
+
+	send(client_sock, buffer, strlen(buffer), 0);
+	Sleep(100);
+	DivStrMsg(Recv_str, svrMsg);
+	txtBoxMsg->Clear();
+
+	/*System::String^ clrString = msclr::interop::marshal_as<System::String^>(svrMsg);
+	System::Windows::Forms::MessageBox::Show(clrString, "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);*/
+	if (isTrue == trueStr)// server 에서 오케이받는 함수
+	{
+
+		System::String^ clrString = msclr::interop::marshal_as<System::String^>(svrMsg);
+		txtBoxMsg->Text = clrString;
+
+	}
+
+	else if (isTrue == falseStr) //  server에서 다른값보내면 그럴리없겟지만
+	{
+		System::Windows::Forms::MessageBox::Show("오류발생.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		return;
+	}
+	else // 무한반복되는건데 시간타이밍 주면 좋을거같음
+	{
+		Sleep(1000);
+		if (time_limit > 1)
+		{
+			System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+		else
+		{
+			time_limit++;
+		}
+	}
+
+}
+private: System::Void ViewRead_CellClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
+	IniMsg();
+	int time_limit = 0;
+	std::string tmptxt_1_;
+
+
+
+	if (ViewRead->SelectedRows->Count > 0) {
+		// 선택한 행의 인덱스를 가져옵니다.
+		int selectedRowIndex = ViewRead->SelectedRows[0]->Index;
+
+		// 1열, 2열, 3열의 데이터를 가져옵니다.
+		System::Object^ column1ValueObj = ViewRead->Rows[selectedRowIndex]->Cells["NumOfRead"]->Value;
+		System::Object^ column2ValueObj = ViewRead->Rows[selectedRowIndex]->Cells["R_From"]->Value;
+		System::Object^ column3ValueObj = ViewRead->Rows[selectedRowIndex]->Cells["R_Date"]->Value;
+
+		// null 체크
+		if (column1ValueObj != nullptr && column2ValueObj != nullptr && column3ValueObj != nullptr) {
+			System::String^ column1Value = column1ValueObj->ToString();
+			System::String^ column2Value = column2ValueObj->ToString();
+			System::String^ column3Value = column3ValueObj->ToString();
+
+			tmptxt_1_ = msclr::interop::marshal_as<std::string>(column2Value) + delim + msclr::interop::marshal_as<std::string>(column3Value);
+		}
+		else {
+			// 선택한 행의 하나 이상의 열이 null일 때 처리할 내용
+			// 예를 들어, 오류 메시지 출력 또는 다른 작업을 수행할 수 있습니다.
+			return;
+		}
+	}
+	else {
+		// 선택한 행이 없을 때 처리할 내용
+		// 예를 들어, 오류 메시지 출력 또는 다른 작업을 수행할 수 있습니다.
+		return;
+	}
+
+
+	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_message_RGiven_msg));
+	std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_;
+	const char* buffer = _Index_Str_Result.c_str();
+
+
+	send(client_sock, buffer, strlen(buffer), 0);
+	Sleep(100);
+	DivStrMsg(Recv_str, svrMsg);
+	txtBoxMsg->Clear();
+
+	/*System::String^ clrString = msclr::interop::marshal_as<System::String^>(svrMsg);
+	System::Windows::Forms::MessageBox::Show(clrString, "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);*/
+	if (isTrue == trueStr)// server 에서 오케이받는 함수
+	{
+
+		System::String^ clrString = msclr::interop::marshal_as<System::String^>(svrMsg);
+		txtBoxMsg->Text = clrString;
+
+	}
+
+	else if (isTrue == falseStr) //  server에서 다른값보내면 그럴리없겟지만
+	{
+		System::Windows::Forms::MessageBox::Show("오류발생.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		return;
+	}
+	else // 무한반복되는건데 시간타이밍 주면 좋을거같음
+	{
+		Sleep(1000);
+		if (time_limit > 1)
+		{
+			System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+		else
+		{
+			time_limit++;
+		}
+	}
+
+
+
 
 }
 };

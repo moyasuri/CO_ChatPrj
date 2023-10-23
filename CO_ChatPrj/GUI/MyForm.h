@@ -72,8 +72,8 @@ namespace GUI {
 
 			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\constantmoderato.wav");
 			IntroImageSound->SoundLocation = relativePath; // SoundLocation에 CLI 문자열을 설정
-			IntroImageSound->Load();
-			IntroImageSound->Play();
+			//IntroImageSound->Load();
+			//IntroImageSound->Play();
 
 			// Image 추가			
 			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\HomeIntro.gif");
@@ -494,7 +494,7 @@ namespace GUI {
 		// Timer를 중지합니다.
 		timerDeletePicBoxIntro->Stop();
 		IntroImageSound->Stop();
-		HomeImageSound->Play();
+		//HomeImageSound->Play(); // 잠시
 
 
 	}
@@ -507,7 +507,7 @@ namespace GUI {
 		this->txtBoxID->Clear();
 		this->txtBoxPW->Clear();
 
-		HomeImageSound->Play();
+		//HomeImageSound->Play(); // 잠시
 	}
 
 

@@ -47,14 +47,16 @@ enum EditInfo
 
 enum ShortMessage
 {
-    e_message_List = 41,
+    e_message_List = 410,
     e_message_Read,
     e_message_Send,
     e_message_Delete,
     e_message_Sent,
     e_message_Sent_msg,
-    e_message_Given,
-    e_message_Given_msg,
+    e_message_UGiven,
+    e_message_UGiven_msg,
+    e_message_RGiven,
+    e_message_RGiven_msg,
 
 };
 
@@ -71,4 +73,16 @@ enum Friends
     e_friends_Response_List,
     e_friends_Accept,
     
+};
+
+enum RoomList
+{
+    e_room_Create = 60,
+    e_room_Exit,
+    e_room_Enter,
+    e_room_Delete,
+    e_room_List,
+    e_room_myList,
+    e_room_Chat,
+    e_room_show_whole_Text
 };

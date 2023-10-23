@@ -60,6 +60,10 @@ namespace GUI {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ NufOfSentMsg;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ To;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Date;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Status;
+
+
+
 
 
 
@@ -80,33 +84,103 @@ namespace GUI {
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MessageSent::typeid));
 			this->ViewDataSent = (gcnew System::Windows::Forms::DataGridView());
-			this->NufOfSentMsg = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->To = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Date = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->txtBoxMsg = (gcnew System::Windows::Forms::TextBox());
 			this->btnDelete = (gcnew System::Windows::Forms::Button());
 			this->btnClose = (gcnew System::Windows::Forms::Button());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->NufOfSentMsg = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->To = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Date = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Status = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ViewDataSent))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// ViewDataSent
 			// 
 			this->ViewDataSent->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->ViewDataSent->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(3) {
+			this->ViewDataSent->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(4) {
 				this->NufOfSentMsg,
-					this->To, this->Date
+					this->To, this->Date, this->Status
 			});
-			this->ViewDataSent->Location = System::Drawing::Point(50, 65);
+			this->ViewDataSent->Location = System::Drawing::Point(60, 78);
+			this->ViewDataSent->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
 			this->ViewDataSent->MultiSelect = false;
 			this->ViewDataSent->Name = L"ViewDataSent";
 			this->ViewDataSent->RowHeadersWidth = 51;
 			this->ViewDataSent->RowTemplate->Height = 27;
 			this->ViewDataSent->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
-			this->ViewDataSent->Size = System::Drawing::Size(474, 200);
+			this->ViewDataSent->Size = System::Drawing::Size(569, 240);
 			this->ViewDataSent->TabIndex = 3;
 			this->ViewDataSent->CellClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MessageSent::ViewDataSent_CellClick);
+			// 
+			// txtBoxMsg
+			// 
+			this->txtBoxMsg->Location = System::Drawing::Point(60, 434);
+			this->txtBoxMsg->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->txtBoxMsg->Multiline = true;
+			this->txtBoxMsg->Name = L"txtBoxMsg";
+			this->txtBoxMsg->Size = System::Drawing::Size(568, 315);
+			this->txtBoxMsg->TabIndex = 9;
+			// 
+			// btnDelete
+			// 
+			this->btnDelete->BackColor = System::Drawing::Color::Transparent;
+			this->btnDelete->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnDelete.BackgroundImage")));
+			this->btnDelete->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnDelete->FlatAppearance->BorderSize = 0;
+			this->btnDelete->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnDelete->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnDelete->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnDelete->Location = System::Drawing::Point(452, 334);
+			this->btnDelete->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->btnDelete->Name = L"btnDelete";
+			this->btnDelete->Size = System::Drawing::Size(176, 60);
+			this->btnDelete->TabIndex = 10;
+			this->btnDelete->UseVisualStyleBackColor = false;
+			// 
+			// btnClose
+			// 
+			this->btnClose->BackColor = System::Drawing::Color::Transparent;
+			this->btnClose->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnClose.BackgroundImage")));
+			this->btnClose->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnClose->FlatAppearance->BorderSize = 0;
+			this->btnClose->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnClose->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnClose->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnClose->Location = System::Drawing::Point(452, 770);
+			this->btnClose->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->btnClose->Name = L"btnClose";
+			this->btnClose->Size = System::Drawing::Size(176, 60);
+			this->btnClose->TabIndex = 10;
+			this->btnClose->UseVisualStyleBackColor = false;
+			this->btnClose->Click += gcnew System::EventHandler(this, &MessageSent::btnClose_Click);
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->BackColor = System::Drawing::Color::Transparent;
+			this->label2->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 20));
+			this->label2->ForeColor = System::Drawing::Color::DarkSlateGray;
+			this->label2->Location = System::Drawing::Point(53, 371);
+			this->label2->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(194, 46);
+			this->label2->TabIndex = 11;
+			this->label2->Text = L"Message";
+			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->BackColor = System::Drawing::Color::Transparent;
+			this->label1->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 20));
+			this->label1->ForeColor = System::Drawing::Color::DarkSlateGray;
+			this->label1->Location = System::Drawing::Point(53, 14);
+			this->label1->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(109, 46);
+			this->label1->TabIndex = 11;
+			this->label1->Text = L"Sent";
 			// 
 			// NufOfSentMsg
 			// 
@@ -129,84 +203,28 @@ namespace GUI {
 			this->Date->Name = L"Date";
 			this->Date->Width = 125;
 			// 
-			// txtBoxMsg
+			// Status
 			// 
-			this->txtBoxMsg->Location = System::Drawing::Point(50, 362);
-			this->txtBoxMsg->Multiline = true;
-			this->txtBoxMsg->Name = L"txtBoxMsg";
-			this->txtBoxMsg->Size = System::Drawing::Size(474, 263);
-			this->txtBoxMsg->TabIndex = 9;
-			// 
-			// btnDelete
-			// 
-			this->btnDelete->BackColor = System::Drawing::Color::Transparent;
-			this->btnDelete->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnDelete.BackgroundImage")));
-			this->btnDelete->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->btnDelete->FlatAppearance->BorderSize = 0;
-			this->btnDelete->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
-			this->btnDelete->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
-			this->btnDelete->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnDelete->Location = System::Drawing::Point(377, 278);
-			this->btnDelete->Name = L"btnDelete";
-			this->btnDelete->Size = System::Drawing::Size(147, 50);
-			this->btnDelete->TabIndex = 10;
-			this->btnDelete->UseVisualStyleBackColor = false;
-			// 
-			// btnClose
-			// 
-			this->btnClose->BackColor = System::Drawing::Color::Transparent;
-			this->btnClose->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnClose.BackgroundImage")));
-			this->btnClose->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->btnClose->FlatAppearance->BorderSize = 0;
-			this->btnClose->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
-			this->btnClose->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
-			this->btnClose->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnClose->Location = System::Drawing::Point(377, 642);
-			this->btnClose->Name = L"btnClose";
-			this->btnClose->Size = System::Drawing::Size(147, 50);
-			this->btnClose->TabIndex = 10;
-			this->btnClose->UseVisualStyleBackColor = false;
-			this->btnClose->Click += gcnew System::EventHandler(this, &MessageSent::btnClose_Click);
-			// 
-			// label2
-			// 
-			this->label2->AutoSize = true;
-			this->label2->BackColor = System::Drawing::Color::Transparent;
-			this->label2->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 20));
-			this->label2->ForeColor = System::Drawing::Color::DarkSlateGray;
-			this->label2->Location = System::Drawing::Point(44, 309);
-			this->label2->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
-			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(162, 39);
-			this->label2->TabIndex = 11;
-			this->label2->Text = L"Message";
-			// 
-			// label1
-			// 
-			this->label1->AutoSize = true;
-			this->label1->BackColor = System::Drawing::Color::Transparent;
-			this->label1->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 20));
-			this->label1->ForeColor = System::Drawing::Color::DarkSlateGray;
-			this->label1->Location = System::Drawing::Point(44, 12);
-			this->label1->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(93, 39);
-			this->label1->TabIndex = 11;
-			this->label1->Text = L"Sent";
+			this->Status->HeaderText = L"Status";
+			this->Status->MinimumWidth = 8;
+			this->Status->Name = L"Status";
+			this->Status->ReadOnly = true;
+			this->Status->Width = 150;
 			// 
 			// MessageSent
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(120, 120);
+			this->AutoScaleDimensions = System::Drawing::SizeF(144, 144);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Dpi;
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->ClientSize = System::Drawing::Size(586, 707);
+			this->ClientSize = System::Drawing::Size(703, 848);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->btnClose);
 			this->Controls->Add(this->btnDelete);
 			this->Controls->Add(this->txtBoxMsg);
 			this->Controls->Add(this->ViewDataSent);
+			this->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
 			this->Name = L"MessageSent";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterParent;
 			this->Text = L"SentMessage";

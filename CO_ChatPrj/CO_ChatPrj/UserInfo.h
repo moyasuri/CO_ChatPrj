@@ -2,6 +2,19 @@
 
 class UserInfo {
 public:
+
+    void init() {
+        name.clear();
+        birth.clear();
+        id.clear();
+        pw.clear();
+        phone.clear();
+        nickName.clear();
+        joinRoomIndex.clear();
+        chaNum.clear();
+        email.clear();
+    }
+
     // Getter 함수
     std::string getName() const {
         return name;
@@ -86,4 +99,5 @@ private:
     std::string nickName;
     std::string chaNum;
     std::string joinRoomIndex;
+    
 };

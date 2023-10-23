@@ -6,12 +6,10 @@
 #include <thread>
 #include <vector>
 #include <sstream>
-
+#include "main.h"
 #include <mutex>
-#include "UserInfo.h"
 #include "UsageServer.h"
 #include "MySQL.h"
-
 
 
 #define MAX_SIZE 1024
@@ -24,11 +22,6 @@ using std::string;
 std::mutex sck_list_mutex;
 bool isNumeric(const std::string& str);
 
-struct SOCKET_INFO { // 연결된 소켓 정보에 대한 틀 생성
-    SOCKET sck;
-    string user;
-    UserInfo _user;
-};
 
 
 

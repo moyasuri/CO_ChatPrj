@@ -46,14 +46,16 @@ enum EditInfo
 
 enum ShortMessage
 {
-    e_message_List = 41,
+    e_message_List = 410,
     e_message_Read,
     e_message_Send,
     e_message_Delete,
     e_message_Sent,
     e_message_Sent_msg,
-    e_message_Given,
-    e_message_Given_msg,
+    e_message_UGiven,
+    e_message_UGiven_msg,
+    e_message_RGiven,
+    e_message_RGiven_msg,
 
 
 
