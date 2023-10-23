@@ -3,6 +3,10 @@
 
 class UserInfo {
 public:
+    
+    void init() {
+        name, birth,id, pw, phone, nickName, joinRoomIndex, chaNum, email = "";
+    }
     // Getter ÇÔ¼ö
     std::string getName() const {
         return name;

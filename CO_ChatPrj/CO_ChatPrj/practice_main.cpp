@@ -26,6 +26,7 @@ using std::cin;
 using std::endl;
 using std::string;
 
+int roomNum = 0;
 string _Index;
 const time_t timer = time(NULL);
 const string server = "tcp://127.0.0.1:3306"; // 데이터베이스 주소
@@ -49,6 +50,15 @@ struct SOCKET_INFO { // 연결된 소켓 정보에 대한 틀 생성
     string user_;
 };
 
+struct ROOM_INFO {
+    int Room_Index;
+    std::vector<string> join_client = { "","","" };
+
+    
+};
+
+
+std::vector<ROOM_INFO> workingRoom_list(100);
 std::vector<SOCKET_INFO> sck_list; // 연결된 클라이언트 소켓들을 저장할 배열 선언.
 SOCKET_INFO server_sock; // 서버 소켓에 대한 정보를 저장할 변수 선언.
 int client_count = 0; // 현재 접속해 있는 클라이언트를 count 할 변수 선언.
@@ -57,10 +67,11 @@ SOCKET Client_sck; // =  sck_list[];
 //기존함수들
 void server_init(); // socket 초기화 함수. socket(), bind(), listen() 함수 실행됨. 자세한 내용은 함수 구현부에서 확인.
 void add_client(); // 소켓에 연결을 시도하는 client를 추가(accept)하는 함수. client accept() 함수 실행됨. 자세한 내용은 함수 구현부에서 확인.
-void send_msg(const char* msg); // send() 함수 실행됨. 자세한 내용은 함수 구현부에서 확인.
-void recv_msg(int idx); // recv() 함수 실행됨. 자세한 내용은 함수 구현부에서 확인.
+void send_msg(const char* msg, int room_Index); // send() 함수 실행됨. 자세한 내용은 함수 구현부에서 확인.
+/*string recv_msg(string recv_cont, int index);*/ // recv() 함수 실행됨. 자세한 내용은 함수 구현부에서 확인.
 void del_client(int idx); // 소켓에 연결되어 있는 client를 제거하는 함수. closesocket() 실행됨. 자세한 내용은 함수 구현부에서 확인.
-string recv_long_msg(std::stringstream ss);
+bool isWorkingRoomIndexExist(int roomIndex); // Room이 활성화 됐는지 확인하는 함수
+
 
 void recv_from_client(int idx); //선언
 const string IDENTIFIER = " ";
@@ -73,6 +84,7 @@ const string False = "false";
 class MY_SQL {
 public:
     // MySQL Connector/C++ 초기화
+
     sql::mysql::MySQL_Driver* driver; // 추후 해제하지 않아도 Connector/C++가 자동으로 해제해 줌
     sql::Connection* con;
     sql::Statement* stmt;
@@ -101,7 +113,7 @@ public:
         //stmt->execute("set names 'utf8'");
         stmt->execute("set names euckr");
         //if (stmt) { delete stmt; stmt = nullptr; }
-
+        
     }
 
   
@@ -225,6 +237,7 @@ public:
             result = s_(e_id_try_Signin) + IDENTIFIER + True;
             sck_list[this_idx].user.setID(mysql_check_id);
             sck_list[this_idx].user.setPW(mysql_check_pw);
+            stmt->execute("UPDATE member SET Join_Room_Index = NULL WHERE Member_ID = '" + mysql_check_id + "';");// 추가열
             cout << "로그인 성공 \n";
             }
             else
@@ -757,10 +770,28 @@ public:
             send(Client_sck, result.c_str(), result.size(), 0);
         }
 
+
+        void room_activate(int roomIndex, int index) {
+            string my_ID = sck_list[index].user.getID();
+            if (isWorkingRoomIndexExist(roomIndex) == false) {
+                workingRoom_list[roomIndex].Room_Index = roomIndex;
+            }
+            workingRoom_list[roomIndex].join_client[index] = (my_ID);
+        }
+
+        void room_deactivate(int index) {
+            string my_ID = sck_list[index].user.getID(); //내가 속한 방을 확인하기 위해
+            string my_room = sck_list[index].user.getJoinRoomIndex();
+            int i_my_room = stoi(my_room);
+            if (i_my_room != 1) {
+                if (workingRoom_list[i_my_room].join_client.size() == 0)
+                    workingRoom_list.erase(workingRoom_list.begin() + i_my_room);
+            }
+        }
         //room type (서버 1 공개 2 비공개 3)  - room_PW(없으면 0(공개방))- room_Name 순으로 보내주세요! room_name 에 띄어쓰기 포함 가능해서 뒤로 빼주세요
         // 방을 만들경우 바로 해당 방으로 입장됨( 해당 방 index가 내가 속한 방 index가 됨
         //반환값 e_num + IDENTIFIER + True/False + IDETIFIER + 내가 속한 방 index
-        //클라이언트 :같은 방 타입에서 방 이름 중복되면 못들어오게 처리
+        //클라이언트 :같은 방 타입에서 방 이름 중복되면 못들어오게 처리 추가해야됨
         string room_Create(string recv_content, int index) {
             std::stringstream ss(recv_content);
             string s;
@@ -769,6 +800,7 @@ public:
             int i_room_Type;
             string room_PW="";
             string room_Name="";
+            int room_Index;
             string my_ID = sck_list[index].user.getID();
             string room_date = getCurrentTime();
             std::vector<string> dis_content;
@@ -807,12 +839,15 @@ public:
                     prep_stmt = con->prepareStatement("SELECT* from room_list WHERE Room_Type =? AND Room_Title = ?;");
                     prep_stmt->setInt(1, i_room_Type);
                     prep_stmt->setString(2, room_Name);
+                   
                     cout << "prep_stmt = con->prepareStatement);"<<endl;
                     sql::ResultSet* res = prep_stmt->executeQuery();
                     cout << "prep_stmt = con->prepareStatement);" << endl;
                     if ((res->next()))
                     {
-                        sck_list[index].room.setRoom_Index(res->getInt(1));
+                        room_Index = res->getInt(1); 
+                        sck_list[index].room.setRoom_Index(room_Index);
+                        sck_list[index].room.setRoom_Index(room_Index);
                         sck_list[index].room.setRoom_Type(res->getInt(2));
                         sck_list[index].room.setRoom_Title(res->getString(3));
                         sck_list[index].room.setRoom_Master(res->getString(4));
@@ -822,12 +857,14 @@ public:
                             sck_list[index].room.setRoom_PW(res->getString(6));
                         }
                         sck_list[index].user.setJoinRoomIndex(s_(sck_list[index].room.getRoom_Index()));
+                        cout << " 내가 들어간 방 : " << sck_list[index].user.getJoinRoomIndex() << endl;
                         cout << "방 정보 저장 완료" << endl;
                         prep_stmt = con->prepareStatement("UPDATE member set Join_Room_Index = ? WHERE member_ID = ? ");
                         prep_stmt->setInt(1, std::stoi(sck_list[index].user.getJoinRoomIndex()));
                         prep_stmt->setString(2, my_ID);
-                        res = prep_stmt->executeQuery();
+                        int rowUpdate = prep_stmt->executeUpdate();
                         cout << "update member query 완료;"<<endl;
+                        room_activate(room_Index, index); // 방 활성화 해주기
                         result = s_(e_room_Create) + IDENTIFIER + True + IDENTIFIER + sck_list[index].user.getJoinRoomIndex();
                         cout << "result : " << result << endl;
                         return result;
@@ -859,15 +896,21 @@ public:
         string room_Exit(int index) {
             string my_ID = sck_list[index].user.getID();
             string result;
+            string str_room_Index;
+            int i_room_Index;
             prep_stmt = con->prepareStatement("UPDATE member set Join_Room_Index = NULL WHERE member_ID = ? ;");
             prep_stmt->setString(1, my_ID);          
-            int rows_affected = prep_stmt->executeUpdate();
-            cout << "int rows_affected = prep_stmt->executeUpdate(); " << rows_affected << endl;
-            if (rows_affected > 0) {
+            int rowUpdate = prep_stmt->executeUpdate();
+            cout << "int rows_affected = prep_stmt->executeUpdate(); " << rowUpdate << endl;
+            if (rowUpdate > 0) {
                 sck_list[index].room.room_init();//방정보 초기화
                 result = s_(e_room_Exit) + IDENTIFIER + True;
                 cout << "result = s_(e_room_Exit) + IDENTIFIER + True; :" << result << endl;
-                sck_list[index].user.setJoinRoomIndex(""); 
+                str_room_Index = sck_list[index].user.getJoinRoomIndex();
+                i_room_Index = stoi(str_room_Index);
+                workingRoom_list[i_room_Index].join_client.erase(workingRoom_list[i_room_Index].join_client.begin() + index);//내 이름 활성화된 방에서 삭제
+                room_deactivate(index);
+                sck_list[index].user.setJoinRoomIndex("");
             }
             else 
                 result = s_(e_room_Exit) + IDENTIFIER + False;
@@ -911,7 +954,7 @@ public:
                 prep_stmt->setString(2, my_ID);
                 int rowUpdate = prep_stmt->executeUpdate();
                 if (rowUpdate > 0)
-                    ;
+                    cout<< "rowUpdate >0 "<<endl;
                 else
                 {
                     result = s_(e_room_Enter) + IDENTIFIER + False;
@@ -937,6 +980,7 @@ public:
                         if (i_room_Type ==3)// 비밀방만 비밀번호 받으므로 예외 처리
                              sck_list[index].room.setRoom_PW(res->getString(6));
                         sck_list[index].user.setJoinRoomIndex(room_Index);
+                        room_activate(stoi(room_Index), index);
                         result = s_(e_room_Enter) + IDENTIFIER + True + IDENTIFIER + sck_list[index].user.getJoinRoomIndex();
                         cout << "result : " << result << endl;
                         return result;
@@ -955,7 +999,28 @@ public:
                     return result;
                 }
         }
-  
+        //채팅방에 들어오는 사람들한테 이전 내용 전부 보여주기
+        void room_show_whole_Text(int index) {
+            string row = "------------------------------------------------------------------------------\n";
+            string all_Text = "";
+            string result;
+            string nickname, chat, chat_Data = "";
+            int room_index = stoi(sck_list[index].user.getJoinRoomIndex());
+            prep_stmt = con->prepareStatement("SELECT Nickname, Chat, Chat_Date FROM room_chat WHERE Room_Index=?");
+            prep_stmt->setInt(1, room_index);
+            sql::ResultSet* res = prep_stmt->executeQuery();
+            while (res->next())
+            {
+                nickname = res->getString(1);
+                chat = res->getString(2);
+                chat_Data = res->getString(3);
+                row = nickname + " : " + chat + "  " + chat_Data;
+                send(Client_sck, result.c_str(), result.size(), 0);
+            }
+            cout << all_Text;
+            result = s_(e_room_show_whole_Text) + IDENTIFIER + True + IDENTIFIER + all_Text;
+            
+        }
         //어떤 방을 삭제할건지<인덱스 들어옴
         string room_Delete(string recv_content, int index){
             string room_Index;
@@ -1008,7 +1073,7 @@ public:
         }
 
     
-        //Room_Index, Room_Type, Room_Title 반환해줌
+        //Room_Index, Room_Type, Room_Title 반환해줌  >> date 추가하기
         string room_List(){
             int room_Index;
             string room_Title;
@@ -1039,6 +1104,39 @@ public:
             cout << "result : " << result << endl;
             return result;
         }
+
+        string room_Chat(string recv_cont, int index) {
+
+            string msg = "";
+            string result = "";
+            int room_Type;
+            string room_Date;
+            string date = getCurrentTime();
+            msg = sck_list[index].user.getID() + " : " + recv_cont;
+            cout << msg << endl;
+            string my_Nickname = sck_list[index].user.getID();
+            //cout << sck_list[idx].user << endl;
+            int room_Index = stoi(sck_list[index].user.getJoinRoomIndex());
+            send_msg(msg.c_str(), room_Index);
+            cout << "send 빠져나왔다" << endl;
+            prep_stmt = con->prepareStatement("INSERT INTO room_chat VALUES (NULL,?,?,?,?)");
+            prep_stmt->setString(1, my_Nickname);
+            prep_stmt->setString(2, recv_cont);
+            prep_stmt->setString(3,date);
+            prep_stmt->setInt(4, room_Index);
+            int rowUpdate = prep_stmt->executeUpdate();
+            cout << "rowUpdate : " << rowUpdate<<endl;
+            if (rowUpdate>0)
+            {
+                cout << "if (res->next()) " << endl;
+                result = s_(e_recv_msg) + IDENTIFIER + True;
+            }
+            else
+                result = s_(e_recv_msg) + IDENTIFIER + False;
+            return result;
+        }
+        
+
 private:
 };
 
@@ -1125,9 +1223,13 @@ void add_client1() { //add_client  변형해서 우리 상황에 맞게 사용하고 싶음
 
 }
 
-void send_msg(const char* msg) {
-    for (int i = 0; i < client_count; i++) { // 접속해 있는 모든 client에게 메시지 전송
-        send(sck_list[i].sck, msg, MAX_SIZE, 0);
+void send_msg(const char* msg, int room_Index) {
+    for (int i = 0; i <MAX_CLIENT; i++) { // 이 방에 접속해 있는 모든 client에게 메시지 전송
+        if (stoi(sck_list[i].user.getJoinRoomIndex()) == room_Index) {
+            cout << "send "<< msg<<"  i: "<<i << endl;
+            send(Client_sck, msg, MAX_SIZE, 0);
+        }
+        //join_client 멤버들의 소켓으로 보내줘야 됨
     }
 }
 
@@ -1178,6 +1280,7 @@ void recv_from_client(int idx) {// 메세지가 들어오면 타입 구분 하는 기초 함수
     while (1) { //  recv한 다음에 여기에 switch 넣기 
         // add client () 수정하지 마.
         SOCKET Client_sck = sck_list[idx].sck;
+        int my_room_Num=0;
 
         ZeroMemory(&buf, MAX_SIZE);
         if (recv(Client_sck, buf, MAX_SIZE, 0) > 0) {
@@ -1275,6 +1378,8 @@ void recv_from_client(int idx) {// 메세지가 들어오면 타입 구분 하는 기초 함수
             case e_room_Enter:
                 cout << "  case e_room_Enter: " << endl;
                 result = mysql.room_Enter(recv_content,idx); send(Client_sck, result.c_str(), result.size(), 0);
+                mysql.room_show_whole_Text(idx); 
+                my_room_Num= stoi(sck_list[idx].user.getJoinRoomIndex());
                 break;
             case e_room_Delete:
                 cout << "  case e_room_Delete" << endl;
@@ -1287,6 +1392,10 @@ void recv_from_client(int idx) {// 메세지가 들어오면 타입 구분 하는 기초 함수
             case e_room_myList:
                 cout << "  case e_room_Enter: " << endl;
                 result = mysql.room_myList(idx); send(Client_sck, result.c_str(), result.size(), 0);
+                break;
+            case e_room_Chat:
+                cout << " case e_room_Chat:" << endl;
+                result = mysql.room_Chat(recv_content, idx);
                 break;
          /*   case e_edit_PWchk:
                 cout << "e_edit_PWchk = 31 " << endl;
@@ -1343,14 +1452,14 @@ void recv_from_client(int idx) {// 메세지가 들어오면 타입 구분 하는 기초 함수
             //closesocket(server_sock.sck);
         }
         else {
-            cout << "else" << endl;
+            cout << "case 문에 못들어감" << endl;
         }
     }
 }
 
     int main() {
         WSADATA wsa;
-
+        
         // Winsock를 초기화하는 함수. MAKEWORD(2, 2)는 Winsock의 2.2 버전을 사용하겠다는 의미.
         // 실행에 성공하면 0을, 실패하면 그 이외의 값을 반환.
         // 0을 반환했다는 것은 Winsock을 사용할 준비가 되었다는 의미.
@@ -1373,9 +1482,9 @@ void recv_from_client(int idx) {// 메세지가 들어오면 타입 구분 하는 기초 함수
                 string text, msg = "";
 
                 std::getline(cin, text);
-                const char* buf = text.c_str();
-                msg = server_sock.user_ + " : " + buf;
-                send_msg(msg.c_str());
+                const char* buf = text.c_str();/*
+                msg = sck_ + " : " + buf;
+                send_msg(msg.c_str(), sck_list[i].user.getID());*/
             }
 
             for (int i = 0; i < MAX_CLIENT; i++) {
@@ -1418,14 +1527,13 @@ void recv_from_client(int idx) {// 메세지가 들어오면 타입 구분 하는 기초 함수
         return buffer;
     }
 
-    string recv_long_msg(std::stringstream ss) {
-        string text;
-        string s;
-        std::vector<string> all;
-        while (ss >> s)
-            all.push_back(s);
-        all.erase(all.begin());
-        for (auto line : all)
-            text = text + line + IDENTIFIER;
+    bool isWorkingRoomIndexExist(int roomIndex) {
+        for (auto roomInfo : workingRoom_list) {
+            if (roomInfo.Room_Index == roomIndex) {
+                return true;
+            }
+        }
+        return false;
     }
 
+    
