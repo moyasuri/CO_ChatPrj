@@ -1,11 +1,13 @@
 ﻿#pragma once
 
+#include <vector>
 #include <string>
 #include <sstream>
 #include <msclr/marshal_cppstd.h>
 #include "UsageClient.h"
 extern SOCKET client_sock;
 extern std::string Recv_str;
+
 
 namespace GUI {
 
@@ -57,10 +59,14 @@ namespace GUI {
 	private: System::Windows::Forms::Button^ btnClose;
 	private: System::Windows::Forms::Label^ label2;
 	private: System::Windows::Forms::Label^ label1;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ NufOfSentMsg;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ NumOfSentMsg;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ To;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Date;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Status;
+
+
+
+
 
 
 
@@ -89,7 +95,7 @@ namespace GUI {
 			this->btnClose = (gcnew System::Windows::Forms::Button());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->NufOfSentMsg = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->NumOfSentMsg = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->To = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->Date = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->Status = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
@@ -100,11 +106,11 @@ namespace GUI {
 			// 
 			this->ViewDataSent->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->ViewDataSent->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(4) {
-				this->NufOfSentMsg,
+				this->NumOfSentMsg,
 					this->To, this->Date, this->Status
 			});
 			this->ViewDataSent->Location = System::Drawing::Point(60, 78);
-			this->ViewDataSent->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->ViewDataSent->Margin = System::Windows::Forms::Padding(4);
 			this->ViewDataSent->MultiSelect = false;
 			this->ViewDataSent->Name = L"ViewDataSent";
 			this->ViewDataSent->RowHeadersWidth = 51;
@@ -117,7 +123,7 @@ namespace GUI {
 			// txtBoxMsg
 			// 
 			this->txtBoxMsg->Location = System::Drawing::Point(60, 434);
-			this->txtBoxMsg->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->txtBoxMsg->Margin = System::Windows::Forms::Padding(4);
 			this->txtBoxMsg->Multiline = true;
 			this->txtBoxMsg->Name = L"txtBoxMsg";
 			this->txtBoxMsg->Size = System::Drawing::Size(568, 315);
@@ -133,7 +139,7 @@ namespace GUI {
 			this->btnDelete->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnDelete->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnDelete->Location = System::Drawing::Point(452, 334);
-			this->btnDelete->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->btnDelete->Margin = System::Windows::Forms::Padding(4);
 			this->btnDelete->Name = L"btnDelete";
 			this->btnDelete->Size = System::Drawing::Size(176, 60);
 			this->btnDelete->TabIndex = 10;
@@ -149,7 +155,7 @@ namespace GUI {
 			this->btnClose->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnClose->Location = System::Drawing::Point(452, 770);
-			this->btnClose->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->btnClose->Margin = System::Windows::Forms::Padding(4);
 			this->btnClose->Name = L"btnClose";
 			this->btnClose->Size = System::Drawing::Size(176, 60);
 			this->btnClose->TabIndex = 10;
@@ -182,12 +188,12 @@ namespace GUI {
 			this->label1->TabIndex = 11;
 			this->label1->Text = L"Sent";
 			// 
-			// NufOfSentMsg
+			// NumOfSentMsg
 			// 
-			this->NufOfSentMsg->HeaderText = L"#";
-			this->NufOfSentMsg->MinimumWidth = 6;
-			this->NufOfSentMsg->Name = L"NufOfSentMsg";
-			this->NufOfSentMsg->Width = 50;
+			this->NumOfSentMsg->HeaderText = L"#";
+			this->NumOfSentMsg->MinimumWidth = 6;
+			this->NumOfSentMsg->Name = L"NumOfSentMsg";
+			this->NumOfSentMsg->Width = 50;
 			// 
 			// To
 			// 
@@ -224,7 +230,7 @@ namespace GUI {
 			this->Controls->Add(this->btnDelete);
 			this->Controls->Add(this->txtBoxMsg);
 			this->Controls->Add(this->ViewDataSent);
-			this->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"MessageSent";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterParent;
 			this->Text = L"SentMessage";
@@ -259,53 +265,57 @@ private: System::Void MessageSent_Activated(System::Object^ sender, System::Even
 	if (isTrue == trueStr)// server 에서 오케이받는 함수
 	{
 
+		std::vector<std::string> ids;
+		std::vector<int> indexes;
+		std::vector<std::string> messages;
 
-		/////
 
-		std::string msg = svrMsg;
-		std::vector<std::pair<std::string, std::string>> messages;
 
-		size_t startPos = 0;
-		size_t delimiterPos;
 
-		while ((delimiterPos = msg.find("*/", startPos)) != std::string::npos) {
-			size_t nickStart = delimiterPos + 2;
-			size_t nickEnd = msg.find(' ', nickStart);
-			if (nickEnd == std::string::npos) {
-				nickEnd = msg.length();
+		std::istringstream iss(svrMsg);
+		std::string line;
+
+		while (std::getline(iss, line, '\n')) {
+			size_t idStart = line.find("*/");
+			size_t idEnd = line.find(' ', idStart + 2);
+			size_t indexStart = idEnd;
+			size_t indexEnd = line.find(' ', indexStart + 1);
+			size_t messageStart = indexEnd;
+
+			if (idStart != std::string::npos && idEnd != std::string::npos &&
+				indexStart != std::string::npos && indexEnd != std::string::npos) {
+				ids.push_back(line.substr(idStart + 2, idEnd - idStart - 2));
+				indexes.push_back( std::stoi(line.substr(indexStart, indexEnd - indexStart)));
+				messages.push_back(line.substr(messageStart + 1));
+
 			}
-			size_t messageStart = nickEnd + 1;
-			//
-					// Find the end of the message
-			size_t nextDelimiterPos = msg.find("*/", messageStart);
-			size_t messageEnd;
-			//
-			if (nextDelimiterPos != std::string::npos) {
-				messageEnd = nextDelimiterPos - 1;
-			}
-			else {
-				messageEnd = msg.length();
-			}
-
-			std::string id = msg.substr(nickStart, nickEnd - nickStart);
-			std::string message = msg.substr(messageStart, messageEnd - messageStart);
-
-			messages.push_back(std::make_pair(id, message));
-
-			// Move the start position to the end of the current message
-			startPos = messageEnd + 1;
 		}
-		// Output the parsed messages
-		int count = 0;
-		for (const auto& message : messages) {
 
+
+
+		for (size_t i = 0; i < ids.size(); ++i)
+		{
+
+		
 			ViewDataSent->Rows->Add();
-			ViewDataSent->Rows[count]->Cells["NufOfSentMsg"]->Value = System::Convert::ToString(count);
-			System::String^ tempwho = msclr::interop::marshal_as<System::String^>(message.first);
-			ViewDataSent->Rows[count]->Cells["To"]->Value = tempwho;
-			System::String^ tempmsg = msclr::interop::marshal_as<System::String^>(message.second);
-			ViewDataSent->Rows[count]->Cells["Date"]->Value = tempmsg;
-			count++;
+			ViewDataSent->Rows[i]->Cells["NumOfSentMsg"]->Value = System::Convert::ToString(i);
+
+			System::String^ tempwho = msclr::interop::marshal_as<System::String^>(ids[i]);
+			ViewDataSent->Rows[i]->Cells["To"]->Value = tempwho;
+
+			System::String^ tempmsg = msclr::interop::marshal_as<System::String^>(messages[i]);
+			ViewDataSent->Rows[i]->Cells["Date"]->Value = tempmsg;
+
+			System::String^ tempsts;
+			if (indexes[i] == 0 || indexes[i] == 2)
+			{
+				tempsts = msclr::interop::marshal_as < System::String^>("Unread");
+			}
+			else
+			{
+				tempsts = msclr::interop::marshal_as < System::String^>("Read");
+			}
+			ViewDataSent->Rows[i]->Cells["Status"]->Value = tempsts;
 		}
 
 	}
@@ -315,14 +325,14 @@ private: System::Void ViewDataSent_CellClick(System::Object^ sender, System::Win
 	int time_limit = 0;
 	std::string tmptxt_1_;
 
-
+	
 
 	if (ViewDataSent->SelectedRows->Count > 0) {
 		// 선택한 행의 인덱스를 가져옵니다.
 		int selectedRowIndex = ViewDataSent->SelectedRows[0]->Index;
 
 		// 1열, 2열, 3열의 데이터를 가져옵니다.
-		System::Object^ column1ValueObj = ViewDataSent->Rows[selectedRowIndex]->Cells["NufOfSentMsg"]->Value;
+		System::Object^ column1ValueObj = ViewDataSent->Rows[selectedRowIndex]->Cells["NumOfSentMsg"]->Value;
 		System::Object^ column2ValueObj = ViewDataSent->Rows[selectedRowIndex]->Cells["To"]->Value;
 		System::Object^ column3ValueObj = ViewDataSent->Rows[selectedRowIndex]->Cells["Date"]->Value;
 
@@ -364,12 +374,12 @@ private: System::Void ViewDataSent_CellClick(System::Object^ sender, System::Win
 
 		System::String^ clrString = msclr::interop::marshal_as<System::String^>(svrMsg);
 		txtBoxMsg->Text = clrString;
-
+		return;
+		
 	}
 
 	else if (isTrue == falseStr) //  server에서 다른값보내면 그럴리없겟지만
 	{
-		System::Windows::Forms::MessageBox::Show("오류발생.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		return;
 	}
 	else // 무한반복되는건데 시간타이밍 주면 좋을거같음
@@ -386,5 +396,7 @@ private: System::Void ViewDataSent_CellClick(System::Object^ sender, System::Win
 		}
 	}
 }
+
+
 };
 }

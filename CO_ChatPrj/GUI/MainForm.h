@@ -39,6 +39,7 @@ namespace GUI {
 	private: System::Windows::Forms::Label^ NumMessage;
 	private: System::Windows::Forms::Panel^ panel1;
 	private: System::Windows::Forms::Button^ button1;
+	private: System::Windows::Forms::Button^ button2;
 
 
 
@@ -126,6 +127,7 @@ namespace GUI {
 			this->NumMessage = (gcnew System::Windows::Forms::Label());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->panel1->SuspendLayout();
 			this->SuspendLayout();
 			// 
@@ -139,7 +141,7 @@ namespace GUI {
 			this->btnDelChatRoom->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnDelChatRoom->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnDelChatRoom->Location = System::Drawing::Point(124, 335);
-			this->btnDelChatRoom->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->btnDelChatRoom->Margin = System::Windows::Forms::Padding(4);
 			this->btnDelChatRoom->Name = L"btnDelChatRoom";
 			this->btnDelChatRoom->Size = System::Drawing::Size(492, 119);
 			this->btnDelChatRoom->TabIndex = 0;
@@ -156,7 +158,7 @@ namespace GUI {
 			this->btnJoinChatRoom->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnJoinChatRoom->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnJoinChatRoom->Location = System::Drawing::Point(118, 53);
-			this->btnJoinChatRoom->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->btnJoinChatRoom->Margin = System::Windows::Forms::Padding(4);
 			this->btnJoinChatRoom->Name = L"btnJoinChatRoom";
 			this->btnJoinChatRoom->Size = System::Drawing::Size(498, 127);
 			this->btnJoinChatRoom->TabIndex = 1;
@@ -173,7 +175,7 @@ namespace GUI {
 			this->btnEditProfile->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnEditProfile->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnEditProfile->Location = System::Drawing::Point(72, 529);
-			this->btnEditProfile->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->btnEditProfile->Margin = System::Windows::Forms::Padding(4);
 			this->btnEditProfile->Name = L"btnEditProfile";
 			this->btnEditProfile->Size = System::Drawing::Size(145, 178);
 			this->btnEditProfile->TabIndex = 2;
@@ -190,7 +192,7 @@ namespace GUI {
 			this->btnCreateChatRoom->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnCreateChatRoom->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnCreateChatRoom->Location = System::Drawing::Point(124, 194);
-			this->btnCreateChatRoom->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->btnCreateChatRoom->Margin = System::Windows::Forms::Padding(4);
 			this->btnCreateChatRoom->Name = L"btnCreateChatRoom";
 			this->btnCreateChatRoom->Size = System::Drawing::Size(492, 122);
 			this->btnCreateChatRoom->TabIndex = 3;
@@ -207,7 +209,7 @@ namespace GUI {
 			this->btnFriends->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnFriends->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnFriends->Location = System::Drawing::Point(294, 526);
-			this->btnFriends->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->btnFriends->Margin = System::Windows::Forms::Padding(4);
 			this->btnFriends->Name = L"btnFriends";
 			this->btnFriends->Size = System::Drawing::Size(152, 186);
 			this->btnFriends->TabIndex = 4;
@@ -224,7 +226,7 @@ namespace GUI {
 			this->btnMessage->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnMessage->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnMessage->Location = System::Drawing::Point(529, 538);
-			this->btnMessage->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->btnMessage->Margin = System::Windows::Forms::Padding(4);
 			this->btnMessage->Name = L"btnMessage";
 			this->btnMessage->Size = System::Drawing::Size(150, 180);
 			this->btnMessage->TabIndex = 5;
@@ -242,7 +244,7 @@ namespace GUI {
 			this->btnSignOut->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnSignOut->Font = (gcnew System::Drawing::Font(L"Georgia", 10));
 			this->btnSignOut->Location = System::Drawing::Point(458, 822);
-			this->btnSignOut->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->btnSignOut->Margin = System::Windows::Forms::Padding(4);
 			this->btnSignOut->Name = L"btnSignOut";
 			this->btnSignOut->Size = System::Drawing::Size(233, 66);
 			this->btnSignOut->TabIndex = 6;
@@ -323,6 +325,16 @@ namespace GUI {
 			this->button1->UseVisualStyleBackColor = true;
 			this->button1->Click += gcnew System::EventHandler(this, &MainForm::button1_Click);
 			// 
+			// button2
+			// 
+			this->button2->Location = System::Drawing::Point(631, 352);
+			this->button2->Name = L"button2";
+			this->button2->Size = System::Drawing::Size(93, 72);
+			this->button2->TabIndex = 16;
+			this->button2->Text = L"button2";
+			this->button2->UseVisualStyleBackColor = true;
+			this->button2->Click += gcnew System::EventHandler(this, &MainForm::button2_Click);
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(144, 144);
@@ -330,6 +342,7 @@ namespace GUI {
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->ClientSize = System::Drawing::Size(772, 919);
+			this->Controls->Add(this->button2);
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->panel1);
 			this->Controls->Add(this->label6);
@@ -342,7 +355,7 @@ namespace GUI {
 			this->Controls->Add(this->btnEditProfile);
 			this->Controls->Add(this->btnJoinChatRoom);
 			this->Controls->Add(this->btnDelChatRoom);
-			this->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"MainForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterParent;
 			this->Text = L"MainForm";
@@ -465,7 +478,7 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 
 		//std::string tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
 		//std::string tmptxt_2_ = msclr::interop::marshal_as<std::string>(tmptxt_2);
-		std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_room_Create));
+		std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_room_Enter));
 		std::string _Index_Str_Result = _Index_Str;/* + delim + tmptxt_1_ + delim + tmptxt_2_;*/
 		const char* buffer = _Index_Str_Result.c_str();
 
@@ -474,6 +487,18 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 		Sleep(100);
 		//DivStr(Recv_str, svrMsg);
 
+}
+private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
+
+	IniMsg();
+
+	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_room_Exit));
+	std::string _Index_Str_Result = _Index_Str;/* + delim + tmptxt_1_ + delim + tmptxt_2_;*/
+	const char* buffer = _Index_Str_Result.c_str();
+
+
+	send(client_sock, buffer, strlen(buffer), 0);
+	Sleep(100);
 }
 };
 }

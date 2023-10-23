@@ -17,8 +17,9 @@ const string password = "1q2w3e4r5t"; // 데이터베이스 접속 비밀번호
 
 
 struct ROOM_INFO {
-    int Room_Index;
-    std::vector<string> join_client = { "","","" };
+    int Room_Index = 0;
+    std::vector<std::string> join_client;
+    ROOM_INFO() : join_client(100) {}
 };
 
 class MySQL {

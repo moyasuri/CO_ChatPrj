@@ -12,7 +12,6 @@ const std::string elseStr = "else";
 const char* __true = trueStr.c_str();
 const char* __false = falseStr.c_str();
 
-
 void DivStrMsg(std::string& _Recv_str, std::string& _svrMsg)
 {
 	std::istringstream iss(_Recv_str);
