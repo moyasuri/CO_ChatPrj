@@ -96,3 +96,16 @@ enum Character
     e_character_izuna = 71,
     e_character_alice,
 };
+
+
+enum RoomList
+{
+    e_room_Create = 60,
+    e_room_Exit,
+    e_room_Enter,
+    e_room_Delete,
+    e_room_List,
+    e_room_myList,
+    e_room_Chat,
+    e_room_show_whole_Text
+};

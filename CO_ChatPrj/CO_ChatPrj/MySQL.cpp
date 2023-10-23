@@ -962,7 +962,7 @@ string MySQL::QuerySql(string msg, int idx) {
             // roomtype은 1이들어갈수없다.
             // name = "abc cdf"
             // std::stringstream ss(recv_content); //  없어도돼
-            string A = "2 0 나랏말싸미";
+            string A = "2 0 asdfsda";
             std::stringstream ss(A);
             string s;
             string result = "";
