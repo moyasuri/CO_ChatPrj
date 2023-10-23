@@ -1,5 +1,12 @@
 ﻿#pragma once
 
+#include <string>
+#include <sstream>
+#include <msclr/marshal_cppstd.h>
+#include "UsageClient.h"
+extern SOCKET client_sock;
+extern std::string Recv_str;
+
 namespace GUI {
 
 	using namespace System;
@@ -34,18 +41,24 @@ namespace GUI {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::DataGridView^ dataGridView1;
+	private: System::Windows::Forms::DataGridView^ ViewDataSent;
+	private: System::Windows::Forms::TextBox^ txtBoxMsg;
+	protected:
+
 	protected:
 
 
-	private: System::Windows::Forms::TextBox^ textBox1;
+
 	private: System::Windows::Forms::Button^ btnDelete;
 
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ To;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Date;
+
+
 	private: System::Windows::Forms::Button^ btnClose;
 	private: System::Windows::Forms::Label^ label2;
 	private: System::Windows::Forms::Label^ label1;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ NufOfSentMsg;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ To;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Date;
 
 
 	private:
@@ -62,49 +75,39 @@ namespace GUI {
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MessageSent::typeid));
-			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
-			this->To = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Date = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
+			this->ViewDataSent = (gcnew System::Windows::Forms::DataGridView());
+			this->txtBoxMsg = (gcnew System::Windows::Forms::TextBox());
 			this->btnDelete = (gcnew System::Windows::Forms::Button());
 			this->btnClose = (gcnew System::Windows::Forms::Button());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->label1 = (gcnew System::Windows::Forms::Label());
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
+			this->NufOfSentMsg = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->To = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Date = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ViewDataSent))->BeginInit();
 			this->SuspendLayout();
 			// 
-			// dataGridView1
+			// ViewDataSent
 			// 
-			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(2) { this->To, this->Date });
-			this->dataGridView1->Location = System::Drawing::Point(50, 65);
-			this->dataGridView1->Name = L"dataGridView1";
-			this->dataGridView1->RowHeadersWidth = 51;
-			this->dataGridView1->RowTemplate->Height = 27;
-			this->dataGridView1->Size = System::Drawing::Size(474, 200);
-			this->dataGridView1->TabIndex = 3;
+			this->ViewDataSent->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->ViewDataSent->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(3) {
+				this->NufOfSentMsg,
+					this->To, this->Date
+			});
+			this->ViewDataSent->Location = System::Drawing::Point(50, 65);
+			this->ViewDataSent->Name = L"ViewDataSent";
+			this->ViewDataSent->RowHeadersWidth = 51;
+			this->ViewDataSent->RowTemplate->Height = 27;
+			this->ViewDataSent->Size = System::Drawing::Size(474, 200);
+			this->ViewDataSent->TabIndex = 3;
 			// 
-			// To
+			// txtBoxMsg
 			// 
-			this->To->HeaderText = L"To";
-			this->To->MinimumWidth = 6;
-			this->To->Name = L"To";
-			this->To->Width = 125;
-			// 
-			// Date
-			// 
-			this->Date->HeaderText = L"Date";
-			this->Date->MinimumWidth = 6;
-			this->Date->Name = L"Date";
-			this->Date->Width = 125;
-			// 
-			// textBox1
-			// 
-			this->textBox1->Location = System::Drawing::Point(50, 362);
-			this->textBox1->Multiline = true;
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(474, 263);
-			this->textBox1->TabIndex = 9;
+			this->txtBoxMsg->Location = System::Drawing::Point(50, 362);
+			this->txtBoxMsg->Multiline = true;
+			this->txtBoxMsg->Name = L"txtBoxMsg";
+			this->txtBoxMsg->Size = System::Drawing::Size(474, 263);
+			this->txtBoxMsg->TabIndex = 9;
 			// 
 			// btnDelete
 			// 
@@ -163,6 +166,28 @@ namespace GUI {
 			this->label1->TabIndex = 11;
 			this->label1->Text = L"Sent";
 			// 
+			// NufOfSentMsg
+			// 
+			this->NufOfSentMsg->HeaderText = L"#";
+			this->NufOfSentMsg->MinimumWidth = 6;
+			this->NufOfSentMsg->Name = L"NufOfSentMsg";
+			this->NufOfSentMsg->ReadOnly = true;
+			this->NufOfSentMsg->Width = 50;
+			// 
+			// To
+			// 
+			this->To->HeaderText = L"To";
+			this->To->MinimumWidth = 6;
+			this->To->Name = L"To";
+			this->To->Width = 125;
+			// 
+			// Date
+			// 
+			this->Date->HeaderText = L"Date";
+			this->Date->MinimumWidth = 6;
+			this->Date->Name = L"Date";
+			this->Date->Width = 125;
+			// 
 			// MessageSent
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(120, 120);
@@ -174,12 +199,13 @@ namespace GUI {
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->btnClose);
 			this->Controls->Add(this->btnDelete);
-			this->Controls->Add(this->textBox1);
-			this->Controls->Add(this->dataGridView1);
+			this->Controls->Add(this->txtBoxMsg);
+			this->Controls->Add(this->ViewDataSent);
 			this->Name = L"MessageSent";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterParent;
 			this->Text = L"SentMessage";
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
+			this->Activated += gcnew System::EventHandler(this, &MessageSent::MessageSent_Activated);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ViewDataSent))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -188,6 +214,77 @@ namespace GUI {
 	
 private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {
 	this->Close();
+}
+private: System::Void MessageSent_Activated(System::Object^ sender, System::EventArgs^ e) {
+
+	IniMsg();
+	int time_limit = 0;
+	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_message_Sent));
+	std::string _Index_Str_Result = _Index_Str;
+	const char* buffer = _Index_Str_Result.c_str();
+
+
+	send(client_sock, buffer, strlen(buffer), 0);
+	Sleep(100);
+	DivStr(Recv_str, svrMsg);
+	ViewDataSent->Rows->Clear();
+
+
+	/*System::String^ clrString = msclr::interop::marshal_as<System::String^>(svrMsg);
+	System::Windows::Forms::MessageBox::Show(clrString, "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);*/
+	if (isTrue == trueStr)// server 에서 오케이받는 함수
+	{
+
+
+		/////
+
+		std::string msg = svrMsg;
+		std::vector<std::pair<std::string, std::string>> messages;
+
+		size_t startPos = 0;
+		size_t delimiterPos;
+
+		while ((delimiterPos = msg.find("*/", startPos)) != std::string::npos) {
+			size_t nickStart = delimiterPos + 2;
+			size_t nickEnd = msg.find(' ', nickStart);
+			if (nickEnd == std::string::npos) {
+				nickEnd = msg.length();
+			}
+			size_t messageStart = nickEnd + 1;
+			//
+					// Find the end of the message
+			size_t nextDelimiterPos = msg.find("*/", messageStart);
+			size_t messageEnd;
+			//
+			if (nextDelimiterPos != std::string::npos) {
+				messageEnd = nextDelimiterPos - 1;
+			}
+			else {
+				messageEnd = msg.length();
+			}
+
+			std::string id = msg.substr(nickStart, nickEnd - nickStart);
+			std::string message = msg.substr(messageStart, messageEnd - messageStart);
+
+			messages.push_back(std::make_pair(id, message));
+
+			// Move the start position to the end of the current message
+			startPos = messageEnd + 1;
+		}
+		// Output the parsed messages
+		int count = 0;
+		for (const auto& message : messages) {
+
+			ViewDataSent->Rows->Add();
+			ViewDataSent->Rows[count]->Cells["NufOfSentMsg"]->Value = System::Convert::ToString(count);
+			System::String^ tempwho = msclr::interop::marshal_as<System::String^>(message.first);
+			ViewDataSent->Rows[count]->Cells["To"]->Value = tempwho;
+			System::String^ tempmsg = msclr::interop::marshal_as<System::String^>(message.second);
+			ViewDataSent->Rows[count]->Cells["Date"]->Value = tempmsg;
+			count++;
+		}
+
+	}
 }
 };
 }

@@ -8,7 +8,6 @@ extern std::string sqlMsg;
 extern const std::string trueStr;
 extern const std::string falseStr;
 extern const std::string elseStr;
-
 extern const char* __true;
 extern const char* __false;
 
@@ -16,6 +15,8 @@ void clrisTrue();
 void clrsvrMsg();
 void clrsqlMsg();
 void IniMsg();
+extern std::string _id_from, _nick_from, _msg;
+extern std::string _id_temp, _msg_temp,  result;
 
 
 
@@ -50,6 +51,7 @@ enum ShortMessage
     e_message_Read,
     e_message_Send,
     e_message_Delete,
+    e_message_Sent,
 
 };
 

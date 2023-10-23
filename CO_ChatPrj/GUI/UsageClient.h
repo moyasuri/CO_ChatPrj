@@ -50,6 +50,7 @@ enum ShortMessage
     e_message_Read,
     e_message_Send,
     e_message_Delete,
+    e_message_Sent,
 
 };
 

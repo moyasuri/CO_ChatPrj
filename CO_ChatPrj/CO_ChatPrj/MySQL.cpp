@@ -15,6 +15,8 @@ using std::string;
 
 
 extern std::vector<SOCKET_INFO> sck_list;
+extern std::string _id_from, _nick_from, _msg;
+extern std::string _id_temp, _msg_temp,  result;
 
 // #define MAX_SIZE 1024//소켓 박스크기
 
@@ -58,7 +60,7 @@ void MySQL::set_database(string str) {
         con->setSchema(str);
         // db 한글 저장을 위한 셋팅 
         stmt = con->createStatement();
-        stmt->execute("set names euckr");
+        stmt->execute("set names 'utf8'");
         // if (stmt) { delete stmt; stmt = nullptr; }
     }
     catch (sql::SQLException& e) {
@@ -112,7 +114,7 @@ string MySQL::QuerySql(string msg, int idx) {
                 sck_list[idx]._user.setID(_id);
                 
                 std::string query = "SELECT Nickname FROM member WHERE Member_ID = '" + _id + "'";
-                std::string result = "";
+                result = "";
                 res = stmt->executeQuery(query);
 
 
@@ -158,7 +160,7 @@ string MySQL::QuerySql(string msg, int idx) {
             ss >> _id >> _birth >> _phone;
 
             string respw = "";
-            string result = "";
+            result = "";
             res = stmt->executeQuery("SELECT Member_PW FROM member WHERE Member_ID = '" + _id + \
                 "' AND Birth = '" + _birth + "' AND Phone = '" + _phone + "'");
 
@@ -318,7 +320,7 @@ string MySQL::QuerySql(string msg, int idx) {
  = m.Member_ID WHERE f.My_ID = '" + _id + "'";
             res = stmt->executeQuery(query);
 
-            string result = "";
+            result = "";
 
             while (res->next()) {
                 result += res->getString("Nickname") + delim;
@@ -338,7 +340,8 @@ string MySQL::QuerySql(string msg, int idx) {
         case e_friends_Request:
         {
             string _id = sck_list[idx]._user.getID();
-            string _to_nickname,_msg;
+            string _to_nickname="";
+            _msg = "";
             ss >> _to_nickname >> std::ws;;
             getline(ss,_msg,'\0');
 
@@ -410,9 +413,12 @@ string MySQL::QuerySql(string msg, int idx) {
                 ss_msg_from << res->getString("Request_Msg") + "\n";
             }
 
-            string _id_from = "", _nick_from = "", _msg = "";
-
-            string _id_temp = "", _msg_temp = "", result = "";
+            _id_from = "";
+            _nick_from = "";
+            _msg = "";
+            _id_temp = "";
+            _msg_temp = "";
+            result = "";
 
             while (ss_id_from >> _id_temp)
             {
@@ -442,7 +448,7 @@ string MySQL::QuerySql(string msg, int idx) {
         case e_friends_Accept:
         {
             string _id = sck_list[idx]._user.getID();
-            string _nick_from;
+            _nick_from="";
             ss >> _nick_from;
 
             string query = "SELECT Member_ID FROM member WHERE Nickname = '" + _nick_from + "'";
@@ -494,7 +500,7 @@ string MySQL::QuerySql(string msg, int idx) {
         case e_friends_Request_Decline:
         {
             string _id = sck_list[idx]._user.getID();
-            string _nick_from;
+            _nick_from = "";
             ss >> _nick_from;
 
             string query = "SELECT Member_ID FROM member WHERE Nickname = '" + _nick_from + "'";
@@ -533,7 +539,7 @@ string MySQL::QuerySql(string msg, int idx) {
         case e_message_Send:
         {
             string _id = sck_list[idx]._user.getID();
-            string _to_nickname, _msg;
+            string _to_nickname;
 
             ss >> _to_nickname >> std::ws;;
             getline(ss, _msg,'\0');
@@ -572,6 +578,65 @@ string MySQL::QuerySql(string msg, int idx) {
                     break;
                 }
             }
+        }
+        case e_message_Sent:
+        {
+            string _id = sck_list[idx]._user.getID();
+            string _to_nickname, _msg;
+
+
+            /*string query = "SELECT Member_ID FROM member WHERE Nickname = '" + _to_nickname + "'";
+            stmt = con->createStatement();
+            res = stmt->executeQuery(query);*/
+
+            std::stringstream ss_id_from, ss_msg_from;
+            prep_stmt = con->prepareStatement("SELECT * FROM short_note WHERE From_Short_Note_ID = ? AND (Respond_Short_Note = 1 OR Respond_Short_Note = 2 OR Respond_Short_Note = 3 OR Respond_Short_Note = 4);");
+            prep_stmt->setString(1, _id);
+
+            res = prep_stmt->executeQuery();
+            const char nullChar = '\0';
+            _msg_temp = "";
+            
+            while (res->next()) {
+
+                ss_id_from << res->getString("To_Short_Note_ID") + delim; // 결과 값을 스트림에 추가
+                _msg_temp = res->getString("Short_Note_Text") + "\0";
+                ss_msg_from << _msg_temp.append(&nullChar, 1);
+
+                // 결과 처리
+            }
+            _id_from = "", _nick_from = "", _msg = "";
+            _id_temp = "", _msg_temp = "", result = "";
+
+            while (ss_id_from >> _id_temp)
+            {
+                string query = "SELECT Nickname FROM Member WHERE Member_ID =  '" + _id_temp + "'";
+                stmt = con->createStatement();
+                res = stmt->executeQuery(query);
+                if (res->next()) {
+                    getline(ss_msg_from, _msg_temp, '\0');
+                    if (ss_msg_from.peek() == '\0') {
+                        // 다음 문자가 '\0'이면 마지막 '\0'이므로 추가하지 않음
+                        continue;
+                    }
+                    _nick_from = "*/" + res->getString("Nickname");
+                    result += _nick_from + delim + _msg_temp + delim;
+                    
+                }
+            }
+
+            if (!result.empty())
+            {
+                _ret = trueStr + delim + result;
+                break;
+
+            }
+            else
+            {
+                _ret = falseStr;
+                break;
+            }
+
         }
 
         default:
