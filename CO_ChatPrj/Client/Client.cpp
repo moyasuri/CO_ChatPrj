@@ -46,11 +46,9 @@ int chat_recv() {
     while (1) {
         ZeroMemory(&buf, MAX_SIZE);
         if (recv(client_sock, buf, MAX_SIZE, 0) > 0) {
-            msg = buf;
-            std::stringstream ss(msg);  // 문자열을 스트림화
-
-            string text; // 스트림을 통해, 문자열을 공백 분리해 변수에 할당. 보낸 사람의 이름만 user에 저장됨
-            cout << text<<endl;
+            msg = string(buf+3);
+            // 스트림을 통해, 문자열을 공백 분리해 변수에 할당. 보낸 사람의 이름만 user에 저장됨
+            cout << msg<<endl;
         }
         else {
             cout << "Server Off" << endl;
@@ -354,7 +352,7 @@ void friend_home() {
             SOCKADDR_IN client_addr = {};
             client_addr.sin_family = AF_INET;
             client_addr.sin_port = htons(7777);
-            InetPton(AF_INET, TEXT("192.168.0.54"), &client_addr.sin_addr);
+            InetPton(AF_INET, TEXT("192.168.200.137"), &client_addr.sin_addr);
 
             while (1) {
                 if (!connect(client_sock, (SOCKADDR*)&client_addr, sizeof(client_addr))) { // 위에 설정한 정보에 해당하는 server로 연결!

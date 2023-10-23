@@ -82,13 +82,13 @@ public:
     }
 
 private:
-    std::string name;
-    std::string id;
-    std::string pw;
-    std::string phone;
-    std::string birth;
-    std::string nickName;
-    int chaNum;
-    std::string joinRoomIndex;
-    std::string email;
+    std::string name="";
+    std::string id="";
+    std::string pw="";
+    std::string phone="";
+    std::string birth="";
+    std::string nickName="";
+    int chaNum=0;
+    std::string joinRoomIndex="0";
+    std::string email="";
 };

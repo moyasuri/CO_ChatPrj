@@ -51,10 +51,8 @@ struct SOCKET_INFO { // 연결된 소켓 정보에 대한 틀 생성
 };
 
 struct ROOM_INFO {
-    int Room_Index;
-    std::vector<string> join_client = { "","","" };
-
-    
+    int Room_Index=0;
+    std::vector<string> join_client ;
 };
 
 
@@ -776,18 +774,40 @@ public:
             if (isWorkingRoomIndexExist(roomIndex) == false) {
                 workingRoom_list[roomIndex].Room_Index = roomIndex;
             }
-            workingRoom_list[roomIndex].join_client[index] = (my_ID);
+            workingRoom_list[roomIndex].join_client.push_back(my_ID);
         }
 
-        void room_deactivate(int index) {
-            string my_ID = sck_list[index].user.getID(); //내가 속한 방을 확인하기 위해
-            string my_room = sck_list[index].user.getJoinRoomIndex();
-            int i_my_room = stoi(my_room);
-            if (i_my_room != 1) {
-                if (workingRoom_list[i_my_room].join_client.size() == 0)
-                    workingRoom_list.erase(workingRoom_list.begin() + i_my_room);
-            }
-        }
+        //void room_deactivate(int index) {
+
+        //    for (auto roominfo : workingroom_list) {
+        //        if (roominfo.room_index != 0) {
+        //            if (roominfo.join_client.size() == 0)
+
+        //        }
+        //    }
+        //    return false;
+
+        //    string my_id = sck_list[index].user.getid(); //내가 속한 방을 확인하기 위해 이 함수 끝난 후 setjoinroomindex >0으로 query는 이미 실행 됨
+        //    string my_room = sck_list[index].user.getjoinroomindex();
+        //    int i_my_room = stoi(my_room);
+        //    int count = 0;
+        //    int join_client_index = 0;
+        //    for (auto id : workingroom_list[i_my_room].join_client)
+        //    {
+        //        if (id == my_id)
+        //            join_client_index = count;
+        //        count++;
+        //    }
+        //    if (i_my_room != 1) {
+        //        if (workingroom_list[i_my_room].join_client.size() == 1)// 이용자가 나 혼자였으면 방을 비활성화
+        //        {
+        //            workingroom_list.erase(workingroom_list.begin() + i_my_room);
+        //        }
+        //        else
+        //            workingroom_list[i_my_room].join_client.erase(workingroom_list[i_my_room].join_client.begin() + count);//이용자가 여러명이면 client한명만 삭제               
+        //    }    
+        //}
+
         //room type (서버 1 공개 2 비공개 3)  - room_PW(없으면 0(공개방))- room_Name 순으로 보내주세요! room_name 에 띄어쓰기 포함 가능해서 뒤로 빼주세요
         // 방을 만들경우 바로 해당 방으로 입장됨( 해당 방 index가 내가 속한 방 index가 됨
         //반환값 e_num + IDENTIFIER + True/False + IDETIFIER + 내가 속한 방 index
@@ -897,20 +917,29 @@ public:
             string my_ID = sck_list[index].user.getID();
             string result;
             string str_room_Index;
+            int count = 0;
             int i_room_Index;
+            int idx = index;
+            int join_client_num = 0;
             prep_stmt = con->prepareStatement("UPDATE member set Join_Room_Index = NULL WHERE member_ID = ? ;");
             prep_stmt->setString(1, my_ID);          
             int rowUpdate = prep_stmt->executeUpdate();
             cout << "int rows_affected = prep_stmt->executeUpdate(); " << rowUpdate << endl;
             if (rowUpdate > 0) {
-                sck_list[index].room.room_init();//방정보 초기화
+                sck_list[idx].room.room_init();//방정보 초기화
                 result = s_(e_room_Exit) + IDENTIFIER + True;
                 cout << "result = s_(e_room_Exit) + IDENTIFIER + True; :" << result << endl;
-                str_room_Index = sck_list[index].user.getJoinRoomIndex();
+                str_room_Index = sck_list[idx].user.getJoinRoomIndex();
                 i_room_Index = stoi(str_room_Index);
-                workingRoom_list[i_room_Index].join_client.erase(workingRoom_list[i_room_Index].join_client.begin() + index);//내 이름 활성화된 방에서 삭제
-                room_deactivate(index);
-                sck_list[index].user.setJoinRoomIndex("");
+                for (auto id : workingRoom_list[i_room_Index].join_client)
+                {
+                    if (id == my_ID)
+                         join_client_num= count;
+                    count++;
+                }
+                workingRoom_list[i_room_Index].join_client.erase(workingRoom_list[i_room_Index].join_client.begin() + join_client_num);//내 이름 활성화된 방에서 삭제
+                sck_list[idx].user.setJoinRoomIndex("0");// 방에 안들어간 상태를 0 이라고 두어도 문제 없나?
+                result = s_(e_room_Exit) + IDENTIFIER + True;
             }
             else 
                 result = s_(e_room_Exit) + IDENTIFIER + False;
@@ -1001,7 +1030,7 @@ public:
         }
         //채팅방에 들어오는 사람들한테 이전 내용 전부 보여주기
         void room_show_whole_Text(int index) {
-            string row = "------------------------------------------------------------------------------\n";
+            string row;
             string all_Text = "";
             string result;
             string nickname, chat, chat_Data = "";
@@ -1014,9 +1043,11 @@ public:
                 nickname = res->getString(1);
                 chat = res->getString(2);
                 chat_Data = res->getString(3);
-                row = nickname + " : " + chat + "  " + chat_Data;
-                send(Client_sck, result.c_str(), result.size(), 0);
+                row = s_(e_room_show_whole_Text)+ IDENTIFIER + True + IDENTIFIER + nickname + " : " + chat + "  " + chat_Data;
+                send(Client_sck, row.c_str(), row.size(), 0);
             }
+            row= s_(e_room_show_whole_Text) + IDENTIFIER + True+ IDENTIFIER+ "-------------------------------------이전내역-----------------------------------------\n";
+            send(Client_sck, row.c_str(), row.size(), 0);
             cout << all_Text;
             result = s_(e_room_show_whole_Text) + IDENTIFIER + True + IDENTIFIER + all_Text;
             
@@ -1112,7 +1143,7 @@ public:
             int room_Type;
             string room_Date;
             string date = getCurrentTime();
-            msg = sck_list[index].user.getID() + " : " + recv_cont;
+            msg = s_(e_send_msg) + IDENTIFIER + True + IDENTIFIER + sck_list[index].user.getID() + " : " + recv_cont;
             cout << msg << endl;
             string my_Nickname = sck_list[index].user.getID();
             //cout << sck_list[idx].user << endl;
@@ -1129,10 +1160,10 @@ public:
             if (rowUpdate>0)
             {
                 cout << "if (res->next()) " << endl;
-                result = s_(e_recv_msg) + IDENTIFIER + True;
+                result = s_(e_room_Chat) + IDENTIFIER + True;
             }
             else
-                result = s_(e_recv_msg) + IDENTIFIER + False;
+                result = s_(e_room_Chat) + IDENTIFIER + False;
             return result;
         }
         
@@ -1212,7 +1243,7 @@ void add_client1() { //add_client  변형해서 우리 상황에 맞게 사용하고 싶음
     new_client.sck = accept(server_sock.sck, (sockaddr*)&addr, &addrsize); //프로그램을 실행할때 무조건 연결되는 첫 부분
     cout << "accept" << endl;
     sck_list.push_back(new_client);
-   
+    client_count++;
     // 로그인이나 회원가입으로 시작됨
     string reading = string(buf);
     string msg = string(buf + 3);
@@ -1224,11 +1255,14 @@ void add_client1() { //add_client  변형해서 우리 상황에 맞게 사용하고 싶음
 }
 
 void send_msg(const char* msg, int room_Index) {
-    for (int i = 0; i <MAX_CLIENT; i++) { // 이 방에 접속해 있는 모든 client에게 메시지 전송
-        if (stoi(sck_list[i].user.getJoinRoomIndex()) == room_Index) {
-            cout << "send "<< msg<<"  i: "<<i << endl;
-            send(Client_sck, msg, MAX_SIZE, 0);
+    for (int i = 0; i < client_count; i++) { // 이 방에 접속해 있는 모든 client에게 메시지 전송
+        if (stoi(sck_list[i].user.getJoinRoomIndex()) == room_Index) {// UserInfo 객체 생성시 초기화 반드시 진행, JoinRoomIndex ="0"으로
+            cout << "send " << msg << "  i: " << i << endl;
+            send(sck_list[i].sck, msg, MAX_SIZE, 0);
+            cout << " send(Client_sck, msg, MAX_SIZE, 0);" << endl;
         }
+        else
+            break;
         //join_client 멤버들의 소켓으로 보내줘야 됨
     }
 }
@@ -1397,54 +1431,8 @@ void recv_from_client(int idx) {// 메세지가 들어오면 타입 구분 하는 기초 함수
                 cout << " case e_room_Chat:" << endl;
                 result = mysql.room_Chat(recv_content, idx);
                 break;
-         /*   case e_edit_PWchk:
-                cout << "e_edit_PWchk = 31 " << endl;
-                mysql.(recv_content); break;
-            case e_edit_NickNamechk:
-                cout << "e_edit_NickNamechk " << endl;
-                mysql.(recv_content); break;
-            case e_edit_Confirm:
-                cout << "e_edit_Confirm " << endl;
-                mysql.(recv_content); break;*/
-           /* case e_message_List:
-                cout << " " << endl;
-                mysql.e_message_List(recv_content); break;
-            case e_message_Read:
-                cout << " " << endl;
-                mysql.e_message_Read(recv_content); break;
-            case e_message_Send:
-                cout << " " << endl;
-                mysql.(recv_content); break;
-            case:
-                cout << " " << endl;
-                mysql.(recv_content); break;
-            case:
-                cout << " " << endl;
-                mysql.(recv_content); break;
-            case:
-                cout << " " << endl;
-                mysql.(recv_content); break;
-            case:
-                cout << " " << endl;
-                mysql.(recv_content); break;
-            case:
-                cout << " " << endl;
-                mysql.(recv_content); break;
-            case:
-                cout << " " << endl;
-                mysql.(recv_content); break;
-            case:
-                cout << " " << endl;
-                mysql.(recv_content); break;
-            case:
-                cout << " " << endl;
-                mysql.(recv_content); break;
-            case:
-                cout << " " << endl;
-                mysql.(recv_content); break;
-            case:
-                cout << " " << endl;
-                mysql.(recv_content); break;*/
+
+               /* mysql.room_deactivate(idx);*/
 
             }
 
