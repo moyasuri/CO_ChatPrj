@@ -52,10 +52,14 @@ enum ShortMessage
     e_message_Delete,
     e_message_Sent,
     e_message_Sent_msg,
+    e_message_Sent_msg_delete,
     e_message_UGiven,
     e_message_UGiven_msg,
+    e_message_UGiven_msg_delete,
     e_message_RGiven,
     e_message_RGiven_msg,
+    e_message_RGiven_delete,
+    
 
 
 
@@ -109,3 +113,4 @@ enum RoomList
     e_room_Chat,
     e_room_show_whole_Text
 };
+

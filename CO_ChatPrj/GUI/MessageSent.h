@@ -90,15 +90,15 @@ namespace GUI {
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MessageSent::typeid));
 			this->ViewDataSent = (gcnew System::Windows::Forms::DataGridView());
+			this->NumOfSentMsg = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->To = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Date = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Status = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->txtBoxMsg = (gcnew System::Windows::Forms::TextBox());
 			this->btnDelete = (gcnew System::Windows::Forms::Button());
 			this->btnClose = (gcnew System::Windows::Forms::Button());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->NumOfSentMsg = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->To = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Date = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Status = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ViewDataSent))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -119,6 +119,35 @@ namespace GUI {
 			this->ViewDataSent->Size = System::Drawing::Size(569, 240);
 			this->ViewDataSent->TabIndex = 3;
 			this->ViewDataSent->CellClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MessageSent::ViewDataSent_CellClick);
+			// 
+			// NumOfSentMsg
+			// 
+			this->NumOfSentMsg->HeaderText = L"#";
+			this->NumOfSentMsg->MinimumWidth = 6;
+			this->NumOfSentMsg->Name = L"NumOfSentMsg";
+			this->NumOfSentMsg->Width = 50;
+			// 
+			// To
+			// 
+			this->To->HeaderText = L"To";
+			this->To->MinimumWidth = 6;
+			this->To->Name = L"To";
+			this->To->Width = 125;
+			// 
+			// Date
+			// 
+			this->Date->HeaderText = L"Date";
+			this->Date->MinimumWidth = 6;
+			this->Date->Name = L"Date";
+			this->Date->Width = 125;
+			// 
+			// Status
+			// 
+			this->Status->HeaderText = L"Status";
+			this->Status->MinimumWidth = 8;
+			this->Status->Name = L"Status";
+			this->Status->ReadOnly = true;
+			this->Status->Width = 150;
 			// 
 			// txtBoxMsg
 			// 
@@ -144,6 +173,7 @@ namespace GUI {
 			this->btnDelete->Size = System::Drawing::Size(176, 60);
 			this->btnDelete->TabIndex = 10;
 			this->btnDelete->UseVisualStyleBackColor = false;
+			this->btnDelete->Click += gcnew System::EventHandler(this, &MessageSent::btnDelete_Click);
 			// 
 			// btnClose
 			// 
@@ -187,35 +217,6 @@ namespace GUI {
 			this->label1->Size = System::Drawing::Size(109, 46);
 			this->label1->TabIndex = 11;
 			this->label1->Text = L"Sent";
-			// 
-			// NumOfSentMsg
-			// 
-			this->NumOfSentMsg->HeaderText = L"#";
-			this->NumOfSentMsg->MinimumWidth = 6;
-			this->NumOfSentMsg->Name = L"NumOfSentMsg";
-			this->NumOfSentMsg->Width = 50;
-			// 
-			// To
-			// 
-			this->To->HeaderText = L"To";
-			this->To->MinimumWidth = 6;
-			this->To->Name = L"To";
-			this->To->Width = 125;
-			// 
-			// Date
-			// 
-			this->Date->HeaderText = L"Date";
-			this->Date->MinimumWidth = 6;
-			this->Date->Name = L"Date";
-			this->Date->Width = 125;
-			// 
-			// Status
-			// 
-			this->Status->HeaderText = L"Status";
-			this->Status->MinimumWidth = 8;
-			this->Status->Name = L"Status";
-			this->Status->ReadOnly = true;
-			this->Status->Width = 150;
 			// 
 			// MessageSent
 			// 
@@ -367,8 +368,6 @@ private: System::Void ViewDataSent_CellClick(System::Object^ sender, System::Win
 	DivStrMsg(Recv_str, svrMsg);
 	txtBoxMsg->Clear();
 
-	/*System::String^ clrString = msclr::interop::marshal_as<System::String^>(svrMsg);
-	System::Windows::Forms::MessageBox::Show(clrString, "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);*/
 	if (isTrue == trueStr)// server 에서 오케이받는 함수
 	{
 
@@ -398,5 +397,86 @@ private: System::Void ViewDataSent_CellClick(System::Object^ sender, System::Win
 }
 
 
+private: System::Void btnDelete_Click(System::Object^ sender, System::EventArgs^ e) {
+
+	IniMsg();
+	int time_limit = 0;
+	std::string tmptxt_1_;
+
+
+
+	if (ViewDataSent->SelectedRows->Count > 0) {
+		// 선택한 행의 인덱스를 가져옵니다.
+		int selectedRowIndex = ViewDataSent->SelectedRows[0]->Index;
+
+		// 1열, 2열, 3열의 데이터를 가져옵니다.
+		System::Object^ column1ValueObj = ViewDataSent->Rows[selectedRowIndex]->Cells["NumOfSentMsg"]->Value;
+		System::Object^ column2ValueObj = ViewDataSent->Rows[selectedRowIndex]->Cells["To"]->Value;
+		System::Object^ column3ValueObj = ViewDataSent->Rows[selectedRowIndex]->Cells["Date"]->Value;
+
+		// null 체크
+		if (column1ValueObj != nullptr && column2ValueObj != nullptr && column3ValueObj != nullptr) {
+			System::String^ column1Value = column1ValueObj->ToString();
+			System::String^ column2Value = column2ValueObj->ToString();
+			System::String^ column3Value = column3ValueObj->ToString();
+
+			tmptxt_1_ = msclr::interop::marshal_as<std::string>(column2Value) + delim + msclr::interop::marshal_as<std::string>(column3Value);
+		}
+		else {
+			// 선택한 행의 하나 이상의 열이 null일 때 처리할 내용
+			// 예를 들어, 오류 메시지 출력 또는 다른 작업을 수행할 수 있습니다.
+			return;
+		}
+	}
+	else {
+		// 선택한 행이 없을 때 처리할 내용
+		// 예를 들어, 오류 메시지 출력 또는 다른 작업을 수행할 수 있습니다.
+		return;
+	}
+
+
+	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_message_Sent_msg_delete));
+	std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_;
+	const char* buffer = _Index_Str_Result.c_str();
+
+
+	send(client_sock, buffer, strlen(buffer), 0);
+	Sleep(100);
+	DivStrMsg(Recv_str, svrMsg);
+	txtBoxMsg->Clear();
+
+	/*System::String^ clrString = msclr::interop::marshal_as<System::String^>(svrMsg);
+	System::Windows::Forms::MessageBox::Show(clrString, "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);*/
+	if (isTrue == trueStr)// server 에서 오케이받는 함수
+	{
+
+		System::Windows::Forms::MessageBox::Show("삭제가 완료되었습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Information);
+
+		return;
+
+	}
+
+	else if (isTrue == falseStr) //  server에서 다른값보내면 그럴리없겟지만
+	{
+		System::Windows::Forms::MessageBox::Show("삭제 실패", "경고", MessageBoxButtons::OK, MessageBoxIcon::Information);
+
+		return;
+	}
+	else // 무한반복되는건데 시간타이밍 주면 좋을거같음
+	{
+		Sleep(1000);
+		if (time_limit > 1)
+		{
+			System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+		else
+		{
+			time_limit++;
+		}
+	}
+
+
+}
 };
 }

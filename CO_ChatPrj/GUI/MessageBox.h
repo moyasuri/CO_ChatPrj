@@ -542,7 +542,6 @@ private: System::Void ViewUnread_CellClick(System::Object^ sender, System::Windo
 
 	else if (isTrue == falseStr) //  server에서 다른값보내면 그럴리없겟지만
 	{
-		System::Windows::Forms::MessageBox::Show("오류발생.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		return;
 	}
 	else // 무한반복되는건데 시간타이밍 주면 좋을거같음
@@ -619,7 +618,6 @@ private: System::Void ViewRead_CellClick(System::Object^ sender, System::Windows
 
 	else if (isTrue == falseStr) //  server에서 다른값보내면 그럴리없겟지만
 	{
-		System::Windows::Forms::MessageBox::Show("오류발생.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		return;
 	}
 	else // 무한반복되는건데 시간타이밍 주면 좋을거같음
