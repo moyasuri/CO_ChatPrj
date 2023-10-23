@@ -53,6 +53,9 @@ enum ShortMessage
     e_message_Delete,
     e_message_Sent,
     e_message_Sent_msg,
+    e_message_Given,
+    e_message_Given_msg,
+
 };
 
 enum Friends

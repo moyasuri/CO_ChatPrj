@@ -1,5 +1,12 @@
 ﻿#pragma once
 
+#include <string>
+#include <sstream>
+#include <msclr/marshal_cppstd.h>
+#include "UsageClient.h"
+extern SOCKET client_sock;
+extern std::string Recv_str;
+
 namespace GUI {
 
 	using namespace System;
@@ -36,14 +43,19 @@ namespace GUI {
 				delete components;
 			}
 		}
+	private: System::Windows::Forms::DataGridView^ ViewUnread;
+	private: System::Windows::Forms::DataGridView^ ViewRead;
+	protected:
 
 	protected:
 
-	private: System::Windows::Forms::DataGridView^ dataGridView1;
+	protected:
 
 
 
-	private: System::Windows::Forms::DataGridView^ dataGridView2;
+
+
+
 
 
 	private: System::Windows::Forms::TextBox^ txtBoxMsg;
@@ -53,15 +65,33 @@ namespace GUI {
 
 
 	private: System::Windows::Forms::Button^ btnRead;
-	private: System::Windows::Forms::Button^ button1;
-	private: System::Windows::Forms::Button^ button2;
+	private: System::Windows::Forms::Button^ btnDelete_U;
+	private: System::Windows::Forms::Button^ btnDelete_R;
+
+
+
 	private: System::Windows::Forms::Label^ label3;
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::Button^ btnClose;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ViewUnread;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Date;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ViewRead;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn2;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ NumOfUnread;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ U_From;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ U_Date;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ NumOfRead;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ R_From;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ R_Date;
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	private:
 		/// <summary>
@@ -77,78 +107,52 @@ namespace GUI {
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MessageBox::typeid));
-			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
-			this->ViewUnread = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Date = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->dataGridView2 = (gcnew System::Windows::Forms::DataGridView());
-			this->ViewRead = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->dataGridViewTextBoxColumn2 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->ViewUnread = (gcnew System::Windows::Forms::DataGridView());
+			this->ViewRead = (gcnew System::Windows::Forms::DataGridView());
 			this->txtBoxMsg = (gcnew System::Windows::Forms::TextBox());
 			this->btnRead = (gcnew System::Windows::Forms::Button());
-			this->button1 = (gcnew System::Windows::Forms::Button());
-			this->button2 = (gcnew System::Windows::Forms::Button());
+			this->btnDelete_U = (gcnew System::Windows::Forms::Button());
+			this->btnDelete_R = (gcnew System::Windows::Forms::Button());
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->btnClose = (gcnew System::Windows::Forms::Button());
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView2))->BeginInit();
+			this->NumOfUnread = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->U_From = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->U_Date = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->NumOfRead = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->R_From = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->R_Date = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ViewUnread))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ViewRead))->BeginInit();
 			this->SuspendLayout();
-			// 
-			// dataGridView1
-			// 
-			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(2) {
-				this->ViewUnread,
-					this->Date
-			});
-			this->dataGridView1->Location = System::Drawing::Point(56, 89);
-			this->dataGridView1->Name = L"dataGridView1";
-			this->dataGridView1->RowHeadersWidth = 51;
-			this->dataGridView1->RowTemplate->Height = 27;
-			this->dataGridView1->Size = System::Drawing::Size(418, 204);
-			this->dataGridView1->TabIndex = 2;
 			// 
 			// ViewUnread
 			// 
-			this->ViewUnread->HeaderText = L"From";
-			this->ViewUnread->MinimumWidth = 6;
-			this->ViewUnread->Name = L"ViewUnread";
-			this->ViewUnread->Width = 125;
-			// 
-			// Date
-			// 
-			this->Date->HeaderText = L"Date";
-			this->Date->MinimumWidth = 6;
-			this->Date->Name = L"Date";
-			this->Date->Width = 125;
-			// 
-			// dataGridView2
-			// 
-			this->dataGridView2->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView2->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(2) {
-				this->ViewRead,
-					this->dataGridViewTextBoxColumn2
+			this->ViewUnread->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->ViewUnread->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(3) {
+				this->NumOfUnread,
+					this->U_From, this->U_Date
 			});
-			this->dataGridView2->Location = System::Drawing::Point(56, 419);
-			this->dataGridView2->Name = L"dataGridView2";
-			this->dataGridView2->RowHeadersWidth = 51;
-			this->dataGridView2->RowTemplate->Height = 27;
-			this->dataGridView2->Size = System::Drawing::Size(418, 204);
-			this->dataGridView2->TabIndex = 4;
+			this->ViewUnread->Location = System::Drawing::Point(56, 89);
+			this->ViewUnread->Name = L"ViewUnread";
+			this->ViewUnread->RowHeadersWidth = 51;
+			this->ViewUnread->RowTemplate->Height = 27;
+			this->ViewUnread->Size = System::Drawing::Size(418, 204);
+			this->ViewUnread->TabIndex = 2;
 			// 
 			// ViewRead
 			// 
-			this->ViewRead->HeaderText = L"From";
-			this->ViewRead->MinimumWidth = 6;
+			this->ViewRead->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->ViewRead->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(3) {
+				this->NumOfRead, this->R_From,
+					this->R_Date
+			});
+			this->ViewRead->Location = System::Drawing::Point(56, 419);
 			this->ViewRead->Name = L"ViewRead";
-			this->ViewRead->Width = 125;
-			// 
-			// dataGridViewTextBoxColumn2
-			// 
-			this->dataGridViewTextBoxColumn2->HeaderText = L"Date";
-			this->dataGridViewTextBoxColumn2->MinimumWidth = 6;
-			this->dataGridViewTextBoxColumn2->Name = L"dataGridViewTextBoxColumn2";
-			this->dataGridViewTextBoxColumn2->Width = 125;
+			this->ViewRead->RowHeadersWidth = 51;
+			this->ViewRead->RowTemplate->Height = 27;
+			this->ViewRead->Size = System::Drawing::Size(418, 204);
+			this->ViewRead->TabIndex = 4;
 			// 
 			// txtBoxMsg
 			// 
@@ -168,43 +172,43 @@ namespace GUI {
 			this->btnRead->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnRead->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnRead->Location = System::Drawing::Point(240, 312);
-			this->btnRead->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->btnRead->Margin = System::Windows::Forms::Padding(2);
 			this->btnRead->Name = L"btnRead";
 			this->btnRead->Size = System::Drawing::Size(109, 44);
 			this->btnRead->TabIndex = 9;
 			this->btnRead->UseVisualStyleBackColor = false;
 			// 
-			// button1
+			// btnDelete_U
 			// 
-			this->button1->BackColor = System::Drawing::Color::Transparent;
-			this->button1->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button1.BackgroundImage")));
-			this->button1->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->button1->FlatAppearance->BorderSize = 0;
-			this->button1->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
-			this->button1->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
-			this->button1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->button1->Location = System::Drawing::Point(365, 314);
-			this->button1->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(109, 38);
-			this->button1->TabIndex = 9;
-			this->button1->UseVisualStyleBackColor = false;
+			this->btnDelete_U->BackColor = System::Drawing::Color::Transparent;
+			this->btnDelete_U->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnDelete_U.BackgroundImage")));
+			this->btnDelete_U->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnDelete_U->FlatAppearance->BorderSize = 0;
+			this->btnDelete_U->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnDelete_U->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnDelete_U->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnDelete_U->Location = System::Drawing::Point(365, 314);
+			this->btnDelete_U->Margin = System::Windows::Forms::Padding(2);
+			this->btnDelete_U->Name = L"btnDelete_U";
+			this->btnDelete_U->Size = System::Drawing::Size(109, 38);
+			this->btnDelete_U->TabIndex = 9;
+			this->btnDelete_U->UseVisualStyleBackColor = false;
 			// 
-			// button2
+			// btnDelete_R
 			// 
-			this->button2->BackColor = System::Drawing::Color::Transparent;
-			this->button2->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button2.BackgroundImage")));
-			this->button2->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->button2->FlatAppearance->BorderSize = 0;
-			this->button2->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
-			this->button2->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
-			this->button2->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->button2->Location = System::Drawing::Point(357, 629);
-			this->button2->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
-			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(109, 38);
-			this->button2->TabIndex = 9;
-			this->button2->UseVisualStyleBackColor = false;
+			this->btnDelete_R->BackColor = System::Drawing::Color::Transparent;
+			this->btnDelete_R->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnDelete_R.BackgroundImage")));
+			this->btnDelete_R->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnDelete_R->FlatAppearance->BorderSize = 0;
+			this->btnDelete_R->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnDelete_R->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnDelete_R->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnDelete_R->Location = System::Drawing::Point(357, 629);
+			this->btnDelete_R->Margin = System::Windows::Forms::Padding(2);
+			this->btnDelete_R->Name = L"btnDelete_R";
+			this->btnDelete_R->Size = System::Drawing::Size(109, 38);
+			this->btnDelete_R->TabIndex = 9;
+			this->btnDelete_R->UseVisualStyleBackColor = false;
 			// 
 			// label3
 			// 
@@ -242,12 +246,56 @@ namespace GUI {
 			this->btnClose->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnClose->Location = System::Drawing::Point(801, 640);
-			this->btnClose->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->btnClose->Margin = System::Windows::Forms::Padding(2);
 			this->btnClose->Name = L"btnClose";
 			this->btnClose->Size = System::Drawing::Size(146, 40);
 			this->btnClose->TabIndex = 9;
 			this->btnClose->UseVisualStyleBackColor = false;
 			this->btnClose->Click += gcnew System::EventHandler(this, &MessageBox::btnClose_Click);
+			// 
+			// NumOfUnread
+			// 
+			this->NumOfUnread->HeaderText = L"#";
+			this->NumOfUnread->MinimumWidth = 6;
+			this->NumOfUnread->Name = L"NumOfUnread";
+			this->NumOfUnread->ReadOnly = true;
+			this->NumOfUnread->Width = 125;
+			// 
+			// U_From
+			// 
+			this->U_From->HeaderText = L"From";
+			this->U_From->MinimumWidth = 6;
+			this->U_From->Name = L"U_From";
+			this->U_From->Width = 125;
+			// 
+			// U_Date
+			// 
+			this->U_Date->HeaderText = L"Date";
+			this->U_Date->MinimumWidth = 6;
+			this->U_Date->Name = L"U_Date";
+			this->U_Date->Width = 125;
+			// 
+			// NumOfRead
+			// 
+			this->NumOfRead->HeaderText = L"#";
+			this->NumOfRead->MinimumWidth = 6;
+			this->NumOfRead->Name = L"NumOfRead";
+			this->NumOfRead->ReadOnly = true;
+			this->NumOfRead->Width = 125;
+			// 
+			// R_From
+			// 
+			this->R_From->HeaderText = L"From";
+			this->R_From->MinimumWidth = 6;
+			this->R_From->Name = L"R_From";
+			this->R_From->Width = 125;
+			// 
+			// R_Date
+			// 
+			this->R_Date->HeaderText = L"Date";
+			this->R_Date->MinimumWidth = 6;
+			this->R_Date->Name = L"R_Date";
+			this->R_Date->Width = 125;
 			// 
 			// MessageBox
 			// 
@@ -258,30 +306,244 @@ namespace GUI {
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->label3);
 			this->Controls->Add(this->btnClose);
-			this->Controls->Add(this->button2);
-			this->Controls->Add(this->button1);
+			this->Controls->Add(this->btnDelete_R);
+			this->Controls->Add(this->btnDelete_U);
 			this->Controls->Add(this->btnRead);
 			this->Controls->Add(this->txtBoxMsg);
-			this->Controls->Add(this->dataGridView2);
-			this->Controls->Add(this->dataGridView1);
+			this->Controls->Add(this->ViewRead);
+			this->Controls->Add(this->ViewUnread);
 			this->DoubleBuffered = true;
 			this->Name = L"MessageBox";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Message_Box";
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView2))->EndInit();
+			this->Activated += gcnew System::EventHandler(this, &MessageBox::MessageBox_Activated);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ViewUnread))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ViewRead))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
-	private: System::Void button4_Click(System::Object^ sender, System::EventArgs^ e) {
-		this->Close();
-	}
 private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {
 	this->Owner->Activate();
 	this->Close();
 
+}
+private: System::Void MessageBox_Activated(System::Object^ sender, System::EventArgs^ e) {
+
+
+
+	IniMsg();
+	int time_limit = 0;
+	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_message_Given));
+	std::string _Index_Str_Result = _Index_Str;
+	const char* buffer = _Index_Str_Result.c_str();
+
+
+	send(client_sock, buffer, strlen(buffer), 0);
+	Sleep(100);
+	DivStr(Recv_str, svrMsg);
+	ViewRead->Rows->Clear();
+	ViewUnread->Rows->Clear();
+
+
+	/*System::String^ clrString = msclr::interop::marshal_as<System::String^>(svrMsg);
+	System::Windows::Forms::MessageBox::Show(clrString, "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);*/
+	if (isTrue == trueStr)// server 에서 오케이받는 함수
+	{
+
+
+		/////
+
+		std::string msg = svrMsg;
+		std::vector<std::pair<std::string, std::string>> messagesR;
+
+		size_t startPos = 0;
+		size_t delimiterPos;
+
+		while ((delimiterPos = msg.find("*/", startPos)) != std::string::npos) {
+			size_t nickStart = delimiterPos + 2;
+			size_t nickEnd = msg.find(' ', nickStart);
+			if (nickEnd == std::string::npos) {
+				nickEnd = msg.length();
+			}
+			size_t messageStart = nickEnd + 1;
+			//
+					// Find the end of the message
+			size_t nextDelimiterPos = msg.find("*/", messageStart);
+			size_t messageEnd;
+			//
+			if (nextDelimiterPos != std::string::npos) {
+				messageEnd = nextDelimiterPos - 1;
+			}
+			else {
+				messageEnd = msg.length();
+			}
+
+			std::string id = msg.substr(nickStart, nickEnd - nickStart);
+			std::string message = msg.substr(messageStart, messageEnd - messageStart);
+
+			messagesR.push_back(std::make_pair(id, message));
+
+			// Move the start position to the end of the current message
+			startPos = messageEnd + 1;
+		}
+		// Output the parsed messages
+		int count = 0;
+		for (const auto& message : messagesR) {
+
+			ViewRead->Rows->Add();
+			ViewRead->Rows[count]->Cells["NufOfSentMsg"]->Value = System::Convert::ToString(count);
+			System::String^ tempwho = msclr::interop::marshal_as<System::String^>(message.first);
+			ViewRead->Rows[count]->Cells["To"]->Value = tempwho;
+			System::String^ tempmsg = msclr::interop::marshal_as<System::String^>(message.second);
+			ViewRead->Rows[count]->Cells["Date"]->Value = tempmsg;
+			count++;
+		}
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	IniMsg();
+	int time_limit = 0;
+	std::string tmptxt_1_, tmptxt_2_;
+
+
+
+	if (ViewRead->SelectedRows->Count > 0) {
+		// 선택한 행의 인덱스를 가져옵니다.
+		int selectedRowIndex = ViewRead->SelectedRows[0]->Index;
+
+		// 1열, 2열, 3열의 데이터를 가져옵니다.
+		System::Object^ column1ValueObj = ViewRead->Rows[selectedRowIndex]->Cells["NufOfSentMsg"]->Value;
+		System::Object^ column2ValueObj = ViewRead->Rows[selectedRowIndex]->Cells["To"]->Value;
+		System::Object^ column3ValueObj = ViewRead->Rows[selectedRowIndex]->Cells["Date"]->Value;
+
+		// null 체크
+		if (column1ValueObj != nullptr && column2ValueObj != nullptr && column3ValueObj != nullptr) {
+			System::String^ column1Value = column1ValueObj->ToString();
+			System::String^ column2Value = column2ValueObj->ToString();
+			System::String^ column3Value = column3ValueObj->ToString();
+
+			tmptxt_1_ = msclr::interop::marshal_as<std::string>(column2Value) + delim + msclr::interop::marshal_as<std::string>(column3Value);
+		}
+		else {
+			// 선택한 행의 하나 이상의 열이 null일 때 처리할 내용
+			// 예를 들어, 오류 메시지 출력 또는 다른 작업을 수행할 수 있습니다.
+			return;
+		}
+	}
+
+	if (ViewRead->SelectedRows->Count > 0) {
+		// 선택한 행의 인덱스를 가져옵니다.
+		int selectedRowIndex = ViewRead->SelectedRows[0]->Index;
+
+		// 1열, 2열, 3열의 데이터를 가져옵니다.
+		System::Object^ _column1ValueObj = ViewUnread->Rows[selectedRowIndex]->Cells["NufOfSentMsg"]->Value;
+		System::Object^ _column2ValueObj = ViewUnread->Rows[selectedRowIndex]->Cells["To"]->Value;
+		System::Object^ _column3ValueObj = ViewUnread->Rows[selectedRowIndex]->Cells["Date"]->Value;
+
+		// null 체크
+		if (_column1ValueObj != nullptr && _column2ValueObj != nullptr && _column3ValueObj != nullptr) {
+			System::String^ _column1Value = _column1ValueObj->ToString();
+			System::String^ _column2Value = _column2ValueObj->ToString();
+			System::String^ _column3Value = _column3ValueObj->ToString();
+
+			tmptxt_2_ = msclr::interop::marshal_as<std::string>(_column2Value) + delim + msclr::interop::marshal_as<std::string>(_column3Value);
+		}
+		else {
+			// 선택한 행의 하나 이상의 열이 null일 때 처리할 내용
+			// 예를 들어, 오류 메시지 출력 또는 다른 작업을 수행할 수 있습니다.
+			return;
+		}
+	}
+
+
+
+	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_message_Sent_msg));
+	std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_;
+	const char* buffer = _Index_Str_Result.c_str();
+
+
+	send(client_sock, buffer, strlen(buffer), 0);
+	Sleep(100);
+	DivStrMsg(Recv_str, svrMsg);
+	txtBoxMsg->Clear();
+
+	/*System::String^ clrString = msclr::interop::marshal_as<System::String^>(svrMsg);
+	System::Windows::Forms::MessageBox::Show(clrString, "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);*/
+	if (isTrue == trueStr)// server 에서 오케이받는 함수
+	{
+
+		System::String^ clrString = msclr::interop::marshal_as<System::String^>(svrMsg);
+		txtBoxMsg->Text = clrString;
+
+	}
+
+	else if (isTrue == falseStr) //  server에서 다른값보내면 그럴리없겟지만
+	{
+		System::Windows::Forms::MessageBox::Show("오류발생.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		return;
+	}
+	else // 무한반복되는건데 시간타이밍 주면 좋을거같음
+	{
+		Sleep(1000);
+		if (time_limit > 1)
+		{
+			System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+		else
+		{
+			time_limit++;
+		}
+	}
+}
 }
 };
 }

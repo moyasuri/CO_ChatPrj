@@ -52,6 +52,10 @@ enum ShortMessage
     e_message_Delete,
     e_message_Sent,
     e_message_Sent_msg,
+    e_message_Given,
+    e_message_Given_msg,
+
+
 
 };
 
@@ -68,7 +72,7 @@ enum Friends
     e_friends_Request,
     e_friends_Response_List,
     e_friends_Accept,
-
+    
 
 };
 
