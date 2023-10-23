@@ -17,7 +17,7 @@ void clrsqlMsg();
 void IniMsg();
 extern std::string _id_from, _nick_from, _msg;
 extern std::string _id_temp, _msg_temp,  result;
-
+extern const char nullChar;
 
 
 enum SignUp
@@ -52,7 +52,7 @@ enum ShortMessage
     e_message_Send,
     e_message_Delete,
     e_message_Sent,
-
+    e_message_Sent_msg,
 };
 
 enum Friends

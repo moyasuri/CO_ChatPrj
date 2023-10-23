@@ -15,7 +15,7 @@ void clrisTrue(); // true false 초기화
 void clrsvrMsg(); // contents 초기화
 void IniMsg(); 
 void DivStr(std::string& _Recv_str, std::string& _svrMsg);
-
+void DivStrMsg(std::string& _Recv_str, std::string& _svrMsg);
 
 
 
@@ -51,6 +51,7 @@ enum ShortMessage
     e_message_Send,
     e_message_Delete,
     e_message_Sent,
+    e_message_Sent_msg,
 
 };
 

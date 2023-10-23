@@ -16,7 +16,7 @@ const char* __false = falseStr.c_str();
 std::string _id_from = "", _nick_from = "", _msg = "";
 std::string _id_temp = "", _msg_temp = "", result = "";
 
-
+const char nullChar = '\0';
 
 void clrisTrue()
 {

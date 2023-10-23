@@ -12,7 +12,7 @@ using std::cout;
 using std::endl;
 using std::string;
 
-
+extern const char nullChar;
 
 extern std::vector<SOCKET_INFO> sck_list;
 extern std::string _id_from, _nick_from, _msg;
@@ -579,6 +579,65 @@ string MySQL::QuerySql(string msg, int idx) {
                 }
             }
         }
+        //case e_message_Sent: //이건 엔터가 들어간 메세지 관련 쓸꺼야 지우지마
+        //{
+        //    string _id = sck_list[idx]._user.getID();
+        //    string _to_nickname, _msg;
+
+
+        //    /*string query = "SELECT Member_ID FROM member WHERE Nickname = '" + _to_nickname + "'";
+        //    stmt = con->createStatement();
+        //    res = stmt->executeQuery(query);*/
+
+        //    std::stringstream ss_id_from, ss_msg_from;
+        //    prep_stmt = con->prepareStatement("SELECT * FROM short_note WHERE From_Short_Note_ID = ? AND (Respond_Short_Note = 1 OR Respond_Short_Note = 2 OR Respond_Short_Note = 3 OR Respond_Short_Note = 4);");
+        //    prep_stmt->setString(1, _id);
+
+        //    res = prep_stmt->executeQuery();
+        //    
+        //    _msg_temp = "";
+        //    // 이거는 엔터가 들어간 메세지를 구분해야하는 다른곳에서도 쓰일수 있어.
+        //    while (res->next()) {
+
+        //        ss_id_from << res->getString("To_Short_Note_ID") + delim; // 결과 값을 스트림에 추가
+        //        _msg_temp = res->getString("Short_Note_Text") + "\0";
+        //        ss_msg_from << _msg_temp.append(&nullChar, 1);
+
+        //        // 결과 처리
+        //    }
+        //    _id_from = "", _nick_from = "", _msg = "";
+        //    _id_temp = "", _msg_temp = "", result = "";
+
+        //    while (ss_id_from >> _id_temp)
+        //    {
+        //        string query = "SELECT Nickname FROM Member WHERE Member_ID =  '" + _id_temp + "'";
+        //        stmt = con->createStatement();
+        //        res = stmt->executeQuery(query);
+        //        if (res->next()) {
+        //            getline(ss_msg_from, _msg_temp, '\0');
+        //            if (ss_msg_from.peek() == '\0') {
+        //                // 다음 문자가 '\0'이면 마지막 '\0'이므로 추가하지 않음
+        //                continue;
+        //            }
+        //            _nick_from = "*/" + res->getString("Nickname");
+        //            result += _nick_from + delim + _msg_temp + delim;
+        //            
+        //        }
+        //    }
+
+        //    if (!result.empty())
+        //    {
+        //        _ret = trueStr + delim + result;
+        //        break;
+
+        //    }
+        //    else
+        //    {
+        //        _ret = falseStr;
+        //        break;
+        //    }
+
+        //}
         case e_message_Sent:
         {
             string _id = sck_list[idx]._user.getID();
@@ -589,19 +648,19 @@ string MySQL::QuerySql(string msg, int idx) {
             stmt = con->createStatement();
             res = stmt->executeQuery(query);*/
 
-            std::stringstream ss_id_from, ss_msg_from;
+            std::stringstream ss_id_from, ss_date_from;
             prep_stmt = con->prepareStatement("SELECT * FROM short_note WHERE From_Short_Note_ID = ? AND (Respond_Short_Note = 1 OR Respond_Short_Note = 2 OR Respond_Short_Note = 3 OR Respond_Short_Note = 4);");
             prep_stmt->setString(1, _id);
 
             res = prep_stmt->executeQuery();
-            const char nullChar = '\0';
+
             _msg_temp = "";
-            
+            // 이거는 엔터가 들어간 메세지를 구분해야하는 다른곳에서도 쓰일수 있어.
             while (res->next()) {
 
                 ss_id_from << res->getString("To_Short_Note_ID") + delim; // 결과 값을 스트림에 추가
-                _msg_temp = res->getString("Short_Note_Text") + "\0";
-                ss_msg_from << _msg_temp.append(&nullChar, 1);
+                _msg_temp = res->getString("Short_Note_Datetime") + "\0";
+                ss_date_from << _msg_temp.append(&nullChar, 1);
 
                 // 결과 처리
             }
@@ -614,15 +673,56 @@ string MySQL::QuerySql(string msg, int idx) {
                 stmt = con->createStatement();
                 res = stmt->executeQuery(query);
                 if (res->next()) {
-                    getline(ss_msg_from, _msg_temp, '\0');
-                    if (ss_msg_from.peek() == '\0') {
+                    getline(ss_date_from, _msg_temp, '\0');
+                    if (ss_date_from.peek() == '\0') {
                         // 다음 문자가 '\0'이면 마지막 '\0'이므로 추가하지 않음
                         continue;
                     }
                     _nick_from = "*/" + res->getString("Nickname");
                     result += _nick_from + delim + _msg_temp + delim;
-                    
+
                 }
+            }
+
+            if (!result.empty())
+            {
+                _ret = trueStr + delim + result;
+                break;
+
+            }
+            else
+            {
+                _ret = falseStr;
+                break;
+            }
+
+        }
+        case e_message_Sent_msg:
+        {
+            string _id = sck_list[idx]._user.getID();
+            string _to_nickname, _msg, _date;
+            result = "";
+
+            /*string query = "SELECT Member_ID FROM member WHERE Nickname = '" + _to_nickname + "'";
+            stmt = con->createStatement();
+            res = stmt->executeQuery(query);*/
+            ss >> _to_nickname;
+            getline(ss,_date);
+            string query = "SELECT Member_ID FROM Member WHERE Nickname =  '" + _to_nickname + "'";
+            stmt = con->createStatement();
+            res = stmt->executeQuery(query);
+            
+            if (res->next()) {
+                _id_temp = res->getString("Member_ID");
+                string query = "SELECT Short_Note_Text FROM short_note WHERE To_Short_Note_ID =  '" + _id_temp + "' AND Short_Note_Datetime = '" + _date + "'";
+                stmt = con->createStatement();
+                res2 = stmt->executeQuery(query);
+                if (res2->next()) {
+                    _msg_temp = res2->getString("Short_Note_Text");
+                    cout << "_msg_temp = " << _msg_temp << endl;
+                    result += _msg_temp;
+                }
+                
             }
 
             if (!result.empty())
