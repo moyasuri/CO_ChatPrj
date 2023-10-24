@@ -58,7 +58,7 @@ void CommunicateWithServer() {
    
 
     WSADATA wsa;
-    my_nick = "adbc";
+    //my_nick = "adbc";
     
     // Winsock를 초기화하는 함수. MAKEWORD(2, 2)는 Winsock의 2.2 버전을 사용하겠다는 의미.
     // 실행에 성공하면 0을, 실패하면 그 이외의 값을 반환.
@@ -66,8 +66,8 @@ void CommunicateWithServer() {
     int code = WSAStartup(MAKEWORD(2, 2), &wsa);
  
         if (!code) {
-            cout << "사용할 닉네임 입력 >> ";
-            cin >> my_nick;
+            //cout << "사용할 닉네임 입력 >> ";
+            //cin >> my_nick;
 
             // PF_INET : 프로토콜 familiy IPv4 인터넷 프로토콜을 사용
             // SOCK_STREAM: 소켓 유형(socket type)을 나타냅니다. 
@@ -86,8 +86,8 @@ void CommunicateWithServer() {
 
             while (1) {
                 if (!connect(client_sock, (SOCKADDR*)&client_addr, sizeof(client_addr))) { // 위에 설정한 정보에 해당하는 server로 연결!
-                    cout << "Server Connect" << endl;
-                    send(client_sock, my_nick.c_str(), my_nick.length(), 0); // 연결에 성공하면 client 가 입력한 닉네임을 서버로 전송
+                    //cout << "Server Connect" << endl;
+                    //send(client_sock, my_nick.c_str(), my_nick.length(), 0); // 연결에 성공하면 client 가 입력한 닉네임을 서버로 전송
                     break;
                 }
 

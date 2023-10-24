@@ -31,6 +31,7 @@ int client_count = 0; // 현재 접속해 있는 클라이언트를 count 할 �
 
 
 //bool isNumeric(const std::string& str);
+void add_client1();
 void server_init(); // socket 초기화 함수. socket(), bind(), listen() 함수 실행됨. 자세한 내용은 함수 구현부에서 확인.
 void add_client(); // 소켓에 연결을 시도하는 client를 추가(accept)하는 함수. client accept() 함수 실행됨. 자세한 내용은 함수 구현부에서 확인.
 void send_msg(const char* msg); // send() 함수 실행됨. 자세한 내용은 함수 구현부에서 확인.
@@ -53,18 +54,12 @@ int main() {
         std::thread th1[MAX_CLIENT];
         for (int i = 0; i < MAX_CLIENT; i++) {
             // 인원 수 만큼 thread 생성해서 각각의 클라이언트가 동시에 소통할 수 있도록 함.
-            th1[i] = std::thread(add_client);
+            th1[i] = std::thread(add_client1);
+            //th1[i] = std::thread(add_client);
         }
         //std::thread th1(add_client); // 이렇게 하면 하나의 client만 받아짐...
 
-        while (1) { // 무한 반복문을 사용하여 서버가 계속해서 채팅 보낼 수 있는 상태를 만들어 줌. 반복문을 사용하지 않으면 한 번만 보낼 수 있음.
-            string text, msg = "";
-
-            std::getline(cin, text);
-            const char* buf = text.c_str();
-            msg = server_sock.user + " : " + buf;
-            send_msg(msg.c_str());
-        }
+        while (1) {}// 무한 반복문을 사용하여 서버가 계속해서 채팅 보낼 수 있는 상태를 만들어 줌. 반복문을 사용하지 않으면 한 번만 보낼 수 있음.
 
         for (int i = 0; i < MAX_CLIENT; i++) {
             th1[i].join();
@@ -105,6 +100,32 @@ void server_init() {
     server_sock.user = "server";
 
     cout << "Server On" << endl;
+}
+
+
+
+void add_client1() { //add_client  변형해서 우리 상황에 맞게 사용하고 싶음
+    SOCKADDR_IN addr = {};
+    int addrsize = sizeof(addr);
+    char buf[MAX_SIZE] = { };
+
+    ZeroMemory(&addr, addrsize); // addr의 메모리 영역을 0으로 초기화
+
+    SOCKET_INFO new_client = {};
+
+    new_client.sck = accept(server_sock.sck, (sockaddr*)&addr, &addrsize); //프로그램을 실행할때 무조건 연결되는 첫 부분
+    cout << "accept" << endl;
+    sck_list.push_back(new_client);
+    
+    // 로그인이나 회원가입으로 시작됨
+    //string reading = string(buf);
+    //string msg = string(buf + 3);
+    //std::thread th(recv_from_client,server_sock.sck, reading,msg);
+    //질문 recv_from_client 함수에 사용되는 인자들은 어떻게 넣어주지?????? 위에처럼 사용할 변수들을 넣어줄 수 있다.?
+    //std::thread th(recv_from_client, client_count++);
+    std::thread th(recv_msg, client_count++);
+    th.join();
+
 }
 
 void add_client() {
@@ -160,16 +181,19 @@ void recv_msg(int idx) {
         if (recv(sck_list[idx].sck, buf, MAX_SIZE, 0) > 0) { // 오류가 발생하지 않으면 recv는 수신된 바이트 수를 반환. 0보다 크다는 것은 메시지가 왔다는 것.
             //msg = sck_list[idx].user + " : " + buf;
             IniMsg();
+            multimsg = false;
             msg = buf;
 
             // Client의 메세지 index
             cout << "받은 메세지 : " << msg << endl;
             std::stringstream ss(msg);
+            cout << "MySQL 전"<<endl;
             sqlMsg = mySQL->QuerySql(msg, idx); // sql ret값
+            cout << "MySQL 후" << endl;
             std::stringstream sssql(sqlMsg);
             sssql >> isTrue; // sql return 값의 true false;
             cout << "보낸 메세지 : " << sqlMsg << endl;
-            if (multimsg)
+            if (!multimsg)
             {
                 send_msg(sqlMsg.c_str());
             }

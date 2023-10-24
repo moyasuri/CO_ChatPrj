@@ -359,6 +359,7 @@ namespace GUI {
 			this->Name = L"MainForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterParent;
 			this->Text = L"MainForm";
+			this->Activated += gcnew System::EventHandler(this, &MainForm::MainForm_Activated);
 			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &MainForm::MainForm_FormClosing);
 			this->panel1->ResumeLayout(false);
 			this->panel1->PerformLayout();
@@ -499,6 +500,31 @@ private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e
 
 	send(client_sock, buffer, strlen(buffer), 0);
 	Sleep(100);
+}
+private: System::Void MainForm_Activated(System::Object^ sender, System::EventArgs^ e) {
+
+
+
+	IniMsg();
+	int time_limit = 0;
+	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_message_Cnt));
+	std::string _Index_Str_Result = _Index_Str;
+	const char* buffer = _Index_Str_Result.c_str();
+
+
+	send(client_sock, buffer, strlen(buffer), 0);
+	Sleep(100);
+	DivStrMsg(Recv_str, svrMsg);
+	NumMessage->Text = "";
+
+
+	if (isTrue == trueStr)// server 에서 오케이받는 함수
+	{
+		System::String^ clrString = msclr::interop::marshal_as<System::String^>(svrMsg);
+		NumMessage->Text = clrString;
+
+	}
+
 }
 };
 }

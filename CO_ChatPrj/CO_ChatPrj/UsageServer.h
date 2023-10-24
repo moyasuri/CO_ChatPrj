@@ -62,6 +62,7 @@ enum ShortMessage
     e_message_RGiven_list,
     e_message_RGiven_msg,
     e_message_RGiven_msg_delete,
+    e_message_Cnt,
 
 };
 
@@ -89,5 +90,7 @@ enum RoomList
     e_room_List,
     e_room_myList,
     e_room_Chat,
-    e_room_show_whole_Text
+    e_room_show_whole_Text,
+    e_room_Chat_send,
+
 };

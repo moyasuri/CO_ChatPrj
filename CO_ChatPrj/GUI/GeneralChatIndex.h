@@ -27,6 +27,9 @@ namespace GUI {
 
 
 
+
+
+
 	ref class RoomData
 	{
 	public:
@@ -114,13 +117,13 @@ namespace GUI {
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(GeneralChatIndex::typeid));
 			this->txtBoxPW = (gcnew System::Windows::Forms::TextBox());
 			this->ViewRoomList = (gcnew System::Windows::Forms::DataGridView());
-			this->NumOfRoom = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->RoomName = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->PrivateCheck = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->btnJoin = (gcnew System::Windows::Forms::Button());
 			this->btnClose = (gcnew System::Windows::Forms::Button());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->NumOfRoom = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->RoomName = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->PrivateCheck = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ViewRoomList))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -152,33 +155,6 @@ namespace GUI {
 			this->ViewRoomList->RowTemplate->Height = 27;
 			this->ViewRoomList->Size = System::Drawing::Size(1116, 510);
 			this->ViewRoomList->TabIndex = 3;
-			// 
-			// NumOfRoom
-			// 
-			this->NumOfRoom->Frozen = true;
-			this->NumOfRoom->HeaderText = L"#";
-			this->NumOfRoom->MinimumWidth = 8;
-			this->NumOfRoom->Name = L"NumOfRoom";
-			this->NumOfRoom->ReadOnly = true;
-			this->NumOfRoom->Width = 20;
-			// 
-			// RoomName
-			// 
-			this->RoomName->Frozen = true;
-			this->RoomName->HeaderText = L"Name";
-			this->RoomName->MinimumWidth = 6;
-			this->RoomName->Name = L"RoomName";
-			this->RoomName->ReadOnly = true;
-			this->RoomName->Width = 580;
-			// 
-			// PrivateCheck
-			// 
-			this->PrivateCheck->Frozen = true;
-			this->PrivateCheck->HeaderText = L"Private";
-			this->PrivateCheck->MinimumWidth = 6;
-			this->PrivateCheck->Name = L"PrivateCheck";
-			this->PrivateCheck->ReadOnly = true;
-			this->PrivateCheck->Width = 150;
 			// 
 			// btnJoin
 			// 
@@ -231,6 +207,32 @@ namespace GUI {
 			this->label1->Size = System::Drawing::Size(170, 37);
 			this->label1->TabIndex = 10;
 			this->label1->Text = L"Password";
+			// 
+			// NumOfRoom
+			// 
+			this->NumOfRoom->Frozen = true;
+			this->NumOfRoom->HeaderText = L"#Index";
+			this->NumOfRoom->MinimumWidth = 8;
+			this->NumOfRoom->Name = L"NumOfRoom";
+			this->NumOfRoom->ReadOnly = true;
+			// 
+			// RoomName
+			// 
+			this->RoomName->Frozen = true;
+			this->RoomName->HeaderText = L"Name";
+			this->RoomName->MinimumWidth = 6;
+			this->RoomName->Name = L"RoomName";
+			this->RoomName->ReadOnly = true;
+			this->RoomName->Width = 580;
+			// 
+			// PrivateCheck
+			// 
+			this->PrivateCheck->Frozen = true;
+			this->PrivateCheck->HeaderText = L"Private";
+			this->PrivateCheck->MinimumWidth = 6;
+			this->PrivateCheck->Name = L"PrivateCheck";
+			this->PrivateCheck->ReadOnly = true;
+			this->PrivateCheck->Width = 150;
 			// 
 			// GeneralChatIndex
 			// 

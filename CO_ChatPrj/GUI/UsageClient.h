@@ -60,6 +60,7 @@ enum ShortMessage
     e_message_RGiven_list,
     e_message_RGiven_msg,
     e_message_RGiven_msg_delete,
+    e_message_Cnt,
     
 
 
