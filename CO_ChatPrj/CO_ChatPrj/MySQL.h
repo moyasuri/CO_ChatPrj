@@ -23,13 +23,14 @@ struct ROOM_INFO {
 
 class MySQL {
 public:
-
+   
     MySQL();
 
     ~MySQL();
- 
+    
     bool isWorkingRoomIndexExist(int roomIndex);
     string room_List();
+    string room_Delete(string roomidx, int idx);
     void Init_Mysql();
 
     void set_database(string str);

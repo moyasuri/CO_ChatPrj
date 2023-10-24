@@ -58,6 +58,29 @@ void MySQL::_send_msg(const char* msg, int room_Index) {
 
 
 
+
+
+string MySQL::room_Delete(string roomidx, int idx) {
+    string room_Index_;
+    string my_ID = sck_list[idx]._user.getID();
+    string result;
+    int i_room_Index = stoi(roomidx);
+    prep_stmt = con->prepareStatement("DELETE FROM room_list WHERE Room_Master = ? AND Room_Index = ?;");
+    prep_stmt->setString(1, my_ID);
+    prep_stmt->setInt(2, i_room_Index);
+    int rowUpdate = prep_stmt->executeUpdate();
+
+    if (rowUpdate > 0)
+        result = trueStr;
+    else
+        result = falseStr;
+    cout << "result : " << result << endl;
+    return result;
+
+}
+
+
+
 void MySQL::room_activate(int roomIndex, int index__) {
     string _my_ID62 = sck_list[index__]._user.getID();
     if (isWorkingRoomIndexExist(roomIndex) == false) {
@@ -1607,6 +1630,13 @@ string MySQL::QuerySql(string msg, int idx) {
         case e_room_myList:
         {
             _ret = room_myList(idx);
+            break;
+        }
+        case e_room_Delete:
+        {
+            std::string temp_63;
+            ss >> temp_63;
+            _ret = room_Delete(temp_63, idx);
             break;
         }
 

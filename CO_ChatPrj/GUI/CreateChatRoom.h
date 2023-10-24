@@ -266,6 +266,8 @@ private: System::Void btnConfirm_Click(System::Object^ sender, System::EventArgs
 			if (isTrue == trueStr)// server 에서 오케이받는 함수
 			{
 				/*svrMsg = "ID :  " + svrMsg;*/
+				this->Close();
+				this->Owner->Close();
 
 				//server방입장
 
