@@ -28,22 +28,18 @@ public:
 
     ~MySQL();
     
-    bool isWorkingRoomIndexExist(int roomIndex);
+    
+  
+    void Init_Mysql();
+    void set_database(string str);
+    string QuerySql(string msg, int idx);
+    string getCurrentTime();
+    void room_activate(int roomIndex, int index__);
+    void _send_msg(const char* msg, int room_Index66);
     string room_List();
     string room_Delete(string roomidx, int idx);
-    void Init_Mysql();
-
-    void set_database(string str);
-
-    string QuerySql(string msg, int idx);
-
-    string getCurrentTime();
-    
-    void room_activate(int roomIndex, int index__);
-    void _send_msg(const char* msg, int room_Index);
-
     string room_myList(int index);
-
+    bool isWorkingRoomIndexExist(int roomIndex);
 private:
     // MySQL Connector/C++ 초기화
     sql::mysql::MySQL_Driver* driver;

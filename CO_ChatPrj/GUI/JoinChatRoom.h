@@ -178,8 +178,14 @@ namespace GUI {
 		if (serverchatForm == nullptr || serverchatForm->IsDisposed) {
 
 			
+			std::string tmp = std::to_string(e_room_Enter) + delim + "1" + delim + "1";
+			std::string _Index_Str_Result = tmp;
+			const char* buffer = _Index_Str_Result.c_str();
+			send(client_sock, buffer, strlen(buffer), 0);
+
 			serverchatForm = gcnew ServerChat;
 			serverchatForm->Owner = this; // Owner를 설정해야 가능
+			
 			this->Hide();
 			serverchatForm->Show();
 

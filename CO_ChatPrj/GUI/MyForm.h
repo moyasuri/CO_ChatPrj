@@ -12,7 +12,8 @@ extern SOCKET client_sock;
 // extern Ans ans;
 static bool enterServer;
 static bool isExit;
-
+extern bool toggleState;
+extern std::string srvchat;
 
 namespace GUI {
 	using namespace std;

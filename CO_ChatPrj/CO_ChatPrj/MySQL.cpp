@@ -35,18 +35,17 @@ string s_(int e_num) {
 
 
 
-void MySQL::_send_msg(const char* msg, int room_Index) {
+void MySQL::_send_msg(const char* msg, int room_Index66) {
     for (int i = 0; i < client_count; i++) { // 이 방에 접속해 있는 모든 client에게 메시지 전송
-        if (stoi(sck_list[i]._user.getJoinRoomIndex()) == room_Index) {// UserInfo 객체 생성시 초기화 반드시 진행, JoinRoomIndex ="0"으로
-            cout << "send " << msg << "  i: " << i << endl;
+        if (stoi(sck_list[i]._user.getJoinRoomIndex()) == room_Index66) {// UserInfo 객체 생성시 초기화 반드시 진행, JoinRoomIndex ="0"으로
             send(sck_list[i].sck, msg, MAX_SIZE, 0);
-            cout << " send(Client_sck, msg, MAX_SIZE, 0);" << endl;
         }
         else
             break;
         //join_client 멤버들의 소켓으로 보내줘야 됨
     }
 }
+
 
 //void MySQL::room_activate(int roomIndex_, int index__) {
 //    string _my_ID62 = sck_list[index__]._user.getID();
@@ -1573,7 +1572,7 @@ string MySQL::QuerySql(string msg, int idx) {
             string result;
             string nickname, chat, chat_Data = "";
             int room_index = stoi(sck_list[idx]._user.getJoinRoomIndex());
-            prep_stmt = con->prepareStatement("SELECT Nickname, Chat, Chat_Date FROM room_chat WHERE Room_Index=?");
+            prep_stmt = con->prepareStatement("SELECT Member_ID, Chat, Chat_Date FROM room_chat WHERE Room_Index=?");
             prep_stmt->setInt(1, room_index);
             sql::ResultSet* res = prep_stmt->executeQuery();
             while (res->next())
@@ -1581,45 +1580,44 @@ string MySQL::QuerySql(string msg, int idx) {
                 nickname = res->getString(1);
                 chat = res->getString(2);
                 chat_Data = res->getString(3);
-                row = s_(e_room_show_whole_Text) + IDENTIFIER + trueStr + IDENTIFIER + nickname + " : " + chat + "  " + chat_Data;
+                row = nickname + " : " + chat + "  " + chat_Data;
                 send(sck_list[idx].sck, row.c_str(), row.size(), 0);
             }
-            row = s_(e_room_show_whole_Text) + IDENTIFIER + trueStr + IDENTIFIER + "-------------------------------------이전내역-----------------------------------------\n";
+            row = trueStr + IDENTIFIER + "-------------------------------------이전내역-----------------------------------------\n";
             send(sck_list[idx].sck, row.c_str(), row.size(), 0);
         }
         
         case e_room_Chat:
-        {
-            string msg = "";
+        {   multimsg = true;
+            std::string modifiedString = msg.substr(3);
+            string msg_chat = "";
             string result = "";
             int room_Type;
             string room_Date;
-            string date = getCurrentTime();
-            msg = trueStr + IDENTIFIER + sck_list[idx]._user.getNickName() + " : " + "아무말 "; //"아무말은 내가말한말"
-            cout << msg << endl;
-            string my_Nickname = sck_list[idx]._user.getNickName();
-            //cout << sck_list[idx].user << endl;
-            int room_Index = stoi(sck_list[idx]._user.getJoinRoomIndex());
-            _send_msg(msg.c_str(), room_Index);// 방에 참여한 모든 사람에게 메시지를 보내는 함수
+            string my_Nickname66;
+            string date66 = getCurrentTime();
+            cout << msg_chat << endl;
+            string my_ID66 = sck_list[idx]._user.getID();
+            prep_stmt = con->prepareStatement("SELECT Nickname from member WHERE Member_ID = ?");
+            prep_stmt->setString(1, my_ID66);
+            sql::ResultSet* res = prep_stmt->executeQuery();
+            if (res->next())
+                my_Nickname66 = res->getString(1);
+            int room_Index66 = stoi(sck_list[idx]._user.getJoinRoomIndex());
             prep_stmt = con->prepareStatement("INSERT INTO room_chat VALUES (NULL,?,?,?,?)");
-            prep_stmt->setString(1, sck_list[idx]._user.getID());
-            prep_stmt->setString(2, "아무말 ");
-            prep_stmt->setString(3, date);
-            prep_stmt->setInt(4, room_Index);
+            prep_stmt->setString(1, my_ID66);
+            prep_stmt->setString(2, modifiedString);
+            prep_stmt->setString(3, date66);
+            prep_stmt->setInt(4, room_Index66);
             int rowUpdate = prep_stmt->executeUpdate();
             cout << "rowUpdate : " << rowUpdate << endl;
             if (rowUpdate > 0)
             {
+                msg_chat = my_Nickname66 + " : " + modifiedString;
+                _send_msg(msg_chat.c_str(), room_Index66);// 방에 참여한 모든 사람에게 메시지를 보내는 함수
                 cout << "if (res->next()) " << endl;
-                result = trueStr;
-                break;
             }
-            else
-            {
-                result = falseStr;
-                break;
-            }
-            return result;
+            return _ret;
         }
 
         case e_room_List:

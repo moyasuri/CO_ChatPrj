@@ -11,7 +11,8 @@
 SOCKET client_sock;
 std::string Recv_str;
 std::string my_nick;
-
+std::string srvchat;
+bool toggleState;
 #include "MyForm.h"
 #include "MainForm.h"
 #include "ServerChat.h"
@@ -39,6 +40,7 @@ void chat_recv() {
 
     while (1) {
         ZeroMemory(&buf, MAX_SIZE);
+        srvchat = buf;
         if (recv(client_sock, buf, MAX_SIZE, 0) > 0) {
             msg = buf;
             Recv_str = msg;

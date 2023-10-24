@@ -8,6 +8,8 @@
 
 extern SOCKET client_sock;
 extern std::string Recv_str;
+extern std::string srvchat;
+extern std::string prevMessage;
 
 namespace GUI {
 
@@ -30,8 +32,8 @@ namespace GUI {
 
 	private: System::String^ relativePath;
 	private: System::Windows::Forms::PictureBox^ picBoxImojiYou;
-	private: System::Windows::Forms::Timer^ timer1;
 
+	private: System::Windows::Forms::Timer^ timer2;
 	private: System::Windows::Forms::Timer^ timerDeletePicBoxIntro;
 	public:
 		ServerChat(void)
@@ -52,20 +54,19 @@ namespace GUI {
 			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\temp\\close.png");
 			btnClose->BackgroundImage = Image::FromFile(relativePath);
 
-
-			timer1->Interval = 1000;  // 1000ms = 1초
-			timer1->Tick += gcnew System::EventHandler(this, &ServerChat::timer1_Tick);  // 타이머 이벤트 핸들러 연결
-			timer1->Start();  // 타이머 시작
-
-			
+			timer2 = gcnew System::Windows::Forms::Timer();
+			timer2->Interval = 1000;  // 1000ms = 1초
+			timer2->Tick += gcnew System::EventHandler(this, &ServerChat::timer2_Tick);
+			timer2->Start();
 		}
-
+	
 	protected:
 		/// <summary>
 		/// 사용 중인 모든 리소스를 정리합니다.
 		/// </summary>
 		~ServerChat()
 		{
+			timer2->Stop();
 			if (components)
 			{
 				delete components;
@@ -96,7 +97,6 @@ namespace GUI {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->components = (gcnew System::ComponentModel::Container());
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(ServerChat::typeid));
 			this->txtBoxChatWindow = (gcnew System::Windows::Forms::TextBox());
 			this->txtBoxMyChat = (gcnew System::Windows::Forms::TextBox());
@@ -104,7 +104,6 @@ namespace GUI {
 			this->btnClose = (gcnew System::Windows::Forms::Button());
 			this->picBoxImojiMy = (gcnew System::Windows::Forms::PictureBox());
 			this->picBoxImojiYou = (gcnew System::Windows::Forms::PictureBox());
-			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->picBoxImojiMy))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->picBoxImojiYou))->BeginInit();
 			this->SuspendLayout();
@@ -186,10 +185,6 @@ namespace GUI {
 			this->picBoxImojiYou->TabIndex = 6;
 			this->picBoxImojiYou->TabStop = false;
 			// 
-			// timer1
-			// 
-			this->timer1->Tick += gcnew System::EventHandler(this, &ServerChat::timer1_Tick);
-			// 
 			// ServerChat
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(10, 18);
@@ -228,58 +223,58 @@ namespace GUI {
 		String^ tmptxt_1 = txtBoxMyChat->Text; // textBox는 해당 텍스트 상자의 이름입니다.
 		
 
-	/*	if (!String::IsNullOrEmpty(tmptxt_1)
+		if (!String::IsNullOrEmpty(tmptxt_1))
+		{
 
 
 			int time_limit = 0;
 			std::string tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
-			std::string tmptxt_2_ = msclr::interop::marshal_as<std::string>(tmptxt_2);
-			std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_id_find_ID));
-			std::string _Index_Str_Result = _Index_Str + delim + tmptxt_1_ + delim + tmptxt_2_;
+			std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_room_Chat));
+			std::string _Index_Str_Result = _Index_Str + delim + tmptxt_1_;
 			const char* buffer = _Index_Str_Result.c_str();
 
 			send(client_sock, buffer, strlen(buffer), 0);
-			Sleep(100);
-			DivStr(Recv_str, svrMsg);
-		}*/
+		}
 
 
-
+		txtBoxMyChat->Clear();
 
 		// 내꺼는 그냥 띄우면되고, 남에것만 가져오자.
 		//-------------------임시-----------------//
 				// Get the text from txtBoxMyChat
-		String^ inputText = txtBoxMyChat->Text;
+		//String^ inputText = txtBoxMyChat->Text;
 
 		// Append the text to txtBoxChatWindow
-		txtBoxChatWindow->AppendText(inputText + Environment::NewLine);
+		//txtBoxChatWindow->AppendText(inputText + Environment::NewLine);
 
 		// Clear txtBoxMyChat
-		txtBoxMyChat->Clear();
+		
 		//-------------------임시-----------------//
 
+
+
 		
-		if (this->ContCha(inputText,"ㅇㅇ"))
-		{
-			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\Imoji\\icon_49.gif");
-			picBoxImojiMy->ImageLocation = relativePath;
-			this->picBoxImojiMy->Show();
+		//if (this->ContCha(inputText,"ㅇㅇ"))
+		//{
+		//	relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\Imoji\\icon_49.gif");
+		//	picBoxImojiMy->ImageLocation = relativePath;
+		//	this->picBoxImojiMy->Show();
 
 
-			timerDeletePicBoxIntro->Interval = 3000;
-			timerDeletePicBoxIntro->Tick += gcnew System::EventHandler(this, &ServerChat::timerDeletePicBoxIntro_Tick);
-			timerDeletePicBoxIntro->Start();
-		}
-		else if(1)
-		{
-			return;
-		}
+		//	timerDeletePicBoxIntro->Interval = 3000;
+		//	timerDeletePicBoxIntro->Tick += gcnew System::EventHandler(this, &ServerChat::timerDeletePicBoxIntro_Tick);
+		//	timerDeletePicBoxIntro->Start();
+		//}
+		//else if(1)
+		//{
+		//	return;
+		//}
 
-		else
-		{
-			return;
-		}
-		
+		//else
+		//{
+		//	return;
+		//}
+		//
 
 
 
@@ -326,6 +321,9 @@ private: System::Void ServerChat_Load(System::Object^ sender, System::EventArgs^
 
 
 	IniMsg();
+
+
+
 	//String^ tmptxt_1 = txtBoxName->Text; // textBox는 해당 텍스트 상자의 이름입니다.
 	//String^ tmptxt_2 = txtBoxEmail->Text; // textBox는 해당 텍스트 상자의 이름입니다.
 
@@ -335,22 +333,41 @@ private: System::Void ServerChat_Load(System::Object^ sender, System::EventArgs^
 	//	int time_limit = 0;
 	//	std::string tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
 	//	std::string tmptxt_2_ = msclr::interop::marshal_as<std::string>(tmptxt_2);
-		//std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_room_show_whole_Text));
-		/*std::string _Index_Str_Result = _Index_Str;
-		const char* buffer = _Index_Str_Result.c_str();*/
+		std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_room_show_whole_Text));
+		std::string _Index_Str_Result = _Index_Str;
+		const char* buffer = _Index_Str_Result.c_str();
 
-		/*send(client_sock, buffer, strlen(buffer), 0);
+		send(client_sock, buffer, strlen(buffer), 0);
 		Sleep(100);
-		DivStr(Recv_str, svrMsg);*/
 
 
 
 
 }
 
-private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
+private: System::Void timer2_Tick(System::Object^ sender, System::EventArgs^ e) {
+	
+	std::stringstream Chat(Recv_str);
+	std::string flag, token;
 
-	//System::Windows::Forms::MessageBox::Show("ID / PW 를 다시입력해주세요. ", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+	// 서버에서 받은 메시지를 새로운 메시지로 저장합니다.
+	std::string newMessage = Recv_str;
+
+	// 이전 메시지와 새로운 메시지를 비교하여 같으면 처리하지 않습니다.
+	if (newMessage == prevMessage) {
+		return;
+	}
+	else
+	{
+		while (getline(Chat, token)) {
+				txtBoxChatWindow->AppendText(msclr::interop::marshal_as<System::String^>(token) + Environment::NewLine);
+			}
+		prevMessage = Recv_str;
+	}
+	
+
+
+
 }
 };
 }

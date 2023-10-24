@@ -3,7 +3,7 @@
 #include <msclr/marshal_cppstd.h>
 #include <string>
 #include "UsageClient.h"
-
+#include "ServerChat.h"
 extern std::string Recv_str;
 extern std::string isTrue;
 extern std::string svrMsg;
@@ -24,6 +24,8 @@ namespace GUI {
 	/// </summary>
 	public ref class CreateChatRoom : public System::Windows::Forms::Form
 	{
+	private:
+		ServerChat^ serverchatForm = nullptr;
 	public:
 		CreateChatRoom(void)
 		{
@@ -93,7 +95,6 @@ namespace GUI {
 			this->txtBoxRoomTitle->Name = L"txtBoxRoomTitle";
 			this->txtBoxRoomTitle->Size = System::Drawing::Size(249, 28);
 			this->txtBoxRoomTitle->TabIndex = 0;
-			this->txtBoxRoomTitle->TextChanged += gcnew System::EventHandler(this, &CreateChatRoom::textBox1_TextChanged);
 			// 
 			// btnConfirm
 			// 
@@ -209,17 +210,17 @@ namespace GUI {
 	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->Close();
 	}
-private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-}
 
 private: System::Void btnConfirm_Click(System::Object^ sender, System::EventArgs^ e) {
 
-
+	btnConfirm->NotifyDefault(false);
 	IniMsg();
 	std::string tmptxt_1_;
 	String^ tmptxt_3 = txtBoxRoomTitle->Text; // textBox는 해당 텍스트 상자의 이름입니다.
 	String^ tmptxt_2 = txtBoxPW->Text; // textBox는 해당 텍스트 상자의 이름입니다.
 
+
+	// 이미 생성된 SignUp 폼이 없는 경우에만 새로운 폼을 생성하고 엽니다.
 
 	// 룸타이틀은 잇어야되요
 
@@ -265,9 +266,16 @@ private: System::Void btnConfirm_Click(System::Object^ sender, System::EventArgs
 		{
 			if (isTrue == trueStr)// server 에서 오케이받는 함수
 			{
+
+
+
+				if (serverchatForm == nullptr || serverchatForm->IsDisposed) {
+					serverchatForm = gcnew ServerChat;
+					serverchatForm->Show();
+				}
+
 				/*svrMsg = "ID :  " + svrMsg;*/
 				this->Close();
-				this->Owner->Close();
 
 				//server방입장
 

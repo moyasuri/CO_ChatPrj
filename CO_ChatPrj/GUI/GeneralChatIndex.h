@@ -8,7 +8,7 @@
 #include <regex>
 extern SOCKET client_sock;
 extern std::string Recv_str;
-
+#include "ServerChat.h"
 
 namespace GUI {
 
@@ -31,6 +31,7 @@ namespace GUI {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ RoomName;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ PrivateCheck;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ CreatedDate;
+		   ServerChat^ serverchatForm = nullptr;
 
 
 
@@ -348,11 +349,11 @@ namespace GUI {
 		}
 
 
-		
 
 		if (!String::IsNullOrEmpty(column1Value)) {
 
 
+			
 			int time_limit = 0;
 			std::string tmptxt_1_ = msclr::interop::marshal_as<std::string>(column1Value);
 			std::string tmptxt_3_ = msclr::interop::marshal_as<std::string>(tmpValue);
@@ -370,11 +371,18 @@ namespace GUI {
 				if (isTrue == trueStr)// server 에서 오케이받는 함수
 				{
 
-					/// 새로운 서버챗을만들어!!!!!
+					
 
-					//svrMsg = "ID :  " + svrMsg;
-					//System::String^ clrString = msclr::interop::marshal_as<System::String^>(svrMsg);
-					System::Windows::Forms::MessageBox::Show("들어갔어", "방들어가기", MessageBoxButtons::OK, MessageBoxIcon::Information);
+
+					if (serverchatForm == nullptr || serverchatForm->IsDisposed) {
+						serverchatForm = gcnew ServerChat;
+						serverchatForm->Show();
+
+						this->Close();
+					}
+
+
+
 					return;
 				}
 				else if (isTrue == falseStr) //  server에서 다른값보내면
