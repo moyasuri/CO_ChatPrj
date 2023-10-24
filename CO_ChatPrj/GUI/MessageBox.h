@@ -679,7 +679,7 @@ private: System::Void btnDelete_U_Click(System::Object^ sender, System::EventArg
 
 
 	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_message_UGiven_msg_delete));
-	std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_;
+	std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_ + "\n";
 	const char* buffer = _Index_Str_Result.c_str();
 
 
@@ -755,7 +755,7 @@ private: System::Void btnRead_Click(System::Object^ sender, System::EventArgs^ e
 
 
 	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_message_UGiven_Read));
-	std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_;
+	std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_ + "\n";
 	const char* buffer = _Index_Str_Result.c_str();
 
 
@@ -792,7 +792,6 @@ private: System::Void btnRead_Click(System::Object^ sender, System::EventArgs^ e
 	}
 
 }
-
 private: System::Void btnDelete_R_Click(System::Object^ sender, System::EventArgs^ e) {
 	IniMsg();
 	int time_limit = 0;
@@ -831,7 +830,7 @@ private: System::Void btnDelete_R_Click(System::Object^ sender, System::EventArg
 
 
 	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_message_RGiven_msg_delete));
-	std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_;
+	std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_ + "\n";
 	const char* buffer = _Index_Str_Result.c_str();
 
 

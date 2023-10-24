@@ -222,7 +222,6 @@ string MySQL::QuerySql(string msg, int idx) {
                 break;
             }
         }
-
         // Sign up
         case e_signup_IDchk:
         {
@@ -232,7 +231,7 @@ string MySQL::QuerySql(string msg, int idx) {
 
             // Database에 이미 있는아이디 = true;
             if (res->next()) {
-                _ret = falseStr;
+                _ret = falseStr; 
                 break;
             }
             else
@@ -1027,12 +1026,17 @@ string MySQL::QuerySql(string msg, int idx) {
         }
         case e_message_UGiven_msg_delete: // 안읽은 메세지 삭제
         {
+            string msg2 = "asdfasdf dfafd";
+            std::stringstream ss_t(msg2);
+            string index_temp;
+            ss_t >> index_temp;
             string _id = sck_list[idx]._user.getID();
             string _from_nickname, _msg, _date;
             result = "";
+     
 
-            ss >> _from_nickname;
-            getline(ss, _date);
+            ss_t >> _from_nickname;
+            getline(ss_t, _date);
             string query = "SELECT Member_ID FROM Member WHERE Nickname =  '" + _from_nickname + "'";
             stmt = con->createStatement();
             res = stmt->executeQuery(query);

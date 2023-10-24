@@ -280,7 +280,7 @@ public: System::Void btnSend_Click(System::Object^ sender, System::EventArgs^ e)
 			}
 		}
 		else {
-			System::Windows::Forms::MessageBox::Show("ID / PW 를 다시입력해주세요. ", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			System::Windows::Forms::MessageBox::Show("아디와 내용을 다시입력해주세요. ", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		}
 
 }

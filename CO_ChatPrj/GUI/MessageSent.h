@@ -113,6 +113,7 @@ namespace GUI {
 			this->ViewDataSent->Margin = System::Windows::Forms::Padding(4);
 			this->ViewDataSent->MultiSelect = false;
 			this->ViewDataSent->Name = L"ViewDataSent";
+			this->ViewDataSent->ReadOnly = true;
 			this->ViewDataSent->RowHeadersWidth = 51;
 			this->ViewDataSent->RowTemplate->Height = 27;
 			this->ViewDataSent->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
@@ -125,6 +126,7 @@ namespace GUI {
 			this->NumOfSentMsg->HeaderText = L"#";
 			this->NumOfSentMsg->MinimumWidth = 6;
 			this->NumOfSentMsg->Name = L"NumOfSentMsg";
+			this->NumOfSentMsg->ReadOnly = true;
 			this->NumOfSentMsg->Width = 50;
 			// 
 			// To
@@ -132,6 +134,7 @@ namespace GUI {
 			this->To->HeaderText = L"To";
 			this->To->MinimumWidth = 6;
 			this->To->Name = L"To";
+			this->To->ReadOnly = true;
 			this->To->Width = 125;
 			// 
 			// Date
@@ -139,6 +142,7 @@ namespace GUI {
 			this->Date->HeaderText = L"Date";
 			this->Date->MinimumWidth = 6;
 			this->Date->Name = L"Date";
+			this->Date->ReadOnly = true;
 			this->Date->Width = 125;
 			// 
 			// Status
@@ -155,6 +159,7 @@ namespace GUI {
 			this->txtBoxMsg->Margin = System::Windows::Forms::Padding(4);
 			this->txtBoxMsg->Multiline = true;
 			this->txtBoxMsg->Name = L"txtBoxMsg";
+			this->txtBoxMsg->ReadOnly = true;
 			this->txtBoxMsg->Size = System::Drawing::Size(568, 315);
 			this->txtBoxMsg->TabIndex = 9;
 			// 
