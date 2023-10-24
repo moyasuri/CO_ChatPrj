@@ -799,14 +799,14 @@ private: System::Void btnDelete_R_Click(System::Object^ sender, System::EventArg
 
 
 
-	if (ViewUnread->SelectedRows->Count > 0) {
+	if (ViewRead->SelectedRows->Count > 0) {
 		// 선택한 행의 인덱스를 가져옵니다.
-		int selectedRowIndex = ViewUnread->SelectedRows[0]->Index;
+		int selectedRowIndex = ViewRead->SelectedRows[0]->Index;
 
 		// 1열, 2열, 3열의 데이터를 가져옵니다.
-		System::Object^ column1ValueObj = ViewUnread->Rows[selectedRowIndex]->Cells["NumOfUnread"]->Value;
-		System::Object^ column2ValueObj = ViewUnread->Rows[selectedRowIndex]->Cells["U_From"]->Value;
-		System::Object^ column3ValueObj = ViewUnread->Rows[selectedRowIndex]->Cells["U_Date"]->Value;
+		System::Object^ column1ValueObj = ViewRead->Rows[selectedRowIndex]->Cells["NumOfRead"]->Value;
+		System::Object^ column2ValueObj = ViewRead->Rows[selectedRowIndex]->Cells["R_From"]->Value;
+		System::Object^ column3ValueObj = ViewRead->Rows[selectedRowIndex]->Cells["R_Date"]->Value;
 
 		// null 체크
 		if (column1ValueObj != nullptr && column2ValueObj != nullptr && column3ValueObj != nullptr) {

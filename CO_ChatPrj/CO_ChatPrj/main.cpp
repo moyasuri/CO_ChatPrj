@@ -206,6 +206,7 @@ void recv_msg(int idx) {
             cout << msg << endl;
             send_msg(msg.c_str());
             del_client(idx); // 클라이언트 삭제
+            delete mySQL;
             return;
         }
     }
