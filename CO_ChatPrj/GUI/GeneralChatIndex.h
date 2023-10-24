@@ -1,7 +1,14 @@
 ﻿#pragma once
 #include <list>
 #include <msclr/marshal.h>
-
+#include <vector>
+#include <string>
+#include <sstream>
+#include <msclr/marshal_cppstd.h>
+#include "UsageClient.h"
+#include <regex>
+extern SOCKET client_sock;
+extern std::string Recv_str;
 namespace GUI {
 
 	using namespace System;
@@ -19,9 +26,21 @@ namespace GUI {
 	public ref class GeneralChatIndex : public System::Windows::Forms::Form
 	{
 	private: System::Data::DataTable^ table;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ NumOfRoom;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ RoomIndex;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ RoomName;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ PrivateCheck;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ CreatedDate;
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -117,13 +136,14 @@ namespace GUI {
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(GeneralChatIndex::typeid));
 			this->txtBoxPW = (gcnew System::Windows::Forms::TextBox());
 			this->ViewRoomList = (gcnew System::Windows::Forms::DataGridView());
+			this->RoomIndex = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->RoomName = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->PrivateCheck = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->CreatedDate = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->btnJoin = (gcnew System::Windows::Forms::Button());
 			this->btnClose = (gcnew System::Windows::Forms::Button());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->NumOfRoom = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->RoomName = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->PrivateCheck = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ViewRoomList))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -142,19 +162,55 @@ namespace GUI {
 			this->ViewRoomList->AllowUserToDeleteRows = false;
 			this->ViewRoomList->BackgroundColor = System::Drawing::SystemColors::ButtonHighlight;
 			this->ViewRoomList->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->ViewRoomList->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(3) {
-				this->NumOfRoom,
-					this->RoomName, this->PrivateCheck
+			this->ViewRoomList->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(4) {
+				this->RoomIndex,
+					this->RoomName, this->PrivateCheck, this->CreatedDate
 			});
-			this->ViewRoomList->Location = System::Drawing::Point(55, 103);
+			this->ViewRoomList->Location = System::Drawing::Point(-15, 106);
 			this->ViewRoomList->Margin = System::Windows::Forms::Padding(4);
 			this->ViewRoomList->Name = L"ViewRoomList";
 			this->ViewRoomList->ReadOnly = true;
 			this->ViewRoomList->RowHeadersWidth = 51;
 			this->ViewRoomList->RowHeadersWidthSizeMode = System::Windows::Forms::DataGridViewRowHeadersWidthSizeMode::DisableResizing;
 			this->ViewRoomList->RowTemplate->Height = 27;
-			this->ViewRoomList->Size = System::Drawing::Size(1116, 510);
+			this->ViewRoomList->Size = System::Drawing::Size(1808, 510);
 			this->ViewRoomList->TabIndex = 3;
+			// 
+			// RoomIndex
+			// 
+			this->RoomIndex->Frozen = true;
+			this->RoomIndex->HeaderText = L"#Index";
+			this->RoomIndex->MinimumWidth = 8;
+			this->RoomIndex->Name = L"RoomIndex";
+			this->RoomIndex->ReadOnly = true;
+			this->RoomIndex->Width = 150;
+			// 
+			// RoomName
+			// 
+			this->RoomName->Frozen = true;
+			this->RoomName->HeaderText = L"Name";
+			this->RoomName->MinimumWidth = 6;
+			this->RoomName->Name = L"RoomName";
+			this->RoomName->ReadOnly = true;
+			this->RoomName->Width = 580;
+			// 
+			// PrivateCheck
+			// 
+			this->PrivateCheck->Frozen = true;
+			this->PrivateCheck->HeaderText = L"Private";
+			this->PrivateCheck->MinimumWidth = 6;
+			this->PrivateCheck->Name = L"PrivateCheck";
+			this->PrivateCheck->ReadOnly = true;
+			this->PrivateCheck->Width = 150;
+			// 
+			// CreatedDate
+			// 
+			this->CreatedDate->Frozen = true;
+			this->CreatedDate->HeaderText = L"CreatedDate";
+			this->CreatedDate->MinimumWidth = 8;
+			this->CreatedDate->Name = L"CreatedDate";
+			this->CreatedDate->ReadOnly = true;
+			this->CreatedDate->Width = 150;
 			// 
 			// btnJoin
 			// 
@@ -208,39 +264,13 @@ namespace GUI {
 			this->label1->TabIndex = 10;
 			this->label1->Text = L"Password";
 			// 
-			// NumOfRoom
-			// 
-			this->NumOfRoom->Frozen = true;
-			this->NumOfRoom->HeaderText = L"#Index";
-			this->NumOfRoom->MinimumWidth = 8;
-			this->NumOfRoom->Name = L"NumOfRoom";
-			this->NumOfRoom->ReadOnly = true;
-			// 
-			// RoomName
-			// 
-			this->RoomName->Frozen = true;
-			this->RoomName->HeaderText = L"Name";
-			this->RoomName->MinimumWidth = 6;
-			this->RoomName->Name = L"RoomName";
-			this->RoomName->ReadOnly = true;
-			this->RoomName->Width = 580;
-			// 
-			// PrivateCheck
-			// 
-			this->PrivateCheck->Frozen = true;
-			this->PrivateCheck->HeaderText = L"Private";
-			this->PrivateCheck->MinimumWidth = 6;
-			this->PrivateCheck->Name = L"PrivateCheck";
-			this->PrivateCheck->ReadOnly = true;
-			this->PrivateCheck->Width = 150;
-			// 
 			// GeneralChatIndex
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(10, 18);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->ClientSize = System::Drawing::Size(1269, 756);
+			this->ClientSize = System::Drawing::Size(2009, 756);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->btnClose);
@@ -250,6 +280,7 @@ namespace GUI {
 			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"GeneralChatIndex";
 			this->Text = L"GeneralChatIndex";
+			this->Activated += gcnew System::EventHandler(this, &GeneralChatIndex::GeneralChatIndex_Activated);
 			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &GeneralChatIndex::GeneralChatIndex_FormClosing);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ViewRoomList))->EndInit();
 			this->ResumeLayout(false);
@@ -294,6 +325,102 @@ namespace GUI {
 
 private: System::Void GeneralChatIndex_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
 	this->Owner->Show();
+}
+
+
+// 방 리스트를 가져와야한다.
+private: System::Void GeneralChatIndex_Activated(System::Object^ sender, System::EventArgs^ e) {
+
+	IniMsg();
+	int time_limit = 0;
+	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_room_List));
+	std::string _Index_Str_Result = _Index_Str;
+	const char* buffer = _Index_Str_Result.c_str();
+
+
+	send(client_sock, buffer, strlen(buffer), 0);
+	Sleep(100);
+	DivStrMsg(Recv_str, svrMsg);
+	ViewRoomList->Rows->Clear();
+
+
+	/*System::String^ clrString = msclr::interop::marshal_as<System::String^>(svrMsg);
+	System::Windows::Forms::MessageBox::Show(clrString, "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);*/
+	if (isTrue == trueStr)// server 에서 오케이받는 함수
+	{
+
+
+
+
+
+		std::vector<std::string> Room_Index;
+		std::vector<std::string> Room_Type;
+		std::vector<std::string> Room_Title;
+		std::vector<std::string> Room_Date;
+		std::vector<std::string> Room_time;
+
+
+		std::string _tmp;
+		
+
+		std::stringstream _svrmsg(svrMsg);
+
+
+
+
+		std::regex pattern(R"((\d+)\s(\d+)\s\*/(.*?)\*/\s(\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}))");
+
+		std::smatch match;
+
+		auto text = svrMsg.cbegin();
+		auto end = svrMsg.cend();
+		while (std::regex_search(text, end, match, pattern)) {
+			
+			Room_Index.push_back(match[1]);
+			Room_Type.push_back(match[2]);
+			Room_Title.push_back(match[3]);
+			Room_Date.push_back(match[4]);
+			text = match.suffix().first;
+		}
+
+		// 결과 출력
+
+
+
+
+		for (size_t i = 0; i < Room_Index.size(); ++i)
+		{
+
+
+			ViewRoomList->Rows->Add();
+			System::String^ tempRoomIndex = msclr::interop::marshal_as<System::String^>(Room_Index[i]);
+			ViewRoomList->Rows[i]->Cells["RoomIndex"]->Value = tempRoomIndex;
+
+			std::string R_T;
+			if (Room_Type[i] == "2")
+			{
+				R_T = "Public";
+			}
+			else
+			{
+				R_T = "Private";
+			}
+			System::String^ tempRoomType = msclr::interop::marshal_as<System::String^>(R_T);
+			ViewRoomList->Rows[i]->Cells["PrivateCheck"]->Value = tempRoomType;
+
+			System::String^ tempRoomTitle = msclr::interop::marshal_as<System::String^>(Room_Title[i]);
+			ViewRoomList->Rows[i]->Cells["RoomName"]->Value = tempRoomTitle;
+
+
+			System::String^ tempRoomTime = msclr::interop::marshal_as<System::String^>(Room_Date[i]);
+			ViewRoomList->Rows[i]->Cells["CreatedDate"]->Value = tempRoomTime;
+
+		}
+
+		
+
+	}
+
 }
 };
 }

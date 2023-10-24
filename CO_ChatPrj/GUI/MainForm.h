@@ -479,7 +479,7 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 
 		//std::string tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
 		//std::string tmptxt_2_ = msclr::interop::marshal_as<std::string>(tmptxt_2);
-		std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_room_Enter));
+		std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_room_Chat));
 		std::string _Index_Str_Result = _Index_Str;/* + delim + tmptxt_1_ + delim + tmptxt_2_;*/
 		const char* buffer = _Index_Str_Result.c_str();
 
@@ -493,7 +493,7 @@ private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e
 
 	IniMsg();
 
-	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_room_Exit));
+	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_room_Enter));
 	std::string _Index_Str_Result = _Index_Str;/* + delim + tmptxt_1_ + delim + tmptxt_2_;*/
 	const char* buffer = _Index_Str_Result.c_str();
 

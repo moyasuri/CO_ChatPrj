@@ -29,7 +29,7 @@ public:
     ~MySQL();
  
     bool isWorkingRoomIndexExist(int roomIndex);
-
+    string room_List();
     void Init_Mysql();
 
     void set_database(string str);
@@ -41,6 +41,7 @@ public:
     void room_activate(int roomIndex, int index);
     void _send_msg(const char* msg, int room_Index);
 
+    string room_myList(int index);
 
 private:
     // MySQL Connector/C++ 초기화
