@@ -430,7 +430,7 @@ string MySQL::QuerySql(string msg, int idx) {
 
             string _email, _phone, _nickname, _cha_num, _pw;
 
-
+            ss >> _email >> _phone >> _nickname >> _cha_num >> _pw;
             prep_stmt = con->prepareStatement("update member set Email = ?, Phone =?, Nickname = ?,Cha_Num = ?,Member_PW=? WHERE  Member_ID = ?");
        
             prep_stmt->setString(1, _email);
@@ -1468,7 +1468,10 @@ string MySQL::QuerySql(string msg, int idx) {
             for (auto id : workingRoom_list[i_room_Index].join_client)
             {
                 if (id == my_ID)
+                {
                     join_client_num = count;
+                    break;
+                }
                 count++;
             }
             workingRoom_list[i_room_Index].join_client.erase(workingRoom_list[i_room_Index].join_client.begin() + join_client_num);//내 이름 활성화된 방에서 삭제
@@ -1572,7 +1575,7 @@ string MySQL::QuerySql(string msg, int idx) {
             string result;
             string nickname, chat, chat_Data = "";
             int room_index = stoi(sck_list[idx]._user.getJoinRoomIndex());
-            prep_stmt = con->prepareStatement("SELECT Member_ID, Chat, Chat_Date FROM room_chat WHERE Room_Index=?");
+            prep_stmt = con->prepareStatement("select member.Nickname, room_chat.Chat, Chat_Date FROM room_chat left join member on room_chat.Member_ID = member.member_ID WHERE Room_Index= ?");
             prep_stmt->setInt(1, room_index);
             sql::ResultSet* res = prep_stmt->executeQuery();
             while (res->next())
@@ -1580,12 +1583,35 @@ string MySQL::QuerySql(string msg, int idx) {
                 nickname = res->getString(1);
                 chat = res->getString(2);
                 chat_Data = res->getString(3);
-                row = nickname + " : " + chat + "  " + chat_Data;
-                send(sck_list[idx].sck, row.c_str(), row.size(), 0);
+                row = nickname + " : " + chat + "  " + chat_Data + "\n";
+                all_Text += row;
             }
-            row = trueStr + IDENTIFIER + "-------------------------------------이전내역-----------------------------------------\n";
-            send(sck_list[idx].sck, row.c_str(), row.size(), 0);
+            all_Text += "-------------------------------------이전내역-----------------------------------------\n";
+            send(sck_list[idx].sck, all_Text.c_str(), all_Text.size(), 0);
+            break;
         }
+        //case e_room_show_whole_Text:
+        //{
+        //    multimsg = true;
+        //    string row;
+        //    string all_Text = "";
+        //    string result;
+        //    string nickname, chat, chat_Data = "";
+        //    int room_index = stoi(sck_list[idx]._user.getJoinRoomIndex());
+        //    prep_stmt = con->prepareStatement("SELECT Member_ID, Chat, Chat_Date FROM room_chat WHERE Room_Index=?");
+        //    prep_stmt->setInt(1, room_index);
+        //    sql::ResultSet* res = prep_stmt->executeQuery();
+        //    while (res->next())
+        //    {
+        //        nickname = res->getString(1);
+        //        chat = res->getString(2);
+        //        chat_Data = res->getString(3);
+        //        row = nickname + " : " + chat + "  " + chat_Data + "\n";
+        //        send(sck_list[idx].sck, row.c_str(), row.size(), 0);
+        //    }
+        //    row = trueStr + IDENTIFIER + "-------------------------------------이전내역-----------------------------------------\n";
+        //    send(sck_list[idx].sck, row.c_str(), row.size(), 0);
+        //}
         
         case e_room_Chat:
         {   multimsg = true;

@@ -66,12 +66,6 @@
     <ClCompile Include="NewMessage.cpp">
       <Filter>cpp</Filter>
     </ClCompile>
-    <ClCompile Include="PrivateRoom.cpp">
-      <Filter>cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="PrivateRoomChat.cpp">
-      <Filter>cpp</Filter>
-    </ClCompile>
     <ClCompile Include="PublicRoom.cpp">
       <Filter>cpp</Filter>
     </ClCompile>
@@ -132,12 +126,6 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="PublicRoomChat.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="PrivateRoom.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="PrivateRoomChat.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="CreateChatRoom.h">

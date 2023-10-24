@@ -257,20 +257,20 @@ private: System::Void Friends_Visible(System::Object^ sender, System::EventArgs^
 
 	private: System::Void btnDelete_Click(System::Object^ sender, System::EventArgs^ e) {
 		btnDelete->NotifyDefault(false);
-		svrMsg.clear();
+		//svrMsg.clear();
 
 
-		if (listBoxFriends->SelectedItem == nullptr) {
-			System::Windows::Forms::MessageBox::Show("삭제하실 아이디를 선택해주세요", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-			return;
-		}
+		//if (listBoxFriends->SelectedItem == nullptr) {
+		//	System::Windows::Forms::MessageBox::Show("삭제하실 아이디를 선택해주세요", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		//	return;
+		//}
 
-		System::Windows::Forms::DialogResult result =
-			System::Windows::Forms::MessageBox::Show("진짜 삭제할거야?", "경고", \
-				MessageBoxButtons::YesNo, MessageBoxIcon::Warning);
+		//System::Windows::Forms::DialogResult result =
+		//	System::Windows::Forms::MessageBox::Show("진짜 삭제할거야?", "경고", \
+		//		MessageBoxButtons::YesNo, MessageBoxIcon::Warning);
 
 
-		if (result == System::Windows::Forms::DialogResult::Yes) {
+		//if (result == System::Windows::Forms::DialogResult::Yes) {
 			// Yes 버튼을 클릭한 경우에 실행할 코드
 			// 여기에 Yes 버튼을 클릭했을 때 수행할 동작을 추가하세요.
 			String^ tmptxt_1 = listBoxFriends->SelectedItem->ToString();
@@ -314,13 +314,13 @@ private: System::Void Friends_Visible(System::Object^ sender, System::EventArgs^
 				}
 			}
 
-		}
-		else {
-			// No 버튼을 클릭한 경우에 실행할 코드
-			// 여기에 No 버튼을 클릭했을 때 수행할 동작을 추가하세요.
-			return;
+		/*}*/
+		//else {
+		//	// No 버튼을 클릭한 경우에 실행할 코드
+		//	// 여기에 No 버튼을 클릭했을 때 수행할 동작을 추가하세요.
+		//	return;
 
-		}
+		//}
 	}
 private: System::Void btnResponse_Click(System::Object^ sender, System::EventArgs^ e) {
 	if (friendresponseform == nullptr || friendresponseform->IsDisposed) {

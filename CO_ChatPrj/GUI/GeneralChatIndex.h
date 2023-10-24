@@ -280,7 +280,6 @@ namespace GUI {
 			this->Name = L"GeneralChatIndex";
 			this->Text = L"GeneralChatIndex";
 			this->Activated += gcnew System::EventHandler(this, &GeneralChatIndex::GeneralChatIndex_Activated);
-			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &GeneralChatIndex::GeneralChatIndex_FormClosing);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ViewRoomList))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
@@ -426,9 +425,7 @@ namespace GUI {
 
 	
 
-private: System::Void GeneralChatIndex_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
-	this->Owner->Show();
-}
+
 
 
 // 방 리스트를 가져와야한다.
@@ -451,9 +448,6 @@ private: System::Void GeneralChatIndex_Activated(System::Object^ sender, System:
 	System::Windows::Forms::MessageBox::Show(clrString, "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);*/
 	if (isTrue == trueStr)// server 에서 오케이받는 함수
 	{
-
-
-
 
 
 		std::vector<std::string> Room_Index;
@@ -488,9 +482,6 @@ private: System::Void GeneralChatIndex_Activated(System::Object^ sender, System:
 
 		// 결과 출력
 
-
-
-
 		for (size_t i = 0; i < Room_Index.size(); ++i)
 		{
 
@@ -519,9 +510,6 @@ private: System::Void GeneralChatIndex_Activated(System::Object^ sender, System:
 			ViewRoomList->Rows[i]->Cells["CreatedDate"]->Value = tempRoomTime;
 
 		}
-
-		
-
 	}
 
 }

@@ -45,6 +45,7 @@ namespace GUI {
 
 
 
+
 	private: System::String^ relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\HomeIntro.gif");
 
 	public:
@@ -94,6 +95,7 @@ namespace GUI {
 	private: System::Windows::Forms::Button^ btnFriends;
 	private: System::Windows::Forms::Button^ btnMessage;
 	private: System::Windows::Forms::Button^ btnSignOut;
+	private: System::ComponentModel::IContainer^ components;
 
 
 
@@ -104,7 +106,7 @@ namespace GUI {
 		/// <summary>
 		/// 필수 디자이너 변수입니다.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -385,6 +387,7 @@ private: System::Void btnJoinChatRoom_Click(System::Object^ sender, System::Even
 		joinchatroomForm = gcnew JoinChatRoom;
 		joinchatroomForm->Owner=this;
 		joinchatroomForm->Show();
+		this->Hide();
 
 	}
 	// 이미 생성된 폼이 열려 있는 경우, 해당 폼을 활성화시킵니다.

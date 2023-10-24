@@ -10,6 +10,7 @@ extern SOCKET client_sock;
 extern std::string Recv_str;
 extern std::string srvchat;
 extern std::string prevMessage;
+extern std::string flag;
 
 namespace GUI {
 
@@ -55,7 +56,7 @@ namespace GUI {
 			btnClose->BackgroundImage = Image::FromFile(relativePath);
 
 			timer2 = gcnew System::Windows::Forms::Timer();
-			timer2->Interval = 1000;  // 1000ms = 1초
+			timer2->Interval = 300;  // 1000ms = 1초
 			timer2->Tick += gcnew System::EventHandler(this, &ServerChat::timer2_Tick);
 			timer2->Start();
 		}
@@ -66,7 +67,7 @@ namespace GUI {
 		/// </summary>
 		~ServerChat()
 		{
-			timer2->Stop();
+			
 			if (components)
 			{
 				delete components;
@@ -116,7 +117,7 @@ namespace GUI {
 			this->txtBoxChatWindow->Multiline = true;
 			this->txtBoxChatWindow->Name = L"txtBoxChatWindow";
 			this->txtBoxChatWindow->ReadOnly = true;
-			this->txtBoxChatWindow->Size = System::Drawing::Size(459, 417);
+			this->txtBoxChatWindow->Size = System::Drawing::Size(700, 417);
 			this->txtBoxChatWindow->TabIndex = 0;
 			// 
 			// txtBoxMyChat
@@ -124,7 +125,7 @@ namespace GUI {
 			this->txtBoxMyChat->Location = System::Drawing::Point(56, 525);
 			this->txtBoxMyChat->Margin = System::Windows::Forms::Padding(4);
 			this->txtBoxMyChat->Name = L"txtBoxMyChat";
-			this->txtBoxMyChat->Size = System::Drawing::Size(459, 28);
+			this->txtBoxMyChat->Size = System::Drawing::Size(700, 28);
 			this->txtBoxMyChat->TabIndex = 2;
 			this->txtBoxMyChat->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &ServerChat::txtBoxChat_KeyPress);
 			// 
@@ -154,7 +155,7 @@ namespace GUI {
 			this->btnClose->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnClose->Location = System::Drawing::Point(316, 610);
+			this->btnClose->Location = System::Drawing::Point(557, 610);
 			this->btnClose->Margin = System::Windows::Forms::Padding(4);
 			this->btnClose->Name = L"btnClose";
 			this->btnClose->Size = System::Drawing::Size(199, 61);
@@ -179,7 +180,7 @@ namespace GUI {
 			// 
 			this->picBoxImojiYou->BackColor = System::Drawing::Color::Transparent;
 			this->picBoxImojiYou->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
-			this->picBoxImojiYou->Location = System::Drawing::Point(380, 72);
+			this->picBoxImojiYou->Location = System::Drawing::Point(621, 72);
 			this->picBoxImojiYou->Name = L"picBoxImojiYou";
 			this->picBoxImojiYou->Size = System::Drawing::Size(135, 154);
 			this->picBoxImojiYou->TabIndex = 6;
@@ -191,7 +192,7 @@ namespace GUI {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->ClientSize = System::Drawing::Size(591, 735);
+			this->ClientSize = System::Drawing::Size(887, 735);
 			this->Controls->Add(this->picBoxImojiYou);
 			this->Controls->Add(this->picBoxImojiMy);
 			this->Controls->Add(this->btnClose);
@@ -201,7 +202,6 @@ namespace GUI {
 			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"ServerChat";
 			this->Text = L"Chat";
-			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &ServerChat::ServerChat_FormClosing);
 			this->Load += gcnew System::EventHandler(this, &ServerChat::ServerChat_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->picBoxImojiMy))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->picBoxImojiYou))->EndInit();
@@ -314,15 +314,11 @@ namespace GUI {
 			   // 문자열에서 부분 문자열의 포함 여부를 확인합니다.
 			   return strCpp.find(searchStringCpp) != std::string::npos;
 		   }
-private: System::Void ServerChat_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
-	this->Owner->Show();
-}
+
 private: System::Void ServerChat_Load(System::Object^ sender, System::EventArgs^ e) {
 
 
 	IniMsg();
-
-
 
 	//String^ tmptxt_1 = txtBoxName->Text; // textBox는 해당 텍스트 상자의 이름입니다.
 	//String^ tmptxt_2 = txtBoxEmail->Text; // textBox는 해당 텍스트 상자의 이름입니다.
@@ -348,8 +344,14 @@ private: System::Void ServerChat_Load(System::Object^ sender, System::EventArgs^
 private: System::Void timer2_Tick(System::Object^ sender, System::EventArgs^ e) {
 	
 	std::stringstream Chat(Recv_str);
-	std::string flag, token;
+	std::string token;
 
+	//Chat >> flag;
+	//if (flag == "true" || flag == "false")
+	//{
+	//	flag = "";
+	//	return;
+	//}
 	// 서버에서 받은 메시지를 새로운 메시지로 저장합니다.
 	std::string newMessage = Recv_str;
 

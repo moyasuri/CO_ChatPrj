@@ -215,6 +215,7 @@ namespace GUI {
 		}
 	}
 	private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
+		this->Owner->Show();
 		this->Owner->Activate();
 		this->Close();
 		
