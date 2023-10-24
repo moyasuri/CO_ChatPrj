@@ -38,7 +38,7 @@ public:
 
     string getCurrentTime();
     
-    void room_activate(int roomIndex, int index);
+    void room_activate(int roomIndex, int index__);
     void _send_msg(const char* msg, int room_Index);
 
     string room_myList(int index);

@@ -2,6 +2,13 @@
 
 #include <msclr/marshal_cppstd.h>
 #include <string>
+#include <sstream>
+#include "UsageClient.h"
+
+
+extern SOCKET client_sock;
+extern std::string Recv_str;
+
 namespace GUI {
 
 	using namespace System;
@@ -10,6 +17,7 @@ namespace GUI {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+
 	
 	/// <summary>
 	/// ServerChat에 대한 요약입니다.
@@ -22,6 +30,7 @@ namespace GUI {
 
 	private: System::String^ relativePath;
 	private: System::Windows::Forms::PictureBox^ picBoxImojiYou;
+	private: System::Windows::Forms::Timer^ timer1;
 
 	private: System::Windows::Forms::Timer^ timerDeletePicBoxIntro;
 	public:
@@ -42,6 +51,12 @@ namespace GUI {
 			btnSend->BackgroundImage = Image::FromFile(relativePath);
 			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\temp\\close.png");
 			btnClose->BackgroundImage = Image::FromFile(relativePath);
+
+
+			timer1->Interval = 1000;  // 1000ms = 1초
+			timer1->Tick += gcnew System::EventHandler(this, &ServerChat::timer1_Tick);  // 타이머 이벤트 핸들러 연결
+			timer1->Start();  // 타이머 시작
+
 			
 		}
 
@@ -64,14 +79,15 @@ namespace GUI {
 	private: System::Windows::Forms::TextBox^ txtBoxMyChat;
 	private: System::Windows::Forms::Button^ btnSend;
 	private: System::Windows::Forms::Button^ btnClose;
-	
+	private: System::ComponentModel::IContainer^ components;
+
 
 
 	public:
 		/// <summary>
 		/// 필수 디자이너 변수입니다.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -80,6 +96,7 @@ namespace GUI {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			this->components = (gcnew System::ComponentModel::Container());
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(ServerChat::typeid));
 			this->txtBoxChatWindow = (gcnew System::Windows::Forms::TextBox());
 			this->txtBoxMyChat = (gcnew System::Windows::Forms::TextBox());
@@ -87,6 +104,7 @@ namespace GUI {
 			this->btnClose = (gcnew System::Windows::Forms::Button());
 			this->picBoxImojiMy = (gcnew System::Windows::Forms::PictureBox());
 			this->picBoxImojiYou = (gcnew System::Windows::Forms::PictureBox());
+			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->picBoxImojiMy))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->picBoxImojiYou))->BeginInit();
 			this->SuspendLayout();
@@ -168,6 +186,10 @@ namespace GUI {
 			this->picBoxImojiYou->TabIndex = 6;
 			this->picBoxImojiYou->TabStop = false;
 			// 
+			// timer1
+			// 
+			this->timer1->Tick += gcnew System::EventHandler(this, &ServerChat::timer1_Tick);
+			// 
 			// ServerChat
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(10, 18);
@@ -183,8 +205,9 @@ namespace GUI {
 			this->Controls->Add(this->txtBoxChatWindow);
 			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"ServerChat";
-			this->Text = L"ServerChat";
+			this->Text = L"Chat";
 			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &ServerChat::ServerChat_FormClosing);
+			this->Load += gcnew System::EventHandler(this, &ServerChat::ServerChat_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->picBoxImojiMy))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->picBoxImojiYou))->EndInit();
 			this->ResumeLayout(false);
@@ -198,6 +221,29 @@ namespace GUI {
 	private: System::Void btnSend_Click(System::Object^ sender, System::EventArgs^ e) {
 		btnSend->NotifyDefault(false);
 		// server에게 메세지 보내기
+
+
+
+		IniMsg();
+		String^ tmptxt_1 = txtBoxMyChat->Text; // textBox는 해당 텍스트 상자의 이름입니다.
+		
+
+	/*	if (!String::IsNullOrEmpty(tmptxt_1)
+
+
+			int time_limit = 0;
+			std::string tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
+			std::string tmptxt_2_ = msclr::interop::marshal_as<std::string>(tmptxt_2);
+			std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_id_find_ID));
+			std::string _Index_Str_Result = _Index_Str + delim + tmptxt_1_ + delim + tmptxt_2_;
+			const char* buffer = _Index_Str_Result.c_str();
+
+			send(client_sock, buffer, strlen(buffer), 0);
+			Sleep(100);
+			DivStr(Recv_str, svrMsg);
+		}*/
+
+
 
 
 		// 내꺼는 그냥 띄우면되고, 남에것만 가져오자.
@@ -275,6 +321,36 @@ namespace GUI {
 		   }
 private: System::Void ServerChat_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
 	this->Owner->Show();
+}
+private: System::Void ServerChat_Load(System::Object^ sender, System::EventArgs^ e) {
+
+
+	IniMsg();
+	//String^ tmptxt_1 = txtBoxName->Text; // textBox는 해당 텍스트 상자의 이름입니다.
+	//String^ tmptxt_2 = txtBoxEmail->Text; // textBox는 해당 텍스트 상자의 이름입니다.
+
+	//if (!String::IsNullOrEmpty(tmptxt_1) && !String::IsNullOrEmpty(tmptxt_2)) {
+
+
+	//	int time_limit = 0;
+	//	std::string tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
+	//	std::string tmptxt_2_ = msclr::interop::marshal_as<std::string>(tmptxt_2);
+		//std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_room_show_whole_Text));
+		/*std::string _Index_Str_Result = _Index_Str;
+		const char* buffer = _Index_Str_Result.c_str();*/
+
+		/*send(client_sock, buffer, strlen(buffer), 0);
+		Sleep(100);
+		DivStr(Recv_str, svrMsg);*/
+
+
+
+
+}
+
+private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
+
+	//System::Windows::Forms::MessageBox::Show("ID / PW 를 다시입력해주세요. ", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 }
 };
 }

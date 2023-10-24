@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="button1.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="btnConfirm.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAATMAAABUCAYAAADu3tAIAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAACH
         DwAAjA8AAP1SAACBQAAAfXkAAOmLAAA85QAAGcxzPIV3AAAKNWlDQ1BzUkdCIElFQzYxOTY2LTIuMQAA
@@ -165,7 +165,7 @@
         m10DywfODjoMXrjleuvyba/b1++svDMwFDJ0dzhyeOQu++7kvaR7L+9n3J9/sOkh+mHhI6lH5Y+VHtf9
         qPdj64jlyJlR19G+J0FPHoyxxp7/lP7Th/H8p+Sn5ROqE42TZpOnp9ynbj5b/Wz8eerz+emCn6V/rn6h
         ++K7Xxx/6ZtZNTP+kv9y4dfiV/Kvjrxe9rp71n/28ZvkN/NzhW/l3x59x3jX+z7s/cR85gfsh4qPeh+7
-        Pnl/eriQvLDwG/eE8/s6uL5TAAAACXBIWXMAAAsSAAALEgHS3X78AAAN0UlEQVR4Xu2dT88lRRXGYYMh
+        Pnl/eriQvLDwG/eE8/s6uL5TAAAACXBIWXMAAAsPAAALDwGS+QOlAAAN0UlEQVR4Xu2dT88lRRXGYYMh
         ISAxgFvcOH4bBVmIrND4KdihokvD0iVugGiMRBMSJFEX6BAXjgsm6ERDEOOADJNMjA6S1/Mwt8vqfp86
         dar/3O6+73OSX6bmvae7q7vqPHWquvveu87OzoQQYvfQPwohxN6gfxRCiL1B/yiEEHsjFb7/8ttr8UXj
         a8ZzxkvGG8bbxt+Mj4wzIcSqIA4Rj4hLxCfiFPGKuEX8srhenFzIQCow54V42HjaeMHABWIXTwixHxDH
@@ -274,7 +274,7 @@
         m10DywfODjoMXrjleuvyba/b1++svDMwFDJ0dzhyeOQu++7kvaR7L+9n3J9/sOkh+mHhI6lH5Y+VHtf9
         qPdj64jlyJlR19G+J0FPHoyxxp7/lP7Th/H8p+Sn5ROqE42TZpOnp9ynbj5b/Wz8eerz+emCn6V/rn6h
         ++K7Xxx/6ZtZNTP+kv9y4dfiV/Kvjrxe9rp71n/28ZvkN/NzhW/l3x59x3jX+z7s/cR85gfsh4qPeh+7
-        Pnl/eriQvLDwG/eE8/s6uL5TAAAACXBIWXMAAAsSAAALEgHS3X78AAAIbElEQVR4Xu2dTYsdRRSG8wGK
+        Pnl/eriQvLDwG/eE8/s6uL5TAAAACXBIWXMAAAsPAAALDwGS+QOlAAAIbElEQVR4Xu2dTYsdRRSG8wGK
         /yMujQvBpf6KqKCrLLLS5GeIKIJLQY0fUdCNblzoQgejiGQzG5FANDFG/IiJilmYIFzPM3N76Kl5q7uq
         uufertvnwLM503Wq685561RX9+17ZLFYOI4zMaTTcZz1Ip2O46wX6XQcZ71IJ3zwwmdjctx4xDhrvGZc
         NK4Z/xgLx5kg5CY5Sq6Ss+cMcphcVjlehNIeSCeoIJkcNR4zXjduGWrwjlMb5DI5TW6T4yr3k1HaA+kE

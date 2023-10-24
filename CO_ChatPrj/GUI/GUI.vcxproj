@@ -124,6 +124,7 @@
     <ClCompile Include="AddFriend.cpp" />
     <ClCompile Include="CreateChatRoom.cpp" />
     <ClCompile Include="DeleteChatRoom.cpp" />
+    <ClCompile Include="DeleteRoom.cpp" />
     <ClCompile Include="EditProfile.cpp" />
     <ClCompile Include="FindAccount.cpp" />
     <ClCompile Include="FriendList.cpp" />
@@ -144,7 +145,6 @@
     <ClCompile Include="MessageSent.cpp" />
     <ClCompile Include="ServerChat.cpp" />
     <ClCompile Include="SignUp.cpp" />
-    <ClCompile Include="test.cpp" />
     <ClCompile Include="UsageClient.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +155,9 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="DeleteChatRoom.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="DeleteRoom.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="EditProfile.h">
@@ -217,9 +220,6 @@
     <ClInclude Include="SignUp.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="test.h">
-      <FileType>CppForm</FileType>
-    </ClInclude>
     <ClInclude Include="UsageClient.h" />
   </ItemGroup>
   <ItemGroup>
@@ -231,6 +231,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DeleteChatRoom.resx">
       <DependentUpon>DeleteChatRoom.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeleteRoom.resx">
+      <DependentUpon>DeleteRoom.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditProfile.resx">
       <DependentUpon>EditProfile.h</DependentUpon>
@@ -289,9 +292,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SignUp.resx">
       <DependentUpon>SignUp.h</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="test.resx">
-      <DependentUpon>test.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

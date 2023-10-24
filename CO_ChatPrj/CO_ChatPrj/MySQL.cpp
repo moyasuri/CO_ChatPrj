@@ -48,12 +48,22 @@ void MySQL::_send_msg(const char* msg, int room_Index) {
     }
 }
 
-void MySQL::room_activate(int roomIndex_, int index__) {
+//void MySQL::room_activate(int roomIndex_, int index__) {
+//    string _my_ID62 = sck_list[index__]._user.getID();
+//    if (isWorkingRoomIndexExist(roomIndex_) == false) {
+//        workingRoom_list[roomIndex_].Room_Index = roomIndex_;
+//    }
+//    workingRoom_list[roomIndex_].join_client[index__] = (_my_ID62);
+//}
+
+
+
+void MySQL::room_activate(int roomIndex, int index__) {
     string _my_ID62 = sck_list[index__]._user.getID();
-    if (isWorkingRoomIndexExist(roomIndex_) == false) {
-        workingRoom_list[roomIndex_].Room_Index = roomIndex_;
+    if (isWorkingRoomIndexExist(roomIndex) == false) {
+        workingRoom_list[roomIndex].Room_Index = roomIndex;
     }
-    workingRoom_list[roomIndex_].join_client[index__] = (_my_ID62);
+    workingRoom_list[roomIndex].join_client.push_back(_my_ID62);
 }
 
 
@@ -221,13 +231,13 @@ string MySQL::QuerySql(string msg, int idx) {
             prep_stmt->setString(2, _pw);
             sql::ResultSet* res = prep_stmt->executeQuery();
             
-            
+        
 
             if(res->next())
             {
                 
                 sck_list[idx]._user.setID(_id);
-                
+                stmt->execute("UPDATE member SET Join_Room_Index = NULL WHERE Member_ID = '" + _id + "';");// 추가열
                 std::string query = "SELECT Nickname FROM member WHERE Member_ID = '" + _id + "'";
                 result = "";
                 res = stmt->executeQuery(query);
@@ -1316,8 +1326,6 @@ string MySQL::QuerySql(string msg, int idx) {
             // roomtype은 1이들어갈수없다.
             // name = "abc cdf"
             // std::stringstream ss(recv_content); //  없어도돼
-            string A = "2 0 haha";
-            std::stringstream ss(A);
             string s;
             string result = "";
             string room_Type = "";
@@ -1461,9 +1469,7 @@ string MySQL::QuerySql(string msg, int idx) {
             string room_Index62;
             //std::stringstream ss(recv_content);
             ss >> room_Index62 >> room_Type62 >> room_PW62;
-            room_Index62 = "4";
-            room_Type62 = "2";
-            room_PW62 = "0";
+          
             cout << room_Index62 << IDENTIFIER << room_Type62 << IDENTIFIER << room_PW62 << endl;
             int i_room_Type = std::stoi(room_Type62);
             int i_room_Index = std::stoi(room_Index62);
@@ -1480,7 +1486,7 @@ string MySQL::QuerySql(string msg, int idx) {
                     cout << "성공";
                 else
                 {
-                    result = s_(e_room_Enter) + IDENTIFIER + falseStr;
+                    result = falseStr;
                     cout << "index 와 pw가 맞지 않습니다" << endl;
                     return result;
                 }
@@ -1494,7 +1500,7 @@ string MySQL::QuerySql(string msg, int idx) {
                 cout << "rowUpdate >0 " << endl;
             else
             {
-                result = s_(e_room_Enter) + IDENTIFIER + falseStr;
+                result = falseStr;
                 return result;
             }
 
@@ -1518,21 +1524,21 @@ string MySQL::QuerySql(string msg, int idx) {
                         sck_list[idx].room.setRoom_PW(res->getString(6));
                     sck_list[idx]._user.setJoinRoomIndex(room_Index62);
                     room_activate(stoi(room_Index62), idx);
-                    result = s_(e_room_Enter) + IDENTIFIER + trueStr + IDENTIFIER + sck_list[idx]._user.getJoinRoomIndex();
+                    result = trueStr;
                     cout << "result : " << result << endl;
                     return result;
                 }
 
                 else
                 {
-                    cout << "등록은 성공 but 클래스 객체에 정보 저장 실패" << endl;
-                    result = s_(e_room_Enter) + IDENTIFIER + falseStr;
+                    cout << "등록은 성공 but 클래스 객체에 정보 저장 실패" << endl; 
+                    result = falseStr;
                     return result;
                 }
             }
             else
             {
-                result = s_(e_room_Enter) + IDENTIFIER + falseStr;
+                result = falseStr;
                 return result;
             }
         }

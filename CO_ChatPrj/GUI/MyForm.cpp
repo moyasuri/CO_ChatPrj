@@ -14,6 +14,8 @@ std::string my_nick;
 
 #include "MyForm.h"
 #include "MainForm.h"
+#include "ServerChat.h"
+
 
 
 #define MAX_SIZE 1024
@@ -45,6 +47,8 @@ void chat_recv() {
             string user;
             // ss >> user; // 스트림을 통해, 문자열을 공백 분리해 변수에 할당. 보낸 사람의 이름만 user에 저장됨.
             // if (user != my_nick) cout << buf << endl; // 내가 보낸 게 아닐 경우에만 출력하도록.
+        
+
         }
         else {
             
@@ -92,7 +96,6 @@ void CommunicateWithServer() {
                 }
 
 
-
             }
 
             std::thread th2(chat_recv);
@@ -111,6 +114,7 @@ void CommunicateWithServer() {
         WSACleanup();
 
 }
+
 
 
 

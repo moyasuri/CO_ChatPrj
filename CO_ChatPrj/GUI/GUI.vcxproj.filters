@@ -84,14 +84,14 @@
     <ClCompile Include="SignUp.cpp">
       <Filter>cpp</Filter>
     </ClCompile>
-    <ClCompile Include="test.cpp">
-      <Filter>cpp</Filter>
-    </ClCompile>
     <ClCompile Include="Imoji.cpp">
       <Filter>cpp</Filter>
     </ClCompile>
     <ClCompile Include="UsageClient.cpp">
       <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="DeleteRoom.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -100,9 +100,6 @@
     </ClInclude>
     <ClInclude Include="SignUp.h">
       <Filter>소스 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="test.h">
-      <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="MainForm.h">
       <Filter>헤더 파일</Filter>
@@ -169,6 +166,9 @@
     </ClInclude>
     <ClInclude Include="Friends.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="DeleteRoom.h">
+      <Filter>소스 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

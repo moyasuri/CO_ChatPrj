@@ -1,5 +1,15 @@
 ﻿#pragma once
 
+#include <msclr/marshal_cppstd.h>
+#include <string>
+#include "UsageClient.h"
+
+extern std::string Recv_str;
+extern std::string isTrue;
+extern std::string svrMsg;
+extern SOCKET client_sock;
+
+
 namespace GUI {
 
 	using namespace System;
@@ -34,13 +44,19 @@ namespace GUI {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::TextBox^ textBox1;
+	private: System::Windows::Forms::TextBox^ txtBoxRoomTitle;
 	protected:
-	private: System::Windows::Forms::Button^ button1;
+
+	private: System::Windows::Forms::Button^ btnConfirm;
+	private: System::Windows::Forms::TextBox^ txtBoxPW;
+	private: System::Windows::Forms::CheckBox^ chkBox;
+
+	protected:
 
 
-	private: System::Windows::Forms::TextBox^ textBox2;
-	private: System::Windows::Forms::CheckBox^ checkBox1;
+
+
+
 	private: System::Windows::Forms::Button^ button2;
 	private: System::Windows::Forms::Label^ label4;
 	private: System::Windows::Forms::Label^ label1;
@@ -60,58 +76,59 @@ namespace GUI {
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(CreateChatRoom::typeid));
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
-			this->button1 = (gcnew System::Windows::Forms::Button());
-			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
-			this->checkBox1 = (gcnew System::Windows::Forms::CheckBox());
+			this->txtBoxRoomTitle = (gcnew System::Windows::Forms::TextBox());
+			this->btnConfirm = (gcnew System::Windows::Forms::Button());
+			this->txtBoxPW = (gcnew System::Windows::Forms::TextBox());
+			this->chkBox = (gcnew System::Windows::Forms::CheckBox());
 			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
-			// textBox1
+			// txtBoxRoomTitle
 			// 
-			this->textBox1->Location = System::Drawing::Point(235, 66);
-			this->textBox1->Margin = System::Windows::Forms::Padding(4);
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(249, 28);
-			this->textBox1->TabIndex = 0;
-			this->textBox1->TextChanged += gcnew System::EventHandler(this, &CreateChatRoom::textBox1_TextChanged);
+			this->txtBoxRoomTitle->Location = System::Drawing::Point(235, 66);
+			this->txtBoxRoomTitle->Margin = System::Windows::Forms::Padding(4);
+			this->txtBoxRoomTitle->Name = L"txtBoxRoomTitle";
+			this->txtBoxRoomTitle->Size = System::Drawing::Size(249, 28);
+			this->txtBoxRoomTitle->TabIndex = 0;
+			this->txtBoxRoomTitle->TextChanged += gcnew System::EventHandler(this, &CreateChatRoom::textBox1_TextChanged);
 			// 
-			// button1
+			// btnConfirm
 			// 
-			this->button1->BackColor = System::Drawing::Color::Transparent;
-			this->button1->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button1.BackgroundImage")));
-			this->button1->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->button1->FlatAppearance->BorderSize = 0;
-			this->button1->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
-			this->button1->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
-			this->button1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->button1->Location = System::Drawing::Point(23, 406);
-			this->button1->Margin = System::Windows::Forms::Padding(4);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(210, 61);
-			this->button1->TabIndex = 1;
-			this->button1->UseVisualStyleBackColor = false;
+			this->btnConfirm->BackColor = System::Drawing::Color::Transparent;
+			this->btnConfirm->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnConfirm.BackgroundImage")));
+			this->btnConfirm->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnConfirm->FlatAppearance->BorderSize = 0;
+			this->btnConfirm->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnConfirm->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnConfirm->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnConfirm->Location = System::Drawing::Point(23, 406);
+			this->btnConfirm->Margin = System::Windows::Forms::Padding(4);
+			this->btnConfirm->Name = L"btnConfirm";
+			this->btnConfirm->Size = System::Drawing::Size(210, 61);
+			this->btnConfirm->TabIndex = 1;
+			this->btnConfirm->UseVisualStyleBackColor = false;
+			this->btnConfirm->Click += gcnew System::EventHandler(this, &CreateChatRoom::btnConfirm_Click);
 			// 
-			// textBox2
+			// txtBoxPW
 			// 
-			this->textBox2->Location = System::Drawing::Point(235, 164);
-			this->textBox2->Margin = System::Windows::Forms::Padding(4);
-			this->textBox2->Name = L"textBox2";
-			this->textBox2->Size = System::Drawing::Size(249, 28);
-			this->textBox2->TabIndex = 3;
+			this->txtBoxPW->Location = System::Drawing::Point(235, 164);
+			this->txtBoxPW->Margin = System::Windows::Forms::Padding(4);
+			this->txtBoxPW->Name = L"txtBoxPW";
+			this->txtBoxPW->Size = System::Drawing::Size(249, 28);
+			this->txtBoxPW->TabIndex = 3;
 			// 
-			// checkBox1
+			// chkBox
 			// 
-			this->checkBox1->AutoSize = true;
-			this->checkBox1->Location = System::Drawing::Point(525, 68);
-			this->checkBox1->Margin = System::Windows::Forms::Padding(4);
-			this->checkBox1->Name = L"checkBox1";
-			this->checkBox1->Size = System::Drawing::Size(22, 21);
-			this->checkBox1->TabIndex = 5;
-			this->checkBox1->UseVisualStyleBackColor = true;
+			this->chkBox->AutoSize = true;
+			this->chkBox->Location = System::Drawing::Point(525, 68);
+			this->chkBox->Margin = System::Windows::Forms::Padding(4);
+			this->chkBox->Name = L"chkBox";
+			this->chkBox->Size = System::Drawing::Size(22, 21);
+			this->chkBox->TabIndex = 5;
+			this->chkBox->UseVisualStyleBackColor = true;
 			// 
 			// button2
 			// 
@@ -177,10 +194,10 @@ namespace GUI {
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->label4);
 			this->Controls->Add(this->button2);
-			this->Controls->Add(this->checkBox1);
-			this->Controls->Add(this->textBox2);
-			this->Controls->Add(this->button1);
-			this->Controls->Add(this->textBox1);
+			this->Controls->Add(this->chkBox);
+			this->Controls->Add(this->txtBoxPW);
+			this->Controls->Add(this->btnConfirm);
+			this->Controls->Add(this->txtBoxRoomTitle);
 			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"CreateChatRoom";
 			this->Text = L"CreateRoom";
@@ -193,6 +210,90 @@ namespace GUI {
 		this->Close();
 	}
 private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+}
+
+private: System::Void btnConfirm_Click(System::Object^ sender, System::EventArgs^ e) {
+
+
+	IniMsg();
+	std::string tmptxt_1_;
+	String^ tmptxt_3 = txtBoxRoomTitle->Text; // textBox는 해당 텍스트 상자의 이름입니다.
+	String^ tmptxt_2 = txtBoxPW->Text; // textBox는 해당 텍스트 상자의 이름입니다.
+
+
+	// 룸타이틀은 잇어야되요
+
+	if (String::IsNullOrEmpty(tmptxt_3))
+	{
+		System::Windows::Forms::MessageBox::Show("방제목을 입력해주세요.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		return;
+	}
+	if(chkBox->Checked && String::IsNullOrEmpty(tmptxt_2))
+	{
+		System::Windows::Forms::MessageBox::Show("비밀번호를 입력해주세요.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		return;
+	}
+		
+	// roomtype chk->3 아니면 2
+	// roompw -없으면 "0", 잇으면 문자열들어가고
+	// roomtitle
+	if (chkBox->Checked)
+	{
+		tmptxt_1_ = "3";
+	}
+	else
+	{
+		tmptxt_1_ = "2";
+	}
+
+
+
+		int time_limit = 0;
+		
+		std::string tmptxt_2_ = msclr::interop::marshal_as<std::string>(tmptxt_2);
+		std::string tmptxt_3_ = msclr::interop::marshal_as<std::string>(tmptxt_3);
+		std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_room_Create));
+		std::string _Index_Str_Result = _Index_Str + delim + tmptxt_1_ + delim + tmptxt_2_ + delim + tmptxt_3_;
+		const char* buffer = _Index_Str_Result.c_str();
+
+		send(client_sock, buffer, strlen(buffer), 0);
+		Sleep(100);
+		DivStr(Recv_str, svrMsg);
+
+
+		while (1)
+		{
+			if (isTrue == trueStr)// server 에서 오케이받는 함수
+			{
+				/*svrMsg = "ID :  " + svrMsg;*/
+
+				//server방입장
+
+				return;
+			}
+			else if (isTrue == falseStr) //  server에서 다른값보내면
+			{
+				System::Windows::Forms::MessageBox::Show("아이디랑 이메일이 일치하지 않습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				return;
+			}
+			else // 무한반복되는건데 시간타이밍 주면 좋을거같음
+			{
+				Sleep(1000);
+				if (time_limit > 1)
+				{
+					System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+					return;
+				}
+				else
+				{
+					time_limit++;
+				}
+			}
+		}
+	
+
+
+
 }
 };
 }

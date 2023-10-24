@@ -1,6 +1,5 @@
 ﻿#pragma once
 #include <list>
-#include <msclr/marshal.h>
 #include <vector>
 #include <string>
 #include <sstream>
@@ -9,6 +8,8 @@
 #include <regex>
 extern SOCKET client_sock;
 extern std::string Recv_str;
+
+
 namespace GUI {
 
 	using namespace System;
@@ -30,11 +31,6 @@ namespace GUI {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ RoomName;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ PrivateCheck;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ CreatedDate;
-
-
-
-
-
 
 
 
@@ -168,11 +164,13 @@ namespace GUI {
 			});
 			this->ViewRoomList->Location = System::Drawing::Point(-15, 106);
 			this->ViewRoomList->Margin = System::Windows::Forms::Padding(4);
+			this->ViewRoomList->MultiSelect = false;
 			this->ViewRoomList->Name = L"ViewRoomList";
 			this->ViewRoomList->ReadOnly = true;
 			this->ViewRoomList->RowHeadersWidth = 51;
 			this->ViewRoomList->RowHeadersWidthSizeMode = System::Windows::Forms::DataGridViewRowHeadersWidthSizeMode::DisableResizing;
 			this->ViewRoomList->RowTemplate->Height = 27;
+			this->ViewRoomList->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
 			this->ViewRoomList->Size = System::Drawing::Size(1808, 510);
 			this->ViewRoomList->TabIndex = 3;
 			// 
@@ -295,16 +293,113 @@ namespace GUI {
 	}
 	private: System::Void btnJoin_Click(System::Object^ sender, System::EventArgs^ e) {
 
-		int rowIndex = ViewRoomList->Rows->Add();
+		IniMsg();
 
-		// 새로운 행의 각 열에 데이터 설정
-		int lastRowNumber = ViewRoomList->RowCount;
-		int lastRowNumber2 = (ViewRoomList->RowCount)-1;
-		String^ myString = System::Convert::ToString(lastRowNumber);
-		//ViewRoomList->Rows[rowIndex]->Cells["NumOfRoom"]->Value = myString;
-		//ViewRoomList->Rows[rowIndex]->Cells["RoomName"]->Value = "새로운 데이터 1";
-		//ViewRoomList->Rows[rowIndex]->Cells["PrivateCheck"]->Value = "새로운 데이터 2";
+
+		System::String^ column1Value;
+		System::String^ column2Value;
+		System::String^ column3Value;
+		System::String^ tmpValue;
+
+		if (ViewRoomList->SelectedRows->Count > 0) {
+			// 선택한 행의 인덱스를 가져옵니다.
+			int selectedRowIndex = ViewRoomList->SelectedRows[0]->Index;
+
+			// 1열, 2열, 3열의 데이터를 가져옵니다.
+			System::Object^ column1ValueObj = ViewRoomList->Rows[selectedRowIndex]->Cells["RoomIndex"]->Value;
+			System::Object^ column2ValueObj = ViewRoomList->Rows[selectedRowIndex]->Cells["PrivateCheck"]->Value;
+
 	
+			// null 체크
+			if (column1ValueObj != nullptr && column2ValueObj != nullptr) {
+				column1Value = column1ValueObj->ToString();
+				column2Value = column2ValueObj->ToString();
+				
+				
+			}
+			else {
+				// 선택한 행의 하나 이상의 열이 null일 때 처리할 내용
+				// 예를 들어, 오류 메시지 출력 또는 다른 작업을 수행할 수 있습니다.
+				return;
+			}
+		}
+		else {
+			// 선택한 행이 없을 때 처리할 내용
+			// 예를 들어, 오류 메시지 출력 또는 다른 작업을 수행할 수 있습니다.
+			return;
+		}
+
+		std::string tmptxt_2_ = msclr::interop::marshal_as<std::string>(column2Value);
+		tmpValue = this->txtBoxPW->Text;
+
+		if ((tmptxt_2_ == "Private") && String::IsNullOrEmpty(tmpValue))
+		{
+			System::Windows::Forms::MessageBox::Show("비밀번호를 입력해주세요.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+
+		if ((tmptxt_2_ == "Private"))
+		{
+			tmptxt_2_ = "3";
+		}
+		else
+		{
+			tmptxt_2_ = "2";
+		}
+
+
+		
+
+		if (!String::IsNullOrEmpty(column1Value)) {
+
+
+			int time_limit = 0;
+			std::string tmptxt_1_ = msclr::interop::marshal_as<std::string>(column1Value);
+			std::string tmptxt_3_ = msclr::interop::marshal_as<std::string>(tmpValue);
+			std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_room_Enter));
+			std::string _Index_Str_Result = _Index_Str + delim + tmptxt_1_ + delim + tmptxt_2_ + delim + tmptxt_3_;
+			const char* buffer = _Index_Str_Result.c_str();
+
+			send(client_sock, buffer, strlen(buffer), 0);
+			Sleep(100);
+			DivStr(Recv_str, svrMsg);
+
+
+			while (1)
+			{
+				if (isTrue == trueStr)// server 에서 오케이받는 함수
+				{
+
+					/// 새로운 서버챗을만들어!!!!!
+
+					//svrMsg = "ID :  " + svrMsg;
+					//System::String^ clrString = msclr::interop::marshal_as<System::String^>(svrMsg);
+					System::Windows::Forms::MessageBox::Show("들어갔어", "방들어가기", MessageBoxButtons::OK, MessageBoxIcon::Information);
+					return;
+				}
+				else if (isTrue == falseStr) //  server에서 다른값보내면
+				{
+					System::Windows::Forms::MessageBox::Show("아이디랑 이메일이 일치하지 않습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+					return;
+				}
+				else // 무한반복되는건데 시간타이밍 주면 좋을거같음
+				{
+					Sleep(1000);
+					if (time_limit > 1)
+					{
+						System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+						return;
+					}
+					else
+					{
+						time_limit++;
+					}
+				}
+			}
+		}
+		else {
+			System::Windows::Forms::MessageBox::Show("방을 선택해주세요. ", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		}
 
 	
 
