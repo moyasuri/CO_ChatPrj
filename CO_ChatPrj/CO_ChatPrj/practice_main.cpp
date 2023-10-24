@@ -1044,14 +1044,16 @@ public:
                 chat = res->getString(2);
                 chat_Data = res->getString(3);
                 row = s_(e_room_show_whole_Text)+ IDENTIFIER + True + IDENTIFIER + nickname + " : " + chat + "  " + chat_Data;
+                cout << row<<endl;
                 send(Client_sck, row.c_str(), row.size(), 0);
+                cout<<"send(완료)"<< endl;
             }
             row= s_(e_room_show_whole_Text) + IDENTIFIER + True+ IDENTIFIER+ "-------------------------------------이전내역-----------------------------------------\n";
+            cout << row << endl;
             send(Client_sck, row.c_str(), row.size(), 0);
-            cout << all_Text;
-            result = s_(e_room_show_whole_Text) + IDENTIFIER + True + IDENTIFIER + all_Text;
-            
+            cout << "마지막 send(완료)" << endl;
         }
+
         //어떤 방을 삭제할건지<인덱스 들어옴
         string room_Delete(string recv_content, int index){
             string room_Index;
@@ -1136,6 +1138,11 @@ public:
             return result;
         }
 
+        //room_Chat 식별자+ 보내는 내용
+        //     e_room_myList,
+        //      e_room_Chat,
+        //  e_room_show_whole_Text
+        //
         string room_Chat(string recv_cont, int index) {
 
             string msg = "";
@@ -1148,8 +1155,7 @@ public:
             string my_Nickname = sck_list[index].user.getID();
             //cout << sck_list[idx].user << endl;
             int room_Index = stoi(sck_list[index].user.getJoinRoomIndex());
-            send_msg(msg.c_str(), room_Index);
-            cout << "send 빠져나왔다" << endl;
+            send_msg(msg.c_str(), room_Index);// 방에 참여한 모든 사람에게 메시지를 보내는 함수
             prep_stmt = con->prepareStatement("INSERT INTO room_chat VALUES (NULL,?,?,?,?)");
             prep_stmt->setString(1, my_Nickname);
             prep_stmt->setString(2, recv_cont);
@@ -1412,8 +1418,7 @@ void recv_from_client(int idx) {// 메세지가 들어오면 타입 구분 하는 기초 함수
             case e_room_Enter:
                 cout << "  case e_room_Enter: " << endl;
                 result = mysql.room_Enter(recv_content,idx); send(Client_sck, result.c_str(), result.size(), 0);
-                mysql.room_show_whole_Text(idx); 
-                my_room_Num= stoi(sck_list[idx].user.getJoinRoomIndex());
+                mysql.room_show_whole_Text(idx);
                 break;
             case e_room_Delete:
                 cout << "  case e_room_Delete" << endl;
