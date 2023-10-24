@@ -17,11 +17,11 @@ void DivStrMsg(std::string& _Recv_str, std::string& _svrMsg)
 	std::istringstream iss(_Recv_str);
 	std::string line;
 	std::string result;
-	iss >> isTrue;
+	iss >> isTrue >> std::ws;
 
 
 	while (std::getline(iss, line)) {
-		_svrMsg += line + '\n'; // 개행 문자를 유지한 채로 추가
+		_svrMsg += line + "\n"; // 개행 문자를 유지한 채로 추가
 	}
 
 

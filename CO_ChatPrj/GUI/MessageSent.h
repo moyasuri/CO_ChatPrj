@@ -250,14 +250,14 @@ private: System::Void MessageSent_Activated(System::Object^ sender, System::Even
 	
 	IniMsg();
 	int time_limit = 0;
-	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_message_Sent));
+	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_message_Sent_list));
 	std::string _Index_Str_Result = _Index_Str;
 	const char* buffer = _Index_Str_Result.c_str();
 
 
 	send(client_sock, buffer, strlen(buffer), 0);
 	Sleep(100);
-	DivStr(Recv_str, svrMsg);
+	DivStrMsg(Recv_str, svrMsg);
 	ViewDataSent->Rows->Clear();
 
 

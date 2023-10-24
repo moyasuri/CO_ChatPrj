@@ -134,7 +134,7 @@ string MySQL::QuerySql(string msg, int idx) {
 
     ss >> _Index;
     int _Index_Int = stoi(_Index);
-
+    multimsg = true; // 여러번 보내야할때 잠깐 false로바뀜
     switch (_Index_Int)
     {
 
@@ -680,7 +680,7 @@ string MySQL::QuerySql(string msg, int idx) {
         //    }
 
         //}
-        case e_message_Sent: // 보낸 메세지
+        case e_message_Sent_list: // 보낸 메세지
         {
             string _id = sck_list[idx]._user.getID();
             string _to_nickname, _msg;
@@ -853,7 +853,7 @@ string MySQL::QuerySql(string msg, int idx) {
                 }
             }
         }
-        case e_message_UGiven: // 받은 메세지 보기
+        case e_message_UGiven_list: // 받은 메세지 보기
         {
             string _id = sck_list[idx]._user.getID();
             string _to_nickname, _msg;
@@ -901,7 +901,7 @@ string MySQL::QuerySql(string msg, int idx) {
 
         }
 
-        case e_message_RGiven: // 받은 메세지 보기
+        case e_message_RGiven_list: // 받은 메세지 보기
         {
             string _id = sck_list[idx]._user.getID();
             string _to_nickname, _msg;
@@ -985,6 +985,122 @@ string MySQL::QuerySql(string msg, int idx) {
                 break;
             }
         }
+        case e_message_UGiven_msg_delete: // 안읽은 메세지 삭제
+        {
+            string _id = sck_list[idx]._user.getID();
+            string _from_nickname, _msg, _date;
+            result = "";
+
+            ss >> _from_nickname;
+            getline(ss, _date);
+            string query = "SELECT Member_ID FROM Member WHERE Nickname =  '" + _from_nickname + "'";
+            stmt = con->createStatement();
+            res = stmt->executeQuery(query);
+
+            if (res->next()) {
+                _id_temp = res->getString("Member_ID");
+                string query = "SELECT Short_Note_Text, Respond_Short_Note FROM short_note WHERE To_Short_Note_ID =  '" + _id_temp + "' AND Short_Note_Datetime = '" + _date + "'";
+                stmt = con->createStatement();
+                res2 = stmt->executeQuery(query);
+                if (res2->next()) {
+                    int respondValue = res2->getInt("Respond_Short_Note");
+                    string updateQuery;
+                    string deleteQuery;
+                    stmt = con->createStatement();
+                    if (respondValue == 0) {
+                        updateQuery = "UPDATE short_note SET Respond_Short_Note = 2 WHERE To_Short_Note_ID = '" + _id_temp + "' AND Short_Note_Datetime = '" + _date + "'";
+                        int rowsAffected = stmt->executeUpdate(updateQuery); // 업데이트 쿼리 실행
+                        if (rowsAffected > 0) {
+                            // 업데이트 성공
+                            _ret = trueStr;
+                            break;
+                        }
+                        else {
+                            // 업데이트 실패
+                            _ret = falseStr;
+                            break;
+                        }
+                    }
+                    else if (respondValue == 4) {
+                        deleteQuery = "DELETE FROM short_note WHERE To_Short_Note_ID = '" + _id_temp + "' AND Short_Note_Datetime = '" + _date + "'";
+                        int rowsDeleted = stmt->executeUpdate(deleteQuery); // 삭제 쿼리 실행
+                        if (rowsDeleted > 0) {
+                            // 삭제 성공
+                            _ret = trueStr;
+                            break;
+                        }
+                        else {
+                            // 삭제 실패
+                            _ret = falseStr;
+                            break;
+                        }
+                    }
+                    else
+                    {
+
+                    }
+
+                }
+            }
+        }
+        case e_message_UGiven_Read: // 읽기
+        {
+            string _id = sck_list[idx]._user.getID();
+            string _from_nickname, _msg, _date;
+            result = "";
+
+            ss >> _from_nickname;
+            getline(ss, _date);
+            string query = "SELECT Member_ID FROM Member WHERE Nickname =  '" + _from_nickname + "'";
+            stmt = con->createStatement();
+            res = stmt->executeQuery(query);
+
+            if (res->next()) {
+                _id_temp = res->getString("Member_ID");
+                string query = "SELECT Short_Note_Text, Respond_Short_Note FROM short_note WHERE To_Short_Note_ID =  '" + _id_temp + "' AND Short_Note_Datetime = '" + _date + "'";
+                stmt = con->createStatement();
+                res2 = stmt->executeQuery(query);
+                if (res2->next()) {
+                    int respondValue = res2->getInt("Respond_Short_Note");
+                    string updateQuery;
+                    string deleteQuery;
+                    stmt = con->createStatement();
+                    if (respondValue == 0) {
+                        updateQuery = "UPDATE short_note SET Respond_Short_Note = 1 WHERE To_Short_Note_ID = '" + _id_temp + "' AND Short_Note_Datetime = '" + _date + "'";
+                        int rowsAffected = stmt->executeUpdate(updateQuery); // 업데이트 쿼리 실행
+                        if (rowsAffected > 0) {
+                            // 업데이트 성공
+                            _ret = trueStr;
+                            break;
+                        }
+                        else {
+                            // 업데이트 실패
+                            _ret = falseStr;
+                            break;
+                        }
+                    }
+                    if (respondValue == 4) {
+                        updateQuery = "UPDATE short_note SET Respond_Short_Note = 5 WHERE To_Short_Note_ID = '" + _id_temp + "' AND Short_Note_Datetime = '" + _date + "'";
+                        int rowsAffected = stmt->executeUpdate(updateQuery); // 업데이트 쿼리 실행
+                        if (rowsAffected > 0) {
+                            // 업데이트 성공
+                            _ret = trueStr;
+                            break;
+                        }
+                        else {
+                            // 업데이트 실패
+                            _ret = falseStr;
+                            break;
+                        }
+                    }
+                    else
+                    {
+
+                    }
+
+                }
+            }
+        }
         case e_message_RGiven_msg: // 읽지않은 받은 메세지 보기 *
         {
             string _id = sck_list[idx]._user.getID();
@@ -1022,7 +1138,64 @@ string MySQL::QuerySql(string msg, int idx) {
                 break;
             }
         }
+        case e_message_RGiven_msg_delete: // 읽은 메세지 삭제
+        {
+            string _id = sck_list[idx]._user.getID();
+            string _from_nickname, _msg, _date;
+            result = "";
 
+            ss >> _from_nickname;
+            getline(ss, _date);
+            string query = "SELECT Member_ID FROM Member WHERE Nickname =  '" + _from_nickname + "'";
+            stmt = con->createStatement();
+            res = stmt->executeQuery(query);
+
+            if (res->next()) {
+                _id_temp = res->getString("Member_ID");
+                string query = "SELECT Short_Note_Text, Respond_Short_Note FROM short_note WHERE To_Short_Note_ID =  '" + _id_temp + "' AND Short_Note_Datetime = '" + _date + "'";
+                stmt = con->createStatement();
+                res2 = stmt->executeQuery(query);
+                if (res2->next()) {
+                    int respondValue = res2->getInt("Respond_Short_Note");
+                    string updateQuery;
+                    string deleteQuery;
+                    stmt = con->createStatement();
+                    if (respondValue == 1) {
+                        updateQuery = "UPDATE short_note SET Respond_Short_Note = 3 WHERE To_Short_Note_ID = '" + _id_temp + "' AND Short_Note_Datetime = '" + _date + "'";
+                        int rowsAffected = stmt->executeUpdate(updateQuery); // 업데이트 쿼리 실행
+                        if (rowsAffected > 0) {
+                            // 업데이트 성공
+                            _ret = trueStr;
+                            break;
+                        }
+                        else {
+                            // 업데이트 실패
+                            _ret = falseStr;
+                            break;
+                        }
+                    }
+                    else if (respondValue == 5) {
+                        deleteQuery = "DELETE FROM short_note WHERE To_Short_Note_ID = '" + _id_temp + "' AND Short_Note_Datetime = '" + _date + "'";
+                        int rowsDeleted = stmt->executeUpdate(deleteQuery); // 삭제 쿼리 실행
+                        if (rowsDeleted > 0) {
+                            // 삭제 성공
+                            _ret = trueStr;
+                            break;
+                        }
+                        else {
+                            // 삭제 실패
+                            _ret = falseStr;
+                            break;
+                        }
+                    }
+                    else
+                    {
+
+                    }
+
+                }
+            }
+        }
 
         //room type (서버 1 공개 2 비공개 3)  - room_PW(없으면 0(공개방))- room_Name 순으로 보내주세요! room_name 에 띄어쓰기 포함 가능해서 뒤로 빼주세요
         // 방을 만들경우 바로 해당 방으로 입장됨( 해당 방 index가 내가 속한 방 index가 됨

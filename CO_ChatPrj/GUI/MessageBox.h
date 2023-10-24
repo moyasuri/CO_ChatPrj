@@ -234,6 +234,7 @@ namespace GUI {
 			this->btnRead->Size = System::Drawing::Size(109, 44);
 			this->btnRead->TabIndex = 9;
 			this->btnRead->UseVisualStyleBackColor = false;
+			this->btnRead->Click += gcnew System::EventHandler(this, &MessageBox::btnRead_Click);
 			// 
 			// btnDelete_U
 			// 
@@ -250,6 +251,7 @@ namespace GUI {
 			this->btnDelete_U->Size = System::Drawing::Size(109, 38);
 			this->btnDelete_U->TabIndex = 9;
 			this->btnDelete_U->UseVisualStyleBackColor = false;
+			this->btnDelete_U->Click += gcnew System::EventHandler(this, &MessageBox::btnDelete_U_Click);
 			// 
 			// btnDelete_R
 			// 
@@ -266,6 +268,7 @@ namespace GUI {
 			this->btnDelete_R->Size = System::Drawing::Size(109, 38);
 			this->btnDelete_R->TabIndex = 9;
 			this->btnDelete_R->UseVisualStyleBackColor = false;
+			this->btnDelete_R->Click += gcnew System::EventHandler(this, &MessageBox::btnDelete_R_Click);
 			// 
 			// label3
 			// 
@@ -351,7 +354,7 @@ private: System::Void MessageBox_Activated(System::Object^ sender, System::Event
 	ViewUnread->Rows->Clear();
 
 	int time_limit = 0;
-	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_message_UGiven));
+	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_message_UGiven_list));
 	std::string _Index_Str_Result = _Index_Str;
 	const char* buffer = _Index_Str_Result.c_str();
 
@@ -420,7 +423,7 @@ private: System::Void MessageBox_Activated(System::Object^ sender, System::Event
 
 	IniMsg();
 
-	_Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_message_RGiven));
+	_Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_message_RGiven_list));
 	_Index_Str_Result = _Index_Str;
 	buffer = _Index_Str_Result.c_str();
 
@@ -638,5 +641,234 @@ private: System::Void ViewRead_CellClick(System::Object^ sender, System::Windows
 
 
 }
+private: System::Void btnDelete_U_Click(System::Object^ sender, System::EventArgs^ e) {
+	IniMsg();
+	int time_limit = 0;
+	std::string tmptxt_1_;
+
+
+
+	if (ViewUnread->SelectedRows->Count > 0) {
+		// 선택한 행의 인덱스를 가져옵니다.
+		int selectedRowIndex = ViewUnread->SelectedRows[0]->Index;
+
+		// 1열, 2열, 3열의 데이터를 가져옵니다.
+		System::Object^ column1ValueObj = ViewUnread->Rows[selectedRowIndex]->Cells["NumOfUnread"]->Value;
+		System::Object^ column2ValueObj = ViewUnread->Rows[selectedRowIndex]->Cells["U_From"]->Value;
+		System::Object^ column3ValueObj = ViewUnread->Rows[selectedRowIndex]->Cells["U_Date"]->Value;
+
+		// null 체크
+		if (column1ValueObj != nullptr && column2ValueObj != nullptr && column3ValueObj != nullptr) {
+			System::String^ column1Value = column1ValueObj->ToString();
+			System::String^ column2Value = column2ValueObj->ToString();
+			System::String^ column3Value = column3ValueObj->ToString();
+
+			tmptxt_1_ = msclr::interop::marshal_as<std::string>(column2Value) + delim + msclr::interop::marshal_as<std::string>(column3Value);
+		}
+		else {
+			// 선택한 행의 하나 이상의 열이 null일 때 처리할 내용
+			// 예를 들어, 오류 메시지 출력 또는 다른 작업을 수행할 수 있습니다.
+			return;
+		}
+	}
+	else {
+		// 선택한 행이 없을 때 처리할 내용
+		// 예를 들어, 오류 메시지 출력 또는 다른 작업을 수행할 수 있습니다.
+		return;
+	}
+
+
+	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_message_UGiven_msg_delete));
+	std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_;
+	const char* buffer = _Index_Str_Result.c_str();
+
+
+	send(client_sock, buffer, strlen(buffer), 0);
+	Sleep(100);
+	DivStrMsg(Recv_str, svrMsg);
+	txtBoxMsg->Clear();
+
+	/*System::String^ clrString = msclr::interop::marshal_as<System::String^>(svrMsg);
+	System::Windows::Forms::MessageBox::Show(clrString, "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);*/
+	if (isTrue == trueStr)// server 에서 오케이받는 함수
+	{
+
+		System::Windows::Forms::MessageBox::Show("삭제가 완료되었습니다", "삭제", MessageBoxButtons::OK, MessageBoxIcon::Information);
+		return;
+	}
+	else if (isTrue == falseStr) //  server에서 다른값보내면 그럴리없겟지만
+	{
+		System::Windows::Forms::MessageBox::Show("삭제 실패", "경고", MessageBoxButtons::OK, MessageBoxIcon::Information);
+		return;
+	}
+	else // 무한반복되는건데 시간타이밍 주면 좋을거같음
+	{
+		Sleep(1000);
+		if (time_limit > 1)
+		{
+			System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+		else
+		{
+			time_limit++;
+		}
+	}
+	
+}
+private: System::Void btnRead_Click(System::Object^ sender, System::EventArgs^ e) {
+
+	IniMsg();
+	int time_limit = 0;
+	std::string tmptxt_1_;
+
+
+
+	if (ViewUnread->SelectedRows->Count > 0) {
+		// 선택한 행의 인덱스를 가져옵니다.
+		int selectedRowIndex = ViewUnread->SelectedRows[0]->Index;
+
+		// 1열, 2열, 3열의 데이터를 가져옵니다.
+		System::Object^ column1ValueObj = ViewUnread->Rows[selectedRowIndex]->Cells["NumOfUnread"]->Value;
+		System::Object^ column2ValueObj = ViewUnread->Rows[selectedRowIndex]->Cells["U_From"]->Value;
+		System::Object^ column3ValueObj = ViewUnread->Rows[selectedRowIndex]->Cells["U_Date"]->Value;
+
+		// null 체크
+		if (column1ValueObj != nullptr && column2ValueObj != nullptr && column3ValueObj != nullptr) {
+			System::String^ column1Value = column1ValueObj->ToString();
+			System::String^ column2Value = column2ValueObj->ToString();
+			System::String^ column3Value = column3ValueObj->ToString();
+
+			tmptxt_1_ = msclr::interop::marshal_as<std::string>(column2Value) + delim + msclr::interop::marshal_as<std::string>(column3Value);
+		}
+		else {
+			// 선택한 행의 하나 이상의 열이 null일 때 처리할 내용
+			// 예를 들어, 오류 메시지 출력 또는 다른 작업을 수행할 수 있습니다.
+			return;
+		}
+	}
+	else {
+		// 선택한 행이 없을 때 처리할 내용
+		// 예를 들어, 오류 메시지 출력 또는 다른 작업을 수행할 수 있습니다.
+		return;
+	}
+
+
+	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_message_UGiven_Read));
+	std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_;
+	const char* buffer = _Index_Str_Result.c_str();
+
+
+	send(client_sock, buffer, strlen(buffer), 0);
+	Sleep(100);
+	DivStrMsg(Recv_str, svrMsg);
+	txtBoxMsg->Clear();
+
+	/*System::String^ clrString = msclr::interop::marshal_as<System::String^>(svrMsg);
+	System::Windows::Forms::MessageBox::Show(clrString, "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);*/
+	if (isTrue == trueStr)// server 에서 오케이받는 함수
+	{
+
+		System::Windows::Forms::MessageBox::Show("읽음 처리되었습니다", "메세지 읽기", MessageBoxButtons::OK, MessageBoxIcon::Information);
+		return;
+	}
+	else if (isTrue == falseStr) //  server에서 다른값보내면 그럴리없겟지만
+	{
+		System::Windows::Forms::MessageBox::Show("삭제 실패", "경고", MessageBoxButtons::OK, MessageBoxIcon::Information);
+		return;
+	}
+	else // 무한반복되는건데 시간타이밍 주면 좋을거같음
+	{
+		Sleep(1000);
+		if (time_limit > 1)
+		{
+			System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+		else
+		{
+			time_limit++;
+		}
+	}
+
+}
+
+private: System::Void btnDelete_R_Click(System::Object^ sender, System::EventArgs^ e) {
+	IniMsg();
+	int time_limit = 0;
+	std::string tmptxt_1_;
+
+
+
+	if (ViewUnread->SelectedRows->Count > 0) {
+		// 선택한 행의 인덱스를 가져옵니다.
+		int selectedRowIndex = ViewUnread->SelectedRows[0]->Index;
+
+		// 1열, 2열, 3열의 데이터를 가져옵니다.
+		System::Object^ column1ValueObj = ViewUnread->Rows[selectedRowIndex]->Cells["NumOfUnread"]->Value;
+		System::Object^ column2ValueObj = ViewUnread->Rows[selectedRowIndex]->Cells["U_From"]->Value;
+		System::Object^ column3ValueObj = ViewUnread->Rows[selectedRowIndex]->Cells["U_Date"]->Value;
+
+		// null 체크
+		if (column1ValueObj != nullptr && column2ValueObj != nullptr && column3ValueObj != nullptr) {
+			System::String^ column1Value = column1ValueObj->ToString();
+			System::String^ column2Value = column2ValueObj->ToString();
+			System::String^ column3Value = column3ValueObj->ToString();
+
+			tmptxt_1_ = msclr::interop::marshal_as<std::string>(column2Value) + delim + msclr::interop::marshal_as<std::string>(column3Value);
+		}
+		else {
+			// 선택한 행의 하나 이상의 열이 null일 때 처리할 내용
+			// 예를 들어, 오류 메시지 출력 또는 다른 작업을 수행할 수 있습니다.
+			return;
+		}
+	}
+	else {
+		// 선택한 행이 없을 때 처리할 내용
+		// 예를 들어, 오류 메시지 출력 또는 다른 작업을 수행할 수 있습니다.
+		return;
+	}
+
+
+	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_message_RGiven_msg_delete));
+	std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_;
+	const char* buffer = _Index_Str_Result.c_str();
+
+
+	send(client_sock, buffer, strlen(buffer), 0);
+	Sleep(100);
+	DivStrMsg(Recv_str, svrMsg);
+	txtBoxMsg->Clear();
+
+	/*System::String^ clrString = msclr::interop::marshal_as<System::String^>(svrMsg);
+	System::Windows::Forms::MessageBox::Show(clrString, "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);*/
+	if (isTrue == trueStr)// server 에서 오케이받는 함수
+	{
+
+		System::Windows::Forms::MessageBox::Show("삭제가 완료되었습니다", "삭제", MessageBoxButtons::OK, MessageBoxIcon::Information);
+		return;
+	}
+	else if (isTrue == falseStr) //  server에서 다른값보내면 그럴리없겟지만
+	{
+		System::Windows::Forms::MessageBox::Show("삭제 실패", "경고", MessageBoxButtons::OK, MessageBoxIcon::Information);
+		return;
+	}
+	else // 무한반복되는건데 시간타이밍 주면 좋을거같음
+	{
+		Sleep(1000);
+		if (time_limit > 1)
+		{
+			System::Windows::Forms::MessageBox::Show("서버가 응답하지 않습니다", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+		else
+		{
+			time_limit++;
+		}
+	}
+
+
+}
+
 };
 }

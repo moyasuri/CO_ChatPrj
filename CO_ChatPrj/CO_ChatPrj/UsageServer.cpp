@@ -11,7 +11,7 @@ const std::string falseStr = "false";
 const std::string elseStr = "else";
 const char* __true = trueStr.c_str();
 const char* __false = falseStr.c_str();
-
+bool multimsg = true;
 
 std::string _id_from = "", _nick_from = "", _msg = "";
 std::string _id_temp = "", _msg_temp = "", result = "";

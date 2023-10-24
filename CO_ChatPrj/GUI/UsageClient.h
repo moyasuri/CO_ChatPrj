@@ -50,15 +50,16 @@ enum ShortMessage
     e_message_Read,
     e_message_Send,
     e_message_Delete,
-    e_message_Sent,
+    e_message_Sent_list,
     e_message_Sent_msg,
     e_message_Sent_msg_delete,
-    e_message_UGiven,
+    e_message_UGiven_list,
     e_message_UGiven_msg,
     e_message_UGiven_msg_delete,
-    e_message_RGiven,
+    e_message_UGiven_Read,
+    e_message_RGiven_list,
     e_message_RGiven_msg,
-    e_message_RGiven_delete,
+    e_message_RGiven_msg_delete,
     
 
 

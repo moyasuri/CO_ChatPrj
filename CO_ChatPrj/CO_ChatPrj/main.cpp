@@ -169,7 +169,11 @@ void recv_msg(int idx) {
             std::stringstream sssql(sqlMsg);
             sssql >> isTrue; // sql return 값의 true false;
             cout << "보낸 메세지 : " << sqlMsg << endl;
-            send_msg(sqlMsg.c_str());
+            if (multimsg)
+            {
+                send_msg(sqlMsg.c_str());
+            }
+
             
            
         }
