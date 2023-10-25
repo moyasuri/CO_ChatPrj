@@ -39,6 +39,7 @@ void MySQL::_send_msg(const char* msg, int room_Index66) {
     for (int i = 0; i < client_count; i++) { // 이 방에 접속해 있는 모든 client에게 메시지 전송
         if (stoi(sck_list[i]._user.getJoinRoomIndex()) == room_Index66) {// UserInfo 객체 생성시 초기화 반드시 진행, JoinRoomIndex ="0"으로
             send(sck_list[i].sck, msg, MAX_SIZE, 0);
+            cout << msg << endl;
         }
         else
             break;
@@ -167,8 +168,8 @@ void MySQL::set_database(string str) {
         con->setSchema(str);
         // db 한글 저장을 위한 셋팅 
         stmt = con->createStatement();
-        stmt->execute("set names euckr");
-        //stmt->execute("set names 'utf8'");
+        //stmt->execute("set names euckr");
+        stmt->execute("set names 'utf8'");
         // if (stmt) { delete stmt; stmt = nullptr; }
     }
     catch (sql::SQLException& e) {
@@ -1671,6 +1672,7 @@ string MySQL::QuerySql(string msg, int idx) {
             {
                 msg_chat = my_Nickname66 + " : " + modifiedString;
                 _send_msg(msg_chat.c_str(), room_Index66);// 방에 참여한 모든 사람에게 메시지를 보내는 함수
+                //send(sck_list[idx].sck, msg_chat.c_str(), MAX_SIZE, 0);
                 cout << "if (res->next()) " << endl;
             }
             return _ret;

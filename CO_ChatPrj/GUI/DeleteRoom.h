@@ -99,12 +99,13 @@ namespace GUI {
 				this->RoomIndex,
 					this->RoomName, this->PrivateCheck, this->CreatedDate
 			});
-			this->ViewRoomList->Location = System::Drawing::Point(78, 99);
+			this->ViewRoomList->Location = System::Drawing::Point(62, 82);
+			this->ViewRoomList->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->ViewRoomList->Name = L"ViewRoomList";
 			this->ViewRoomList->RowHeadersWidth = 62;
 			this->ViewRoomList->RowTemplate->Height = 30;
 			this->ViewRoomList->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
-			this->ViewRoomList->Size = System::Drawing::Size(597, 475);
+			this->ViewRoomList->Size = System::Drawing::Size(767, 396);
 			this->ViewRoomList->TabIndex = 0;
 			// 
 			// RoomIndex
@@ -147,10 +148,9 @@ namespace GUI {
 			this->btnClose->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnClose->Location = System::Drawing::Point(711, 488);
-			this->btnClose->Margin = System::Windows::Forms::Padding(4);
+			this->btnClose->Location = System::Drawing::Point(850, 400);
 			this->btnClose->Name = L"btnClose";
-			this->btnClose->Size = System::Drawing::Size(176, 60);
+			this->btnClose->Size = System::Drawing::Size(141, 50);
 			this->btnClose->TabIndex = 11;
 			this->btnClose->UseVisualStyleBackColor = false;
 			this->btnClose->Click += gcnew System::EventHandler(this, &DeleteRoom::btnClose_Click);
@@ -164,22 +164,22 @@ namespace GUI {
 			this->btnDelete->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnDelete->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnDelete->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnDelete->Location = System::Drawing::Point(711, 242);
-			this->btnDelete->Margin = System::Windows::Forms::Padding(4);
+			this->btnDelete->Location = System::Drawing::Point(850, 195);
 			this->btnDelete->Name = L"btnDelete";
-			this->btnDelete->Size = System::Drawing::Size(176, 60);
+			this->btnDelete->Size = System::Drawing::Size(141, 50);
 			this->btnDelete->TabIndex = 12;
 			this->btnDelete->UseVisualStyleBackColor = false;
 			this->btnDelete->Click += gcnew System::EventHandler(this, &DeleteRoom::btnDelete_Click);
 			// 
 			// DeleteRoom
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(10, 18);
+			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1320, 813);
+			this->ClientSize = System::Drawing::Size(1056, 678);
 			this->Controls->Add(this->btnClose);
 			this->Controls->Add(this->btnDelete);
 			this->Controls->Add(this->ViewRoomList);
+			this->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->Name = L"DeleteRoom";
 			this->Text = L"DeleteRoom";
 			this->Activated += gcnew System::EventHandler(this, &DeleteRoom::DeleteRoom_Activated);

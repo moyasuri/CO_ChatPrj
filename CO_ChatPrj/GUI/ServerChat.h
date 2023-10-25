@@ -11,7 +11,7 @@ extern std::string Recv_str;
 extern std::string srvchat;
 extern std::string prevMessage;
 extern std::string flag;
-
+extern std::string newMessage;
 namespace GUI {
 
 	using namespace System;
@@ -112,20 +112,18 @@ namespace GUI {
 			// txtBoxChatWindow
 			// 
 			this->txtBoxChatWindow->BackColor = System::Drawing::SystemColors::InactiveBorder;
-			this->txtBoxChatWindow->Location = System::Drawing::Point(56, 72);
-			this->txtBoxChatWindow->Margin = System::Windows::Forms::Padding(4);
+			this->txtBoxChatWindow->Location = System::Drawing::Point(45, 60);
 			this->txtBoxChatWindow->Multiline = true;
 			this->txtBoxChatWindow->Name = L"txtBoxChatWindow";
 			this->txtBoxChatWindow->ReadOnly = true;
-			this->txtBoxChatWindow->Size = System::Drawing::Size(700, 417);
+			this->txtBoxChatWindow->Size = System::Drawing::Size(561, 348);
 			this->txtBoxChatWindow->TabIndex = 0;
 			// 
 			// txtBoxMyChat
 			// 
-			this->txtBoxMyChat->Location = System::Drawing::Point(56, 525);
-			this->txtBoxMyChat->Margin = System::Windows::Forms::Padding(4);
+			this->txtBoxMyChat->Location = System::Drawing::Point(45, 438);
 			this->txtBoxMyChat->Name = L"txtBoxMyChat";
-			this->txtBoxMyChat->Size = System::Drawing::Size(700, 28);
+			this->txtBoxMyChat->Size = System::Drawing::Size(561, 25);
 			this->txtBoxMyChat->TabIndex = 2;
 			this->txtBoxMyChat->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &ServerChat::txtBoxChat_KeyPress);
 			// 
@@ -138,10 +136,9 @@ namespace GUI {
 			this->btnSend->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnSend->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnSend->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnSend->Location = System::Drawing::Point(61, 610);
-			this->btnSend->Margin = System::Windows::Forms::Padding(4);
+			this->btnSend->Location = System::Drawing::Point(49, 508);
 			this->btnSend->Name = L"btnSend";
-			this->btnSend->Size = System::Drawing::Size(196, 61);
+			this->btnSend->Size = System::Drawing::Size(157, 51);
 			this->btnSend->TabIndex = 3;
 			this->btnSend->UseVisualStyleBackColor = false;
 			this->btnSend->Click += gcnew System::EventHandler(this, &ServerChat::btnSend_Click);
@@ -155,10 +152,9 @@ namespace GUI {
 			this->btnClose->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnClose->Location = System::Drawing::Point(557, 610);
-			this->btnClose->Margin = System::Windows::Forms::Padding(4);
+			this->btnClose->Location = System::Drawing::Point(446, 508);
 			this->btnClose->Name = L"btnClose";
-			this->btnClose->Size = System::Drawing::Size(199, 61);
+			this->btnClose->Size = System::Drawing::Size(159, 51);
 			this->btnClose->TabIndex = 4;
 			this->btnClose->UseVisualStyleBackColor = false;
 			this->btnClose->Click += gcnew System::EventHandler(this, &ServerChat::btnClose_Click);
@@ -169,9 +165,10 @@ namespace GUI {
 			this->picBoxImojiMy->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
 			this->picBoxImojiMy->ErrorImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"picBoxImojiMy.ErrorImage")));
 			this->picBoxImojiMy->InitialImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"picBoxImojiMy.InitialImage")));
-			this->picBoxImojiMy->Location = System::Drawing::Point(56, 72);
+			this->picBoxImojiMy->Location = System::Drawing::Point(45, 60);
+			this->picBoxImojiMy->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->picBoxImojiMy->Name = L"picBoxImojiMy";
-			this->picBoxImojiMy->Size = System::Drawing::Size(135, 154);
+			this->picBoxImojiMy->Size = System::Drawing::Size(108, 128);
 			this->picBoxImojiMy->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
 			this->picBoxImojiMy->TabIndex = 5;
 			this->picBoxImojiMy->TabStop = false;
@@ -180,28 +177,29 @@ namespace GUI {
 			// 
 			this->picBoxImojiYou->BackColor = System::Drawing::Color::Transparent;
 			this->picBoxImojiYou->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
-			this->picBoxImojiYou->Location = System::Drawing::Point(621, 72);
+			this->picBoxImojiYou->Location = System::Drawing::Point(497, 60);
+			this->picBoxImojiYou->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->picBoxImojiYou->Name = L"picBoxImojiYou";
-			this->picBoxImojiYou->Size = System::Drawing::Size(135, 154);
+			this->picBoxImojiYou->Size = System::Drawing::Size(108, 128);
 			this->picBoxImojiYou->TabIndex = 6;
 			this->picBoxImojiYou->TabStop = false;
 			// 
 			// ServerChat
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(10, 18);
+			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->ClientSize = System::Drawing::Size(887, 735);
+			this->ClientSize = System::Drawing::Size(710, 612);
 			this->Controls->Add(this->picBoxImojiYou);
 			this->Controls->Add(this->picBoxImojiMy);
 			this->Controls->Add(this->btnClose);
 			this->Controls->Add(this->btnSend);
 			this->Controls->Add(this->txtBoxMyChat);
 			this->Controls->Add(this->txtBoxChatWindow);
-			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"ServerChat";
 			this->Text = L"Chat";
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &ServerChat::ServerChat_FormClosing);
 			this->Load += gcnew System::EventHandler(this, &ServerChat::ServerChat_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->picBoxImojiMy))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->picBoxImojiYou))->EndInit();
@@ -216,65 +214,90 @@ namespace GUI {
 	private: System::Void btnSend_Click(System::Object^ sender, System::EventArgs^ e) {
 		btnSend->NotifyDefault(false);
 		// server에게 메세지 보내기
-
-
-
 		IniMsg();
 		String^ tmptxt_1 = txtBoxMyChat->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-		
-
 		if (!String::IsNullOrEmpty(tmptxt_1))
 		{
-
-
 			int time_limit = 0;
 			std::string tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
 			std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_room_Chat));
 			std::string _Index_Str_Result = _Index_Str + delim + tmptxt_1_;
 			const char* buffer = _Index_Str_Result.c_str();
-
 			send(client_sock, buffer, strlen(buffer), 0);
 		}
 
+		
+		if (this->ContCha(tmptxt_1,"ㅇㅇ"))
+		{
+			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\Imoji\\icon_49.gif");
+			picBoxImojiMy->ImageLocation = relativePath;
+			this->picBoxImojiMy->Show();
 
+
+			timerDeletePicBoxIntro->Interval = 3000;
+			timerDeletePicBoxIntro->Tick += gcnew System::EventHandler(this, &ServerChat::timerDeletePicBoxIntro_Tick);
+			timerDeletePicBoxIntro->Start();
+
+
+		}
+
+		if (this->ContCha(tmptxt_1, "Null"))
+		{
+			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\Imoji\\icon_16.png");
+			picBoxImojiMy->ImageLocation = relativePath;
+			this->picBoxImojiMy->Show();
+
+
+			timerDeletePicBoxIntro->Interval = 3000;
+			timerDeletePicBoxIntro->Tick += gcnew System::EventHandler(this, &ServerChat::timerDeletePicBoxIntro_Tick);
+			timerDeletePicBoxIntro->Start();
+
+
+		}
+
+		if (this->ContCha(tmptxt_1, "~~"))
+		{
+			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\Imoji\\icon_1.gif");
+			picBoxImojiMy->ImageLocation = relativePath;
+			this->picBoxImojiMy->Show();
+
+
+			timerDeletePicBoxIntro->Interval = 3000;
+			timerDeletePicBoxIntro->Tick += gcnew System::EventHandler(this, &ServerChat::timerDeletePicBoxIntro_Tick);
+			timerDeletePicBoxIntro->Start();
+
+
+		}
+
+		if (this->ContCha(tmptxt_1, "쪼아"))
+		{
+			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\Imoji\\icon_35.gif");
+			picBoxImojiMy->ImageLocation = relativePath;
+			this->picBoxImojiMy->Show();
+
+
+			timerDeletePicBoxIntro->Interval = 3000;
+			timerDeletePicBoxIntro->Tick += gcnew System::EventHandler(this, &ServerChat::timerDeletePicBoxIntro_Tick);
+			timerDeletePicBoxIntro->Start();
+
+
+		}
+		if (this->ContCha(tmptxt_1, "ㅠㅠ"))
+		{
+			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\Imoji\\icon_3.gif");
+			picBoxImojiMy->ImageLocation = relativePath;
+			this->picBoxImojiMy->Show();
+
+
+			timerDeletePicBoxIntro->Interval = 3000;
+			timerDeletePicBoxIntro->Tick += gcnew System::EventHandler(this, &ServerChat::timerDeletePicBoxIntro_Tick);
+			timerDeletePicBoxIntro->Start();
+
+
+		}
+	
 		txtBoxMyChat->Clear();
-
-		// 내꺼는 그냥 띄우면되고, 남에것만 가져오자.
-		//-------------------임시-----------------//
-				// Get the text from txtBoxMyChat
-		//String^ inputText = txtBoxMyChat->Text;
-
-		// Append the text to txtBoxChatWindow
-		//txtBoxChatWindow->AppendText(inputText + Environment::NewLine);
-
-		// Clear txtBoxMyChat
 		
-		//-------------------임시-----------------//
-
-
-
-		
-		//if (this->ContCha(inputText,"ㅇㅇ"))
-		//{
-		//	relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\Imoji\\icon_49.gif");
-		//	picBoxImojiMy->ImageLocation = relativePath;
-		//	this->picBoxImojiMy->Show();
-
-
-		//	timerDeletePicBoxIntro->Interval = 3000;
-		//	timerDeletePicBoxIntro->Tick += gcnew System::EventHandler(this, &ServerChat::timerDeletePicBoxIntro_Tick);
-		//	timerDeletePicBoxIntro->Start();
-		//}
-		//else if(1)
-		//{
-		//	return;
-		//}
-
-		//else
-		//{
-		//	return;
-		//}
-		//
 
 
 
@@ -291,7 +314,6 @@ namespace GUI {
 	}
 
 	private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {
-		this->Owner->Show();
 		this->Close();
 		
 	}
@@ -300,7 +322,6 @@ namespace GUI {
 	private: System::Void timerDeletePicBoxIntro_Tick(System::Object^ sender, System::EventArgs^ e) {
 
 		this->picBoxImojiMy->Hide(); // 컨트롤을 폼에서 제거
-
 
 	}
 
@@ -320,24 +341,13 @@ private: System::Void ServerChat_Load(System::Object^ sender, System::EventArgs^
 
 	IniMsg();
 
-	//String^ tmptxt_1 = txtBoxName->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-	//String^ tmptxt_2 = txtBoxEmail->Text; // textBox는 해당 텍스트 상자의 이름입니다.
 
-	//if (!String::IsNullOrEmpty(tmptxt_1) && !String::IsNullOrEmpty(tmptxt_2)) {
-
-
-	//	int time_limit = 0;
-	//	std::string tmptxt_1_ = msclr::interop::marshal_as<std::string>(tmptxt_1);
-	//	std::string tmptxt_2_ = msclr::interop::marshal_as<std::string>(tmptxt_2);
 		std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_room_show_whole_Text));
 		std::string _Index_Str_Result = _Index_Str;
 		const char* buffer = _Index_Str_Result.c_str();
 
 		send(client_sock, buffer, strlen(buffer), 0);
-		Sleep(100);
-
-
-
+		
 
 }
 
@@ -346,6 +356,7 @@ private: System::Void timer2_Tick(System::Object^ sender, System::EventArgs^ e) 
 	std::stringstream Chat(Recv_str);
 	std::string token;
 
+
 	//Chat >> flag;
 	//if (flag == "true" || flag == "false")
 	//{
@@ -353,33 +364,23 @@ private: System::Void timer2_Tick(System::Object^ sender, System::EventArgs^ e) 
 	//	return;
 	//}
 	// 서버에서 받은 메시지를 새로운 메시지로 저장합니다.
-	try {
-		// 서버에서 받은 메시지를 새로운 메시지로 저장합니다.
-		std::string newMessage = Recv_str;
+	newMessage= Recv_str;
 
-		// 이전 메시지와 새로운 메시지를 비교하여 같으면 처리하지 않습니다.
-		if (newMessage == prevMessage) {
-			return;
-		}
-		else {
-			while (getline(Chat, token)) {
-				txtBoxChatWindow->AppendText(msclr::interop::marshal_as<System::String^>(token) + Environment::NewLine);
-			}
-			prevMessage = Recv_str;
-		}
-	}
-	catch (const std::exception& e) {
-		// 여기서 예외 처리를 수행합니다.
-		// 예외 처리 내용을 기록하거나 오류 메시지를 출력할 수 있습니다.
-		// 예를 들어, std::cerr을 사용하여 오류 메시지를 출력하거나, 로그 파일에 저장할 수 있습니다.
-
-		// 추가적인 예외 처리 로직을 추가하십시오.
+	 //이전 메시지와 새로운 메시지를 비교하여 같으면 처리하지 않습니다.
+	if (newMessage == prevMessage) {
 		return;
 	}
-	
+	else
+	{
+		while (getline(Chat, token)) {
+			txtBoxChatWindow->AppendText(msclr::interop::marshal_as<System::String^>(token) + Environment::NewLine);
+		}
+		prevMessage = Recv_str;
+	}
+}
+private: System::Void ServerChat_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
 
-
-
+	timer2->Stop();
 }
 };
 }

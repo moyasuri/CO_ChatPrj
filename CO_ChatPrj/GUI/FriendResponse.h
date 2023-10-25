@@ -104,10 +104,9 @@ namespace GUI {
 			this->btnAccept->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnAccept->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnAccept->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnAccept->Location = System::Drawing::Point(751, 205);
-			this->btnAccept->Margin = System::Windows::Forms::Padding(4);
+			this->btnAccept->Location = System::Drawing::Point(763, 116);
 			this->btnAccept->Name = L"btnAccept";
-			this->btnAccept->Size = System::Drawing::Size(184, 64);
+			this->btnAccept->Size = System::Drawing::Size(147, 53);
 			this->btnAccept->TabIndex = 2;
 			this->btnAccept->UseVisualStyleBackColor = false;
 			this->btnAccept->Click += gcnew System::EventHandler(this, &FriendResponse::btnAccept_Click);
@@ -121,10 +120,9 @@ namespace GUI {
 			this->btnReject->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnReject->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnReject->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnReject->Location = System::Drawing::Point(751, 298);
-			this->btnReject->Margin = System::Windows::Forms::Padding(4);
+			this->btnReject->Location = System::Drawing::Point(763, 193);
 			this->btnReject->Name = L"btnReject";
-			this->btnReject->Size = System::Drawing::Size(184, 70);
+			this->btnReject->Size = System::Drawing::Size(147, 58);
 			this->btnReject->TabIndex = 3;
 			this->btnReject->UseVisualStyleBackColor = false;
 			this->btnReject->Click += gcnew System::EventHandler(this, &FriendResponse::btnReject_Click);
@@ -135,10 +133,10 @@ namespace GUI {
 			this->label2->BackColor = System::Drawing::Color::Transparent;
 			this->label2->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 20));
 			this->label2->ForeColor = System::Drawing::Color::Cornsilk;
-			this->label2->Location = System::Drawing::Point(68, 65);
+			this->label2->Location = System::Drawing::Point(54, 54);
 			this->label2->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(134, 46);
+			this->label2->Size = System::Drawing::Size(115, 39);
 			this->label2->TabIndex = 12;
 			this->label2->Text = L"From.";
 			// 
@@ -151,10 +149,9 @@ namespace GUI {
 			this->btnClose->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnClose->Location = System::Drawing::Point(751, 637);
-			this->btnClose->Margin = System::Windows::Forms::Padding(4);
+			this->btnClose->Location = System::Drawing::Point(601, 531);
 			this->btnClose->Name = L"btnClose";
-			this->btnClose->Size = System::Drawing::Size(184, 60);
+			this->btnClose->Size = System::Drawing::Size(147, 50);
 			this->btnClose->TabIndex = 13;
 			this->btnClose->UseVisualStyleBackColor = false;
 			this->btnClose->Click += gcnew System::EventHandler(this, &FriendResponse::btnClose_Click);
@@ -166,13 +163,12 @@ namespace GUI {
 				this->NumOfList,
 					this->FromWho, this->ReqMsg
 			});
-			this->ViewResponseList->Location = System::Drawing::Point(76, 139);
-			this->ViewResponseList->Margin = System::Windows::Forms::Padding(4);
+			this->ViewResponseList->Location = System::Drawing::Point(61, 116);
 			this->ViewResponseList->Name = L"ViewResponseList";
 			this->ViewResponseList->RowHeadersWidth = 51;
 			this->ViewResponseList->RowTemplate->Height = 27;
 			this->ViewResponseList->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
-			this->ViewResponseList->Size = System::Drawing::Size(630, 412);
+			this->ViewResponseList->Size = System::Drawing::Size(662, 343);
 			this->ViewResponseList->TabIndex = 14;
 			// 
 			// NumOfList
@@ -204,17 +200,16 @@ namespace GUI {
 			// 
 			// FriendResponse
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(10, 18);
+			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->ClientSize = System::Drawing::Size(975, 748);
+			this->ClientSize = System::Drawing::Size(939, 623);
 			this->Controls->Add(this->ViewResponseList);
 			this->Controls->Add(this->btnClose);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->btnReject);
 			this->Controls->Add(this->btnAccept);
-			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"FriendResponse";
 			this->Text = L"FriendResponse";
 			this->Activated += gcnew System::EventHandler(this, &FriendResponse::FriendResponse_Visible);
