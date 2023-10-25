@@ -31,6 +31,7 @@ namespace GUI {
 		DeleteRoom^ deleteroomForm = nullptr;
 		EditProfile^ editprofileForm = nullptr;
 
+
 	private: System::String^ currentDirectory = System::IO::Directory::GetCurrentDirectory();
 	private: System::Windows::Forms::Label^ label4;
 	private: System::Windows::Forms::Label^ label5;
