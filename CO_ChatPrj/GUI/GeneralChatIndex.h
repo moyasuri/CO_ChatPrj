@@ -288,7 +288,7 @@ namespace GUI {
 #pragma endregion
 	private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {
 	
-		this->Owner->Show();
+		
 		this->Close();
 	}
 	private: System::Void btnJoin_Click(System::Object^ sender, System::EventArgs^ e) {

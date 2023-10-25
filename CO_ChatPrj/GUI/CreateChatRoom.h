@@ -252,6 +252,11 @@ private: System::Void btnConfirm_Click(System::Object^ sender, System::EventArgs
 		int time_limit = 0;
 		
 		std::string tmptxt_2_ = msclr::interop::marshal_as<std::string>(tmptxt_2);
+		if (tmptxt_1_ == "3" || String::IsNullOrEmpty(tmptxt_2))
+		{
+			tmptxt_2_ = "0";
+
+		}
 		std::string tmptxt_3_ = msclr::interop::marshal_as<std::string>(tmptxt_3);
 		std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_room_Create));
 		std::string _Index_Str_Result = _Index_Str + delim + tmptxt_1_ + delim + tmptxt_2_ + delim + tmptxt_3_;

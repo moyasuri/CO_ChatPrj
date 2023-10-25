@@ -227,7 +227,7 @@ private: System::Void btnDelete_Click(System::Object^ sender, System::EventArgs^
 
 
 	std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_room_Delete));
-	std::string _Index_Str_Result = _Index_Str + " " + tmptxt_1_;
+	std::string _Index_Str_Result = _Index_Str + delim + tmptxt_1_;
 	const char* buffer = _Index_Str_Result.c_str();
 
 

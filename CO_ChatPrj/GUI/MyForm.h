@@ -73,8 +73,8 @@ namespace GUI {
 
 			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\constantmoderato.wav");
 			IntroImageSound->SoundLocation = relativePath; // SoundLocation에 CLI 문자열을 설정
-			//IntroImageSound->Load();
-			//IntroImageSound->Play();
+			IntroImageSound->Load();
+			IntroImageSound->Play();
 
 			// Image 추가			
 			relativePath = System::IO::Path::Combine(currentDirectory, "..\\Media\\HomeIntro.gif");
@@ -352,6 +352,7 @@ namespace GUI {
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->ClientSize = System::Drawing::Size(1109, 646);
+			this->Controls->Add(this->PicBoxIntro);
 			this->Controls->Add(this->btnSignup);
 			this->Controls->Add(this->btnSignin);
 			this->Controls->Add(this->PicBoxHomeLogo);
@@ -362,7 +363,6 @@ namespace GUI {
 			this->Controls->Add(this->label3);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->PicBoxNagareboshi);
-			this->Controls->Add(this->PicBoxIntro);
 			this->DoubleBuffered = true;
 			this->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->Name = L"MyForm";
@@ -495,7 +495,7 @@ namespace GUI {
 		// Timer를 중지합니다.
 		timerDeletePicBoxIntro->Stop();
 		IntroImageSound->Stop();
-		//HomeImageSound->Play(); // 잠시
+		HomeImageSound->Play(); // 잠시
 
 
 	}
@@ -508,7 +508,7 @@ namespace GUI {
 		this->txtBoxID->Clear();
 		this->txtBoxPW->Clear();
 
-		//HomeImageSound->Play(); // 잠시
+		HomeImageSound->Play(); // 잠시
 	}
 
 

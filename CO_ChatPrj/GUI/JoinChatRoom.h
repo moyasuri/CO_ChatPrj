@@ -184,9 +184,6 @@ namespace GUI {
 			send(client_sock, buffer, strlen(buffer), 0);
 
 			serverchatForm = gcnew ServerChat;
-			serverchatForm->Owner = this; // Owner를 설정해야 가능
-			
-			this->Hide();
 			serverchatForm->Show();
 
 
@@ -203,9 +200,6 @@ namespace GUI {
 
 		if (generalchatindexForm == nullptr || generalchatindexForm->IsDisposed) {
 			generalchatindexForm = gcnew GeneralChatIndex;
-			generalchatindexForm->Owner = this; // Owner를 설정해야 가능
-			this->Hide();
-
 			generalchatindexForm->Show();
 
 		}

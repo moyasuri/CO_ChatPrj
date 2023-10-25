@@ -99,7 +99,7 @@ enum Imoji
 
 enum Character
 {
-    e_character_izuna = 71,
+    e_character_izuna = 1,
     e_character_alice,
 };
 

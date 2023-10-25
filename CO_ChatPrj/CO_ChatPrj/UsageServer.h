@@ -95,3 +95,8 @@ enum RoomList
 
 
 };
+enum Character
+{
+    e_character_izuna = 1,
+    e_character_alice,
+};

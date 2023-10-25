@@ -1390,15 +1390,20 @@ string MySQL::QuerySql(string msg, int idx) {
             string line;
             int count = 0;
             dis_content.clear();
-            while (ss >> s) {
+            /*while (ss >> s) {
                 dis_content.push_back(s);
-            }
-            room_Type = dis_content[0];
-            dis_content.erase(dis_content.begin());
-            room_PW = dis_content[0];// PW가 없어도 0 보내주기
-            dis_content.erase(dis_content.begin());
-            for (auto text : dis_content)
-                room_Name = room_Name + text + IDENTIFIER;
+            }*/
+            std::string roomType60, roomPassword60, roomTitle60;
+            ss >> roomType60;
+            ss >> roomPassword60;
+            ss >> std::ws; // white space 스킵
+
+            std::getline(ss, roomTitle60);
+
+            room_Type = roomType60;
+            //dis_content.erase(dis_content.begin());
+            room_PW = roomPassword60;// PW가 없어도 0 보내주기
+            room_Name = roomTitle60;
             cout << room_Type << IDENTIFIER << room_Name << IDENTIFIER << room_PW << endl;
             i_room_Type = std::stoi(room_Type);
             cout << "i_room_Type : " << i_room_Type << endl;
