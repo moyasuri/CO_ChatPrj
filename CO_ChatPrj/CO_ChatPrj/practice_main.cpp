@@ -55,7 +55,6 @@ struct ROOM_INFO {
     std::vector<string> join_client ;
 };
 
-
 std::vector<ROOM_INFO> workingRoom_list(100);
 std::vector<SOCKET_INFO> sck_list; // 연결된 클라이언트 소켓들을 저장할 배열 선언.
 SOCKET_INFO server_sock; // 서버 소켓에 대한 정보를 저장할 변수 선언.
@@ -1055,13 +1054,13 @@ public:
         }
 
         //어떤 방을 삭제할건지<인덱스 들어옴
-        string room_Delete(string recv_content, int index){
-            string room_Index;
-            string my_ID = sck_list[index].user.getID();
+        string room_Delete(string recv_content, int idx){
+            string room_Index_;
+            string my_ID = sck_list[idx].user.getID();
             string result;
             std::stringstream ss(recv_content);
-            ss >> room_Index;
-            int i_room_Index = stoi(room_Index);
+            ss >> room_Index_;
+            int i_room_Index = stoi(room_Index_);
             prep_stmt = con->prepareStatement("DELETE FROM room_list WHERE Room_Master = ? AND Room_Index = ?;");
             prep_stmt->setString(1, my_ID);
             prep_stmt->setInt(2, i_room_Index);
@@ -1075,7 +1074,7 @@ public:
         }
 
         //index type room name date 보내주기
-        string room_myList(int index) {
+        string room_myList(int idx) {
             string result;
             int Room_Index;
             string Room_Title;
@@ -1093,7 +1092,7 @@ public:
                     Room_Type = res->getInt(2);
                     Room_Title = res->getString(3);
                     Room_Date = res->getString(4);
-                    line = line +"\n" + s_(Room_Index) + IDENTIFIER + s_(Room_Type) + IDENTIFIER + Room_Title + IDENTIFIER + Room_Date;
+                    line = line +"\n" + s_(Room_Index) + delim + Room_Title + delim + s_(Room_Type)+ delim + Room_Date;
                 }
                 if (line.size()>0)
                     result = s_(e_room_myList) + IDENTIFIER + True + line;
@@ -1149,15 +1148,22 @@ public:
             string result = "";
             int room_Type;
             string room_Date;
+            string my_Nickname;
             string date = getCurrentTime();
             msg = s_(e_send_msg) + IDENTIFIER + True + IDENTIFIER + sck_list[index].user.getID() + " : " + recv_cont;
             cout << msg << endl;
-            string my_Nickname = sck_list[index].user.getID();
+            string my_ID = sck_list[index].user.getID();
+            prep_stmt = con->prepareStatement("SELECT Nickname from member WHERE Member_ID = ?");
+            prep_stmt->setString(1, my_ID);
+            sql::ResultSet *res = prep_stmt->executeQuery();
+            if (res->next())
+                my_Nickname = res->getString(1);
+            msg = s_(e_room_Chat) + IDENTIFIER + my_Nickname + " : " + recv_cont;
             //cout << sck_list[idx].user << endl;
             int room_Index = stoi(sck_list[index].user.getJoinRoomIndex());
             send_msg(msg.c_str(), room_Index);// 방에 참여한 모든 사람에게 메시지를 보내는 함수
             prep_stmt = con->prepareStatement("INSERT INTO room_chat VALUES (NULL,?,?,?,?)");
-            prep_stmt->setString(1, my_Nickname);
+            prep_stmt->setString(1, my_ID);
             prep_stmt->setString(2, recv_cont);
             prep_stmt->setString(3,date);
             prep_stmt->setInt(4, room_Index);
@@ -1263,9 +1269,8 @@ void add_client1() { //add_client  변형해서 우리 상황에 맞게 사용하고 싶음
 void send_msg(const char* msg, int room_Index) {
     for (int i = 0; i < client_count; i++) { // 이 방에 접속해 있는 모든 client에게 메시지 전송
         if (stoi(sck_list[i].user.getJoinRoomIndex()) == room_Index) {// UserInfo 객체 생성시 초기화 반드시 진행, JoinRoomIndex ="0"으로
-            cout << "send " << msg << "  i: " << i << endl;
+
             send(sck_list[i].sck, msg, MAX_SIZE, 0);
-            cout << " send(Client_sck, msg, MAX_SIZE, 0);" << endl;
         }
         else
             break;
@@ -1307,6 +1312,34 @@ void del_client(int idx) {
     client_count--;
 }
 
+//void recv_msg(int idx) {
+//    char buf[MAX_SIZE] = { };
+//    string msg = "";
+//
+//    //cout << sck_list[idx].user << endl;
+//
+//    while (1) { //  recv한 다음에 여기에 switch 넣기 
+//        // add client () 수정하지 마.
+//
+//
+//        ZeroMemory(&buf, MAX_SIZE);
+//        if (recv(sck_list[idx].sck, buf, MAX_SIZE, 0) > 0) { // 오류가 발생하지 않으면 recv는 수신된 바이트 수를 반환. 0보다 크다는 것은 메시지가 왔다는 것.
+//            cout << " buf 3 " << buf << endl;
+//            msg = sck_list[idx].user + " : " + buf;
+//            cout << msg << endl;
+//            send_msg(msg.c_str());
+//        }
+//        else { //그렇지 않을 경우 퇴장에 대한 신호로 생각하여 퇴장 메시지 전송
+//            msg = "[공지] " + sck_list[idx].user + " 님이 퇴장했습니다.";
+//            cout << msg << endl;
+//            send_msg(msg.c_str());
+//            del_client(idx); // 클라이언트 삭제
+//            return;
+//        }
+//    }
+//}
+
+
 void recv_from_client(int idx) {// 메세지가 들어오면 타입 구분 하는 기초 함수
     char buf[MAX_SIZE] = { };
     string msg = "";
@@ -1320,8 +1353,6 @@ void recv_from_client(int idx) {// 메세지가 들어오면 타입 구분 하는 기초 함수
     while (1) { //  recv한 다음에 여기에 switch 넣기 
         // add client () 수정하지 마.
         SOCKET Client_sck = sck_list[idx].sck;
-        int my_room_Num=0;
-
         ZeroMemory(&buf, MAX_SIZE);
         if (recv(Client_sck, buf, MAX_SIZE, 0) > 0) {
             msg = buf;
@@ -1329,9 +1360,6 @@ void recv_from_client(int idx) {// 메세지가 들어오면 타입 구분 하는 기초 함수
             std::stringstream ss(msg);  // 문자열을 스트림화
             ss >> _Index;
             recv_content = string(buf + 3);
-
-
-
         }
         else {
             //종료
