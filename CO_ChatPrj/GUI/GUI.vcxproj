@@ -138,8 +138,6 @@
     <ClCompile Include="MessageBox.cpp" />
     <ClCompile Include="MyForm.cpp" />
     <ClCompile Include="NewMessage.cpp" />
-    <ClCompile Include="PublicRoom.cpp" />
-    <ClCompile Include="PublicRoomChat.cpp" />
     <ClCompile Include="MessageSent.cpp" />
     <ClCompile Include="ServerChat.cpp" />
     <ClCompile Include="SignUp.cpp" />
@@ -195,12 +193,6 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="NewMessage.h">
-      <FileType>CppForm</FileType>
-    </ClInclude>
-    <ClInclude Include="PublicRoom.h">
-      <FileType>CppForm</FileType>
-    </ClInclude>
-    <ClInclude Include="PublicRoomChat.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="MessageSent.h">
@@ -269,12 +261,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MessageSent.resx">
       <DependentUpon>MessageSent.h</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PublicRoom.resx">
-      <DependentUpon>PublicRoom.h</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PublicRoomChat.resx">
-      <DependentUpon>PublicRoomChat.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ServerChat.resx">
       <DependentUpon>ServerChat.h</DependentUpon>

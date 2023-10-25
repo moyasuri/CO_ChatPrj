@@ -280,10 +280,6 @@ string MySQL::QuerySql(string msg, int idx) {
                 _ret = falseStr;
                 break;
             }
-
-
-
-
         }
         case e_id_find_ID:
         {
@@ -457,6 +453,38 @@ string MySQL::QuerySql(string msg, int idx) {
                 _ret = falseStr;
                 break;
             }
+        }
+        case e_friends_Delete:
+        {
+            string _id = sck_list[idx]._user.getID();
+
+            result = "";
+            ss >> _from_nickname;
+            string query = "SELECT Member_ID FROM Member WHERE Nickname =  '" + _from_nickname + "'";
+            stmt = con->createStatement();
+            res = stmt->executeQuery(query);
+
+            if (res->next()) {
+
+                string temp_id = res->getString("Member_ID");
+                prep_stmt = con->prepareStatement("DELETE FROM friend_list WHERE My_ID = ? AND My_Friend_ID = ? ;");
+                prep_stmt->setString(1, temp_id); // x에 해당하는 값으로 설정
+                prep_stmt->setString(2, _id); // y에 해당하는 값으로 설정
+                int rowsAffected = prep_stmt->executeUpdate();
+
+                prep_stmt = con->prepareStatement("DELETE FROM friend_list WHERE My_ID = ? AND My_Friend_ID = ? ;");
+                prep_stmt->setString(1, _id); // x에 해당하는 값으로 설정
+                prep_stmt->setString(2, temp_id); // y에 해당하는 값으로 설정
+                rowsAffected = prep_stmt->executeUpdate();
+                if (rowsAffected > 0) {
+                    _ret = trueStr;
+                }
+                else {
+                    _ret = falseStr;
+                }
+
+            }
+
         }
         case e_friends_List:
         {
@@ -1419,7 +1447,7 @@ string MySQL::QuerySql(string msg, int idx) {
                         int rowUpdate = prep_stmt->executeUpdate();
                         cout << "update member query 완료;" << endl;
                         room_activate(room_Index, idx); // 방 활성화 해주기
-                        result = s_(e_room_Create) + IDENTIFIER + trueStr + IDENTIFIER + sck_list[idx]._user.getJoinRoomIndex(); // **** 내가 몇번방에들어갔는지 알 수 있다.
+                        result = trueStr; // **** 내가 몇번방에들어갔는지 알 수 있다.
                         cout << "result : " << result << endl;
                         return result;
 
@@ -1427,23 +1455,25 @@ string MySQL::QuerySql(string msg, int idx) {
                     }
                     else {
                         cout << "등록은 성공 but 정보 저장 실패" << endl;
-                        result = s_(e_room_Create) + IDENTIFIER + falseStr;
+                        result = falseStr;
                         return result;
                     }
                 }
                 else
                 {
                     cout << "등록은 성공 but 정보 저장 실패" << endl;
-                    result = s_(e_room_Create) + IDENTIFIER + falseStr;
+                    result = falseStr;
                     return result;
                 }
             }
             else
             {
                 cout << "INSERT INTO 실패" << endl;
-                result = s_(e_room_Create) + IDENTIFIER + falseStr;
+                result = falseStr;
                 return result;
+
             }
+            break;
         }
 
         // enum값만 주면된다.

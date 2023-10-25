@@ -353,18 +353,28 @@ private: System::Void timer2_Tick(System::Object^ sender, System::EventArgs^ e) 
 	//	return;
 	//}
 	// 서버에서 받은 메시지를 새로운 메시지로 저장합니다.
-	std::string newMessage = Recv_str;
+	try {
+		// 서버에서 받은 메시지를 새로운 메시지로 저장합니다.
+		std::string newMessage = Recv_str;
 
-	// 이전 메시지와 새로운 메시지를 비교하여 같으면 처리하지 않습니다.
-	if (newMessage == prevMessage) {
-		return;
-	}
-	else
-	{
-		while (getline(Chat, token)) {
+		// 이전 메시지와 새로운 메시지를 비교하여 같으면 처리하지 않습니다.
+		if (newMessage == prevMessage) {
+			return;
+		}
+		else {
+			while (getline(Chat, token)) {
 				txtBoxChatWindow->AppendText(msclr::interop::marshal_as<System::String^>(token) + Environment::NewLine);
 			}
-		prevMessage = Recv_str;
+			prevMessage = Recv_str;
+		}
+	}
+	catch (const std::exception& e) {
+		// 여기서 예외 처리를 수행합니다.
+		// 예외 처리 내용을 기록하거나 오류 메시지를 출력할 수 있습니다.
+		// 예를 들어, std::cerr을 사용하여 오류 메시지를 출력하거나, 로그 파일에 저장할 수 있습니다.
+
+		// 추가적인 예외 처리 로직을 추가하십시오.
+		return;
 	}
 	
 
