@@ -77,7 +77,7 @@ namespace MyClient {
 
 	public: void MyEventHandler(String^ message)
 	{
-		MessageBox::Show(message);
+		//MessageBox::Show(message);
 		// 이벤트가 트리거될 때 실행할 작업을 수행합니다.
 	}
 	private: MyFunction^ _my;

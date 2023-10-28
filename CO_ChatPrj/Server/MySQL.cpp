@@ -292,12 +292,12 @@ string MySQL::QuerySql(string msg, int idx) {
             
             res = stmt->executeQuery("SELECT Member_ID FROM member WHERE Email = '" + _email + "' AND Name = '" + _name + "'");
             if (res->next()) {
-                _ret = trueStr + delim + res->getString("Member_ID");
+                _ret = s_(e_id_find_ID) + delim + trueStr + delim + res->getString("Member_ID");
                 break;
             }
             else
             {
-                _ret = falseStr;
+                _ret = s_(e_id_find_ID) + delim +falseStr;
                 break;
             }
         }
@@ -312,12 +312,12 @@ string MySQL::QuerySql(string msg, int idx) {
                 "' AND Birth = '" + _birth + "' AND Phone = '" + _phone + "'");
 
             if (res->next()) {
-                _ret = trueStr + delim + res->getString("Member_PW");
+                _ret = s_(e_id_find_PW) +delim + trueStr + delim + res->getString("Member_PW");
                 break;
             }
             else
             {
-                _ret = falseStr;
+                _ret = s_(e_id_find_PW) + delim + falseStr;
                 break;
             }
         }

@@ -443,65 +443,55 @@ namespace MyClient {
 	public: void SetMyFunction(MyFunction^ my)
 	{
 		_my_Fa = my;
-		_my_Fa->MyEvent += gcnew Action<String^>(this, &FindAccountForm::MyEventHandler2);
+		_my_Fa->MyEvent += gcnew Action<String^>(this, &FindAccountForm::MyEventHandler);
 	}
 
 
 
-	public: void MyEventHandler2(String^ message)
+	public: void MyEventHandler(String^ message)
 	{
 		String^ inputString = message;
-		array<Char>^ delimiters = gcnew array<Char> { ' ' }; // 공백을 구분 기준으로 사용
-
-		array<String^>^ substrings = inputString->Split(delimiters, StringSplitOptions::None);
-
-		for each (String ^ substring in substrings)
-		{
-			System::Windows::Forms::MessageBox::Show(substring, "id", MessageBoxButtons::OK, MessageBoxIcon::Information);
-
-		}
 
 
-		String^ index_s = substrings[0];
-		System::Windows::Forms::MessageBox::Show(index_s, "id", MessageBoxButtons::OK, MessageBoxIcon::Information);
-		String^ isTrue = substrings[1];
-		System::Windows::Forms::MessageBox::Show(isTrue, "pw", MessageBoxButtons::OK, MessageBoxIcon::Information);
+		array<String^>^ subString = inputString->Split(' ');
+
+
+		String^ index_s = subString[0];
+		String^ isTrue = subString[1];
 		int index = Int32::Parse(index_s);
 
 
-	//	switch (index)
-	//	{
-	//		case e_id_find_ID:
-	//		{
-	//			if (isTrue == "true")
-	//			{
-	//				String^ msg = "ID : " + substrings[1];
-	//				System::Windows::Forms::MessageBox::Show(msg , "아이디 찾기", MessageBoxButtons::OK, MessageBoxIcon::Information);
-	//			}
-	//			else
-	//			{
-	//				System::Windows::Forms::MessageBox::Show("아이디랑 이메일이 일치하지 않습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		switch (index)
+		{
+			case e_id_find_ID:
+			{
+				if (isTrue == "true")
+				{
+					String^ msg = "ID : " + subString[2];
 
-	//			}
-	//			return;
-	//		}
-	//		case e_id_find_PW:
-	//		{
-	//			if (isTrue == "true")
-	//			{
-	//				String^ msg = "PW : " + substrings[2];
-	//				System::Windows::Forms::MessageBox::Show(msg, "비밀번호 찾기", MessageBoxButtons::OK, MessageBoxIcon::Information);
-	//				return;
-	//			}
-	//			else
-	//			{
-	//				System::Windows::Forms::MessageBox::Show("내용이 일치하지 않습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-	//				return;
+					System::Windows::Forms::MessageBox::Show(msg , "아이디 찾기", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				}
+				else
+				{
+					System::Windows::Forms::MessageBox::Show("아이디랑 이메일이 일치하지 않습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				}
+				return;
+			}
+			case e_id_find_PW:
+			{
+				if (isTrue == "true")
+				{
+					String^ msg = "PW : " + subString[2];
+					System::Windows::Forms::MessageBox::Show(msg, "비밀번호 찾기", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				}
+				else
+				{
+					System::Windows::Forms::MessageBox::Show("내용이 일치하지 않습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				}
+				return;
+			}
 
-	//			}
-	//		}
-
-	//	}
+		}
 
 	//
 	}
