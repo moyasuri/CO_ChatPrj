@@ -46,7 +46,8 @@ namespace MyClient {
 
 			}
 		}
-
+		
+		
 
 		void ReceiveMessages()
 		{
@@ -56,8 +57,7 @@ namespace MyClient {
 				{
 					array<Byte>^ buffer = gcnew array<Byte>(1024);
 					int bytesRead = clientSocket->Receive(buffer);
-					String^ message = Encoding::UTF8->GetString(buffer, 0, bytesRead);
-					//String^ message = Encoding::GetEncoding("EUC-KR")->GetString(buffer, 0, bytesRead);
+					String^ message = Encoding::GetEncoding("UTF-8")->GetString(buffer, 0, bytesRead);
 					if (!String::IsNullOrEmpty(message))
 					{
 							MyEvent(message);
@@ -70,7 +70,7 @@ namespace MyClient {
 					// 서버와의 연결이 끊겼을 때 SocketException을 처리합니다.
 					// 예외 처리 코드 추가, 예를 들면:
 					// 
-					MessageBox::Show("서버와의 연결이 끊어졌습니다.");
+					MessageBox::Show("Server disconnected");
 					break; // 스레드 종료 또는 다른 조치를 취할 수 있음
 				}
 			}
@@ -105,11 +105,11 @@ namespace MyClient {
 				}
 				catch (Exception^ e)
 				{
-					MessageBox::Show("서버에 연결할 수 없습니다. 오류: " + e->Message);
+					MessageBox::Show("server connection failed","error" + e->Message);
 
 				}
 
-				Sleep(5000);
+				Sleep(3000);
 
 			}
 
@@ -138,22 +138,14 @@ namespace MyClient {
 
 		
 		
+		
+		String^ s_(int _enum)
+		{
+			String^ string = _enum.ToString();
 
+			return string;
+		}
 		 
-
-
-
-		//private: MyClient::MyForm^ myFormInstance; // MyForm 객체를 저장할 필드
-
-		//public:
-		//	// MyForm 객체를 설정하는 메서드
-		//	void SetMyFormInstance(MyClient::MyForm^ form)
-		//	{
-		//		myFormInstance = form;
-		//		MessageReceivedHandlerMyForm(myFormInstance);
-		//			
-		//	}
-
 
 
 

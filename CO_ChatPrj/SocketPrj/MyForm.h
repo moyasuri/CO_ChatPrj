@@ -312,14 +312,14 @@ namespace MyClient {
 	public: void SetMyFunction(MyFunction^ my)
 	{
 		_my = my;
-		_my->MyEvent += gcnew Action<String^>(this, &MyForm::MyEventHandler);
+		//_my->MyEvent += gcnew Action<String^>(this, &MyForm::ReceivedMsg);
 	}
 
 
-	public: void MyEventHandler(String^ message)
+	public: void ReceivedMsg(String^ message)
 	{
-		//MessageBox::Show(message);
-			  // 이벤트가 트리거될 때 실행할 작업을 수행합니다.
+
+	
 	}
 	private: MyFunction^ _my;
 
@@ -330,7 +330,6 @@ private: System::Void btnFindAccount_Click(System::Object^ sender, System::Event
 
 	if (findaccountForm == nullptr || findaccountForm->IsDisposed) {
 		findaccountForm = gcnew FindAccountForm;
-		findaccountForm->SetMyFunction(_my);
 		findaccountForm->Show();
 	}
 	// 이미 생성된 폼이 열려 있는 경우, 해당 폼을 활성화시킵니다.

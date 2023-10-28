@@ -25,6 +25,15 @@ namespace MyClient {
 			//TODO: 생성자 코드를 여기에 추가합니다.
 			//
 		}
+		FindAccountForm(MyFunction^ my)
+		{
+			_my = my;
+			_my->MyEvent += gcnew Action<String^>(this, &FindAccountForm::ReceivedMsg);
+
+		}
+	private: System::Windows::Forms::TextBox^ txtBoxName;
+	public:
+	private: MyFunction^ _my;
 
 	protected:
 		/// <summary>
@@ -54,7 +63,7 @@ namespace MyClient {
 	private: System::Windows::Forms::Label^ label3;
 	private: System::Windows::Forms::Panel^ panel1;
 	private: System::Windows::Forms::Panel^ panel3;
-	private: System::Windows::Forms::TextBox^ txtBoxName;
+
 	private: System::Windows::Forms::TextBox^ txtBoxEmail;
 	private: System::Windows::Forms::Label^ label2;
 	private: System::Windows::Forms::Label^ label9;
@@ -72,7 +81,6 @@ namespace MyClient {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(FindAccountForm::typeid));
 			this->btnCancle = (gcnew System::Windows::Forms::Button());
 			this->btnSubmit_PW = (gcnew System::Windows::Forms::Button());
 			this->btnSubmit_ID = (gcnew System::Windows::Forms::Button());
@@ -89,10 +97,10 @@ namespace MyClient {
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->panel3 = (gcnew System::Windows::Forms::Panel());
-			this->txtBoxName = (gcnew System::Windows::Forms::TextBox());
 			this->txtBoxEmail = (gcnew System::Windows::Forms::TextBox());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->label9 = (gcnew System::Windows::Forms::Label());
+			this->txtBoxName = (gcnew System::Windows::Forms::TextBox());
 			this->panel2->SuspendLayout();
 			this->panel1->SuspendLayout();
 			this->SuspendLayout();
@@ -108,6 +116,7 @@ namespace MyClient {
 			this->btnCancle->TabIndex = 41;
 			this->btnCancle->Text = L"Cancle";
 			this->btnCancle->UseVisualStyleBackColor = true;
+			this->btnCancle->Click += gcnew System::EventHandler(this, &FindAccountForm::btnCancle_Click);
 			// 
 			// btnSubmit_PW
 			// 
@@ -292,18 +301,6 @@ namespace MyClient {
 			this->panel3->Size = System::Drawing::Size(578, 1);
 			this->panel3->TabIndex = 30;
 			// 
-			// txtBoxName
-			// 
-			this->txtBoxName->BackColor = System::Drawing::Color::GhostWhite;
-			this->txtBoxName->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->txtBoxName->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
-			this->txtBoxName->ForeColor = System::Drawing::SystemColors::WindowFrame;
-			this->txtBoxName->Location = System::Drawing::Point(140, 25);
-			this->txtBoxName->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
-			this->txtBoxName->Name = L"txtBoxName";
-			this->txtBoxName->Size = System::Drawing::Size(388, 39);
-			this->txtBoxName->TabIndex = 27;
-			// 
 			// txtBoxEmail
 			// 
 			this->txtBoxEmail->BackColor = System::Drawing::Color::GhostWhite;
@@ -343,6 +340,18 @@ namespace MyClient {
 			this->label9->Size = System::Drawing::Size(85, 29);
 			this->label9->TabIndex = 24;
 			this->label9->Text = L"E-mail";
+			// 
+			// txtBoxName
+			// 
+			this->txtBoxName->BackColor = System::Drawing::Color::GhostWhite;
+			this->txtBoxName->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->txtBoxName->Font = (gcnew System::Drawing::Font(L"Georgia", 14));
+			this->txtBoxName->ForeColor = System::Drawing::SystemColors::WindowFrame;
+			this->txtBoxName->Location = System::Drawing::Point(140, 25);
+			this->txtBoxName->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
+			this->txtBoxName->Name = L"txtBoxName";
+			this->txtBoxName->Size = System::Drawing::Size(388, 39);
+			this->txtBoxName->TabIndex = 26;
 			// 
 			// FindAccountForm
 			// 
@@ -409,12 +418,14 @@ namespace MyClient {
 				{
 					int t_index = e_id_find_ID;
 					String^ buffer = t_index.ToString() + " " + tmptxt_1 + " " + tmptxt_2;
-					_my_Fa->SendMessage(buffer);
+					_my->SendMessage(buffer);
 				}
 				else 
 				{
-					MessageBox::Show("ID / PW 를 다시입력해주세요.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+					MessageBox::Show("input ID / PW", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 				}
+
+				break;
 			}
 
 			case e_id_find_PW:
@@ -428,27 +439,23 @@ namespace MyClient {
 				{
 					int t_index = e_id_find_ID;
 					String^ buffer = t_index.ToString() + " " + tmptxt_1 + " " + tmptxt_2;
-					_my_Fa->SendMessage(buffer);
+					_my->SendMessage(buffer);
 				}
 				else
 				{
-					MessageBox::Show("공백란을 입력해주세요.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+					MessageBox::Show("please input blanck.", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 				}
+
+				break;
 			}
 
 		}
 
 	}
-
-	public: void SetMyFunction(MyFunction^ my)
-	{
-		_my_Fa = my;
-		_my_Fa->MyEvent += gcnew Action<String^>(this, &FindAccountForm::MyEventHandler);
-	}
+	
 
 
-
-	public: void MyEventHandler(String^ message)
+	public: void ReceivedMsg(String^ message)
 	{
 		String^ inputString = message;
 
@@ -469,36 +476,39 @@ namespace MyClient {
 				{
 					String^ msg = "ID : " + subString[2];
 
-					System::Windows::Forms::MessageBox::Show(msg , "아이디 찾기", MessageBoxButtons::OK, MessageBoxIcon::Information);
+					System::Windows::Forms::MessageBox::Show(msg , ("find id"), MessageBoxButtons::OK, MessageBoxIcon::Information);
 				}
 				else
 				{
-					System::Windows::Forms::MessageBox::Show("아이디랑 이메일이 일치하지 않습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+					System::Windows::Forms::MessageBox::Show("Wrong information", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 				}
-				return;
+				break;
 			}
 			case e_id_find_PW:
 			{
 				if (isTrue == "true")
 				{
 					String^ msg = "PW : " + subString[2];
-					System::Windows::Forms::MessageBox::Show(msg, "비밀번호 찾기", MessageBoxButtons::OK, MessageBoxIcon::Information);
+					System::Windows::Forms::MessageBox::Show(msg, "find pw", MessageBoxButtons::OK, MessageBoxIcon::Information);
 				}
 				else
 				{
-					System::Windows::Forms::MessageBox::Show("내용이 일치하지 않습니다.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+					System::Windows::Forms::MessageBox::Show("wrong information.", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 				}
-				return;
+				break;
 			}
 
 		}
 
 	//
 	}
-	private: MyFunction^ _my_Fa;
 
 	
 
+private: System::Void btnCancle_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->Close();
+
+}
 };
 }
 

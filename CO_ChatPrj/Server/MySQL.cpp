@@ -330,12 +330,12 @@ string MySQL::QuerySql(string msg, int idx) {
 
             // Database에 이미 있는아이디 = true;
             if (res->next()) {
-                _ret = falseStr; 
+                _ret = s_(e_signup_IDchk) + delim + falseStr;
                 break;
             }
             else
             {
-                _ret = trueStr;
+                _ret = s_(e_signup_IDchk) + delim + trueStr;
                 break;
             }
         }
@@ -348,12 +348,12 @@ string MySQL::QuerySql(string msg, int idx) {
 
             // Database에 이미 있는 Nickname =  false;
             if (res->next()) {
-                _ret = falseStr;
+                _ret = s_(e_signup_NickNamechk) + delim + falseStr;
                 break;
             }
             else
             {
-                _ret = trueStr;
+                _ret = s_(e_signup_NickNamechk) + delim + trueStr;
                 break;
             }
         }
@@ -373,12 +373,12 @@ string MySQL::QuerySql(string msg, int idx) {
 
             if (prep_stmt->executeUpdate())
             {
-                _ret = trueStr; //회원가입 등록 완
+                _ret = s_(e_signup_Submit) + delim + trueStr; //회원가입 등록 완
                 break;
             }
             else
             {
-                _ret = falseStr;
+                _ret = s_(e_signup_Submit) + delim + falseStr;
                 break;
             }
         }
@@ -394,12 +394,12 @@ string MySQL::QuerySql(string msg, int idx) {
             sql::ResultSet* res = prep_stmt->executeQuery();
             if ((res->next()))
             {
-                _ret = trueStr;
+                _ret = s_(e_edit_PWchk) + delim + trueStr;
                 break;
             }
             else
             {
-                _ret = falseStr;
+                _ret = s_(e_edit_PWchk) + delim + falseStr;
                 break;
             }
         }
@@ -414,12 +414,12 @@ string MySQL::QuerySql(string msg, int idx) {
             sql::ResultSet* res = prep_stmt->executeQuery();
             if ((res->next()))
             {
-                _ret = falseStr;
+                _ret = s_(e_edit_NickNamechk) + delim + falseStr;
                 break;
             }
             else
             {
-                _ret = trueStr;
+                _ret = s_(e_edit_NickNamechk) + delim + trueStr;
                 break;
             }
         }
@@ -449,12 +449,12 @@ string MySQL::QuerySql(string msg, int idx) {
                 sck_list[idx]._user.setNickName(_nickname);
                 sck_list[idx]._user.setPhone(_phone);
                 sck_list[idx]._user.setPW(_pw);
-                _ret = trueStr;
+                _ret = s_(e_edit_Confirm) + trueStr;
                 break;
             }
             else
             {
-                _ret = falseStr;
+                _ret = s_(e_edit_Confirm) + falseStr;
                 break;
             }
         }
@@ -487,7 +487,7 @@ string MySQL::QuerySql(string msg, int idx) {
         {
             string _id = sck_list[idx]._user.getID();
             string _to_nickname="";
-            _msg = "";
+            _msg = ""; 
             ss >> _to_nickname >> std::ws;;
             getline(ss,_msg,'\0');
 

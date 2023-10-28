@@ -158,8 +158,11 @@ void add_client() {
 }
 
 void send_msg(const char* msg) {
+    size_t length = strlen(msg);
+    
     for (int i = 0; i < client_count; i++) { // 접속해 있는 모든 client에게 메시지 전송
-        send(sck_list[i].sck, msg, MAX_SIZE, 0);
+        cout << i << endl;
+        send(sck_list[i].sck, msg, length, 0);
     }
 }
 
