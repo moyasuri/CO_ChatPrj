@@ -27,12 +27,12 @@ namespace MyClient {
 		}
 		FindAccountForm(MyFunction^ my)
 		{
-			_my = my;
-			_my->MyEvent += gcnew Action<String^>(this, &FindAccountForm::ReceivedMsg);
+			InitializeComponent();
+			this->_my = my;
+			this->_my->MyEvent += gcnew Action<String^>(this, &FindAccountForm::ReceivedMsg);
 
 		}
 	private: System::Windows::Forms::TextBox^ txtBoxName;
-	public:
 	private: MyFunction^ _my;
 
 	protected:
@@ -44,6 +44,11 @@ namespace MyClient {
 			if (components)
 			{
 				delete components;
+			}
+
+			if (_my != nullptr)
+			{
+				_my->MyEvent -= gcnew Action<String^>(this, &FindAccountForm::ReceivedMsg);
 			}
 		}
 	private: System::Windows::Forms::Button^ btnCancle;
@@ -381,29 +386,6 @@ namespace MyClient {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	private: System::Void btnSubmit_ID_Click(System::Object^ sender, System::EventArgs^ e) {
-		btnSubmit_ID->NotifyDefault(false);
-		SendMessageForm(e_id_find_ID);
-
-	}
-
 	public: void SendMessageForm(int index)
 	{
 
@@ -500,10 +482,14 @@ namespace MyClient {
 
 		}
 
-	//
 	}
 
 	
+		private: System::Void btnSubmit_ID_Click(System::Object^ sender, System::EventArgs^ e) {
+			btnSubmit_ID->NotifyDefault(false);
+			SendMessageForm(e_id_find_ID);
+
+			}
 
 private: System::Void btnCancle_Click(System::Object^ sender, System::EventArgs^ e) {
 	this->Close();

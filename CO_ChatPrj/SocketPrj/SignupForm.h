@@ -27,10 +27,13 @@ namespace MyClient {
 		}
 		SignupForm(MyFunction^ my)
 		{
+			InitializeComponent();
 			_my = my;
 			_my->MyEvent += gcnew Action<String^>(this, &SignupForm::ReceivedMsg);
 
 		}
+
+	private: MyFunction^ _my;
 
 	protected:
 		/// <summary>
@@ -187,6 +190,7 @@ namespace MyClient {
 			this->btnSubmit->TabIndex = 42;
 			this->btnSubmit->Text = L"Submit";
 			this->btnSubmit->UseVisualStyleBackColor = false;
+			this->btnSubmit->Click += gcnew System::EventHandler(this, &SignupForm::btnSubmit_Click);
 			// 
 			// combBoxCha
 			// 
@@ -430,14 +434,8 @@ namespace MyClient {
 
 
 
-	public: void SetMyFunction(MyFunction^ my)
-	{
-		_my = my;
-		_my->MyEvent += gcnew Action<String^>(this, &SignupForm::ReceivedMsg);
-	}
 
 	private: 
-		MyFunction^ _my;
 		bool isChkIDDup = false;
 		bool isChkNickNameDup = false;
 
@@ -489,64 +487,72 @@ namespace MyClient {
 				{
 					System::Windows::Forms::MessageBox::Show("Please ID duplicate check", "warming", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 					break;
-				}
-				if (!isChkNickNameDup)
-				{
-					System::Windows::Forms::MessageBox::Show("Please Nickname duplicate check", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-					break;
-				}
-				if (txtBoxPW->Text != txtBoxRechk->Text)
-				{
+			}
+			if (!isChkNickNameDup)
+			{
+				System::Windows::Forms::MessageBox::Show("Please Nickname duplicate check", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				break;
+			}
+			if (txtBoxPW->Text != txtBoxRechk->Text)
+			{
 
-					System::Windows::Forms::MessageBox::Show("Please check the PW", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-					break;
-				}
-
-
-				String^ tmptxt_1 = txtBoxID->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-				String^ tmptxt_2 = txtBoxEmail->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-				String^ tmptxt_3 = txtBoxPhone->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-				String^ tmptxt_4 = txtBoxBirth->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-				String^ tmptxt_5 = txtBoxNickName->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-				String^ tmptxt_6 = combBoxCha->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-				String^ tmptxt_7 = txtBoxPW->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-				String^ tmptxt_8 = txtBoxName->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-
-				// ID와 PW의 문자열이 채워져있다면
-				if (!String::IsNullOrEmpty(tmptxt_1) && !String::IsNullOrEmpty(tmptxt_2) && !String::IsNullOrEmpty(tmptxt_2)\
-					&& !String::IsNullOrEmpty(tmptxt_3) && !String::IsNullOrEmpty(tmptxt_4) && !String::IsNullOrEmpty(tmptxt_5)\
-					&& !String::IsNullOrEmpty(tmptxt_6) && !String::IsNullOrEmpty(tmptxt_7) && !String::IsNullOrEmpty(tmptxt_8)) {
-
-					if (1) // 나중에 고치자
-					{
-						tmptxt_6 = _my->s_(e_character_izuna);
-					}
-					/*else if (tmptxt_6_ == "아리스")
-					{
-						tmptxt_6_ = _my->s_(e_character_alice);
-					}*/
-
-					int t_index = e_signup_NickNamechk;
-					String^ buffer = _my->s_(t_index) + " " + tmptxt_1 + " " + tmptxt_2 + " " + tmptxt_3 + " " + tmptxt_4\
-						+ " " + tmptxt_5 + " " + tmptxt_6 + " " + tmptxt_7 + " " + tmptxt_8;
-					_my->SendMessage(buffer);
-				}
-				// 입력값이 없다면,
-				else {
-					System::Windows::Forms::MessageBox::Show("please fill the blank.", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-				}
+				System::Windows::Forms::MessageBox::Show("Please check the PW", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				break;
 			}
 
+
+			String^ tmptxt_1 = txtBoxID->Text; // textBox는 해당 텍스트 상자의 이름입니다.
+			String^ tmptxt_2 = txtBoxEmail->Text; // textBox는 해당 텍스트 상자의 이름입니다.
+			String^ tmptxt_3 = txtBoxPhone->Text; // textBox는 해당 텍스트 상자의 이름입니다.
+			String^ tmptxt_4 = txtBoxBirth->Text; // textBox는 해당 텍스트 상자의 이름입니다.
+			String^ tmptxt_5 = txtBoxNickName->Text; // textBox는 해당 텍스트 상자의 이름입니다.
+			String^ tmptxt_6 = combBoxCha->Text; // textBox는 해당 텍스트 상자의 이름입니다.
+			String^ tmptxt_7 = txtBoxPW->Text; // textBox는 해당 텍스트 상자의 이름입니다.
+			String^ tmptxt_8 = txtBoxName->Text; // textBox는 해당 텍스트 상자의 이름입니다.
+
+			// ID와 PW의 문자열이 채워져있다면
+			if (!String::IsNullOrEmpty(tmptxt_1) && !String::IsNullOrEmpty(tmptxt_2) && !String::IsNullOrEmpty(tmptxt_2)\
+				&& !String::IsNullOrEmpty(tmptxt_3) && !String::IsNullOrEmpty(tmptxt_4) && !String::IsNullOrEmpty(tmptxt_5)\
+				&& !String::IsNullOrEmpty(tmptxt_6) && !String::IsNullOrEmpty(tmptxt_7) && !String::IsNullOrEmpty(tmptxt_8)) {
+
+				if (1) // 나중에 고치자
+				{
+					tmptxt_6 = _my->s_(e_character_izuna);
+				}
+				/*else if (tmptxt_6_ == "아리스")
+				{
+					tmptxt_6_ = _my->s_(e_character_alice);
+				}*/
+
+				int t_index = e_signup_NickNamechk;
+				String^ buffer = _my->s_(t_index) + " " + tmptxt_1 + " " + tmptxt_2 + " " + tmptxt_3 + " " + tmptxt_4\
+					+ " " + tmptxt_5 + " " + tmptxt_6 + " " + tmptxt_7 + " " + tmptxt_8;
+				_my->SendMessage(buffer);
+			}
+			// 입력값이 없다면,
+			else {
+				System::Windows::Forms::MessageBox::Show("please fill the blank.", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			}
 		}
 
 	}
 
-	public: System::Void UpdateTextBox()
+}
+
+	private: System::Void UpdateTextBoxID()
 	{
 		txtBoxID->Enabled = false;
 	}
 
-	public: void ReceivedMsg(String^ message)	
+
+	private: System::Void UpdateTextBoxNickname()
+	{
+		txtBoxNickName->Enabled = false;
+	}
+
+
+
+	private: void ReceivedMsg(String^ message)	
 	{
 		String^ inputString = message;
 		
@@ -556,9 +562,6 @@ namespace MyClient {
 		String^ isTrue = subString[1];
 		int index = Int32::Parse(index_s);
 
-	
-
-
 		switch (index)
 		{
 			case e_signup_IDchk:
@@ -566,11 +569,10 @@ namespace MyClient {
 
 				if(isTrue == "true")
 				{
-					System::Windows::Forms::MessageBox::Show("You can use this ID", "id check", MessageBoxButtons::OK, MessageBoxIcon::Information);
 					//txtBoxNickName->Invoke(gcnew Action<String^>(this, &YourFormName::UpdateTextBox), newText);
-					txtBoxID->Invoke(gcnew Action(this, &SignupForm::UpdateTextBox));
+					txtBoxID->Invoke(gcnew Action(this, &SignupForm::UpdateTextBoxID));
 					isChkIDDup = true;
-				
+					System::Windows::Forms::MessageBox::Show("You can use this ID", "id check", MessageBoxButtons::OK, MessageBoxIcon::Information);
 				}
 				else
 				{
@@ -583,10 +585,8 @@ namespace MyClient {
 			{
 				if(isTrue == "true")
 				{
-
+					txtBoxNickName->Invoke(gcnew Action(this, &SignupForm::UpdateTextBoxNickname));
 					isChkNickNameDup = true;
-					txtBoxNickName->Enabled = false;
-
 					System::Windows::Forms::MessageBox::Show("You can use this Nickname", "nickname check", MessageBoxButtons::OK, MessageBoxIcon::Information);
 				}
 				else
@@ -620,10 +620,13 @@ namespace MyClient {
 		btnIDduplicateChk->NotifyDefault(false);
 		SendMessageForm(e_signup_IDchk);
 	}
-
-private: System::Void btnNickNameduplicateChk_Click(System::Object^ sender, System::EventArgs^ e) {
-	btnNickNameduplicateChk->NotifyDefault(false);
-	SendMessageForm(e_signup_NickNamechk);
-}
+	private: System::Void btnNickNameduplicateChk_Click(System::Object^ sender, System::EventArgs^ e) {
+		btnNickNameduplicateChk->NotifyDefault(false);
+		SendMessageForm(e_signup_NickNamechk);
+	}
+	private: System::Void btnSubmit_Click(System::Object^ sender, System::EventArgs^ e) {
+		btnSubmit->NotifyDefault(false);
+		SendMessageForm(e_signup_Submit);
+	}
 };
 }

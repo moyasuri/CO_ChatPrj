@@ -26,6 +26,7 @@
     <Keyword>ManagedCProj</Keyword>
     <RootNamespace>SocketPrj</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Client</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -123,18 +124,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CreateChatRoom.cpp" />
+    <ClCompile Include="DeleteRoom.cpp" />
+    <ClCompile Include="EditProfile.cpp" />
     <ClCompile Include="FindAccountForm.cpp" />
+    <ClCompile Include="Friends.cpp" />
+    <ClCompile Include="JoinChatRoom.cpp" />
     <ClCompile Include="MainForm.cpp" />
+    <ClCompile Include="MessageMain.cpp" />
     <ClCompile Include="MyForm.cpp" />
     <ClCompile Include="MyFunction.cpp" />
     <ClCompile Include="SignupForm.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CreateChatRoom.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="DeleteRoom.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="EditProfile.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="enum.h" />
     <ClInclude Include="FindAccountForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Friends.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="JoinChatRoom.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="MainForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="MessageMain.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="MyForm.h">
@@ -146,8 +171,17 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="CreateChatRoom.resx">
+      <DependentUpon>CreateChatRoom.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditProfile.resx">
+      <DependentUpon>EditProfile.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FindAccountForm.resx">
       <DependentUpon>FindAccountForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MyForm.resx">
       <DependentUpon>MyForm.h</DependentUpon>

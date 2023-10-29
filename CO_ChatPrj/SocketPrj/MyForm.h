@@ -14,9 +14,9 @@ namespace MyClient {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
-	using namespace System::Net;
-	using namespace System::Net::Sockets;
-	using namespace System::Text;
+	//using namespace System::Net;
+	//using namespace System::Net::Sockets;
+	//using namespace System::Text;
 
 
 
@@ -42,15 +42,22 @@ namespace MyClient {
 			//TODO: 생성자 코드를 여기에 추가합니다.
 			//
 
+		}
 
-
-
+		MyForm(MyFunction^ my)
+		{
+			InitializeComponent();
+			//
+			//TODO: 생성자 코드를 여기에 추가합니다.
+			//
+			_my = my;
+			_my->MyEvent += gcnew Action<String^>(this, &MyForm::ReceivedMsg);
 		}
 
 	public:
 		//void RegisterMessageHandlerForNewTest(NewTest^ newTestForm);
 
-
+	private: MyFunction^ _my;
 	protected:
 		/// <summary>
 		/// 사용 중인 모든 리소스를 정리합니다.
@@ -62,6 +69,10 @@ namespace MyClient {
 				delete components;
 			}
 
+			if (_my != nullptr)
+			{
+				_my->MyEvent -= gcnew Action<String^>(this, &MyForm::ReceivedMsg);
+			}
 
 		}
 
@@ -309,19 +320,52 @@ namespace MyClient {
 
 	}
 
-	public: void SetMyFunction(MyFunction^ my)
-	{
-		_my = my;
-		//_my->MyEvent += gcnew Action<String^>(this, &MyForm::ReceivedMsg);
-	}
+	//public: void SetMyFunction(MyFunction^ my)
+	//{
+	//	_my = my;
+	//	_my->MyEvent += gcnew Action<String^>(this, &MyForm::ReceivedMsg);
+	//}
 
 
 	public: void ReceivedMsg(String^ message)
 	{
+		String^ inputString = message;
+
+		array<String^>^ subString = inputString->Split(' ');
+
+		String^ index_s = subString[0];
+		String^ isTrue = subString[1];
+		int index = Int32::Parse(index_s);
+
+		switch (index)
+		{
+			// Hide 할때의 동작			
+
+			case e_id_try_Signin:
+			{
+
+				if (isTrue == "true")
+				{
+					if (mainForm == nullptr || mainForm->IsDisposed) {
+						mainForm = gcnew MainForm(_my);
+						mainForm->Owner = this; // Owner를 설정해야 가능
+						this->Hide();
+						//this->HomeImageSound->Stop();
+						mainForm->Show();
+					}
+					return;
+				}
+				else
+				{
+					System::Windows::Forms::MessageBox::Show("Check the ID and Password", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				}
+				break;
+			}
+				
+		}
 
 	
 	}
-	private: MyFunction^ _my;
 
 
 
@@ -329,7 +373,7 @@ private: System::Void btnFindAccount_Click(System::Object^ sender, System::Event
 	btnFindAccount->NotifyDefault(false);
 
 	if (findaccountForm == nullptr || findaccountForm->IsDisposed) {
-		findaccountForm = gcnew FindAccountForm;
+		findaccountForm = gcnew FindAccountForm(_my);
 		findaccountForm->Show();
 	}
 	// 이미 생성된 폼이 열려 있는 경우, 해당 폼을 활성화시킵니다.
@@ -342,8 +386,7 @@ private: System::Void btnSignUp_Click(System::Object^ sender, System::EventArgs^
 		btnSignUp->NotifyDefault(false);
 
 	if (signupForm == nullptr || signupForm->IsDisposed) {
-		signupForm = gcnew SignupForm;
-		signupForm->SetMyFunction(_my);
+		signupForm = gcnew SignupForm(_my);
 		signupForm->Show();
 
 	}
