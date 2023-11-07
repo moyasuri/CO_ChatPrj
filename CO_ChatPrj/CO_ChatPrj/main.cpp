@@ -61,6 +61,7 @@ int main() {
 
         while (1) {}// 무한 반복문을 사용하여 서버가 계속해서 채팅 보낼 수 있는 상태를 만들어 줌. 반복문을 사용하지 않으면 한 번만 보낼 수 있음.
 
+        //send_msg("ab"); // c_str : string 타입을 const chqr* 타입으로 바꿔줌.
         for (int i = 0; i < MAX_CLIENT; i++) {
             th1[i].join();
             //join : 해당하는 thread 들이 실행을 종료하면 리턴하는 함수.
