@@ -86,6 +86,10 @@
       <SubSystem>Console</SubSystem>
       <EntryPointSymbol>main</EntryPointSymbol>
     </Link>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)Media\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Culture>0x0009</Culture>
+    </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -133,6 +137,7 @@
     <ClCompile Include="FriendResponse.cpp" />
     <ClCompile Include="Friends.cpp" />
     <ClCompile Include="FriendsList.cpp" />
+    <ClCompile Include="GeneralChatList.cpp" />
     <ClCompile Include="JoinChatRoom.cpp" />
     <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="MessageMain.cpp" />
@@ -172,6 +177,9 @@
     <ClInclude Include="FriendsList.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="GeneralChatList.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="JoinChatRoom.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -194,6 +202,7 @@
     <ClInclude Include="NewMessage.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="resource1.h" />
     <ClInclude Include="SignupForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -223,6 +232,9 @@
     <EmbeddedResource Include="FriendsList.resx">
       <DependentUpon>FriendsList.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GeneralChatList.resx">
+      <DependentUpon>GeneralChatList.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="JoinChatRoom.resx">
       <DependentUpon>JoinChatRoom.h</DependentUpon>
     </EmbeddedResource>
@@ -247,6 +259,13 @@
     <EmbeddedResource Include="SignupForm.resx">
       <DependentUpon>SignupForm.h</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Client.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Media\Button\accept.png" />
+    <Image Include="bitmap1.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

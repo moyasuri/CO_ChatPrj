@@ -25,6 +25,17 @@ namespace MyClient {
 			//
 		}
 
+		ChatRoom(MyFunction^ my)
+		{
+			InitializeComponent();
+			//
+			//TODO: 생성자 코드를 여기에 추가합니다.
+			//
+			_my = my;
+			_my->MyEvent += gcnew Action<String^>(this, &ChatRoom::ReceivedMsg);
+		}
+	private: MyFunction^ _my;
+
 	protected:
 		/// <summary>
 		/// 사용 중인 모든 리소스를 정리합니다.
@@ -160,5 +171,61 @@ namespace MyClient {
 
 		}
 #pragma endregion
+		private: void ReceivedMsg(String^ message)
+		{
+			String^ inputString = message;
+
+			array<String^>^ subString = inputString->Split(' ');
+
+			String^ index_s = subString[0];
+			String^ isTrue = subString[1];
+			int index = Int32::Parse(index_s);
+
+			switch (index)
+			{
+			case e_edit_PWchk:
+			{
+				if (isTrue == "true")
+				{
+					//txtBoxNickName->Invoke(gcnew Action<String^>(this, &YourFormName::UpdateTextBox), newText);
+					//Invoke(gcnew Action(this, &EditProfile::UpdateTextBox));
+					System::Windows::Forms::MessageBox::Show("Password matches username.", "PW check", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				}
+				else
+				{
+					System::Windows::Forms::MessageBox::Show("Password Wrong", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				}
+				break;
+			}
+			//case e_edit_NickNamechk:
+			//{
+			//	if (isTrue == "true")
+			//	{
+			//		Invoke(gcnew Action(this, &EditProfile::UpdateTextBoxNickname));
+			//		System::Windows::Forms::MessageBox::Show("You can use this Nickname", "nickname check", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			//	}
+			//	else
+			//	{
+			//		System::Windows::Forms::MessageBox::Show("The nickname already exists.", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			//	}
+			//	break;
+			//}
+			//case e_edit_Confirm:
+			//{
+			//	if (isTrue == "true")
+			//	{
+			//		System::Windows::Forms::MessageBox::Show("Update Profile Success", "Edit Porofile", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			//	}
+			//	else
+			//	{
+			//		System::Windows::Forms::MessageBox::Show("something wrong..", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			//	}
+			//	break;
+			//}
+
+			}
+
+		}
+
 	};
 }

@@ -271,13 +271,13 @@ string MySQL::QuerySql(string msg, int idx) {
 
                 cout << sck_list[idx]._user.getNickName();
                 cout << sck_list[idx]._user.getID();
-                _ret = trueStr;
+                _ret = s_(e_id_try_Signin) + delim + trueStr;
                 break;
 
             }
             else
             {
-                _ret = falseStr;
+                _ret = s_(e_id_try_Signin) + delim + falseStr;
                 break;
             }
 
@@ -702,16 +702,16 @@ string MySQL::QuerySql(string msg, int idx) {
                 // 결과 처리
             }
             result = s_(cntUnreadMsg);
-
+    
             if (!result.empty())
             {
-                _ret = trueStr + delim + result;
+                _ret = s_(e_message_Cnt) + delim + trueStr + delim + result;
                 break;
 
             }
             else
             {
-                _ret = falseStr;
+                _ret = s_(e_message_Cnt) + delim + falseStr;
                 break;
             }
 

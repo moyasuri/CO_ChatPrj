@@ -106,7 +106,6 @@ namespace MyClient {
 			// btnClose
 			// 
 			this->btnClose->BackColor = System::Drawing::Color::Transparent;
-			this->btnClose->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnClose.BackgroundImage")));
 			this->btnClose->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->btnClose->FlatAppearance->BorderSize = 0;
 			this->btnClose->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
@@ -122,7 +121,6 @@ namespace MyClient {
 			// btnEditConfirm
 			// 
 			this->btnEditConfirm->BackColor = System::Drawing::Color::Transparent;
-			this->btnEditConfirm->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnEditConfirm.BackgroundImage")));
 			this->btnEditConfirm->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->btnEditConfirm->FlatAppearance->BorderSize = 0;
 			this->btnEditConfirm->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
@@ -138,7 +136,6 @@ namespace MyClient {
 			// btnPWchk
 			// 
 			this->btnPWchk->BackColor = System::Drawing::Color::Transparent;
-			this->btnPWchk->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnPWchk.BackgroundImage")));
 			this->btnPWchk->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->btnPWchk->FlatAppearance->BorderSize = 0;
 			this->btnPWchk->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
@@ -230,7 +227,7 @@ namespace MyClient {
 			// combBoxCha
 			// 
 			this->combBoxCha->FormattingEnabled = true;
-			this->combBoxCha->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"이즈나", L"아리스" });
+			this->combBoxCha->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"izuna", L"arisu" });
 			this->combBoxCha->Location = System::Drawing::Point(135, 707);
 			this->combBoxCha->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->combBoxCha->Name = L"combBoxCha";
@@ -240,7 +237,6 @@ namespace MyClient {
 			// btnNickNameduplicateChk
 			// 
 			this->btnNickNameduplicateChk->BackColor = System::Drawing::Color::Transparent;
-			this->btnNickNameduplicateChk->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnNickNameduplicateChk.BackgroundImage")));
 			this->btnNickNameduplicateChk->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->btnNickNameduplicateChk->FlatAppearance->BorderSize = 0;
 			this->btnNickNameduplicateChk->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;

@@ -27,9 +27,6 @@
     <ClInclude Include="FindAccountForm.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="MainForm.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="SignupForm.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -72,6 +69,15 @@
     <ClInclude Include="ChatRoom.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="GeneralChatList.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="resource1.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MainForm.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MyForm.cpp">
@@ -81,9 +87,6 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="FindAccountForm.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="MainForm.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="SignupForm.cpp">
@@ -126,7 +129,26 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="ChatRoom.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneralChatList.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MainForm.cpp">
       <Filter>헤더 파일</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Client.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="bitmap1.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\Media\Button\accept.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
 </Project>

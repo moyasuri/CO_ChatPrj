@@ -2,7 +2,6 @@
 
 #include "enum.h"
 #include "MyFunction.h"
-#include <vector>
 namespace MyClient {
 
 	using namespace System;
@@ -365,7 +364,7 @@ namespace MyClient {
 		{
 			if (isTrue == "true")
 			{
-				this->Invoke(gcnew Action<String^>(this, &MsgBox::UpdateUnread), message);
+				this->Invoke(gcnew Action<String^>(this, &MsgBox::UpdateRead), message);
 			}
 			else
 			{
@@ -393,103 +392,104 @@ namespace MyClient {
 	{
 		// msg가 어떻게 오는지 확인해야돼
 		
-		std::string msg = svrMsg;
-		std::vector<std::pair<std::string, std::string>> messagesR;
+		//std::string msg = svrMsg;
+		//std::vector<std::pair<std::string, std::string>> messagesR;
 
-		size_t startPos = 0;
-		size_t delimiterPos;
+		//size_t startPos = 0;
+		//size_t delimiterPos;
 
-		while ((delimiterPos = msg.find("*/", startPos)) != std::string::npos) {
-			size_t nickStart = delimiterPos + 2;
-			size_t nickEnd = msg.find(' ', nickStart);
-			if (nickEnd == std::string::npos) {
-				nickEnd = msg.length();
-			}
-			size_t messageStart = nickEnd + 1;
-			//
-					// Find the end of the message
-			size_t nextDelimiterPos = msg.find("*/", messageStart);
-			size_t messageEnd;
-			//
-			if (nextDelimiterPos != std::string::npos) {
-				messageEnd = nextDelimiterPos - 1;
-			}
-			else {
-				messageEnd = msg.length();
-			}
+		//while ((delimiterPos = msg.find("*/", startPos)) != std::string::npos) {
+		//	size_t nickStart = delimiterPos + 2;
+		//	size_t nickEnd = msg.find(' ', nickStart);
+		//	if (nickEnd == std::string::npos) {
+		//		nickEnd = msg.length();
+		//	}
+		//	size_t messageStart = nickEnd + 1;
+		//	//
+		//			// Find the end of the message
+		//	size_t nextDelimiterPos = msg.find("*/", messageStart);
+		//	size_t messageEnd;
+		//	//
+		//	if (nextDelimiterPos != std::string::npos) {
+		//		messageEnd = nextDelimiterPos - 1;
+		//	}
+		//	else {
+		//		messageEnd = msg.length();
+		//	}
 
-			std::string id = msg.substr(nickStart, nickEnd - nickStart);
-			std::string message = msg.substr(messageStart, messageEnd - messageStart);
+		//	std::string id = msg.substr(nickStart, nickEnd - nickStart);
+		//	std::string message = msg.substr(messageStart, messageEnd - messageStart);
 
-			messagesR.push_back(std::make_pair(id, message));
+		//	messagesR.push_back(std::make_pair(id, message));
 
-			// Move the start position to the end of the current message
-			startPos = messageEnd + 1;
-		}
-		// Output the parsed messages
-		int count = 0;
-		for (const auto& message : messagesR) {
+		//	// Move the start position to the end of the current message
+		//	startPos = messageEnd + 1;
+		//}
+		//// Output the parsed messages
+		//int count = 0;
+		//for (const auto& message : messagesR) {
 
-			ViewUnread->Rows->Add();
-			ViewUnread->Rows[count]->Cells["NumOfUnread"]->Value = System::Convert::ToString(count);
-			System::String^ tempwho = msclr::interop::marshal_as<System::String^>(message.first);
-			ViewUnread->Rows[count]->Cells["U_From"]->Value = tempwho;
-			System::String^ tempmsg = msclr::interop::marshal_as<System::String^>(message.second);
-			ViewUnread->Rows[count]->Cells["U_Date"]->Value = tempmsg;
-			count++;
-		}
+		//	ViewUnread->Rows->Add();
+		//	ViewUnread->Rows[count]->Cells["NumOfUnread"]->Value = System::Convert::ToString(count);
+		//	System::String^ tempwho = msclr::interop::marshal_as<System::String^>(message.first);
+		//	ViewUnread->Rows[count]->Cells["U_From"]->Value = tempwho;
+		//	System::String^ tempmsg = msclr::interop::marshal_as<System::String^>(message.second);
+		//	ViewUnread->Rows[count]->Cells["U_Date"]->Value = tempmsg;
+		//	count++;
+		//}
 
 	}
 
-	private: System::Void UpdateRead()
+	private: System::Void UpdateRead(String^ message)
 	{
-		// 어떻게 메세지가 오는지 집에서 확인해야돼.
+	
+		//// 어떻게 메세지가 오는지 집에서 확인해야돼.
 
-		std::string msg = svrMsg;
-		std::vector<std::pair<std::string, std::string>> messagesR;
+		//std::string msg = svrMsg;
+		//std::vector<std::pair<std::string, std::string>> messagesR;
 
-		size_t startPos = 0;
-		size_t delimiterPos;
+		//size_t startPos = 0;
+		//size_t delimiterPos;
 
-		while ((delimiterPos = msg.find("*/", startPos)) != std::string::npos) {
-			size_t nickStart = delimiterPos + 2;
-			size_t nickEnd = msg.find(' ', nickStart);
-			if (nickEnd == std::string::npos) {
-				nickEnd = msg.length();
-			}
-			size_t messageStart = nickEnd + 1;
-			//
-					// Find the end of the message
-			size_t nextDelimiterPos = msg.find("*/", messageStart);
-			size_t messageEnd;
-			//
-			if (nextDelimiterPos != std::string::npos) {
-				messageEnd = nextDelimiterPos - 1;
-			}
-			else {
-				messageEnd = msg.length();
-			}
+		//while ((delimiterPos = msg.find("*/", startPos)) != std::string::npos) {
+		//	size_t nickStart = delimiterPos + 2;
+		//	size_t nickEnd = msg.find(' ', nickStart);
+		//	if (nickEnd == std::string::npos) {
+		//		nickEnd = msg.length();
+		//	}
+		//	size_t messageStart = nickEnd + 1;
+		//	//
+		//			// Find the end of the message
+		//	size_t nextDelimiterPos = msg.find("*/", messageStart);
+		//	size_t messageEnd;
+		//	//
+		//	if (nextDelimiterPos != std::string::npos) {
+		//		messageEnd = nextDelimiterPos - 1;
+		//	}
+		//	else {
+		//		messageEnd = msg.length();
+		//	}
 
-			std::string id = msg.substr(nickStart, nickEnd - nickStart);
-			std::string message = msg.substr(messageStart, messageEnd - messageStart);
+		//	std::string id = msg.substr(nickStart, nickEnd - nickStart);
+		//	std::string message = msg.substr(messageStart, messageEnd - messageStart);
 
-			messagesR.push_back(std::make_pair(id, message));
+		//	messagesR.push_back(std::make_pair(id, message));
 
-			// Move the start position to the end of the current message
-			startPos = messageEnd + 1;
-		}
-		// Output the parsed messages
-		int count = 0;
-		for (const auto& message : messagesR) {
+		//	// Move the start position to the end of the current message
+		//	startPos = messageEnd + 1;
+		//}
+		//// Output the parsed messages
+		//int count = 0;
+		//for (const auto& message : messagesR) {
 
-			ViewRead->Rows->Add();
-			ViewRead->Rows[count]->Cells["NumOfRead"]->Value = System::Convert::ToString(count);
-			System::String^ tempwho = msclr::interop::marshal_as<System::String^>(message.first);
-			ViewRead->Rows[count]->Cells["R_From"]->Value = tempwho;
-			System::String^ tempmsg = msclr::interop::marshal_as<System::String^>(message.second);
-			ViewRead->Rows[count]->Cells["R_Date"]->Value = tempmsg;
-			count++;
-		}
+		//	ViewRead->Rows->Add();
+		//	ViewRead->Rows[count]->Cells["NumOfRead"]->Value = System::Convert::ToString(count);
+		//	System::String^ tempwho = msclr::interop::marshal_as<System::String^>(message.first);
+		//	ViewRead->Rows[count]->Cells["R_From"]->Value = tempwho;
+		//	System::String^ tempmsg = msclr::interop::marshal_as<System::String^>(message.second);
+		//	ViewRead->Rows[count]->Cells["R_Date"]->Value = tempmsg;
+		//	count++;
+		//}
 
 	}
 

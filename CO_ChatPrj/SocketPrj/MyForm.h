@@ -316,6 +316,7 @@ namespace MyClient {
 
 			String^ buffer = t_index.ToString()+ " " + tmptxt_1 + " " + tmptxt_2;
 			_my->SendMessage(buffer);
+			break;
 		}
 
 	}
@@ -346,14 +347,8 @@ namespace MyClient {
 
 				if (isTrue == "true")
 				{
-					if (mainForm == nullptr || mainForm->IsDisposed) {
-						mainForm = gcnew MainForm(_my);
-						mainForm->Owner = this; // Owner를 설정해야 가능
-						this->Hide();
-						//this->HomeImageSound->Stop();
-						mainForm->Show();
-					}
-					return;
+					this->Invoke(gcnew MethodInvoker(this, &MyForm::MainFormShow));
+			
 				}
 				else
 				{
@@ -366,6 +361,18 @@ namespace MyClient {
 
 	
 	}
+
+		  public: void MainFormShow()
+		  {
+			  if (mainForm == nullptr || mainForm->IsDisposed) {
+				  mainForm = gcnew MainForm(_my);
+				  mainForm->Owner = this; // Owner를 설정해야 가능
+				  this->Hide();
+				  //this->HomeImageSound->Stop();
+				  mainForm->Show();
+			  }
+			  return;
+		  }
 
 
 

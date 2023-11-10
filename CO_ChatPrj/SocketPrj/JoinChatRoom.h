@@ -2,6 +2,7 @@
 #include "MyFunction.h"
 #include "enum.h"
 #include "ChatRoom.h"
+#include "GeneralChatList.h"
 
 namespace MyClient {
 
@@ -33,13 +34,14 @@ namespace MyClient {
 			//TODO: 생성자 코드를 여기에 추가합니다.
 			//
 			_my = my;
-			_my->MyEvent += gcnew Action<String^>(this, &JoinChatRoom::ReceivedMsg);
 		}
 	private: System::Windows::Forms::Label^ label2;
 	public:
 	private: System::Windows::Forms::Label^ label1;
-	private: System::Windows::Forms::Button^ button2;
-	private: System::Windows::Forms::Button^ button1;
+	private: System::Windows::Forms::Button^ btnGeneral;
+
+	private: System::Windows::Forms::Button^ btnServer;
+
 	private: System::Windows::Forms::Button^ button3;
 	private: MyFunction^ _my;
 
@@ -71,8 +73,8 @@ namespace MyClient {
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(JoinChatRoom::typeid));
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->button2 = (gcnew System::Windows::Forms::Button());
-			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->btnGeneral = (gcnew System::Windows::Forms::Button());
+			this->btnServer = (gcnew System::Windows::Forms::Button());
 			this->button3 = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
@@ -80,10 +82,10 @@ namespace MyClient {
 			// 
 			this->label2->AutoSize = true;
 			this->label2->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 15));
-			this->label2->Location = System::Drawing::Point(339, 496);
+			this->label2->Location = System::Drawing::Point(424, 595);
 			this->label2->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(111, 29);
+			this->label2->Size = System::Drawing::Size(132, 34);
 			this->label2->TabIndex = 8;
 			this->label2->Text = L"General";
 			// 
@@ -91,46 +93,46 @@ namespace MyClient {
 			// 
 			this->label1->AutoSize = true;
 			this->label1->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 15));
-			this->label1->Location = System::Drawing::Point(346, 232);
+			this->label1->Location = System::Drawing::Point(432, 278);
 			this->label1->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(96, 29);
+			this->label1->Size = System::Drawing::Size(113, 34);
 			this->label1->TabIndex = 7;
 			this->label1->Text = L"Server";
 			// 
-			// button2
+			// btnGeneral
 			// 
-			this->button2->BackColor = System::Drawing::Color::Transparent;
-			this->button2->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button2.BackgroundImage")));
-			this->button2->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->button2->FlatAppearance->BorderSize = 0;
-			this->button2->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
-			this->button2->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
-			this->button2->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->button2->Location = System::Drawing::Point(267, 278);
-			this->button2->Margin = System::Windows::Forms::Padding(2);
-			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(243, 209);
-			this->button2->TabIndex = 4;
-			this->button2->UseVisualStyleBackColor = false;
-			this->button2->Click += gcnew System::EventHandler(this, &JoinChatRoom::button2_Click);
+			this->btnGeneral->BackColor = System::Drawing::Color::Transparent;
+			this->btnGeneral->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnGeneral.BackgroundImage")));
+			this->btnGeneral->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnGeneral->FlatAppearance->BorderSize = 0;
+			this->btnGeneral->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnGeneral->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnGeneral->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnGeneral->Location = System::Drawing::Point(334, 334);
+			this->btnGeneral->Margin = System::Windows::Forms::Padding(2);
+			this->btnGeneral->Name = L"btnGeneral";
+			this->btnGeneral->Size = System::Drawing::Size(304, 251);
+			this->btnGeneral->TabIndex = 4;
+			this->btnGeneral->UseVisualStyleBackColor = false;
+			this->btnGeneral->Click += gcnew System::EventHandler(this, &JoinChatRoom::btnGeneral_Click);
 			// 
-			// button1
+			// btnServer
 			// 
-			this->button1->BackColor = System::Drawing::Color::Transparent;
-			this->button1->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button1.BackgroundImage")));
-			this->button1->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->button1->FlatAppearance->BorderSize = 0;
-			this->button1->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
-			this->button1->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
-			this->button1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->button1->Location = System::Drawing::Point(258, 43);
-			this->button1->Margin = System::Windows::Forms::Padding(2);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(269, 220);
-			this->button1->TabIndex = 5;
-			this->button1->UseVisualStyleBackColor = false;
-			this->button1->Click += gcnew System::EventHandler(this, &JoinChatRoom::button1_Click);
+			this->btnServer->BackColor = System::Drawing::Color::Transparent;
+			this->btnServer->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnServer.BackgroundImage")));
+			this->btnServer->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnServer->FlatAppearance->BorderSize = 0;
+			this->btnServer->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnServer->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnServer->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnServer->Location = System::Drawing::Point(322, 52);
+			this->btnServer->Margin = System::Windows::Forms::Padding(2);
+			this->btnServer->Name = L"btnServer";
+			this->btnServer->Size = System::Drawing::Size(336, 264);
+			this->btnServer->TabIndex = 5;
+			this->btnServer->UseVisualStyleBackColor = false;
+			this->btnServer->Click += gcnew System::EventHandler(this, &JoinChatRoom::btnServer_Click);
 			// 
 			// button3
 			// 
@@ -141,23 +143,24 @@ namespace MyClient {
 			this->button3->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->button3->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->button3->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->button3->Location = System::Drawing::Point(379, 543);
+			this->button3->Location = System::Drawing::Point(474, 652);
 			this->button3->Margin = System::Windows::Forms::Padding(2);
 			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(158, 48);
+			this->button3->Size = System::Drawing::Size(198, 58);
 			this->button3->TabIndex = 6;
 			this->button3->UseVisualStyleBackColor = false;
 			// 
 			// JoinChatRoom
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
+			this->AutoScaleDimensions = System::Drawing::SizeF(10, 18);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(658, 641);
+			this->ClientSize = System::Drawing::Size(822, 769);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->label1);
-			this->Controls->Add(this->button2);
-			this->Controls->Add(this->button1);
+			this->Controls->Add(this->btnGeneral);
+			this->Controls->Add(this->btnServer);
 			this->Controls->Add(this->button3);
+			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"JoinChatRoom";
 			this->Text = L"JoinChatRoom";
 			this->ResumeLayout(false);
@@ -167,6 +170,8 @@ namespace MyClient {
 #pragma endregion
 
 		public: ChatRoom^ chatRoom = nullptr; 
+		public: GeneralChatList^ generalChatList = nullptr; 
+
 
 	public: void SendMessageForm(int index)
 	{
@@ -184,92 +189,32 @@ namespace MyClient {
 			}
 
 		}
-		
 
 	}
 
 
 
 
-	private: void ReceivedMsg(String^ message)
-	{
-		String^ inputString = message;
 
-		array<String^>^ subString = inputString->Split(' ');
 
-		String^ index_s = subString[0];
-		String^ isTrue = subString[1];
-		int index = Int32::Parse(index_s);
+private: System::Void btnServer_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (chatRoom == nullptr || chatRoom->IsDisposed) {
 
-		switch (index)
-		{
-		case e_signup_IDchk:
-		{
+		chatRoom = gcnew ChatRoom(_my);
+		chatRoom->Show();
 
-			if (isTrue == "true")
-			{
-				//txtBoxNickName->Invoke(gcnew Action<String^>(this, &YourFormName::UpdateTextBox), newText);
-				txtBoxID->Invoke(gcnew Action(this, &SignupForm::UpdateTextBoxID));
-				isChkIDDup = true;
-				System::Windows::Forms::MessageBox::Show("You can use this ID", "id check", MessageBoxButtons::OK, MessageBoxIcon::Information);
-			}
-			else
-			{
-
-				System::Windows::Forms::MessageBox::Show("The ID already exists", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-			}
-			break;
-		}
-		case e_signup_NickNamechk:
-		{
-			if (isTrue == "true")
-			{
-				txtBoxNickName->Invoke(gcnew Action(this, &SignupForm::UpdateTextBoxNickname));
-				isChkNickNameDup = true;
-				System::Windows::Forms::MessageBox::Show("You can use this Nickname", "nickname check", MessageBoxButtons::OK, MessageBoxIcon::Information);
-			}
-			else
-			{
-				System::Windows::Forms::MessageBox::Show("The nickname already exists.", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-			}
-			break;
-		}
-		case e_signup_Submit:
-		{
-			if (isTrue == "true")
-			{
-				System::Windows::Forms::MessageBox::Show("Thank you for signup", "nickname check", MessageBoxButtons::OK, MessageBoxIcon::Information);
-			}
-			else
-			{
-				System::Windows::Forms::MessageBox::Show("something wrong..", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-			}
-			break;
-		}
-			
-		}
-
+	}	// 이미 생성된 폼이 열려 있는 경우, 해당 폼을 활성화시킵니다.
+	else {
+		chatRoom->Activate();
 	}
-	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
-
-		if (chatRoom == nullptr || chatRoom->IsDisposed) {
-
-			chatRoom = gcnew ChatRoom(_my);
-			chatRoom->Show();
-
-		}	// 이미 생성된 폼이 열려 있는 경우, 해당 폼을 활성화시킵니다.
-		else {
-			chatRoom->Activate();
-		}
-	}
-private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
-
-	if (addFriends == nullptr || addFriends->IsDisposed) {
-		addFriends = gcnew AddFriends(_my);
-		addFriends->Owner = this; // Owner를 설정해야 가능
+}
+private: System::Void btnGeneral_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (generalChatList == nullptr || generalChatList->IsDisposed) {
+		generalChatList = gcnew GeneralChatList(_my);
+		generalChatList->Owner = this; // Owner를 설정해야 가능
 		this->Hide();
 		//this->HomeImageSound->Stop();
-		addFriends->Show();
+		generalChatList->Show();
 	}
 }
 };

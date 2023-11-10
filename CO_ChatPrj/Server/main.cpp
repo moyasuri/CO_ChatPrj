@@ -195,7 +195,6 @@ void recv_msg(int idx) {
             cout << "MySQL 후" << endl;
             std::stringstream sssql(sqlMsg);
             sssql >> isTrue; // sql return 값의 true false;
-            cout << "보낸 메세지 : " << sqlMsg << endl;
             if (!multimsg)
             {
                 send_msg(sqlMsg.c_str());
