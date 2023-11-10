@@ -125,6 +125,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AddFriends.cpp" />
+    <ClCompile Include="ChatRoom.cpp" />
     <ClCompile Include="CreateChatRoom.cpp" />
     <ClCompile Include="DeleteRoom.cpp" />
     <ClCompile Include="EditProfile.cpp" />
@@ -144,6 +145,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AddFriends.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="ChatRoom.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="CreateChatRoom.h">
