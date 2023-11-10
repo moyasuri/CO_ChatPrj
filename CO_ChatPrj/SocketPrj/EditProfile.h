@@ -1,4 +1,6 @@
 #pragma once
+#include "MyFunction.h"
+#include "enum.h"
 
 namespace MyClient {
 
@@ -397,7 +399,7 @@ namespace MyClient {
 		}
 #pragma endregion
 
-		private:
+	private:
 			bool isChkNickName = false;
 	public: void SendMessageForm(int index)
 	{

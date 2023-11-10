@@ -124,19 +124,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AddFriends.cpp" />
     <ClCompile Include="CreateChatRoom.cpp" />
     <ClCompile Include="DeleteRoom.cpp" />
     <ClCompile Include="EditProfile.cpp" />
     <ClCompile Include="FindAccountForm.cpp" />
+    <ClCompile Include="FriendResponse.cpp" />
     <ClCompile Include="Friends.cpp" />
+    <ClCompile Include="FriendsList.cpp" />
     <ClCompile Include="JoinChatRoom.cpp" />
     <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="MessageMain.cpp" />
+    <ClCompile Include="MessageSent.cpp" />
+    <ClCompile Include="MsgBox.cpp" />
     <ClCompile Include="MyForm.cpp" />
     <ClCompile Include="MyFunction.cpp" />
+    <ClCompile Include="NewMessage.cpp" />
     <ClCompile Include="SignupForm.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AddFriends.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="CreateChatRoom.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -150,7 +159,13 @@
     <ClInclude Include="FindAccountForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="FriendResponse.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="Friends.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="FriendsList.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="JoinChatRoom.h">
@@ -162,17 +177,32 @@
     <ClInclude Include="MessageMain.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="MessageSent.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="MsgBox.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="MyFunction.h" />
+    <ClInclude Include="NewMessage.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="SignupForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AddFriends.resx">
+      <DependentUpon>AddFriends.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CreateChatRoom.resx">
       <DependentUpon>CreateChatRoom.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeleteRoom.resx">
+      <DependentUpon>DeleteRoom.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditProfile.resx">
       <DependentUpon>EditProfile.h</DependentUpon>
@@ -180,11 +210,35 @@
     <EmbeddedResource Include="FindAccountForm.resx">
       <DependentUpon>FindAccountForm.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FriendResponse.resx">
+      <DependentUpon>FriendResponse.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Friends.resx">
+      <DependentUpon>Friends.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FriendsList.resx">
+      <DependentUpon>FriendsList.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JoinChatRoom.resx">
+      <DependentUpon>JoinChatRoom.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MessageMain.resx">
+      <DependentUpon>MessageMain.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MessageSent.resx">
+      <DependentUpon>MessageSent.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MsgBox.resx">
+      <DependentUpon>MsgBox.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MyForm.resx">
       <DependentUpon>MyForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewMessage.resx">
+      <DependentUpon>NewMessage.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SignupForm.resx">
       <DependentUpon>SignupForm.h</DependentUpon>

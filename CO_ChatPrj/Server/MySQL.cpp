@@ -918,7 +918,7 @@ string MySQL::QuerySql(string msg, int idx) {
                 break;
             }
         }
-        case e_message_Sent_msg_delete: // 보낸메세지 메세지 보기
+        case e_message_Sent_msg_delete: // 보낸메세지 메세지 삭제
         {
             string _id = sck_list[idx]._user.getID();
             string _to_nickname, _msg, _date;

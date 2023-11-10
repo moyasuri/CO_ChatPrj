@@ -34,6 +34,14 @@ namespace MyClient {
 			_my = my;
 			_my->MyEvent += gcnew Action<String^>(this, &DeleteRoom::ReceivedMsg);
 		}
+	private: System::Windows::Forms::Button^ btnClose;
+	public:
+	private: System::Windows::Forms::Button^ btnDelete;
+	private: System::Windows::Forms::DataGridView^ ViewRoomList;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ RoomIndex;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ RoomName;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ PrivateCheck;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ CreatedDate;
 	private: MyFunction^ _my;
 
 	protected:
@@ -61,11 +69,109 @@ namespace MyClient {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->components = gcnew System::ComponentModel::Container();
-			this->Size = System::Drawing::Size(300,300);
-			this->Text = L"DeleteRoom";
-			this->Padding = System::Windows::Forms::Padding(0);
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(DeleteRoom::typeid));
+			this->btnClose = (gcnew System::Windows::Forms::Button());
+			this->btnDelete = (gcnew System::Windows::Forms::Button());
+			this->ViewRoomList = (gcnew System::Windows::Forms::DataGridView());
+			this->RoomIndex = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->RoomName = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->PrivateCheck = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->CreatedDate = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ViewRoomList))->BeginInit();
+			this->SuspendLayout();
+			// 
+			// btnClose
+			// 
+			this->btnClose->BackColor = System::Drawing::Color::Transparent;
+			this->btnClose->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnClose.BackgroundImage")));
+			this->btnClose->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnClose->FlatAppearance->BorderSize = 0;
+			this->btnClose->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnClose->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnClose->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnClose->Location = System::Drawing::Point(813, 367);
+			this->btnClose->Name = L"btnClose";
+			this->btnClose->Size = System::Drawing::Size(141, 50);
+			this->btnClose->TabIndex = 14;
+			this->btnClose->UseVisualStyleBackColor = false;
+			this->btnClose->Click += gcnew System::EventHandler(this, &DeleteRoom::btnClose_Click);
+			// 
+			// btnDelete
+			// 
+			this->btnDelete->BackColor = System::Drawing::Color::Transparent;
+			this->btnDelete->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnDelete.BackgroundImage")));
+			this->btnDelete->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnDelete->FlatAppearance->BorderSize = 0;
+			this->btnDelete->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnDelete->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnDelete->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnDelete->Location = System::Drawing::Point(813, 162);
+			this->btnDelete->Name = L"btnDelete";
+			this->btnDelete->Size = System::Drawing::Size(141, 50);
+			this->btnDelete->TabIndex = 15;
+			this->btnDelete->UseVisualStyleBackColor = false;
+			this->btnDelete->Click += gcnew System::EventHandler(this, &DeleteRoom::btnDelete_Click);
+			// 
+			// ViewRoomList
+			// 
+			this->ViewRoomList->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->ViewRoomList->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(4) {
+				this->RoomIndex,
+					this->RoomName, this->PrivateCheck, this->CreatedDate
+			});
+			this->ViewRoomList->Location = System::Drawing::Point(25, 49);
+			this->ViewRoomList->Margin = System::Windows::Forms::Padding(2);
+			this->ViewRoomList->Name = L"ViewRoomList";
+			this->ViewRoomList->RowHeadersWidth = 62;
+			this->ViewRoomList->RowTemplate->Height = 30;
+			this->ViewRoomList->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
+			this->ViewRoomList->Size = System::Drawing::Size(767, 396);
+			this->ViewRoomList->TabIndex = 13;
+			// 
+			// RoomIndex
+			// 
+			this->RoomIndex->HeaderText = L"#Index";
+			this->RoomIndex->MinimumWidth = 8;
+			this->RoomIndex->Name = L"RoomIndex";
+			this->RoomIndex->ReadOnly = true;
+			this->RoomIndex->Width = 150;
+			// 
+			// RoomName
+			// 
+			this->RoomName->HeaderText = L"Name";
+			this->RoomName->MinimumWidth = 8;
+			this->RoomName->Name = L"RoomName";
+			this->RoomName->ReadOnly = true;
+			this->RoomName->Width = 150;
+			// 
+			// PrivateCheck
+			// 
+			this->PrivateCheck->HeaderText = L"Private";
+			this->PrivateCheck->MinimumWidth = 8;
+			this->PrivateCheck->Name = L"PrivateCheck";
+			this->PrivateCheck->Width = 150;
+			// 
+			// CreatedDate
+			// 
+			this->CreatedDate->HeaderText = L"CreatedDate";
+			this->CreatedDate->MinimumWidth = 8;
+			this->CreatedDate->Name = L"CreatedDate";
+			this->CreatedDate->ReadOnly = true;
+			this->CreatedDate->Width = 150;
+			// 
+			// DeleteRoom
+			// 
+			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->ClientSize = System::Drawing::Size(977, 509);
+			this->Controls->Add(this->btnClose);
+			this->Controls->Add(this->btnDelete);
+			this->Controls->Add(this->ViewRoomList);
+			this->Name = L"DeleteRoom";
+			this->Text = L"DeleteRoom";
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ViewRoomList))->EndInit();
+			this->ResumeLayout(false);
+
 		}
 #pragma endregion
 
@@ -74,112 +180,49 @@ namespace MyClient {
 
 		switch (index)
 		{
-		case e_signup_IDchk:
-		{
-			String^ tmptxt_1 = txtBoxID->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-
-			if (!String::IsNullOrEmpty(tmptxt_1))
-			{
-				int t_index = e_signup_IDchk;
-				String^ buffer = _my->s_(t_index) + " " + tmptxt_1;
-				_my->SendMessage(buffer);
-			}
-			else
-			{
-				MessageBox::Show("Please fill the ID", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-			}
-
-			break;
-		}
-
-		case e_signup_NickNamechk:
-		{
-			String^ tmptxt_1 = txtBoxNickName->Text;
-
-
-			if (!String::IsNullOrEmpty(tmptxt_1))
-			{
-				int t_index = e_signup_NickNamechk;
-				String^ buffer = _my->s_(t_index) + " " + tmptxt_1;
-				_my->SendMessage(buffer);
-			}
-			else
-			{
-				MessageBox::Show("Please fill the nickname", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-			}
-
-			break;
-		}
-
-		case e_signup_Submit:
-		{
-			if (!isChkIDDup)
-			{
-				System::Windows::Forms::MessageBox::Show("Please ID duplicate check", "warming", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-				break;
-			}
-			if (!isChkNickNameDup)
-			{
-				System::Windows::Forms::MessageBox::Show("Please Nickname duplicate check", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-				break;
-			}
-			if (txtBoxPW->Text != txtBoxRechk->Text)
+			case e_room_Delete:
 			{
 
-				System::Windows::Forms::MessageBox::Show("Please check the PW", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-				break;
-			}
+				MessageBoxButtons buttons = MessageBoxButtons::YesNo;
 
+				// 메시지 박스를 표시하고 사용자의 선택을 저장합니다.
+				System::Windows::Forms::DialogResult result = \
+					MessageBox::Show("Do you really want to delete this room?", "confirm", buttons);
 
-			String^ tmptxt_1 = txtBoxID->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-			String^ tmptxt_2 = txtBoxEmail->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-			String^ tmptxt_3 = txtBoxPhone->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-			String^ tmptxt_4 = txtBoxBirth->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-			String^ tmptxt_5 = txtBoxNickName->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-			String^ tmptxt_6 = combBoxCha->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-			String^ tmptxt_7 = txtBoxPW->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-			String^ tmptxt_8 = txtBoxName->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-
-			// ID와 PW의 문자열이 채워져있다면
-			if (!String::IsNullOrEmpty(tmptxt_1) && !String::IsNullOrEmpty(tmptxt_2) && !String::IsNullOrEmpty(tmptxt_2)\
-				&& !String::IsNullOrEmpty(tmptxt_3) && !String::IsNullOrEmpty(tmptxt_4) && !String::IsNullOrEmpty(tmptxt_5)\
-				&& !String::IsNullOrEmpty(tmptxt_6) && !String::IsNullOrEmpty(tmptxt_7) && !String::IsNullOrEmpty(tmptxt_8)) {
-
-				if (1) // 나중에 고치자
+				// 사용자의 선택에 따라 분기합니다.
+				if (result == System::Windows::Forms::DialogResult::Yes)
 				{
-					tmptxt_6 = _my->s_(e_character_izuna);
 				}
-				/*else if (tmptxt_6_ == "아리스")
+				else if (result == System::Windows::Forms::DialogResult::No)
 				{
-					tmptxt_6_ = _my->s_(e_character_alice);
-				}*/
+					return;
+				}
 
-				int t_index = e_signup_NickNamechk;
-				String^ buffer = _my->s_(t_index) + " " + tmptxt_1 + " " + tmptxt_2 + " " + tmptxt_3 + " " + tmptxt_4\
-					+ " " + tmptxt_5 + " " + tmptxt_6 + " " + tmptxt_7 + " " + tmptxt_8;
+
+
+				int selectedRowIndex = ViewRoomList->SelectedRows[0]->Index;
+
+				System::Object^ column1ValueObj = ViewRoomList->Rows[selectedRowIndex]->Cells["RoomIndex"]->Value;
+				System::String^ tmptxt_1;
+				// null 체크
+				if (column1ValueObj != nullptr) 
+				{
+					System::String^ column1Value = column1ValueObj->ToString();
+					tmptxt_1 = column1Value;
+				}
+				else
+				{
+					return;
+				}
+
+				int t_index = e_room_Delete;
+				String^ buffer = _my->s_(t_index) + " " + tmptxt_1;
 				_my->SendMessage(buffer);
-			}
-			// 입력값이 없다면,
-			else {
-				System::Windows::Forms::MessageBox::Show("please fill the blank.", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				break;
 			}
 		}
 
-		}
-
 	}
-
-	private: System::Void UpdateTextBoxID()
-	{
-		txtBoxID->Enabled = false;
-	}
-
-
-	private: System::Void UpdateTextBoxNickname()
-	{
-		txtBoxNickName->Enabled = false;
-	}
-
 
 
 	private: void ReceivedMsg(String^ message)
@@ -194,52 +237,30 @@ namespace MyClient {
 
 		switch (index)
 		{
-		case e_signup_IDchk:
-		{
-
-			if (isTrue == "true")
-			{
-				//txtBoxNickName->Invoke(gcnew Action<String^>(this, &YourFormName::UpdateTextBox), newText);
-				txtBoxID->Invoke(gcnew Action(this, &SignupForm::UpdateTextBoxID));
-				isChkIDDup = true;
-				System::Windows::Forms::MessageBox::Show("You can use this ID", "id check", MessageBoxButtons::OK, MessageBoxIcon::Information);
-			}
-			else
+			case e_room_Delete:
 			{
 
-				System::Windows::Forms::MessageBox::Show("The ID already exists", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				if (isTrue == "true")
+				{
+					System::Windows::Forms::MessageBox::Show("Room deleted", "Notice", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				}
+				else
+				{
+					System::Windows::Forms::MessageBox::Show("Failed", "Notice", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				}
+				break;
 			}
-			break;
 		}
-		case e_signup_NickNamechk:
-		{
-			if (isTrue == "true")
-			{
-				txtBoxNickName->Invoke(gcnew Action(this, &SignupForm::UpdateTextBoxNickname));
-				isChkNickNameDup = true;
-				System::Windows::Forms::MessageBox::Show("You can use this Nickname", "nickname check", MessageBoxButtons::OK, MessageBoxIcon::Information);
-			}
-			else
-			{
-				System::Windows::Forms::MessageBox::Show("The nickname already exists.", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-			}
-			break;
-		}
-		case e_signup_Submit:
-		{
-			if (isTrue == "true")
-			{
-				System::Windows::Forms::MessageBox::Show("Thank you for signup", "nickname check", MessageBoxButtons::OK, MessageBoxIcon::Information);
-			}
-			else
-			{
-				System::Windows::Forms::MessageBox::Show("something wrong..", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-			}
-			break;
-		}
-
-		}
+		
 
 	}
-	};
+	private: System::Void btnDelete_Click(System::Object^ sender, System::EventArgs^ e) {
+		btnDelete->NotifyDefault(false);
+		SendMessageForm(e_room_Delete);
+	}
+
+private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->Close();
+}
+};
 }

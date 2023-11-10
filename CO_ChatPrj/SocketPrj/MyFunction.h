@@ -3,6 +3,7 @@
 
 #include <winsock2.h>
 #include <ws2tcpip.h>
+#include <vector>
 
 
 
@@ -76,6 +77,23 @@ namespace MyClient {
 			}
 		}
 
+
+		std::vector<String^> _Split(String^ str,String^ delim)
+		{
+			std::vector<String^> ret;
+			size_t pos;
+			String^ temp;
+
+			while (pos=str->IndexOf(delim) != -1)
+			{
+				temp = str->Substring(0, pos);
+				ret.push_back(temp);
+				str = str->Substring(pos + delim->Length);
+			}
+			
+			ret.push_back(str);
+			return ret;
+		}
 
 
 		void disposed()

@@ -434,8 +434,6 @@ namespace MyClient {
 		}
 
 	}
-	
-
 
 	public: void ReceivedMsg(String^ message)
 	{
@@ -485,16 +483,15 @@ namespace MyClient {
 	}
 
 	
-		private: System::Void btnSubmit_ID_Click(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void btnSubmit_ID_Click(System::Object^ sender, System::EventArgs^ e) {
 			btnSubmit_ID->NotifyDefault(false);
 			SendMessageForm(e_id_find_ID);
+	}
 
-			}
-
-private: System::Void btnCancle_Click(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void btnCancle_Click(System::Object^ sender, System::EventArgs^ e) {
 	this->Close();
 
-}
+	}
 };
 }
 

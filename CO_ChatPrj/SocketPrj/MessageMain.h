@@ -2,6 +2,9 @@
 
 #include "MyFunction.h"
 #include "enum.h"
+#include "MsgBox.h"
+#include "MessageSent.h"
+#include "NewMessage.h"
 
 namespace MyClient {
 
@@ -33,8 +36,13 @@ namespace MyClient {
 			//TODO: 생성자 코드를 여기에 추가합니다.
 			//
 			_my = my;
-			_my->MyEvent += gcnew Action<String^>(this, &MessageMain::ReceivedMsg);
+			
 		}
+	private: System::Windows::Forms::Button^ btnClose;
+	public:
+	private: System::Windows::Forms::Button^ btnMsgBox;
+	private: System::Windows::Forms::Button^ btnSent;
+	private: System::Windows::Forms::Button^ btnNew;
 	private: MyFunction^ _my;
 
 	protected:
@@ -62,185 +70,127 @@ namespace MyClient {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->components = gcnew System::ComponentModel::Container();
-			this->Size = System::Drawing::Size(300,300);
-			this->Text = L"MessageMain";
-			this->Padding = System::Windows::Forms::Padding(0);
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MessageMain::typeid));
+			this->btnClose = (gcnew System::Windows::Forms::Button());
+			this->btnMsgBox = (gcnew System::Windows::Forms::Button());
+			this->btnSent = (gcnew System::Windows::Forms::Button());
+			this->btnNew = (gcnew System::Windows::Forms::Button());
+			this->SuspendLayout();
+			// 
+			// btnClose
+			// 
+			this->btnClose->BackColor = System::Drawing::Color::Transparent;
+			this->btnClose->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnClose.BackgroundImage")));
+			this->btnClose->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnClose->FlatAppearance->BorderSize = 0;
+			this->btnClose->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnClose->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnClose->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnClose->Location = System::Drawing::Point(268, 497);
+			this->btnClose->Name = L"btnClose";
+			this->btnClose->Size = System::Drawing::Size(180, 54);
+			this->btnClose->TabIndex = 1;
+			this->btnClose->UseVisualStyleBackColor = false;
+			this->btnClose->Click += gcnew System::EventHandler(this, &MessageMain::btnClose_Click);
+			// 
+			// btnMsgBox
+			// 
+			this->btnMsgBox->BackColor = System::Drawing::Color::Transparent;
+			this->btnMsgBox->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnMsgBox.BackgroundImage")));
+			this->btnMsgBox->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnMsgBox->FlatAppearance->BorderSize = 0;
+			this->btnMsgBox->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnMsgBox->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnMsgBox->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnMsgBox->Location = System::Drawing::Point(88, 304);
+			this->btnMsgBox->Name = L"btnMsgBox";
+			this->btnMsgBox->Size = System::Drawing::Size(266, 80);
+			this->btnMsgBox->TabIndex = 2;
+			this->btnMsgBox->UseVisualStyleBackColor = false;
+			this->btnMsgBox->Click += gcnew System::EventHandler(this, &MessageMain::btnMsgBox_Click);
+			// 
+			// btnSent
+			// 
+			this->btnSent->BackColor = System::Drawing::Color::Transparent;
+			this->btnSent->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnSent.BackgroundImage")));
+			this->btnSent->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnSent->FlatAppearance->BorderSize = 0;
+			this->btnSent->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnSent->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnSent->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnSent->Location = System::Drawing::Point(88, 193);
+			this->btnSent->Name = L"btnSent";
+			this->btnSent->Size = System::Drawing::Size(266, 80);
+			this->btnSent->TabIndex = 3;
+			this->btnSent->UseVisualStyleBackColor = false;
+			this->btnSent->Click += gcnew System::EventHandler(this, &MessageMain::btnSent_Click);
+			// 
+			// btnNew
+			// 
+			this->btnNew->BackColor = System::Drawing::Color::Transparent;
+			this->btnNew->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnNew.BackgroundImage")));
+			this->btnNew->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnNew->FlatAppearance->BorderSize = 0;
+			this->btnNew->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnNew->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnNew->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnNew->Location = System::Drawing::Point(88, 84);
+			this->btnNew->Name = L"btnNew";
+			this->btnNew->Size = System::Drawing::Size(266, 80);
+			this->btnNew->TabIndex = 4;
+			this->btnNew->UseVisualStyleBackColor = false;
+			this->btnNew->Click += gcnew System::EventHandler(this, &MessageMain::btnNew_Click);
+			// 
+			// MessageMain
+			// 
+			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->ClientSize = System::Drawing::Size(481, 595);
+			this->Controls->Add(this->btnClose);
+			this->Controls->Add(this->btnMsgBox);
+			this->Controls->Add(this->btnSent);
+			this->Controls->Add(this->btnNew);
+			this->Name = L"MessageMain";
+			this->Text = L"MessageMain";
+			this->ResumeLayout(false);
+
 		}
 #pragma endregion
 
-	public: void SendMessageForm(int index)
-	{
-
-		switch (index)
-		{
-		case e_signup_IDchk:
-		{
-			String^ tmptxt_1 = txtBoxID->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-
-			if (!String::IsNullOrEmpty(tmptxt_1))
-			{
-				int t_index = e_signup_IDchk;
-				String^ buffer = _my->s_(t_index) + " " + tmptxt_1;
-				_my->SendMessage(buffer);
-			}
-			else
-			{
-				MessageBox::Show("Please fill the ID", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-			}
-
-			break;
-		}
-
-		case e_signup_NickNamechk:
-		{
-			String^ tmptxt_1 = txtBoxNickName->Text;
+		NewMessage^ newMessage = nullptr;
+		MessageSent^ messageSent = nullptr;
+		MsgBox^ msgBox = nullptr;
 
 
-			if (!String::IsNullOrEmpty(tmptxt_1))
-			{
-				int t_index = e_signup_NickNamechk;
-				String^ buffer = _my->s_(t_index) + " " + tmptxt_1;
-				_my->SendMessage(buffer);
-			}
-			else
-			{
-				MessageBox::Show("Please fill the nickname", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-			}
-
-			break;
-		}
-
-		case e_signup_Submit:
-		{
-			if (!isChkIDDup)
-			{
-				System::Windows::Forms::MessageBox::Show("Please ID duplicate check", "warming", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-				break;
-			}
-			if (!isChkNickNameDup)
-			{
-				System::Windows::Forms::MessageBox::Show("Please Nickname duplicate check", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-				break;
-			}
-			if (txtBoxPW->Text != txtBoxRechk->Text)
-			{
-
-				System::Windows::Forms::MessageBox::Show("Please check the PW", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-				break;
-			}
-
-
-			String^ tmptxt_1 = txtBoxID->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-			String^ tmptxt_2 = txtBoxEmail->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-			String^ tmptxt_3 = txtBoxPhone->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-			String^ tmptxt_4 = txtBoxBirth->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-			String^ tmptxt_5 = txtBoxNickName->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-			String^ tmptxt_6 = combBoxCha->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-			String^ tmptxt_7 = txtBoxPW->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-			String^ tmptxt_8 = txtBoxName->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-
-			// ID와 PW의 문자열이 채워져있다면
-			if (!String::IsNullOrEmpty(tmptxt_1) && !String::IsNullOrEmpty(tmptxt_2) && !String::IsNullOrEmpty(tmptxt_2)\
-				&& !String::IsNullOrEmpty(tmptxt_3) && !String::IsNullOrEmpty(tmptxt_4) && !String::IsNullOrEmpty(tmptxt_5)\
-				&& !String::IsNullOrEmpty(tmptxt_6) && !String::IsNullOrEmpty(tmptxt_7) && !String::IsNullOrEmpty(tmptxt_8)) {
-
-				if (1) // 나중에 고치자
-				{
-					tmptxt_6 = _my->s_(e_character_izuna);
-				}
-				/*else if (tmptxt_6_ == "아리스")
-				{
-					tmptxt_6_ = _my->s_(e_character_alice);
-				}*/
-
-				int t_index = e_signup_NickNamechk;
-				String^ buffer = _my->s_(t_index) + " " + tmptxt_1 + " " + tmptxt_2 + " " + tmptxt_3 + " " + tmptxt_4\
-					+ " " + tmptxt_5 + " " + tmptxt_6 + " " + tmptxt_7 + " " + tmptxt_8;
-				_my->SendMessage(buffer);
-			}
-			// 입력값이 없다면,
-			else {
-				System::Windows::Forms::MessageBox::Show("please fill the blank.", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-			}
-		}
-
-		}
-
+	private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {
+		this->Close();
 	}
-
-	private: System::Void UpdateTextBoxID()
-	{
-		txtBoxID->Enabled = false;
+private: System::Void btnNew_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (newMessage == nullptr || newMessage->IsDisposed) {
+		newMessage = gcnew NewMessage(_my);
+		newMessage->Owner = this; // Owner를 설정해야 가능
+		this->Hide();
+		//this->HomeImageSound->Stop();
+		newMessage->Show();
 	}
-
-
-	private: System::Void UpdateTextBoxNickname()
-	{
-		txtBoxNickName->Enabled = false;
+}
+private: System::Void btnSent_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (messageSent == nullptr || messageSent->IsDisposed) {
+		messageSent = gcnew MessageSent(_my);
+		messageSent->Owner = this; // Owner를 설정해야 가능
+		this->Hide();
+		//this->HomeImageSound->Stop();
+		messageSent->Show();
 	}
-
-
-
-	private: void ReceivedMsg(String^ message)
-	{
-		String^ inputString = message;
-
-		array<String^>^ subString = inputString->Split(' ');
-
-		String^ index_s = subString[0];
-		String^ isTrue = subString[1];
-		int index = Int32::Parse(index_s);
-
-		switch (index)
-		{
-		case e_signup_IDchk:
-		{
-
-			if (isTrue == "true")
-			{
-				//txtBoxNickName->Invoke(gcnew Action<String^>(this, &YourFormName::UpdateTextBox), newText);
-				txtBoxID->Invoke(gcnew Action(this, &SignupForm::UpdateTextBoxID));
-				isChkIDDup = true;
-				System::Windows::Forms::MessageBox::Show("You can use this ID", "id check", MessageBoxButtons::OK, MessageBoxIcon::Information);
-			}
-			else
-			{
-
-				System::Windows::Forms::MessageBox::Show("The ID already exists", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-			}
-			break;
-		}
-		case e_signup_NickNamechk:
-		{
-			if (isTrue == "true")
-			{
-				txtBoxNickName->Invoke(gcnew Action(this, &SignupForm::UpdateTextBoxNickname));
-				isChkNickNameDup = true;
-				System::Windows::Forms::MessageBox::Show("You can use this Nickname", "nickname check", MessageBoxButtons::OK, MessageBoxIcon::Information);
-			}
-			else
-			{
-				System::Windows::Forms::MessageBox::Show("The nickname already exists.", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-			}
-			break;
-		}
-		case e_signup_Submit:
-		{
-			if (isTrue == "true")
-			{
-				System::Windows::Forms::MessageBox::Show("Thank you for signup", "nickname check", MessageBoxButtons::OK, MessageBoxIcon::Information);
-			}
-			else
-			{
-				System::Windows::Forms::MessageBox::Show("something wrong..", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-			}
-			break;
-		}
-
-		}
-
+}
+private: System::Void btnMsgBox_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (msgBox == nullptr || msgBox->IsDisposed) {
+		msgBox = gcnew MsgBox(_my);
+		msgBox->Owner = this; // Owner를 설정해야 가능
+		this->Hide();
+		//this->HomeImageSound->Stop();
+		msgBox->Show();
 	}
-	};
+}
+};
 }
