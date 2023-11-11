@@ -210,6 +210,9 @@
     <EmbeddedResource Include="AddFriends.resx">
       <DependentUpon>AddFriends.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ChatRoom.resx">
+      <DependentUpon>ChatRoom.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CreateChatRoom.resx">
       <DependentUpon>CreateChatRoom.h</DependentUpon>
     </EmbeddedResource>

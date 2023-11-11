@@ -200,10 +200,11 @@ namespace SocketPrj {
 
 private: System::Void btnServer_Click(System::Object^ sender, System::EventArgs^ e) {
 	if (chatRoom == nullptr || chatRoom->IsDisposed) {
-
+		
 		chatRoom = gcnew ChatRoom(_my);
+		chatRoom->Owner = this; // Owner를 설정해야 가능
 		chatRoom->Show();
-
+		this->Hide();
 	}	// 이미 생성된 폼이 열려 있는 경우, 해당 폼을 활성화시킵니다.
 	else {
 		chatRoom->Activate();

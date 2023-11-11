@@ -83,10 +83,10 @@ namespace SocketPrj {
 			// 
 			this->picBoxImojiYou->BackColor = System::Drawing::Color::Transparent;
 			this->picBoxImojiYou->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
-			this->picBoxImojiYou->Location = System::Drawing::Point(537, 11);
+			this->picBoxImojiYou->Location = System::Drawing::Point(671, 13);
 			this->picBoxImojiYou->Margin = System::Windows::Forms::Padding(2);
 			this->picBoxImojiYou->Name = L"picBoxImojiYou";
-			this->picBoxImojiYou->Size = System::Drawing::Size(108, 128);
+			this->picBoxImojiYou->Size = System::Drawing::Size(135, 154);
 			this->picBoxImojiYou->TabIndex = 12;
 			this->picBoxImojiYou->TabStop = false;
 			// 
@@ -94,10 +94,10 @@ namespace SocketPrj {
 			// 
 			this->picBoxImojiMy->BackColor = System::Drawing::Color::Transparent;
 			this->picBoxImojiMy->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
-			this->picBoxImojiMy->Location = System::Drawing::Point(85, 11);
+			this->picBoxImojiMy->Location = System::Drawing::Point(106, 13);
 			this->picBoxImojiMy->Margin = System::Windows::Forms::Padding(2);
 			this->picBoxImojiMy->Name = L"picBoxImojiMy";
-			this->picBoxImojiMy->Size = System::Drawing::Size(108, 128);
+			this->picBoxImojiMy->Size = System::Drawing::Size(135, 154);
 			this->picBoxImojiMy->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
 			this->picBoxImojiMy->TabIndex = 11;
 			this->picBoxImojiMy->TabStop = false;
@@ -105,61 +105,70 @@ namespace SocketPrj {
 			// btnClose
 			// 
 			this->btnClose->BackColor = System::Drawing::Color::Transparent;
+			this->btnClose->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnClose.BackgroundImage")));
 			this->btnClose->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->btnClose->FlatAppearance->BorderSize = 0;
 			this->btnClose->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnClose->Location = System::Drawing::Point(486, 459);
+			this->btnClose->Location = System::Drawing::Point(608, 551);
+			this->btnClose->Margin = System::Windows::Forms::Padding(4);
 			this->btnClose->Name = L"btnClose";
-			this->btnClose->Size = System::Drawing::Size(159, 51);
+			this->btnClose->Size = System::Drawing::Size(199, 61);
 			this->btnClose->TabIndex = 10;
 			this->btnClose->UseVisualStyleBackColor = false;
+			this->btnClose->Click += gcnew System::EventHandler(this, &ChatRoom::btnClose_Click);
 			// 
 			// btnSend
 			// 
 			this->btnSend->BackColor = System::Drawing::Color::Transparent;
+			this->btnSend->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnSend.BackgroundImage")));
 			this->btnSend->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->btnSend->FlatAppearance->BorderSize = 0;
 			this->btnSend->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnSend->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnSend->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnSend->Location = System::Drawing::Point(89, 459);
+			this->btnSend->Location = System::Drawing::Point(111, 551);
+			this->btnSend->Margin = System::Windows::Forms::Padding(4);
 			this->btnSend->Name = L"btnSend";
-			this->btnSend->Size = System::Drawing::Size(157, 51);
+			this->btnSend->Size = System::Drawing::Size(196, 61);
 			this->btnSend->TabIndex = 9;
 			this->btnSend->UseVisualStyleBackColor = false;
 			// 
 			// txtBoxMyChat
 			// 
-			this->txtBoxMyChat->Location = System::Drawing::Point(85, 389);
+			this->txtBoxMyChat->Location = System::Drawing::Point(106, 467);
+			this->txtBoxMyChat->Margin = System::Windows::Forms::Padding(4);
 			this->txtBoxMyChat->Name = L"txtBoxMyChat";
-			this->txtBoxMyChat->Size = System::Drawing::Size(561, 25);
+			this->txtBoxMyChat->Size = System::Drawing::Size(700, 28);
 			this->txtBoxMyChat->TabIndex = 8;
 			// 
 			// txtBoxChatWindow
 			// 
 			this->txtBoxChatWindow->BackColor = System::Drawing::SystemColors::InactiveBorder;
-			this->txtBoxChatWindow->Location = System::Drawing::Point(85, 11);
+			this->txtBoxChatWindow->Location = System::Drawing::Point(106, 13);
+			this->txtBoxChatWindow->Margin = System::Windows::Forms::Padding(4);
 			this->txtBoxChatWindow->Multiline = true;
 			this->txtBoxChatWindow->Name = L"txtBoxChatWindow";
 			this->txtBoxChatWindow->ReadOnly = true;
-			this->txtBoxChatWindow->Size = System::Drawing::Size(561, 348);
+			this->txtBoxChatWindow->Size = System::Drawing::Size(700, 417);
 			this->txtBoxChatWindow->TabIndex = 7;
 			// 
 			// ChatRoom
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
+			this->AutoScaleDimensions = System::Drawing::SizeF(10, 18);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(731, 521);
+			this->ClientSize = System::Drawing::Size(914, 625);
 			this->Controls->Add(this->picBoxImojiYou);
 			this->Controls->Add(this->picBoxImojiMy);
 			this->Controls->Add(this->btnClose);
 			this->Controls->Add(this->btnSend);
 			this->Controls->Add(this->txtBoxMyChat);
 			this->Controls->Add(this->txtBoxChatWindow);
+			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"ChatRoom";
 			this->Text = L"ChatRoom";
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &ChatRoom::ChatRoom_FormClosing);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->picBoxImojiYou))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->picBoxImojiMy))->EndInit();
 			this->ResumeLayout(false);
@@ -223,5 +232,13 @@ namespace SocketPrj {
 
 		}
 
-	};
+	private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {
+		this->Close();
+
+	}
+private: System::Void ChatRoom_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+	this->Owner->Show();
+	this->Owner->Activate();
+}
+};
 }

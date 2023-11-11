@@ -75,9 +75,18 @@ namespace SocketPrj {
 		/// </summary>
 		~MainForm()
 		{
+			if (_my != nullptr) {
+				// MyEvent 이벤트 핸들러를 해제
+				_my->MyEvent -= gcnew Action<String^>(this, &MainForm::ReceivedMsg);
+
+				// _my를 삭제
+				delete _my;
+				_my = nullptr;  // nullptr로 설정하여 dangling pointer를 방지
+			}
 			if (components)
 			{
 				delete components;
+				
 			}
 		}
 
@@ -318,8 +327,8 @@ namespace SocketPrj {
 			if (isTrue == "true")
 			{
 				//txtBoxNickName->Invoke(gcnew Action<String^>(this, &YourFormName::UpdateTextBox), newText);
-				numMsg = subString[2];
-				NumMessage->Invoke(gcnew Action(this, &MainForm::UpdateMessageCnt));
+				String^ numMsg = subString[2];
+				this->Invoke(gcnew Action<String^>(this, &MainForm::UpdateMessageCnt), numMsg);
 			}
 			break;
 		}
@@ -328,10 +337,9 @@ namespace SocketPrj {
 		}
 
 	}
-	private: void UpdateMessageCnt()
+	private: void UpdateMessageCnt(String ^ _numMsg)
 	{
-		NumMessage->Text = "";
-		NumMessage->Text = numMsg;
+		NumMessage->Text = _numMsg;
 	}
 
 
@@ -343,6 +351,7 @@ namespace SocketPrj {
 private: System::Void MainForm_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
 	this->Owner->Show();
 	this->Owner->Activate();
+	delete NumMessage;
 }
 private: System::Void MainForm_Activated(System::Object^ sender, System::EventArgs^ e) {
 	SendMessageForm(e_message_Cnt);

@@ -222,10 +222,15 @@ namespace SocketPrj {
 			{
 				System::Windows::Forms::MessageBox::Show("Request sent", "Request", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			}
+			else if(isTrue == "else")
+			{
+				System::Windows::Forms::MessageBox::Show("Already Sent", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			}
 			else
 			{
-				
+				System::Windows::Forms::MessageBox::Show("No ID found", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			}
+
 			break;
 		}
 		}
