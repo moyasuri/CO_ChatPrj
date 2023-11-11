@@ -3,7 +3,7 @@
 #include "MyFunction.h"
 #include "FriendsList.h"
 
-namespace MyClient {
+namespace SocketPrj {
 
 	using namespace System;
 	using namespace System::ComponentModel;
@@ -112,6 +112,7 @@ namespace MyClient {
 			this->btnClose->Size = System::Drawing::Size(108, 41);
 			this->btnClose->TabIndex = 12;
 			this->btnClose->UseVisualStyleBackColor = false;
+			this->btnClose->Click += gcnew System::EventHandler(this, &NewMessage::btnClose_Click);
 			// 
 			// btnSend
 			// 
@@ -127,6 +128,7 @@ namespace MyClient {
 			this->btnSend->Size = System::Drawing::Size(106, 38);
 			this->btnSend->TabIndex = 13;
 			this->btnSend->UseVisualStyleBackColor = false;
+			this->btnSend->Click += gcnew System::EventHandler(this, &NewMessage::btnSend_Click);
 			// 
 			// btnFriends
 			// 
@@ -250,5 +252,13 @@ namespace MyClient {
 			friendsList->Activate();
 		}
 	}
+private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->Close();
+}
+private: System::Void btnSend_Click(System::Object^ sender, System::EventArgs^ e) {
+	btnSend->NotifyDefault(false);
+	SendMessageForm(e_message_Send);
+
+}
 };
 }

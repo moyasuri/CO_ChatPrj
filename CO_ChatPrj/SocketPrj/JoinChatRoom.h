@@ -4,7 +4,7 @@
 #include "ChatRoom.h"
 #include "GeneralChatList.h"
 
-namespace MyClient {
+namespace SocketPrj {
 
 	using namespace System;
 	using namespace System::ComponentModel;
@@ -41,8 +41,9 @@ namespace MyClient {
 	private: System::Windows::Forms::Button^ btnGeneral;
 
 	private: System::Windows::Forms::Button^ btnServer;
+	private: System::Windows::Forms::Button^ btnClose;
 
-	private: System::Windows::Forms::Button^ button3;
+
 	private: MyFunction^ _my;
 
 	protected:
@@ -75,17 +76,17 @@ namespace MyClient {
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->btnGeneral = (gcnew System::Windows::Forms::Button());
 			this->btnServer = (gcnew System::Windows::Forms::Button());
-			this->button3 = (gcnew System::Windows::Forms::Button());
+			this->btnClose = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// label2
 			// 
 			this->label2->AutoSize = true;
 			this->label2->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 15));
-			this->label2->Location = System::Drawing::Point(424, 595);
+			this->label2->Location = System::Drawing::Point(339, 496);
 			this->label2->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(132, 34);
+			this->label2->Size = System::Drawing::Size(111, 29);
 			this->label2->TabIndex = 8;
 			this->label2->Text = L"General";
 			// 
@@ -93,10 +94,10 @@ namespace MyClient {
 			// 
 			this->label1->AutoSize = true;
 			this->label1->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 15));
-			this->label1->Location = System::Drawing::Point(432, 278);
+			this->label1->Location = System::Drawing::Point(346, 232);
 			this->label1->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(113, 34);
+			this->label1->Size = System::Drawing::Size(96, 29);
 			this->label1->TabIndex = 7;
 			this->label1->Text = L"Server";
 			// 
@@ -109,10 +110,10 @@ namespace MyClient {
 			this->btnGeneral->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnGeneral->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnGeneral->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnGeneral->Location = System::Drawing::Point(334, 334);
+			this->btnGeneral->Location = System::Drawing::Point(267, 278);
 			this->btnGeneral->Margin = System::Windows::Forms::Padding(2);
 			this->btnGeneral->Name = L"btnGeneral";
-			this->btnGeneral->Size = System::Drawing::Size(304, 251);
+			this->btnGeneral->Size = System::Drawing::Size(243, 209);
 			this->btnGeneral->TabIndex = 4;
 			this->btnGeneral->UseVisualStyleBackColor = false;
 			this->btnGeneral->Click += gcnew System::EventHandler(this, &JoinChatRoom::btnGeneral_Click);
@@ -126,41 +127,41 @@ namespace MyClient {
 			this->btnServer->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnServer->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnServer->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnServer->Location = System::Drawing::Point(322, 52);
+			this->btnServer->Location = System::Drawing::Point(258, 43);
 			this->btnServer->Margin = System::Windows::Forms::Padding(2);
 			this->btnServer->Name = L"btnServer";
-			this->btnServer->Size = System::Drawing::Size(336, 264);
+			this->btnServer->Size = System::Drawing::Size(269, 220);
 			this->btnServer->TabIndex = 5;
 			this->btnServer->UseVisualStyleBackColor = false;
 			this->btnServer->Click += gcnew System::EventHandler(this, &JoinChatRoom::btnServer_Click);
 			// 
-			// button3
+			// btnClose
 			// 
-			this->button3->BackColor = System::Drawing::Color::Transparent;
-			this->button3->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button3.BackgroundImage")));
-			this->button3->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->button3->FlatAppearance->BorderSize = 0;
-			this->button3->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
-			this->button3->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
-			this->button3->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->button3->Location = System::Drawing::Point(474, 652);
-			this->button3->Margin = System::Windows::Forms::Padding(2);
-			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(198, 58);
-			this->button3->TabIndex = 6;
-			this->button3->UseVisualStyleBackColor = false;
+			this->btnClose->BackColor = System::Drawing::Color::Transparent;
+			this->btnClose->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnClose.BackgroundImage")));
+			this->btnClose->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnClose->FlatAppearance->BorderSize = 0;
+			this->btnClose->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnClose->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnClose->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnClose->Location = System::Drawing::Point(379, 543);
+			this->btnClose->Margin = System::Windows::Forms::Padding(2);
+			this->btnClose->Name = L"btnClose";
+			this->btnClose->Size = System::Drawing::Size(158, 48);
+			this->btnClose->TabIndex = 6;
+			this->btnClose->UseVisualStyleBackColor = false;
+			this->btnClose->Click += gcnew System::EventHandler(this, &JoinChatRoom::btnClose_Click);
 			// 
 			// JoinChatRoom
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(10, 18);
+			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(822, 769);
+			this->ClientSize = System::Drawing::Size(658, 641);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->btnGeneral);
 			this->Controls->Add(this->btnServer);
-			this->Controls->Add(this->button3);
-			this->Margin = System::Windows::Forms::Padding(4);
+			this->Controls->Add(this->btnClose);
 			this->Name = L"JoinChatRoom";
 			this->Text = L"JoinChatRoom";
 			this->ResumeLayout(false);
@@ -216,6 +217,10 @@ private: System::Void btnGeneral_Click(System::Object^ sender, System::EventArgs
 		//this->HomeImageSound->Stop();
 		generalChatList->Show();
 	}
+}
+private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->Owner->Show();
+	this->Close();
 }
 };
 }

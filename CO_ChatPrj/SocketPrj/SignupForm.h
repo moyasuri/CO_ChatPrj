@@ -3,7 +3,7 @@
 #include "enum.h"
 #include "MyFunction.h"
 #include <iostream>
-namespace MyClient {
+namespace SocketPrj {
 
 	using namespace System;
 	using namespace System::ComponentModel;

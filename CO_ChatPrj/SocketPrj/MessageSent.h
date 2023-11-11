@@ -2,7 +2,7 @@
 #include "enum.h"
 #include "MyFunction.h"
 
-namespace MyClient {
+namespace SocketPrj {
 
 	using namespace System;
 	using namespace System::ComponentModel;
@@ -124,6 +124,7 @@ namespace MyClient {
 			this->btnClose->Size = System::Drawing::Size(147, 50);
 			this->btnClose->TabIndex = 14;
 			this->btnClose->UseVisualStyleBackColor = false;
+			this->btnClose->Click += gcnew System::EventHandler(this, &MessageSent::btnClose_Click);
 			// 
 			// btnDelete
 			// 
@@ -283,7 +284,7 @@ namespace MyClient {
 
 	public: void UpdateMessage()
 	{ 
-
+		return;
 	}
 	public: void ReceivedMsg(String^ message)
 	{
@@ -325,7 +326,7 @@ namespace MyClient {
 			}
 			else
 			{
-				System::Windows::Forms::MessageBox::Show("Wrong information", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				// nothing to do
 			}
 			break;
 		}
@@ -360,5 +361,8 @@ namespace MyClient {
 
 		SendMessageForm(e_message_Sent_msg_delete);
 	}
+private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->Close();
+}
 };
 }

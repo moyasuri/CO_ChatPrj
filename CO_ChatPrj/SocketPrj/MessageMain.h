@@ -6,7 +6,7 @@
 #include "MessageSent.h"
 #include "NewMessage.h"
 
-namespace MyClient {
+namespace SocketPrj {
 
 	using namespace System;
 	using namespace System::ComponentModel;
@@ -152,6 +152,7 @@ namespace MyClient {
 			this->Controls->Add(this->btnNew);
 			this->Name = L"MessageMain";
 			this->Text = L"MessageMain";
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &MessageMain::MessageMain_FormClosing);
 			this->ResumeLayout(false);
 
 		}
@@ -169,7 +170,6 @@ private: System::Void btnNew_Click(System::Object^ sender, System::EventArgs^ e)
 	if (newMessage == nullptr || newMessage->IsDisposed) {
 		newMessage = gcnew NewMessage(_my);
 		newMessage->Owner = this; // Owner를 설정해야 가능
-		this->Hide();
 		//this->HomeImageSound->Stop();
 		newMessage->Show();
 	}
@@ -178,7 +178,6 @@ private: System::Void btnSent_Click(System::Object^ sender, System::EventArgs^ e
 	if (messageSent == nullptr || messageSent->IsDisposed) {
 		messageSent = gcnew MessageSent(_my);
 		messageSent->Owner = this; // Owner를 설정해야 가능
-		this->Hide();
 		//this->HomeImageSound->Stop();
 		messageSent->Show();
 	}
@@ -187,10 +186,13 @@ private: System::Void btnMsgBox_Click(System::Object^ sender, System::EventArgs^
 	if (msgBox == nullptr || msgBox->IsDisposed) {
 		msgBox = gcnew MsgBox(_my);
 		msgBox->Owner = this; // Owner를 설정해야 가능
-		this->Hide();
 		//this->HomeImageSound->Stop();
 		msgBox->Show();
 	}
+}
+private: System::Void MessageMain_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+	this->Owner->Show();
+	this->Owner->Activate();
 }
 };
 }

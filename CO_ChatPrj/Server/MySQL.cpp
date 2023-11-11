@@ -474,12 +474,12 @@ string MySQL::QuerySql(string msg, int idx) {
             
  
             if (!result.empty()) {
-                _ret = trueStr + delim + result;
+                _ret = s_(e_friends_List) + delim + trueStr + delim + result;
                 break;
             }
             else {
                 // 친구 아이디를 찾지 못했을 때
-                _ret = falseStr;
+                _ret = s_(e_friends_List) + delim + falseStr;
                 break;
             }
         }
@@ -525,18 +525,18 @@ string MySQL::QuerySql(string msg, int idx) {
                 int updateCount = insertFriendRequestStmt->executeUpdate();
 
                 if (updateCount > 0) {
-                    _ret = trueStr;
+                    _ret = s_(e_friends_Request) + delim + trueStr;
                     break;
                 }
                 else {
-                    _ret = elseStr;
+                    _ret = s_(e_friends_Request) + delim + elseStr;
                     break;
                 }
 
             }
             else
             {
-                _ret = falseStr;
+                _ret = s_(e_friends_Request) + delim + falseStr;
                 break;
 
             }
@@ -580,13 +580,13 @@ string MySQL::QuerySql(string msg, int idx) {
 
             if (!result.empty())
             {
-                 _ret = trueStr + delim +  result;
+                 _ret = s_(e_friends_Response_List) + delim + trueStr + delim +  result;
                  break;
 
             }
             else
             {
-                 _ret = falseStr;
+                 _ret = s_(e_friends_Response_List) + delim + falseStr;
                  break;
             }
         }
@@ -631,14 +631,14 @@ string MySQL::QuerySql(string msg, int idx) {
                         Acc_Stmt->executeUpdate();
 
                         // 요청이 성공적으로 삭제되었음을 나타내는 처리
-                        _ret = trueStr;
+                        _ret = s_(e_friends_Accept) + delim + trueStr;
                         break;
                     }
                 }
             }
             else
             {
-                _ret = falseStr;
+                _ret = s_(e_friends_Accept) + delim + falseStr;
                 break;
             }
         }
@@ -672,13 +672,13 @@ string MySQL::QuerySql(string msg, int idx) {
                     Acc_Stmt->setString(2, _id);
                     Acc_Stmt->executeUpdate();
 
-                    _ret = trueStr;
+                    _ret = s_(e_friends_Request_Decline) + delim + trueStr;
                     break;
                 }
             }
             else // database에 있는 아이니까 이럴일은 없겠지만.
             {
-                _ret = falseStr;
+                _ret = s_(e_friends_Request_Decline) + delim + falseStr;
                 break;
             }
         }
@@ -749,12 +749,12 @@ string MySQL::QuerySql(string msg, int idx) {
                 int rows_affected = prep_stmt->executeUpdate();
                 if (rows_affected > 0)
                 {
-                    _ret = trueStr;
+                    _ret = s_(e_message_Send) + delim + trueStr;
                     break;
                 }
                 else
                 {
-                    _ret = falseStr;
+                    _ret = s_(e_message_Send) + delim + falseStr;
                     break;
                 }
             }
@@ -867,13 +867,13 @@ string MySQL::QuerySql(string msg, int idx) {
 
             if (!result.empty())
             {
-                _ret = trueStr + delim + result;
+                _ret = s_(e_message_Sent_list) + delim + trueStr + delim + result;
                 break;
 
             }
             else
             {
-                _ret = falseStr;
+                _ret = s_(e_message_Sent_list) + delim + falseStr;
                 break;
             }
 
@@ -908,13 +908,13 @@ string MySQL::QuerySql(string msg, int idx) {
 
             if (!result.empty())
             {
-                _ret = trueStr + delim + result;
+                _ret = s_(e_message_Sent_msg) + delim + trueStr + delim + result;
                 break;
 
             }
             else
             {
-                _ret = falseStr;
+                _ret = s_(e_message_Sent_msg) + delim + falseStr;
                 break;
             }
         }
@@ -946,12 +946,12 @@ string MySQL::QuerySql(string msg, int idx) {
                         int rowsAffected = stmt->executeUpdate(updateQuery); // 업데이트 쿼리 실행
                         if (rowsAffected > 0) {
                             // 업데이트 성공
-                            _ret = trueStr;
+                            _ret = s_(e_message_Sent_msg_delete) + delim + trueStr;
                             break;
                         }
                         else {
                             // 업데이트 실패
-                            _ret = falseStr;
+                            _ret = s_(e_message_Sent_msg_delete) + delim + falseStr;
                             break;
                         }
                     }
@@ -960,12 +960,12 @@ string MySQL::QuerySql(string msg, int idx) {
                         int rowsAffected = stmt->executeUpdate(updateQuery); // 업데이트 쿼리 실행
                         if (rowsAffected > 0) {
                             // 업데이트 성공
-                            _ret = trueStr;
+                            _ret = s_(e_message_Sent_msg_delete) + delim + trueStr;
                             break;
                         }
                         else {
                             // 업데이트 실패
-                            _ret = falseStr;
+                            _ret = s_(e_message_Sent_msg_delete) + delim + falseStr;
                             break;
                         }
                     }
@@ -974,12 +974,12 @@ string MySQL::QuerySql(string msg, int idx) {
                         int rowsDeleted = stmt->executeUpdate(deleteQuery); // 삭제 쿼리 실행
                         if (rowsDeleted > 0) {
                             // 삭제 성공
-                            _ret = trueStr;
+                            _ret = s_(e_message_Sent_msg_delete) + delim + trueStr;
                             break;
                         }
                         else {
                             // 삭제 실패
-                            _ret = falseStr;
+                            _ret = s_(e_message_Sent_msg_delete) + delim + falseStr;
                             break;
                         }
                     }
@@ -1028,13 +1028,13 @@ string MySQL::QuerySql(string msg, int idx) {
 
             if (!result.empty())
             {
-                _ret = trueStr + delim + result;
+                _ret = s_(e_message_UGiven_list) + delim + trueStr + delim + result;
                 break;
 
             }
             else
             {
-                _ret = falseStr;
+                _ret = s_(e_message_UGiven_list) + delim + falseStr;
                 break;
             }
 
@@ -1081,12 +1081,12 @@ string MySQL::QuerySql(string msg, int idx) {
                         int rowsDeleted = stmt->executeUpdate(deleteQuery); // 삭제 쿼리 실행
                         if (rowsDeleted > 0) {
                             // 삭제 성공
-                            _ret = trueStr;
+                            _ret = s_(e_message_UGiven_msg_delete) + delim + trueStr;
                             break;
                         }
                         else {
                             // 삭제 실패
-                            _ret = falseStr;
+                            _ret = s_(e_message_UGiven_msg_delete) + delim + falseStr;
                             break;
                         }
                     }
@@ -1134,13 +1134,13 @@ string MySQL::QuerySql(string msg, int idx) {
 
             if (!result.empty())
             {
-                _ret = trueStr + delim + result;
+                _ret = s_(e_message_RGiven_list) + delim + trueStr + delim + result;
                 break;
 
             }
             else
             {
-                _ret = falseStr;
+                _ret = s_(e_message_RGiven_list) + delim + falseStr;
                 break;
             }
 
@@ -1172,13 +1172,13 @@ string MySQL::QuerySql(string msg, int idx) {
 
             if (!result.empty())
             {
-                _ret = trueStr + delim + result;
+                _ret = s_(e_message_UGiven_msg) + delim + trueStr + delim + result;
                 break;
 
             }
             else
             {
-                _ret = falseStr;
+                _ret = s_(e_message_UGiven_msg) + delim + falseStr;
                 break;
             }
         }
@@ -1209,12 +1209,12 @@ string MySQL::QuerySql(string msg, int idx) {
                         int rowsAffected = stmt->executeUpdate(updateQuery); // 업데이트 쿼리 실행
                         if (rowsAffected > 0) {
                              //업데이트 성공
-                            _ret = trueStr;
+                            _ret = s_(e_message_UGiven_Read) + delim + trueStr;
                             break;
                         }
                         else {
                              //업데이트 실패
-                            _ret = falseStr;
+                            _ret = s_(e_message_UGiven_Read) + delim + falseStr;
                             break;
                         }
                     }
@@ -1223,12 +1223,12 @@ string MySQL::QuerySql(string msg, int idx) {
                         int rowsAffected = stmt->executeUpdate(updateQuery); // 업데이트 쿼리 실행
                         if (rowsAffected > 0) {
                              //업데이트 성공
-                            _ret = trueStr;
+                            _ret = s_(e_message_UGiven_Read) + delim + trueStr;
                             break;
                         }
                         else {
                              //업데이트 실패
-                            _ret = falseStr;
+                            _ret = s_(e_message_UGiven_Read) + delim + falseStr;
                             break;
                         }
                     }
@@ -1267,13 +1267,13 @@ string MySQL::QuerySql(string msg, int idx) {
 
             if (!result.empty())
             {
-                _ret = trueStr + delim + result;
+                _ret = s_(e_message_RGiven_msg) + delim + trueStr + delim + result;
                 break;
 
             }
             else
             {
-                _ret = falseStr;
+                _ret = s_(e_message_RGiven_msg) + delim + falseStr;
                 break;
             }
         }
@@ -1304,12 +1304,12 @@ string MySQL::QuerySql(string msg, int idx) {
                         int rowsAffected = stmt->executeUpdate(updateQuery); // 업데이트 쿼리 실행
                         if (rowsAffected > 0) {
                             // 업데이트 성공
-                            _ret = trueStr;
+                            _ret = s_(e_message_RGiven_msg_delete) + delim + trueStr;
                             break;
                         }
                         else {
                             // 업데이트 실패
-                            _ret = falseStr;
+                            _ret = s_(e_message_RGiven_msg_delete) + delim + falseStr;
                             break;
                         }
                     }
@@ -1318,12 +1318,12 @@ string MySQL::QuerySql(string msg, int idx) {
                         int rowsDeleted = stmt->executeUpdate(deleteQuery); // 삭제 쿼리 실행
                         if (rowsDeleted > 0) {
                             // 삭제 성공
-                            _ret = trueStr;
+                            _ret = s_(e_message_RGiven_msg_delete) + delim + trueStr;
                             break;
                         }
                         else {
                             // 삭제 실패
-                            _ret = falseStr;
+                            _ret = s_(e_message_RGiven_msg_delete) + delim + falseStr;
                             break;
                         }
                     }
@@ -1511,7 +1511,7 @@ string MySQL::QuerySql(string msg, int idx) {
                     cout << "성공";
                 else
                 {
-                    result = falseStr;
+                    result = s_(e_room_Enter) + delim + falseStr;
                     cout << "index 와 pw가 맞지 않습니다" << endl;
                     return result;
                 }
@@ -1525,7 +1525,7 @@ string MySQL::QuerySql(string msg, int idx) {
                 cout << "rowUpdate >0 " << endl;
             else
             {
-                result = falseStr;
+                result = s_(e_room_Enter) + delim + falseStr;
                 return result;
             }
 
@@ -1549,7 +1549,7 @@ string MySQL::QuerySql(string msg, int idx) {
                         sck_list[idx].room.setRoom_PW(res->getString(6));
                     sck_list[idx]._user.setJoinRoomIndex(room_Index62);
                     room_activate(stoi(room_Index62), idx);
-                    result = trueStr;
+                    result = s_(e_room_Enter) + delim + trueStr;
                     cout << "result : " << result << endl;
                     return result;
                 }
@@ -1557,13 +1557,13 @@ string MySQL::QuerySql(string msg, int idx) {
                 else
                 {
                     cout << "등록은 성공 but 클래스 객체에 정보 저장 실패" << endl; 
-                    result = falseStr;
+                    result = s_(e_room_Enter) + delim + falseStr;
                     return result;
                 }
             }
             else
             {
-                result = falseStr;
+                result = s_(e_room_Enter) + delim + falseStr;
                 return result;
             }
         }
@@ -1645,6 +1645,8 @@ string MySQL::QuerySql(string msg, int idx) {
             }
             return _ret;
         }
+
+        // 여기 이하 어떻게 할것인지
 
         case e_room_List:
         {

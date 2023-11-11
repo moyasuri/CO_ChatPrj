@@ -161,8 +161,7 @@ void send_msg(const char* msg) {
     size_t length = strlen(msg);
     
     for (int i = 0; i < client_count; i++) { // 접속해 있는 모든 client에게 메시지 전송
-        cout << i << endl;
-        send(sck_list[i].sck, msg, length, 0);
+         send(sck_list[i].sck, msg, length, 0);
     }
 }
 
@@ -192,9 +191,8 @@ void recv_msg(int idx) {
             std::stringstream ss(msg);
             cout << "MySQL 전"<<endl;
             sqlMsg = mySQL->QuerySql(msg, idx); // sql ret값
-            cout << "MySQL 후" << endl;
-            std::stringstream sssql(sqlMsg);
-            sssql >> isTrue; // sql return 값의 true false;
+            cout << "MySQL 후" << " : " << sqlMsg << endl;
+                        
             if (!multimsg)
             {
                 send_msg(sqlMsg.c_str());

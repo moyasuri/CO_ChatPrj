@@ -2,7 +2,7 @@
 #include "MyFunction.h"
 #include "enum.h"
 
-namespace MyClient {
+namespace SocketPrj {
 
 	using namespace System;
 	using namespace System::ComponentModel;
@@ -94,8 +94,6 @@ namespace MyClient {
 			// 
 			this->picBoxImojiMy->BackColor = System::Drawing::Color::Transparent;
 			this->picBoxImojiMy->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
-			this->picBoxImojiMy->ErrorImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"picBoxImojiMy.ErrorImage")));
-			this->picBoxImojiMy->InitialImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"picBoxImojiMy.InitialImage")));
 			this->picBoxImojiMy->Location = System::Drawing::Point(85, 11);
 			this->picBoxImojiMy->Margin = System::Windows::Forms::Padding(2);
 			this->picBoxImojiMy->Name = L"picBoxImojiMy";
@@ -107,7 +105,6 @@ namespace MyClient {
 			// btnClose
 			// 
 			this->btnClose->BackColor = System::Drawing::Color::Transparent;
-			this->btnClose->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnClose.BackgroundImage")));
 			this->btnClose->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->btnClose->FlatAppearance->BorderSize = 0;
 			this->btnClose->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
@@ -122,7 +119,6 @@ namespace MyClient {
 			// btnSend
 			// 
 			this->btnSend->BackColor = System::Drawing::Color::Transparent;
-			this->btnSend->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnSend.BackgroundImage")));
 			this->btnSend->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->btnSend->FlatAppearance->BorderSize = 0;
 			this->btnSend->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;

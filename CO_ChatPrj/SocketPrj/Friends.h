@@ -2,9 +2,10 @@
 #include "MyFunction.h"
 #include "enum.h"
 #include "AddFriends.h"
+#include "FriendResponse.h"
 
 
-namespace MyClient {
+namespace SocketPrj {
 
 	using namespace System;
 	using namespace System::ComponentModel;
@@ -117,6 +118,7 @@ namespace MyClient {
 			this->btnClose->Size = System::Drawing::Size(194, 55);
 			this->btnClose->TabIndex = 11;
 			this->btnClose->UseVisualStyleBackColor = false;
+			this->btnClose->Click += gcnew System::EventHandler(this, &Friends::btnClose_Click);
 			// 
 			// btnDelete
 			// 
@@ -183,6 +185,7 @@ namespace MyClient {
 			this->Name = L"Friends";
 			this->Text = L"Friends";
 			this->Activated += gcnew System::EventHandler(this, &Friends::Friends_Activated);
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &Friends::Friends_FormClosing);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -191,6 +194,7 @@ namespace MyClient {
 
 		private:
 			AddFriends^ addFriends = nullptr;
+			FriendResponse^ friendResponse = nullptr;
 
 	public: void SendMessageForm(int index) 
 	{
@@ -257,7 +261,6 @@ private: System::Void btnAdd_Click(System::Object^ sender, System::EventArgs^ e)
 	if (addFriends == nullptr || addFriends->IsDisposed) {
 		addFriends = gcnew AddFriends(_my);
 		addFriends->Owner = this; // Owner를 설정해야 가능
-		this->Hide();
 		//this->HomeImageSound->Stop();
 		addFriends->Show();
 	}
@@ -265,12 +268,11 @@ private: System::Void btnAdd_Click(System::Object^ sender, System::EventArgs^ e)
 
 }
 	private: System::Void btnResponse_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (addFriends == nullptr || addFriends->IsDisposed) {
-			addFriends = gcnew AddFriends(_my);
-			addFriends->Owner = this; // Owner를 설정해야 가능
-			this->Hide();
+		if (friendResponse == nullptr || friendResponse->IsDisposed) {
+			friendResponse = gcnew FriendResponse(_my);
+			friendResponse->Owner = this; // Owner를 설정해야 가능
 			//this->HomeImageSound->Stop();
-			addFriends->Show();
+			friendResponse->Show();
 
 
 		}
@@ -280,7 +282,7 @@ private: System::Void btnAdd_Click(System::Object^ sender, System::EventArgs^ e)
 
 		// 메시지 박스를 표시하고 사용자의 선택을 저장합니다.
 		System::Windows::Forms::DialogResult result = \
-			MessageBox::Show("Do you really want to delete this room?", "confirm", buttons);
+			MessageBox::Show("Do you really want to delete friend?", "confirm", buttons);
 
 		// 사용자의 선택에 따라 분기합니다.
 		if (result == System::Windows::Forms::DialogResult::Yes)
@@ -294,5 +296,13 @@ private: System::Void btnAdd_Click(System::Object^ sender, System::EventArgs^ e)
 		}
 	}
 
+private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->Close();
+}
+
+private: System::Void Friends_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+	this->Owner->Show();
+	this->Owner->Activate();
+}
 };
 }

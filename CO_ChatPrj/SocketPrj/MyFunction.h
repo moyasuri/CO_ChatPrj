@@ -7,7 +7,7 @@
 
 
 
-namespace MyClient {
+namespace SocketPrj {
 	using namespace System;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;

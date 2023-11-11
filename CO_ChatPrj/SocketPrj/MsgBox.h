@@ -2,7 +2,7 @@
 
 #include "enum.h"
 #include "MyFunction.h"
-namespace MyClient {
+namespace SocketPrj {
 
 	using namespace System;
 	using namespace System::ComponentModel;
@@ -138,6 +138,7 @@ namespace MyClient {
 			this->btnClose->Size = System::Drawing::Size(146, 40);
 			this->btnClose->TabIndex = 15;
 			this->btnClose->UseVisualStyleBackColor = false;
+			this->btnClose->Click += gcnew System::EventHandler(this, &MsgBox::btnClose_Click);
 			// 
 			// btnDelete_R
 			// 
@@ -499,5 +500,8 @@ namespace MyClient {
 
 
 	
+private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->Close();
+}
 };
 }

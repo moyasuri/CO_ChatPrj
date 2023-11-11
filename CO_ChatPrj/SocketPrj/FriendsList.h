@@ -2,7 +2,7 @@
 #include "MyFunction.h"
 #include "enum.h"
 
-namespace MyClient {
+namespace SocketPrj {
 
 	using namespace System;
 	using namespace System::ComponentModel;
@@ -109,6 +109,7 @@ namespace MyClient {
 			this->btnClose->Size = System::Drawing::Size(143, 42);
 			this->btnClose->TabIndex = 51;
 			this->btnClose->UseVisualStyleBackColor = false;
+			this->btnClose->Click += gcnew System::EventHandler(this, &FriendsList::btnClose_Click);
 			// 
 			// btnConfirm
 			// 
@@ -209,7 +210,11 @@ namespace MyClient {
 
 		String^ tmptxt_1 = listBoxFriends->SelectedItem->ToString();
 		MyEvent_(tmptxt_1);
+		this->Close();
 	}
+private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->Close();
+}
 };
 }
 

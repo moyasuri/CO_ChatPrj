@@ -3,7 +3,7 @@
 #include "MyFunction.h"
 #include "enum.h"
 
-namespace MyClient {
+namespace SocketPrj {
 
 	using namespace System;
 	using namespace System::ComponentModel;
@@ -142,6 +142,7 @@ namespace MyClient {
 			this->btnSendReq->Size = System::Drawing::Size(233, 50);
 			this->btnSendReq->TabIndex = 16;
 			this->btnSendReq->UseVisualStyleBackColor = false;
+			this->btnSendReq->Click += gcnew System::EventHandler(this, &AddFriends::btnSendReq_Click);
 			// 
 			// txtBoxNickname
 			// 
@@ -184,7 +185,7 @@ namespace MyClient {
 						
 							if (!String::IsNullOrEmpty(tmptxt_1)) 
 							{
-								int t_index = e_room_Create;
+								int t_index = e_friends_Request;
 								String^ buffer = t_index.ToString() + " " + tmptxt_1 + " " + tmptxt_2;
 								_my->SendMessage(buffer);
 							}
@@ -233,5 +234,8 @@ namespace MyClient {
 	private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->Close();
 	}
+private: System::Void btnSendReq_Click(System::Object^ sender, System::EventArgs^ e) {
+	SendMessageForm(e_friends_Request);
+}
 };
 }
