@@ -196,23 +196,32 @@ namespace SocketPrj {
 			AddFriends^ addFriends = nullptr;
 			FriendResponse^ friendResponse = nullptr;
 
-	public: void SendMessageForm(int index) 
+	public: void SendMessageForm(int index, String^ tmptxt_1) 
 	{
 
 		switch (index)
 		{
 			case e_friends_Delete:
 			{
-				String^ tmptxt_1 = listBoxFriends->SelectedItem->ToString();
-				if (!String::IsNullOrEmpty(tmptxt_1))
-				{
+				
 					int t_index = e_friends_Delete;
 					String^ buffer = _my->s_(t_index) + " " + tmptxt_1;
 					_my->SendMessage(buffer);
-				}
 
 				break;
 			}
+		}
+	}
+
+
+
+	private: void UpdateFriendList(String^ message)
+	{
+		array<String^>^ subString = message->Split(' ');
+		
+		for (int i = 2; i < subString->Length; i++)
+		{
+			listBoxFriends->Items->Add(gcnew String(subString[i]));
 		}
 	}
 
@@ -229,20 +238,35 @@ namespace SocketPrj {
 		switch (index)
 		{
 		case e_friends_List:
+			{
+
+				if (isTrue == "true")
+				{
+
+					this->Invoke(gcnew Action<String^>(this, &Friends::UpdateFriendList), message);
+				
+
+				}
+				else
+				{
+				}
+				break;
+			}
+		case e_friends_Delete:
 		{
 
 			if (isTrue == "true")
 			{
-				for (int i = 2; i < subString->Length;i++)
-				{
-					listBoxFriends->Items->Add(gcnew String(subString[i]));
-				}
-
+				System::Windows::Forms::MessageBox::Show("Friend deleted", "Edit Porofile", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			}
 			else
 			{
+				System::Windows::Forms::MessageBox::Show("something wrong..", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			}
 			break;
+
+
+
 		}
 	
 
@@ -278,6 +302,17 @@ private: System::Void btnAdd_Click(System::Object^ sender, System::EventArgs^ e)
 		}
 	}
 	private: System::Void btnDelete_Click(System::Object^ sender, System::EventArgs^ e) {
+
+		String^ tmptxt_1;
+		if (listBoxFriends->SelectedItem != nullptr)
+		{
+			tmptxt_1 = listBoxFriends->SelectedItem->ToString();
+		}
+		else
+		{
+			System::Windows::Forms::MessageBox::Show("Select ID to delete", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
 		MessageBoxButtons buttons = MessageBoxButtons::YesNo;
 
 		// 메시지 박스를 표시하고 사용자의 선택을 저장합니다.
@@ -288,7 +323,7 @@ private: System::Void btnAdd_Click(System::Object^ sender, System::EventArgs^ e)
 		if (result == System::Windows::Forms::DialogResult::Yes)
 		{
 			btnDelete->NotifyDefault(false);
-			SendMessageForm(e_friends_Delete);
+			SendMessageForm(e_friends_Delete, tmptxt_1);
 		}
 		else if (result == System::Windows::Forms::DialogResult::No)
 		{

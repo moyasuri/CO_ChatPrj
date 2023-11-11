@@ -90,10 +90,10 @@ namespace SocketPrj {
 			this->label1->BackColor = System::Drawing::Color::Transparent;
 			this->label1->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 20));
 			this->label1->ForeColor = System::Drawing::Color::DarkSlateGray;
-			this->label1->Location = System::Drawing::Point(24, 15);
+			this->label1->Location = System::Drawing::Point(30, 18);
 			this->label1->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(93, 39);
+			this->label1->Size = System::Drawing::Size(109, 46);
 			this->label1->TabIndex = 16;
 			this->label1->Text = L"Sent";
 			// 
@@ -103,10 +103,10 @@ namespace SocketPrj {
 			this->label2->BackColor = System::Drawing::Color::Transparent;
 			this->label2->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 20));
 			this->label2->ForeColor = System::Drawing::Color::DarkSlateGray;
-			this->label2->Location = System::Drawing::Point(24, 312);
+			this->label2->Location = System::Drawing::Point(30, 374);
 			this->label2->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(162, 39);
+			this->label2->Size = System::Drawing::Size(194, 46);
 			this->label2->TabIndex = 17;
 			this->label2->Text = L"Message";
 			// 
@@ -119,9 +119,10 @@ namespace SocketPrj {
 			this->btnClose->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnClose->Location = System::Drawing::Point(568, 648);
+			this->btnClose->Location = System::Drawing::Point(710, 778);
+			this->btnClose->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
 			this->btnClose->Name = L"btnClose";
-			this->btnClose->Size = System::Drawing::Size(147, 50);
+			this->btnClose->Size = System::Drawing::Size(184, 60);
 			this->btnClose->TabIndex = 14;
 			this->btnClose->UseVisualStyleBackColor = false;
 			this->btnClose->Click += gcnew System::EventHandler(this, &MessageSent::btnClose_Click);
@@ -135,20 +136,22 @@ namespace SocketPrj {
 			this->btnDelete->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnDelete->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnDelete->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnDelete->Location = System::Drawing::Point(568, 287);
+			this->btnDelete->Location = System::Drawing::Point(710, 344);
+			this->btnDelete->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
 			this->btnDelete->Name = L"btnDelete";
-			this->btnDelete->Size = System::Drawing::Size(147, 50);
+			this->btnDelete->Size = System::Drawing::Size(184, 60);
 			this->btnDelete->TabIndex = 15;
 			this->btnDelete->UseVisualStyleBackColor = false;
 			this->btnDelete->Click += gcnew System::EventHandler(this, &MessageSent::btnDelete_Click);
 			// 
 			// txtBoxMsg
 			// 
-			this->txtBoxMsg->Location = System::Drawing::Point(30, 365);
+			this->txtBoxMsg->Location = System::Drawing::Point(38, 438);
+			this->txtBoxMsg->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
 			this->txtBoxMsg->Multiline = true;
 			this->txtBoxMsg->Name = L"txtBoxMsg";
 			this->txtBoxMsg->ReadOnly = true;
-			this->txtBoxMsg->Size = System::Drawing::Size(685, 263);
+			this->txtBoxMsg->Size = System::Drawing::Size(855, 315);
 			this->txtBoxMsg->TabIndex = 13;
 			// 
 			// ViewDataSent
@@ -158,14 +161,15 @@ namespace SocketPrj {
 				this->NumOfSentMsg,
 					this->To, this->Date, this->Status
 			});
-			this->ViewDataSent->Location = System::Drawing::Point(30, 68);
+			this->ViewDataSent->Location = System::Drawing::Point(38, 82);
+			this->ViewDataSent->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
 			this->ViewDataSent->MultiSelect = false;
 			this->ViewDataSent->Name = L"ViewDataSent";
 			this->ViewDataSent->ReadOnly = true;
 			this->ViewDataSent->RowHeadersWidth = 51;
 			this->ViewDataSent->RowTemplate->Height = 27;
 			this->ViewDataSent->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
-			this->ViewDataSent->Size = System::Drawing::Size(685, 200);
+			this->ViewDataSent->Size = System::Drawing::Size(856, 240);
 			this->ViewDataSent->TabIndex = 12;
 			// 
 			// NumOfSentMsg
@@ -202,18 +206,20 @@ namespace SocketPrj {
 			// 
 			// MessageSent
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
+			this->AutoScaleDimensions = System::Drawing::SizeF(10, 18);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(792, 704);
+			this->ClientSize = System::Drawing::Size(990, 845);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->btnClose);
 			this->Controls->Add(this->btnDelete);
 			this->Controls->Add(this->txtBoxMsg);
 			this->Controls->Add(this->ViewDataSent);
+			this->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
 			this->Name = L"MessageSent";
 			this->Text = L"MessageSent";
 			this->Activated += gcnew System::EventHandler(this, &MessageSent::MessageSent_Activated);
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &MessageSent::MessageSent_FormClosing);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ViewDataSent))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
@@ -363,6 +369,10 @@ namespace SocketPrj {
 	}
 private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {
 	this->Close();
+}
+private: System::Void MessageSent_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+	this->Owner->Show();
+	this->Owner->Activate();
 }
 };
 }

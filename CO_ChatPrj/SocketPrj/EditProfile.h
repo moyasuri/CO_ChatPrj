@@ -106,6 +106,7 @@ namespace SocketPrj {
 			// btnClose
 			// 
 			this->btnClose->BackColor = System::Drawing::Color::Transparent;
+			this->btnClose->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnClose.BackgroundImage")));
 			this->btnClose->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->btnClose->FlatAppearance->BorderSize = 0;
 			this->btnClose->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
@@ -117,10 +118,12 @@ namespace SocketPrj {
 			this->btnClose->Size = System::Drawing::Size(218, 55);
 			this->btnClose->TabIndex = 66;
 			this->btnClose->UseVisualStyleBackColor = false;
+			this->btnClose->Click += gcnew System::EventHandler(this, &EditProfile::btnClose_Click);
 			// 
 			// btnEditConfirm
 			// 
 			this->btnEditConfirm->BackColor = System::Drawing::Color::Transparent;
+			this->btnEditConfirm->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnEditConfirm.BackgroundImage")));
 			this->btnEditConfirm->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->btnEditConfirm->FlatAppearance->BorderSize = 0;
 			this->btnEditConfirm->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
@@ -132,10 +135,12 @@ namespace SocketPrj {
 			this->btnEditConfirm->Size = System::Drawing::Size(200, 55);
 			this->btnEditConfirm->TabIndex = 65;
 			this->btnEditConfirm->UseVisualStyleBackColor = false;
+			this->btnEditConfirm->Click += gcnew System::EventHandler(this, &EditProfile::btnEditConfirm_Click);
 			// 
 			// btnPWchk
 			// 
 			this->btnPWchk->BackColor = System::Drawing::Color::Transparent;
+			this->btnPWchk->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnPWchk.BackgroundImage")));
 			this->btnPWchk->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->btnPWchk->FlatAppearance->BorderSize = 0;
 			this->btnPWchk->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
@@ -147,6 +152,7 @@ namespace SocketPrj {
 			this->btnPWchk->Size = System::Drawing::Size(158, 44);
 			this->btnPWchk->TabIndex = 64;
 			this->btnPWchk->UseVisualStyleBackColor = false;
+			this->btnPWchk->Click += gcnew System::EventHandler(this, &EditProfile::btnPWchk_Click);
 			// 
 			// label10
 			// 
@@ -237,6 +243,7 @@ namespace SocketPrj {
 			// btnNickNameduplicateChk
 			// 
 			this->btnNickNameduplicateChk->BackColor = System::Drawing::Color::Transparent;
+			this->btnNickNameduplicateChk->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnNickNameduplicateChk.BackgroundImage")));
 			this->btnNickNameduplicateChk->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->btnNickNameduplicateChk->FlatAppearance->BorderSize = 0;
 			this->btnNickNameduplicateChk->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
@@ -248,6 +255,7 @@ namespace SocketPrj {
 			this->btnNickNameduplicateChk->Size = System::Drawing::Size(158, 44);
 			this->btnNickNameduplicateChk->TabIndex = 56;
 			this->btnNickNameduplicateChk->UseVisualStyleBackColor = false;
+			this->btnNickNameduplicateChk->Click += gcnew System::EventHandler(this, &EditProfile::btnNickNameduplicateChk_Click);
 			// 
 			// label7
 			// 
@@ -389,6 +397,7 @@ namespace SocketPrj {
 			this->Controls->Add(this->txtBoxPW);
 			this->Name = L"EditProfile";
 			this->Text = L"EditProfile";
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &EditProfile::EditProfile_FormClosing);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -512,7 +521,6 @@ namespace SocketPrj {
 		{
 			if (isTrue == "true")
 			{
-				//txtBoxNickName->Invoke(gcnew Action<String^>(this, &YourFormName::UpdateTextBox), newText);
 				Invoke(gcnew Action(this, &EditProfile::UpdateTextBox));
 				System::Windows::Forms::MessageBox::Show("Password matches username.", "PW check", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			}
@@ -551,5 +559,21 @@ namespace SocketPrj {
 		}
 
 	}
-	};
+	private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {
+		this->Close();
+	}
+private: System::Void btnEditConfirm_Click(System::Object^ sender, System::EventArgs^ e) {
+	SendMessageForm(e_edit_Confirm);
+}
+private: System::Void btnPWchk_Click(System::Object^ sender, System::EventArgs^ e) {
+	SendMessageForm(e_edit_PWchk);
+}
+private: System::Void btnNickNameduplicateChk_Click(System::Object^ sender, System::EventArgs^ e) {
+	SendMessageForm(e_edit_NickNamechk);
+}
+private: System::Void EditProfile_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+	this->Owner->Show();
+	this->Owner->Activate();
+}
+};
 }

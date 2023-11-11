@@ -25,7 +25,6 @@ string _date;
 string _id;
 extern int client_count;
 extern bool multimsg;
-// #define MAX_SIZE 1024//소켓 박스크기
 #define MAX_SIZE 1024//소켓 박스크기
 
 string s_(int e_num) {
@@ -682,6 +681,45 @@ string MySQL::QuerySql(string msg, int idx) {
                 break;
             }
         }
+
+
+
+        case e_friends_Delete:
+        {
+
+
+            string _id = sck_list[idx]._user.getID();
+            string _to_nickname, _msg;
+
+            ss >> _to_nickname;
+
+            string query = "SELECT Member_ID FROM Member WHERE Nickname =  '" + _to_nickname + "'";
+            stmt = con->createStatement();
+            res = stmt->executeQuery(query);
+
+            if (res->next()) {
+                _id_temp = res->getString("Member_ID");
+
+                prep_stmt = con->prepareStatement("DELETE From friend_list WHERE My_ID = ? AND My_Friend_ID = ?;");
+                prep_stmt->setString(1, _id);
+                prep_stmt->setString(2, _id_temp);
+                int rows_affected = prep_stmt->executeUpdate();
+                prep_stmt = con->prepareStatement("DELETE From friend_list WHERE My_ID = ? AND My_Friend_ID = ?;");
+                prep_stmt->setString(1, _id_temp);
+                prep_stmt->setString(2, _id);
+                int rows_affected2 = prep_stmt->executeUpdate();
+                if (rows_affected2 > 0) {
+                    _ret = s_(e_friends_Delete) + delim + trueStr;
+                }
+                else
+                {
+                    _ret = s_(e_friends_Delete) + delim + falseStr;
+                }
+
+            }
+            break;
+        }
+
 
         case e_message_Cnt:
         {

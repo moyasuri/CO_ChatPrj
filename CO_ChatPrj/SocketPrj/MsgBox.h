@@ -103,10 +103,10 @@ namespace SocketPrj {
 			this->label1->BackColor = System::Drawing::Color::Transparent;
 			this->label1->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 24));
 			this->label1->ForeColor = System::Drawing::SystemColors::Highlight;
-			this->label1->Location = System::Drawing::Point(22, 368);
+			this->label1->Location = System::Drawing::Point(28, 442);
 			this->label1->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(122, 46);
+			this->label1->Size = System::Drawing::Size(147, 55);
 			this->label1->TabIndex = 19;
 			this->label1->Text = L"Read";
 			// 
@@ -116,10 +116,10 @@ namespace SocketPrj {
 			this->label3->BackColor = System::Drawing::Color::Transparent;
 			this->label3->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 24));
 			this->label3->ForeColor = System::Drawing::SystemColors::ControlText;
-			this->label3->Location = System::Drawing::Point(22, 33);
+			this->label3->Location = System::Drawing::Point(28, 40);
 			this->label3->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(165, 46);
+			this->label3->Size = System::Drawing::Size(198, 55);
 			this->label3->TabIndex = 20;
 			this->label3->Text = L"Unread";
 			// 
@@ -132,10 +132,10 @@ namespace SocketPrj {
 			this->btnClose->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnClose->Location = System::Drawing::Point(775, 638);
+			this->btnClose->Location = System::Drawing::Point(969, 766);
 			this->btnClose->Margin = System::Windows::Forms::Padding(2);
 			this->btnClose->Name = L"btnClose";
-			this->btnClose->Size = System::Drawing::Size(146, 40);
+			this->btnClose->Size = System::Drawing::Size(182, 48);
 			this->btnClose->TabIndex = 15;
 			this->btnClose->UseVisualStyleBackColor = false;
 			this->btnClose->Click += gcnew System::EventHandler(this, &MsgBox::btnClose_Click);
@@ -149,10 +149,10 @@ namespace SocketPrj {
 			this->btnDelete_R->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnDelete_R->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnDelete_R->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnDelete_R->Location = System::Drawing::Point(331, 627);
+			this->btnDelete_R->Location = System::Drawing::Point(414, 752);
 			this->btnDelete_R->Margin = System::Windows::Forms::Padding(2);
 			this->btnDelete_R->Name = L"btnDelete_R";
-			this->btnDelete_R->Size = System::Drawing::Size(109, 38);
+			this->btnDelete_R->Size = System::Drawing::Size(136, 46);
 			this->btnDelete_R->TabIndex = 16;
 			this->btnDelete_R->UseVisualStyleBackColor = false;
 			// 
@@ -165,10 +165,10 @@ namespace SocketPrj {
 			this->btnDelete_U->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnDelete_U->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnDelete_U->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnDelete_U->Location = System::Drawing::Point(339, 312);
+			this->btnDelete_U->Location = System::Drawing::Point(424, 374);
 			this->btnDelete_U->Margin = System::Windows::Forms::Padding(2);
 			this->btnDelete_U->Name = L"btnDelete_U";
-			this->btnDelete_U->Size = System::Drawing::Size(109, 38);
+			this->btnDelete_U->Size = System::Drawing::Size(136, 46);
 			this->btnDelete_U->TabIndex = 17;
 			this->btnDelete_U->UseVisualStyleBackColor = false;
 			// 
@@ -181,19 +181,20 @@ namespace SocketPrj {
 			this->btnRead->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnRead->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnRead->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnRead->Location = System::Drawing::Point(214, 310);
+			this->btnRead->Location = System::Drawing::Point(268, 372);
 			this->btnRead->Margin = System::Windows::Forms::Padding(2);
 			this->btnRead->Name = L"btnRead";
-			this->btnRead->Size = System::Drawing::Size(109, 44);
+			this->btnRead->Size = System::Drawing::Size(136, 53);
 			this->btnRead->TabIndex = 18;
 			this->btnRead->UseVisualStyleBackColor = false;
 			// 
 			// txtBoxMsg
 			// 
-			this->txtBoxMsg->Location = System::Drawing::Point(507, 87);
+			this->txtBoxMsg->Location = System::Drawing::Point(634, 104);
+			this->txtBoxMsg->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
 			this->txtBoxMsg->Multiline = true;
 			this->txtBoxMsg->Name = L"txtBoxMsg";
-			this->txtBoxMsg->Size = System::Drawing::Size(414, 535);
+			this->txtBoxMsg->Size = System::Drawing::Size(516, 641);
 			this->txtBoxMsg->TabIndex = 14;
 			// 
 			// ViewRead
@@ -203,14 +204,15 @@ namespace SocketPrj {
 				this->NumOfRead, this->R_From,
 					this->R_Date
 			});
-			this->ViewRead->Location = System::Drawing::Point(30, 417);
+			this->ViewRead->Location = System::Drawing::Point(38, 500);
+			this->ViewRead->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
 			this->ViewRead->MultiSelect = false;
 			this->ViewRead->Name = L"ViewRead";
 			this->ViewRead->ReadOnly = true;
 			this->ViewRead->RowHeadersWidth = 51;
 			this->ViewRead->RowTemplate->Height = 27;
 			this->ViewRead->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
-			this->ViewRead->Size = System::Drawing::Size(418, 204);
+			this->ViewRead->Size = System::Drawing::Size(522, 245);
 			this->ViewRead->TabIndex = 13;
 			// 
 			// NumOfRead
@@ -244,14 +246,15 @@ namespace SocketPrj {
 				this->NumOfUnread,
 					this->U_From, this->U_Date
 			});
-			this->ViewUnread->Location = System::Drawing::Point(30, 87);
+			this->ViewUnread->Location = System::Drawing::Point(38, 104);
+			this->ViewUnread->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
 			this->ViewUnread->MultiSelect = false;
 			this->ViewUnread->Name = L"ViewUnread";
 			this->ViewUnread->ReadOnly = true;
 			this->ViewUnread->RowHeadersWidth = 51;
 			this->ViewUnread->RowTemplate->Height = 27;
 			this->ViewUnread->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
-			this->ViewUnread->Size = System::Drawing::Size(418, 204);
+			this->ViewUnread->Size = System::Drawing::Size(522, 245);
 			this->ViewUnread->TabIndex = 12;
 			// 
 			// NumOfUnread
@@ -280,9 +283,9 @@ namespace SocketPrj {
 			// 
 			// MsgBox
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
+			this->AutoScaleDimensions = System::Drawing::SizeF(10, 18);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1020, 724);
+			this->ClientSize = System::Drawing::Size(1275, 869);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->label3);
 			this->Controls->Add(this->btnClose);
@@ -292,9 +295,11 @@ namespace SocketPrj {
 			this->Controls->Add(this->txtBoxMsg);
 			this->Controls->Add(this->ViewRead);
 			this->Controls->Add(this->ViewUnread);
+			this->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
 			this->Name = L"MsgBox";
 			this->Text = L"MsgBox";
 			this->Activated += gcnew System::EventHandler(this, &MsgBox::MsgBox_Activated);
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &MsgBox::MsgBox_FormClosing);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ViewRead))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ViewUnread))->EndInit();
 			this->ResumeLayout(false);
@@ -502,6 +507,10 @@ namespace SocketPrj {
 	
 private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {
 	this->Close();
+}
+private: System::Void MsgBox_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+	this->Owner->Show();
+	this->Owner->Activate();
 }
 };
 }
