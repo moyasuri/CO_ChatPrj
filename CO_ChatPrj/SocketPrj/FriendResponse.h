@@ -93,13 +93,12 @@ namespace SocketPrj {
 				this->NumOfList,
 					this->FromWho, this->ReqMsg
 			});
-			this->ViewResponseList->Location = System::Drawing::Point(49, 106);
-			this->ViewResponseList->Margin = System::Windows::Forms::Padding(4);
+			this->ViewResponseList->Location = System::Drawing::Point(39, 88);
 			this->ViewResponseList->Name = L"ViewResponseList";
 			this->ViewResponseList->RowHeadersWidth = 51;
 			this->ViewResponseList->RowTemplate->Height = 27;
 			this->ViewResponseList->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
-			this->ViewResponseList->Size = System::Drawing::Size(828, 412);
+			this->ViewResponseList->Size = System::Drawing::Size(662, 343);
 			this->ViewResponseList->TabIndex = 19;
 			// 
 			// NumOfList
@@ -138,10 +137,9 @@ namespace SocketPrj {
 			this->btnClose->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnClose->Location = System::Drawing::Point(724, 604);
-			this->btnClose->Margin = System::Windows::Forms::Padding(4);
+			this->btnClose->Location = System::Drawing::Point(579, 503);
 			this->btnClose->Name = L"btnClose";
-			this->btnClose->Size = System::Drawing::Size(184, 60);
+			this->btnClose->Size = System::Drawing::Size(147, 50);
 			this->btnClose->TabIndex = 18;
 			this->btnClose->UseVisualStyleBackColor = false;
 			this->btnClose->Click += gcnew System::EventHandler(this, &FriendResponse::btnClose_Click);
@@ -152,10 +150,10 @@ namespace SocketPrj {
 			this->label2->BackColor = System::Drawing::Color::Transparent;
 			this->label2->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 20));
 			this->label2->ForeColor = System::Drawing::Color::Cornsilk;
-			this->label2->Location = System::Drawing::Point(40, 31);
+			this->label2->Location = System::Drawing::Point(32, 26);
 			this->label2->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(134, 46);
+			this->label2->Size = System::Drawing::Size(115, 39);
 			this->label2->TabIndex = 17;
 			this->label2->Text = L"From.";
 			// 
@@ -168,12 +166,12 @@ namespace SocketPrj {
 			this->btnReject->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnReject->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnReject->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnReject->Location = System::Drawing::Point(926, 198);
-			this->btnReject->Margin = System::Windows::Forms::Padding(4);
+			this->btnReject->Location = System::Drawing::Point(741, 165);
 			this->btnReject->Name = L"btnReject";
-			this->btnReject->Size = System::Drawing::Size(184, 70);
+			this->btnReject->Size = System::Drawing::Size(147, 58);
 			this->btnReject->TabIndex = 16;
 			this->btnReject->UseVisualStyleBackColor = false;
+			this->btnReject->Click += gcnew System::EventHandler(this, &FriendResponse::btnReject_Click);
 			// 
 			// btnAccept
 			// 
@@ -184,24 +182,23 @@ namespace SocketPrj {
 			this->btnAccept->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnAccept->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnAccept->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnAccept->Location = System::Drawing::Point(926, 106);
-			this->btnAccept->Margin = System::Windows::Forms::Padding(4);
+			this->btnAccept->Location = System::Drawing::Point(741, 88);
 			this->btnAccept->Name = L"btnAccept";
-			this->btnAccept->Size = System::Drawing::Size(184, 64);
+			this->btnAccept->Size = System::Drawing::Size(147, 53);
 			this->btnAccept->TabIndex = 15;
 			this->btnAccept->UseVisualStyleBackColor = false;
+			this->btnAccept->Click += gcnew System::EventHandler(this, &FriendResponse::btnAccept_Click);
 			// 
 			// FriendResponse
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(10, 18);
+			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1168, 700);
+			this->ClientSize = System::Drawing::Size(934, 583);
 			this->Controls->Add(this->ViewResponseList);
 			this->Controls->Add(this->btnClose);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->btnReject);
 			this->Controls->Add(this->btnAccept);
-			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"FriendResponse";
 			this->Text = L"FriendResponse";
 			this->Activated += gcnew System::EventHandler(this, &FriendResponse::FriendResponse_Activated);
@@ -379,6 +376,12 @@ private: System::Void FriendResponse_Activated(System::Object^ sender, System::E
 	_my->SendMessage(buffer);
 
 
+}
+private: System::Void btnAccept_Click(System::Object^ sender, System::EventArgs^ e) {
+	SendMessageForm(e_friends_Accept);
+}
+private: System::Void btnReject_Click(System::Object^ sender, System::EventArgs^ e) {
+	SendMessageForm(e_friends_Request_Decline)
 }
 };
 }
