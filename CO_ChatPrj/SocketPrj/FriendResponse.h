@@ -355,7 +355,7 @@ namespace SocketPrj {
 			
 			size_t pos = subString[i]->IndexOf(" ");
 			String^ first = subString[i]->Substring(0, pos);
-			String^ second = subString[i]->Substring(pos+1, subString[i]->Length);
+			String^ second = subString[i]->Substring(pos+1, subString[i]->Length-(pos+1));
 
 				ViewResponseList->Rows->Add();
 				ViewResponseList->Rows[count]->Cells["NumOfList"]->Value = System::Convert::ToString(count);
