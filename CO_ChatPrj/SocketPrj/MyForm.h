@@ -72,7 +72,11 @@ namespace SocketPrj {
 			if (_my != nullptr)
 			{
 				_my->MyEvent -= gcnew Action<String^>(this, &MyForm::ReceivedMsg);
+				delete _my;
+				_my = nullptr;
 			}
+			
+			
 
 		}
 

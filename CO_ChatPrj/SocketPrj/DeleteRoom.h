@@ -50,6 +50,14 @@ namespace SocketPrj {
 		/// </summary>
 		~DeleteRoom()
 		{
+			if (_my != nullptr) {
+				// MyEvent 이벤트 핸들러를 해제
+				_my->MyEvent -= gcnew Action<String^>(this, &DeleteRoom::ReceivedMsg);
+
+				// _my를 삭제
+				delete _my;
+				_my = nullptr;  // nullptr로 설정하여 dangling pointer를 방지
+			}
 			if (components)
 			{
 				delete components;

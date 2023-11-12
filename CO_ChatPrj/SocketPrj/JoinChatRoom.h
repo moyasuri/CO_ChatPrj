@@ -29,6 +29,7 @@ namespace SocketPrj {
 
 		JoinChatRoom(MyFunction^ my)
 		{
+
 			InitializeComponent();
 			//
 			//TODO: 생성자 코드를 여기에 추가합니다.
@@ -52,6 +53,14 @@ namespace SocketPrj {
 		/// </summary>
 		~JoinChatRoom()
 		{
+			if (_my != nullptr) {
+				// MyEvent 이벤트 핸들러를 해제
+				_my->MyEvent -= gcnew Action<String^>(this, &JoinChatRoom::ReceivedMsg);
+
+				// _my를 삭제
+				delete _my;
+				_my = nullptr;  // nullptr로 설정하여 dangling pointer를 방지
+			}
 			if (components)
 			{
 				delete components;
@@ -192,23 +201,50 @@ namespace SocketPrj {
 		}
 
 	}
+	private: void ReceivedMsg(String^ message)
+	{
+		String^ inputString = message;
+
+		array<String^>^ subString = inputString->Split(' ');
+
+		String^ index_s = subString[0];
+		String^ isTrue = subString[1];
+		int index = Int32::Parse(index_s);
+
+		switch (index)
+		{
+		case e_edit_PWchk:
+		{
+			if (isTrue == "true")
+			{
+				if (chatRoom == nullptr || chatRoom->IsDisposed) {
+
+					chatRoom = gcnew ChatRoom(_my);
+					chatRoom->Owner = this; // Owner를 설정해야 가능
+					chatRoom->Show();
+					this->Hide();
+				}	// 이미 생성된 폼이 열려 있는 경우, 해당 폼을 활성화시킵니다.
+				else {
+					chatRoom->Activate();
+				}
+			}
+			else
+			{
+				// false 시에 할 행동
+			}
+			break;
+		}
 
 
 
-
+		}
+	}
 
 
 private: System::Void btnServer_Click(System::Object^ sender, System::EventArgs^ e) {
-	if (chatRoom == nullptr || chatRoom->IsDisposed) {
-		
-		chatRoom = gcnew ChatRoom(_my);
-		chatRoom->Owner = this; // Owner를 설정해야 가능
-		chatRoom->Show();
-		this->Hide();
-	}	// 이미 생성된 폼이 열려 있는 경우, 해당 폼을 활성화시킵니다.
-	else {
-		chatRoom->Activate();
-	}
+
+	SendMessageForm(e_room_Enter);
+	
 }
 private: System::Void btnGeneral_Click(System::Object^ sender, System::EventArgs^ e) {
 	if (generalChatList == nullptr || generalChatList->IsDisposed) {
