@@ -52,6 +52,7 @@ namespace SocketPrj {
 			//
 			_my = my;
 			_my->MyEvent += gcnew Action<String^>(this, &MyForm::ReceivedMsg);
+			this->AcceptButton = btnSignin;
 		}
 
 	public:
@@ -158,7 +159,7 @@ namespace SocketPrj {
 			this->txtBoxID->Location = System::Drawing::Point(404, 527);
 			this->txtBoxID->Name = L"txtBoxID";
 			this->txtBoxID->Size = System::Drawing::Size(261, 25);
-			this->txtBoxID->TabIndex = 3;
+			this->txtBoxID->TabIndex = 1;
 			// 
 			// txtBoxPW
 			// 
@@ -166,7 +167,7 @@ namespace SocketPrj {
 			this->txtBoxPW->Name = L"txtBoxPW";
 			this->txtBoxPW->PasswordChar = '*';
 			this->txtBoxPW->Size = System::Drawing::Size(261, 25);
-			this->txtBoxPW->TabIndex = 3;
+			this->txtBoxPW->TabIndex = 2;
 			// 
 			// btnduplicate
 			// 
@@ -399,10 +400,19 @@ private: System::Void btnSignUp_Click(System::Object^ sender, System::EventArgs^
 	}
 
 }
+
+
+
+
+
 private: System::Void btnExit_Click(System::Object^ sender, System::EventArgs^ e) {
 	
 	this->Close();
 
 }
+
+
+
+
 };
 }

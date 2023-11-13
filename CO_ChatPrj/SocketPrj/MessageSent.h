@@ -98,10 +98,10 @@ namespace SocketPrj {
 			this->label1->BackColor = System::Drawing::Color::Transparent;
 			this->label1->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 20));
 			this->label1->ForeColor = System::Drawing::Color::DarkSlateGray;
-			this->label1->Location = System::Drawing::Point(30, 18);
+			this->label1->Location = System::Drawing::Point(24, 15);
 			this->label1->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(109, 46);
+			this->label1->Size = System::Drawing::Size(93, 39);
 			this->label1->TabIndex = 16;
 			this->label1->Text = L"Sent";
 			// 
@@ -111,10 +111,10 @@ namespace SocketPrj {
 			this->label2->BackColor = System::Drawing::Color::Transparent;
 			this->label2->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 20));
 			this->label2->ForeColor = System::Drawing::Color::DarkSlateGray;
-			this->label2->Location = System::Drawing::Point(30, 374);
+			this->label2->Location = System::Drawing::Point(24, 312);
 			this->label2->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(194, 46);
+			this->label2->Size = System::Drawing::Size(162, 39);
 			this->label2->TabIndex = 17;
 			this->label2->Text = L"Message";
 			// 
@@ -127,10 +127,9 @@ namespace SocketPrj {
 			this->btnClose->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnClose->Location = System::Drawing::Point(710, 778);
-			this->btnClose->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->btnClose->Location = System::Drawing::Point(568, 648);
 			this->btnClose->Name = L"btnClose";
-			this->btnClose->Size = System::Drawing::Size(184, 60);
+			this->btnClose->Size = System::Drawing::Size(147, 50);
 			this->btnClose->TabIndex = 14;
 			this->btnClose->UseVisualStyleBackColor = false;
 			this->btnClose->Click += gcnew System::EventHandler(this, &MessageSent::btnClose_Click);
@@ -144,22 +143,20 @@ namespace SocketPrj {
 			this->btnDelete->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnDelete->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnDelete->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnDelete->Location = System::Drawing::Point(710, 344);
-			this->btnDelete->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->btnDelete->Location = System::Drawing::Point(568, 287);
 			this->btnDelete->Name = L"btnDelete";
-			this->btnDelete->Size = System::Drawing::Size(184, 60);
+			this->btnDelete->Size = System::Drawing::Size(147, 50);
 			this->btnDelete->TabIndex = 15;
 			this->btnDelete->UseVisualStyleBackColor = false;
 			this->btnDelete->Click += gcnew System::EventHandler(this, &MessageSent::btnDelete_Click);
 			// 
 			// txtBoxMsg
 			// 
-			this->txtBoxMsg->Location = System::Drawing::Point(38, 438);
-			this->txtBoxMsg->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->txtBoxMsg->Location = System::Drawing::Point(30, 365);
 			this->txtBoxMsg->Multiline = true;
 			this->txtBoxMsg->Name = L"txtBoxMsg";
 			this->txtBoxMsg->ReadOnly = true;
-			this->txtBoxMsg->Size = System::Drawing::Size(855, 315);
+			this->txtBoxMsg->Size = System::Drawing::Size(685, 263);
 			this->txtBoxMsg->TabIndex = 13;
 			// 
 			// ViewDataSent
@@ -169,16 +166,16 @@ namespace SocketPrj {
 				this->NumOfSentMsg,
 					this->To, this->Date, this->Status
 			});
-			this->ViewDataSent->Location = System::Drawing::Point(38, 82);
-			this->ViewDataSent->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->ViewDataSent->Location = System::Drawing::Point(30, 68);
 			this->ViewDataSent->MultiSelect = false;
 			this->ViewDataSent->Name = L"ViewDataSent";
 			this->ViewDataSent->ReadOnly = true;
 			this->ViewDataSent->RowHeadersWidth = 51;
 			this->ViewDataSent->RowTemplate->Height = 27;
 			this->ViewDataSent->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
-			this->ViewDataSent->Size = System::Drawing::Size(856, 240);
+			this->ViewDataSent->Size = System::Drawing::Size(685, 200);
 			this->ViewDataSent->TabIndex = 12;
+			this->ViewDataSent->CellClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MessageSent::ViewDataSent_CellClick);
 			// 
 			// NumOfSentMsg
 			// 
@@ -214,16 +211,15 @@ namespace SocketPrj {
 			// 
 			// MessageSent
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(10, 18);
+			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(990, 845);
+			this->ClientSize = System::Drawing::Size(792, 704);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->btnClose);
 			this->Controls->Add(this->btnDelete);
 			this->Controls->Add(this->txtBoxMsg);
 			this->Controls->Add(this->ViewDataSent);
-			this->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
 			this->Name = L"MessageSent";
 			this->Text = L"MessageSent";
 			this->Activated += gcnew System::EventHandler(this, &MessageSent::MessageSent_Activated);
@@ -238,66 +234,89 @@ namespace SocketPrj {
 
 
 	public: void SendMessageForm(int index)
+		{
+
+			switch (index)
 			{
+			case e_message_Sent_msg_delete:
+			{
+				String^ tmptxt_1="";
 
-				switch (index)
-				{
-				case e_message_Delete:
-				{
-					String^ tmptxt_1="";
+				if (ViewDataSent->SelectedRows->Count > 0) {
+					// 선택한 행의 인덱스를 가져옵니다.
+					int selectedRowIndex = ViewDataSent->SelectedRows[0]->Index;
 
-					if (ViewDataSent->SelectedRows->Count > 0) {
-						// 선택한 행의 인덱스를 가져옵니다.
-						int selectedRowIndex = ViewDataSent->SelectedRows[0]->Index;
+					// 1열, 2열, 3열의 데이터를 가져옵니다.
+					System::Object^ column1ValueObj = ViewDataSent->Rows[selectedRowIndex]->Cells["NumOfSentMsg"]->Value;
+					System::Object^ column2ValueObj = ViewDataSent->Rows[selectedRowIndex]->Cells["To"]->Value;
+					System::Object^ column3ValueObj = ViewDataSent->Rows[selectedRowIndex]->Cells["Date"]->Value;
 
-						// 1열, 2열, 3열의 데이터를 가져옵니다.
-						System::Object^ column1ValueObj = ViewDataSent->Rows[selectedRowIndex]->Cells["NumOfSentMsg"]->Value;
-						System::Object^ column2ValueObj = ViewDataSent->Rows[selectedRowIndex]->Cells["To"]->Value;
-						System::Object^ column3ValueObj = ViewDataSent->Rows[selectedRowIndex]->Cells["Date"]->Value;
+					// null 체크
+					if (column1ValueObj != nullptr && column2ValueObj != nullptr && column3ValueObj != nullptr) {
+						System::String^ column1Value = column1ValueObj->ToString();
+						System::String^ column2Value = column2ValueObj->ToString();
+						System::String^ column3Value = column3ValueObj->ToString();
 
-						// null 체크
-						if (column1ValueObj != nullptr && column2ValueObj != nullptr && column3ValueObj != nullptr) {
-							System::String^ column1Value = column1ValueObj->ToString();
-							System::String^ column2Value = column2ValueObj->ToString();
-							System::String^ column3Value = column3ValueObj->ToString();
-
-							tmptxt_1 =column2Value + " " + column3Value;
-						}
-						else {
-							// 선택한 행의 하나 이상의 열이 null일 때 처리할 내용
-							// 예를 들어, 오류 메시지 출력 또는 다른 작업을 수행할 수 있습니다.
-							return;
-						}
+						tmptxt_1 =column2Value + " " + column3Value;
 					}
 					else {
-						// 선택한 행이 없을 때 처리할 내용
+						// 선택한 행의 하나 이상의 열이 null일 때 처리할 내용
 						// 예를 들어, 오류 메시지 출력 또는 다른 작업을 수행할 수 있습니다.
 						return;
 					}
-
-
-					if (!String::IsNullOrEmpty(tmptxt_1))
-					{
-						int t_index = e_id_find_ID;
-						String^ buffer = t_index.ToString() + " " + tmptxt_1;
-						_my->SendMessage(buffer);
-					}
-					else
-					{
-						// 비어 있다면 할 행동
-						//MessageBox::Show("input ID / PW", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-					}
-					break;
+				}
+				else {
+					System::Windows::Forms::MessageBox::Show("Please select message", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+					return;
 				}
 
 
+				int t_index = e_message_Sent_msg_delete;
+				String^ buffer = t_index.ToString() + " " + tmptxt_1;
+				_my->SendMessage(buffer);
+				break;
+			}
 
-				}
+
 
 			}
 
-	public: void UpdateMessage()
+		}
+
+	public: void UpdateMessageList(String^ message)
 	{ 
+
+		String^ Msg = message;
+		array<String^>^ subString = Msg->Split('\n');
+
+		int indexnum = 0;
+		for (int i = 1; i<subString->Length;i++)
+		{
+
+			array<String^>^ subString_loop = subString[i]->Split(' ');
+
+			ViewDataSent->Rows->Add();
+			ViewDataSent->Rows[indexnum]->Cells["NumOfSentMsg"]->Value = i;
+
+			
+			String^ Nickname = subString_loop[0]->Substring(2);
+			ViewDataSent->Rows[indexnum]->Cells["To"]->Value = Nickname;
+			ViewDataSent->Rows[indexnum]->Cells["Date"]->Value = subString_loop[2] + " " + subString_loop[3];
+
+			String^ status = "";
+			if (subString_loop[i] == "0" || subString_loop[i] == "2")
+			{
+				status = "Unread";
+			}
+			else
+			{
+				status = "Read";
+			}
+			ViewDataSent->Rows[indexnum]->Cells["Status"]->Value = status;
+			
+			++indexnum;
+		}
+
 		return;
 	}
 	public: void ReceivedMsg(String^ message)
@@ -320,23 +339,9 @@ namespace SocketPrj {
 			if (isTrue == "true")
 			{
 				
-				ViewDataSent->Invoke(gcnew Action(this, &MessageSent::UpdateMessage));
+				this->Invoke(gcnew Action<String^>(this, &MessageSent::UpdateMessageList),message);
 
-				//while (std::getline(iss, line, '\n')) {
-				//	size_t idStart = line.find("*/");
-				//	size_t idEnd = line.find(' ', idStart + 2);
-				//	size_t indexStart = idEnd;
-				//	size_t indexEnd = line.find(' ', indexStart + 1);
-				//	size_t messageStart = indexEnd;
 
-				//	if (idStart != std::string::npos && idEnd != std::string::npos &&
-				//		indexStart != std::string::npos && indexEnd != std::string::npos) {
-				//		ids.push_back(line.substr(idStart + 2, idEnd - idStart - 2));
-				//		indexes.push_back(std::stoi(line.substr(indexStart, indexEnd - indexStart)));
-				//		messages.push_back(line.substr(messageStart + 1));
-
-				//	}
-				//}
 			}
 			else
 			{
@@ -344,22 +349,34 @@ namespace SocketPrj {
 			}
 			break;
 		}
-		case e_message_Delete:
+		case e_message_Sent_msg_delete:
 		{
 			if (isTrue == "true")
 			{
-				String^ msg = "PW : " + subString[2];
-				System::Windows::Forms::MessageBox::Show(msg, "find pw", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				System::Windows::Forms::MessageBox::Show("Message deleted", "Notice", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			}
 			else
 			{
-				System::Windows::Forms::MessageBox::Show("wrong information.", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				// false 일시에
+				// System::Windows::Forms::MessageBox::Show("wrong information.", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			}
 			break;
 		}
+		case e_message_Sent_msg:
+			if (isTrue == "true")
+			{
+				this->Invoke(gcnew Action<String^>(this, &MessageSent::UpdateMessage), message);
+			}
 
 		}
 
+	}
+
+	private: void UpdateMessage(String^ message)
+	{
+		String^ e_length = _my->s_(e_message_Sent_msg);
+		txtBoxMsg->Text = message->Substring(e_length->Length+6);
+		return;
 	}
 
 	private: System::Void MessageSent_Activated(System::Object^ sender, System::EventArgs^ e) {
@@ -371,9 +388,18 @@ namespace SocketPrj {
 		_my->SendMessage(buffer);
 
 	}
+
 	private: System::Void btnDelete_Click(System::Object^ sender, System::EventArgs^ e) {
 
-		SendMessageForm(e_message_Sent_msg_delete);
+		if (ViewDataSent->SelectedCells->Count == 0)
+		{
+			System::Windows::Forms::MessageBox::Show("Select message to delete", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);System::Windows::Forms::MessageBox::Show("Select ID From List", "Notice", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		}
+		else
+		{
+			SendMessageForm(e_message_Sent_msg_delete);
+			return;
+		}
 	}
 private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {
 	this->Close();
@@ -381,6 +407,49 @@ private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ 
 private: System::Void MessageSent_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
 	this->Owner->Show();
 	this->Owner->Activate();
+}
+private: System::Void ViewDataSent_CellClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
+
+	if (ViewDataSent->SelectedRows->Count > 0) {
+		// 선택한 행의 인덱스를 가져옵니다.
+		int selectedRowIndex = ViewDataSent->SelectedRows[0]->Index;
+
+		// 1열, 2열, 3열의 데이터를 가져옵니다.
+		System::Object^ column1ValueObj = ViewDataSent->Rows[selectedRowIndex]->Cells["NumOfSentMsg"]->Value;
+		System::Object^ column2ValueObj = ViewDataSent->Rows[selectedRowIndex]->Cells["To"]->Value;
+		System::Object^ column3ValueObj = ViewDataSent->Rows[selectedRowIndex]->Cells["Date"]->Value;
+
+		// null 체크
+		if (column1ValueObj != nullptr && column2ValueObj != nullptr && column3ValueObj != nullptr) {
+			System::String^ column1Value = column1ValueObj->ToString();
+			System::String^ column2Value = column2ValueObj->ToString();
+			System::String^ column3Value = column3ValueObj->ToString();
+
+
+
+			String^ tmptxt_1 = column2Value + " " + column3Value;
+
+			int t_index = e_message_Sent_msg;
+			String^ buffer = t_index.ToString() + " " + tmptxt_1;
+
+			_my->SendMessage(buffer);
+
+		}
+		else {
+			// 선택한 행의 하나 이상의 열이 null일 때 처리할 내용
+			// 예를 들어, 오류 메시지 출력 또는 다른 작업을 수행할 수 있습니다.
+			return;
+		}
+	}
+	else {
+		// 선택한 행이 없을 때 처리할 내용
+		// 예를 들어, 오류 메시지 출력 또는 다른 작업을 수행할 수 있습니다.
+		return;
+	}
+
+
+
+
 }
 };
 }

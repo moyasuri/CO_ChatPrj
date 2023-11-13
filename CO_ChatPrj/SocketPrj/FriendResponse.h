@@ -218,60 +218,26 @@ namespace SocketPrj {
 			case e_friends_Accept:
 			{
 
-
-				DataGridViewRow^ selectedRow = nullptr;
-				String^ tmptxt_1 = "";
-
-				if (ViewResponseList->SelectedRows->Count > 0) {
-					// 하나 이상의 행이 선택되었을 때 첫 번째 선택된 행을 가져옵니다.
-					selectedRow = ViewResponseList->SelectedRows[0];
-					String^ tmptxt_1 = safe_cast<String^>(selectedRow->Cells[1]->Value);
-					// 선택한 행의 데이터를 처리합니다.
-					// 예를 들어, 특정 열의 데이터를 얻기 위해 selectedRow->Cells[columnIndex]->Value를 사용할 수 있습니다.
-				}
-				else
-				{
-					// 아무도 행도 선택을 안했을 때,
-					return;
-				}
-
-
-				if (!String::IsNullOrEmpty(tmptxt_1))
-				{
-					int t_index = e_id_find_ID;
-					String^ buffer = t_index.ToString() + " " + tmptxt_1;
-					_my->SendMessage(buffer);
-				}
-
+				DataGridViewRow^ selectedRow = ViewResponseList->SelectedRows[0];
+				String^ tmptxt_1 = safe_cast<String^>(selectedRow->Cells[1]->Value);
+				
+				int t_index = e_id_find_ID;
+				String^ buffer = t_index.ToString() + " " + tmptxt_1;
+				_my->SendMessage(buffer);
+				
 				break;
 			}
 
 			case e_friends_Request_Decline:
 			{
-				String^ tmptxt_1;
 				// 선택한 행의 정보를 저장할 DataGridViewRow 객체를 선언합니다.
-				DataGridViewRow^ selectedRow = nullptr;
 
-				if (ViewResponseList->SelectedRows->Count > 0) {
-					// 하나 이상의 행이 선택되었을 때 첫 번째 선택된 행을 가져옵니다.
-					selectedRow = ViewResponseList->SelectedRows[0];
-					tmptxt_1 = safe_cast<String^>(selectedRow->Cells[1]->Value);
-					// 선택한 행의 데이터를 처리합니다.
-					// 예를 들어, 특정 열의 데이터를 얻기 위해 selectedRow->Cells[columnIndex]->Value를 사용할 수 있습니다.
-				}
-				else
-				{
-					// 아무도 행도 선택을 안했을 때,
-					return;
-				}
-
-
-				if (!String::IsNullOrEmpty(tmptxt_1))
-				{
-					int t_index = e_id_find_ID;
-					String^ buffer = t_index.ToString() + " " + tmptxt_1;
-					_my->SendMessage(buffer);
-				}
+				DataGridViewRow^ selectedRow = ViewResponseList->SelectedRows[0];
+				String^ tmptxt_1 = safe_cast<String^>(selectedRow->Cells[1]->Value);
+				
+				int t_index = e_id_find_ID;
+				String^ buffer = t_index.ToString() + " " + tmptxt_1;
+				_my->SendMessage(buffer);
 
 				break;
 			}
@@ -378,10 +344,23 @@ private: System::Void FriendResponse_Activated(System::Object^ sender, System::E
 
 }
 private: System::Void btnAccept_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (ViewResponseList->SelectedCells->Count==0)
+	{
+		System::Windows::Forms::MessageBox::Show("Select ID From List", "Notice", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+	}
+
 	SendMessageForm(e_friends_Accept);
 }
 private: System::Void btnReject_Click(System::Object^ sender, System::EventArgs^ e) {
-	SendMessageForm(e_friends_Request_Decline)
+
+	// 아무것도 선택하지 않았을 때
+	if (ViewResponseList->SelectedCells->Count == 0)
+	{
+		System::Windows::Forms::MessageBox::Show("Select ID From List", "Notice", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+	}
+
+	SendMessageForm(e_friends_Request_Decline);
 }
+
 };
 }

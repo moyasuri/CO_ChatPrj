@@ -228,13 +228,11 @@ namespace SocketPrj {
 			{
 				if (isTrue == "true")
 				{
-					String^ msg = "ID : " + subString[2];
-
-					System::Windows::Forms::MessageBox::Show(msg, ("find id"), MessageBoxButtons::OK, MessageBoxIcon::Information);
+					System::Windows::Forms::MessageBox::Show("Message sent","notice", MessageBoxButtons::OK, MessageBoxIcon::Information);
 				}
 				else
 				{
-					System::Windows::Forms::MessageBox::Show("Wrong information", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+					System::Windows::Forms::MessageBox::Show("Please Check the ID", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 				}
 				break;
 			}

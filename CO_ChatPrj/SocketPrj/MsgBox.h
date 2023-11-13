@@ -111,10 +111,10 @@ namespace SocketPrj {
 			this->label1->BackColor = System::Drawing::Color::Transparent;
 			this->label1->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 24));
 			this->label1->ForeColor = System::Drawing::SystemColors::Highlight;
-			this->label1->Location = System::Drawing::Point(28, 442);
+			this->label1->Location = System::Drawing::Point(22, 368);
 			this->label1->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(147, 55);
+			this->label1->Size = System::Drawing::Size(122, 46);
 			this->label1->TabIndex = 19;
 			this->label1->Text = L"Read";
 			// 
@@ -124,10 +124,10 @@ namespace SocketPrj {
 			this->label3->BackColor = System::Drawing::Color::Transparent;
 			this->label3->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 24));
 			this->label3->ForeColor = System::Drawing::SystemColors::ControlText;
-			this->label3->Location = System::Drawing::Point(28, 40);
+			this->label3->Location = System::Drawing::Point(22, 33);
 			this->label3->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(198, 55);
+			this->label3->Size = System::Drawing::Size(165, 46);
 			this->label3->TabIndex = 20;
 			this->label3->Text = L"Unread";
 			// 
@@ -140,10 +140,10 @@ namespace SocketPrj {
 			this->btnClose->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnClose->Location = System::Drawing::Point(969, 766);
+			this->btnClose->Location = System::Drawing::Point(775, 638);
 			this->btnClose->Margin = System::Windows::Forms::Padding(2);
 			this->btnClose->Name = L"btnClose";
-			this->btnClose->Size = System::Drawing::Size(182, 48);
+			this->btnClose->Size = System::Drawing::Size(146, 40);
 			this->btnClose->TabIndex = 15;
 			this->btnClose->UseVisualStyleBackColor = false;
 			this->btnClose->Click += gcnew System::EventHandler(this, &MsgBox::btnClose_Click);
@@ -157,12 +157,13 @@ namespace SocketPrj {
 			this->btnDelete_R->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnDelete_R->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnDelete_R->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnDelete_R->Location = System::Drawing::Point(414, 752);
+			this->btnDelete_R->Location = System::Drawing::Point(331, 627);
 			this->btnDelete_R->Margin = System::Windows::Forms::Padding(2);
 			this->btnDelete_R->Name = L"btnDelete_R";
-			this->btnDelete_R->Size = System::Drawing::Size(136, 46);
+			this->btnDelete_R->Size = System::Drawing::Size(109, 38);
 			this->btnDelete_R->TabIndex = 16;
 			this->btnDelete_R->UseVisualStyleBackColor = false;
+			this->btnDelete_R->Click += gcnew System::EventHandler(this, &MsgBox::btnDelete_R_Click);
 			// 
 			// btnDelete_U
 			// 
@@ -173,12 +174,13 @@ namespace SocketPrj {
 			this->btnDelete_U->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnDelete_U->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnDelete_U->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnDelete_U->Location = System::Drawing::Point(424, 374);
+			this->btnDelete_U->Location = System::Drawing::Point(339, 312);
 			this->btnDelete_U->Margin = System::Windows::Forms::Padding(2);
 			this->btnDelete_U->Name = L"btnDelete_U";
-			this->btnDelete_U->Size = System::Drawing::Size(136, 46);
+			this->btnDelete_U->Size = System::Drawing::Size(109, 38);
 			this->btnDelete_U->TabIndex = 17;
 			this->btnDelete_U->UseVisualStyleBackColor = false;
+			this->btnDelete_U->Click += gcnew System::EventHandler(this, &MsgBox::btnDelete_U_Click);
 			// 
 			// btnRead
 			// 
@@ -189,20 +191,20 @@ namespace SocketPrj {
 			this->btnRead->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnRead->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnRead->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnRead->Location = System::Drawing::Point(268, 372);
+			this->btnRead->Location = System::Drawing::Point(214, 310);
 			this->btnRead->Margin = System::Windows::Forms::Padding(2);
 			this->btnRead->Name = L"btnRead";
-			this->btnRead->Size = System::Drawing::Size(136, 53);
+			this->btnRead->Size = System::Drawing::Size(109, 44);
 			this->btnRead->TabIndex = 18;
 			this->btnRead->UseVisualStyleBackColor = false;
+			this->btnRead->Click += gcnew System::EventHandler(this, &MsgBox::btnRead_Click);
 			// 
 			// txtBoxMsg
 			// 
-			this->txtBoxMsg->Location = System::Drawing::Point(634, 104);
-			this->txtBoxMsg->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->txtBoxMsg->Location = System::Drawing::Point(507, 87);
 			this->txtBoxMsg->Multiline = true;
 			this->txtBoxMsg->Name = L"txtBoxMsg";
-			this->txtBoxMsg->Size = System::Drawing::Size(516, 641);
+			this->txtBoxMsg->Size = System::Drawing::Size(414, 535);
 			this->txtBoxMsg->TabIndex = 14;
 			// 
 			// ViewRead
@@ -212,16 +214,16 @@ namespace SocketPrj {
 				this->NumOfRead, this->R_From,
 					this->R_Date
 			});
-			this->ViewRead->Location = System::Drawing::Point(38, 500);
-			this->ViewRead->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->ViewRead->Location = System::Drawing::Point(30, 417);
 			this->ViewRead->MultiSelect = false;
 			this->ViewRead->Name = L"ViewRead";
 			this->ViewRead->ReadOnly = true;
 			this->ViewRead->RowHeadersWidth = 51;
 			this->ViewRead->RowTemplate->Height = 27;
 			this->ViewRead->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
-			this->ViewRead->Size = System::Drawing::Size(522, 245);
+			this->ViewRead->Size = System::Drawing::Size(418, 204);
 			this->ViewRead->TabIndex = 13;
+			this->ViewRead->CellClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MsgBox::ViewRead_CellClick);
 			// 
 			// NumOfRead
 			// 
@@ -254,16 +256,16 @@ namespace SocketPrj {
 				this->NumOfUnread,
 					this->U_From, this->U_Date
 			});
-			this->ViewUnread->Location = System::Drawing::Point(38, 104);
-			this->ViewUnread->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->ViewUnread->Location = System::Drawing::Point(30, 87);
 			this->ViewUnread->MultiSelect = false;
 			this->ViewUnread->Name = L"ViewUnread";
 			this->ViewUnread->ReadOnly = true;
 			this->ViewUnread->RowHeadersWidth = 51;
 			this->ViewUnread->RowTemplate->Height = 27;
 			this->ViewUnread->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
-			this->ViewUnread->Size = System::Drawing::Size(522, 245);
+			this->ViewUnread->Size = System::Drawing::Size(418, 204);
 			this->ViewUnread->TabIndex = 12;
+			this->ViewUnread->CellClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MsgBox::ViewUnread_CellClick);
 			// 
 			// NumOfUnread
 			// 
@@ -291,9 +293,9 @@ namespace SocketPrj {
 			// 
 			// MsgBox
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(10, 18);
+			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1275, 869);
+			this->ClientSize = System::Drawing::Size(1020, 724);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->label3);
 			this->Controls->Add(this->btnClose);
@@ -303,7 +305,6 @@ namespace SocketPrj {
 			this->Controls->Add(this->txtBoxMsg);
 			this->Controls->Add(this->ViewRead);
 			this->Controls->Add(this->ViewUnread);
-			this->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
 			this->Name = L"MsgBox";
 			this->Text = L"MsgBox";
 			this->Activated += gcnew System::EventHandler(this, &MsgBox::MsgBox_Activated);
@@ -364,7 +365,7 @@ namespace SocketPrj {
 		{
 			if (isTrue == "true")
 			{
-				this->Invoke(gcnew Action<String^>(this, &MsgBox::UpdateUnread), message);
+				this->Invoke(gcnew Action<String^>(this, &MsgBox::UpdateUnreadList), message);
 				
 			}
 			else
@@ -378,18 +379,64 @@ namespace SocketPrj {
 		{
 			if (isTrue == "true")
 			{
-				this->Invoke(gcnew Action<String^>(this, &MsgBox::UpdateRead), message);
+				this->Invoke(gcnew Action<String^>(this, &MsgBox::UpdateReadList), message);
 			}
 			else
 			{
 			}
 			break;
 		}
-		case e_edit_Confirm:
+		case e_message_UGiven_msg:
 		{
 			if (isTrue == "true")
 			{
-				System::Windows::Forms::MessageBox::Show("Update Profile Success", "Edit Porofile", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				this->Invoke(gcnew Action<String^>(this, &MsgBox::UpdateUMessage), message);
+			}
+			else
+			{
+			}
+			break;
+		}
+		case e_message_RGiven_msg:
+		{
+			if (isTrue == "true")
+			{
+				this->Invoke(gcnew Action<String^>(this, &MsgBox::UpdateRMessage), message);
+			}
+			else
+			{
+			}
+			break;
+		}
+		case e_message_UGiven_Read:
+		{
+			if (isTrue == "true")
+			{
+				System::Windows::Forms::MessageBox::Show("Message read", "Notice", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			}
+			else
+			{
+				System::Windows::Forms::MessageBox::Show("something wrong..", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			}
+			break;
+		}
+		case e_message_UGiven_msg_delete:
+		{
+			if (isTrue == "true")
+			{
+				System::Windows::Forms::MessageBox::Show("message deleted", "Notice", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			}
+			else
+			{
+				System::Windows::Forms::MessageBox::Show("something wrong..", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			}
+			break;
+		}
+		case e_message_RGiven_msg_delete:
+		{
+			if (isTrue == "true")
+			{
+				System::Windows::Forms::MessageBox::Show("message deleted", "Notice", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			}
 			else
 			{
@@ -402,123 +449,260 @@ namespace SocketPrj {
 
 	}
 
-	public: System::Void UpdateUnread(String^ message)
+	public: System::Void UpdateUnreadList(String^ message)
 	{
-		// msg가 어떻게 오는지 확인해야돼
+		String^ Msg = message;
+		array<String^>^ subString = Msg->Split('\n');
+
+		int indexnum = 0;
+		for (int i = 1; i < subString->Length;i++)
+		{
+
+			array<String^>^ subString_loop = subString[i]->Split(' ');
+
+			ViewUnread->Rows->Add();
+			ViewUnread->Rows[indexnum]->Cells["NumOfUnread"]->Value = i;
+
+
+			String^ Nickname = subString_loop[0]->Substring(2);
+			ViewUnread->Rows[indexnum]->Cells["U_From"]->Value = Nickname;
+			ViewUnread->Rows[indexnum]->Cells["U_Date"]->Value = subString_loop[1] + " " + subString_loop[2];
+
+			++indexnum;
+		}
+
+	}
+	public: System::Void UpdateReadList(String^ message)
+			{
+				String^ Msg = message;
+				array<String^>^ subString = Msg->Split('\n');
+
+				int indexnum = 0;
+				for (int i = 1; i < subString->Length;i++)
+				{
+
+					array<String^>^ subString_loop = subString[i]->Split(' ');
+
+					ViewRead->Rows->Add();
+					ViewRead->Rows[indexnum]->Cells["NumOfRead"]->Value = i;
+
+
+					String^ Nickname = subString_loop[0]->Substring(2);
+					ViewRead->Rows[indexnum]->Cells["R_From"]->Value = Nickname;
+					ViewRead->Rows[indexnum]->Cells["R_Date"]->Value = subString_loop[1] + " " + subString_loop[2];
+
+					++indexnum;
+				}
+
+			}
+	private: System::Void UpdateUMessage(String^ message)
+	{
 		
-		//std::string msg = svrMsg;
-		//std::vector<std::pair<std::string, std::string>> messagesR;
-
-		//size_t startPos = 0;
-		//size_t delimiterPos;
-
-		//while ((delimiterPos = msg.find("*/", startPos)) != std::string::npos) {
-		//	size_t nickStart = delimiterPos + 2;
-		//	size_t nickEnd = msg.find(' ', nickStart);
-		//	if (nickEnd == std::string::npos) {
-		//		nickEnd = msg.length();
-		//	}
-		//	size_t messageStart = nickEnd + 1;
-		//	//
-		//			// Find the end of the message
-		//	size_t nextDelimiterPos = msg.find("*/", messageStart);
-		//	size_t messageEnd;
-		//	//
-		//	if (nextDelimiterPos != std::string::npos) {
-		//		messageEnd = nextDelimiterPos - 1;
-		//	}
-		//	else {
-		//		messageEnd = msg.length();
-		//	}
-
-		//	std::string id = msg.substr(nickStart, nickEnd - nickStart);
-		//	std::string message = msg.substr(messageStart, messageEnd - messageStart);
-
-		//	messagesR.push_back(std::make_pair(id, message));
-
-		//	// Move the start position to the end of the current message
-		//	startPos = messageEnd + 1;
-		//}
-		//// Output the parsed messages
-		//int count = 0;
-		//for (const auto& message : messagesR) {
-
-		//	ViewUnread->Rows->Add();
-		//	ViewUnread->Rows[count]->Cells["NumOfUnread"]->Value = System::Convert::ToString(count);
-		//	System::String^ tempwho = msclr::interop::marshal_as<System::String^>(message.first);
-		//	ViewUnread->Rows[count]->Cells["U_From"]->Value = tempwho;
-		//	System::String^ tempmsg = msclr::interop::marshal_as<System::String^>(message.second);
-		//	ViewUnread->Rows[count]->Cells["U_Date"]->Value = tempmsg;
-		//	count++;
-		//}
+		String^ e_length = _my->s_(e_message_UGiven_msg);
+		txtBoxMsg->Text = message->Substring(e_length->Length + 6);
+		return;
 
 	}
-
-	private: System::Void UpdateRead(String^ message)
+	private: System::Void UpdateRMessage(String^ message)
 	{
-	
-		//// 어떻게 메세지가 오는지 집에서 확인해야돼.
 
-		//std::string msg = svrMsg;
-		//std::vector<std::pair<std::string, std::string>> messagesR;
-
-		//size_t startPos = 0;
-		//size_t delimiterPos;
-
-		//while ((delimiterPos = msg.find("*/", startPos)) != std::string::npos) {
-		//	size_t nickStart = delimiterPos + 2;
-		//	size_t nickEnd = msg.find(' ', nickStart);
-		//	if (nickEnd == std::string::npos) {
-		//		nickEnd = msg.length();
-		//	}
-		//	size_t messageStart = nickEnd + 1;
-		//	//
-		//			// Find the end of the message
-		//	size_t nextDelimiterPos = msg.find("*/", messageStart);
-		//	size_t messageEnd;
-		//	//
-		//	if (nextDelimiterPos != std::string::npos) {
-		//		messageEnd = nextDelimiterPos - 1;
-		//	}
-		//	else {
-		//		messageEnd = msg.length();
-		//	}
-
-		//	std::string id = msg.substr(nickStart, nickEnd - nickStart);
-		//	std::string message = msg.substr(messageStart, messageEnd - messageStart);
-
-		//	messagesR.push_back(std::make_pair(id, message));
-
-		//	// Move the start position to the end of the current message
-		//	startPos = messageEnd + 1;
-		//}
-		//// Output the parsed messages
-		//int count = 0;
-		//for (const auto& message : messagesR) {
-
-		//	ViewRead->Rows->Add();
-		//	ViewRead->Rows[count]->Cells["NumOfRead"]->Value = System::Convert::ToString(count);
-		//	System::String^ tempwho = msclr::interop::marshal_as<System::String^>(message.first);
-		//	ViewRead->Rows[count]->Cells["R_From"]->Value = tempwho;
-		//	System::String^ tempmsg = msclr::interop::marshal_as<System::String^>(message.second);
-		//	ViewRead->Rows[count]->Cells["R_Date"]->Value = tempmsg;
-		//	count++;
-		//}
+		String^ e_length = _my->s_(e_message_RGiven_msg);
+		txtBoxMsg->Text = message->Substring(e_length->Length + 6);
+		return;
 
 	}
-
-
-
-
-
-
-	
-private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {
-	this->Close();
-}
-private: System::Void MsgBox_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+	private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {
+		this->Close();
+	}
+	private: System::Void MsgBox_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
 	this->Owner->Show();
 	this->Owner->Activate();
+}
+	private: System::Void ViewUnread_CellClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
+
+		if (ViewUnread->SelectedRows->Count > 0) {
+			// 선택한 행의 인덱스를 가져옵니다.
+			int selectedRowIndex = ViewUnread->SelectedRows[0]->Index;
+
+			// 1열, 2열, 3열의 데이터를 가져옵니다.
+			System::Object^ column1ValueObj = ViewUnread->Rows[selectedRowIndex]->Cells["U_From"]->Value;
+			System::Object^ column2ValueObj = ViewUnread->Rows[selectedRowIndex]->Cells["U_Date"]->Value;
+
+			// null 체크
+			if (column1ValueObj != nullptr && column2ValueObj != nullptr) {
+				System::String^ column1Value = column1ValueObj->ToString();
+				System::String^ column2Value = column2ValueObj->ToString();
+
+
+
+				String^ tmptxt_1 = column1Value + " " + column2Value;
+
+				int t_index = e_message_UGiven_msg;
+				String^ buffer = t_index.ToString() + " " + tmptxt_1;
+
+				_my->SendMessage(buffer);
+
+			}
+			else {
+				// 선택한 행의 하나 이상의 열이 null일 때 처리할 내용
+				// 예를 들어, 오류 메시지 출력 또는 다른 작업을 수행할 수 있습니다.
+				return;
+			}
+		}
+		else {
+			// 선택한 행이 없을 때 처리할 내용
+			// 예를 들어, 오류 메시지 출력 또는 다른 작업을 수행할 수 있습니다.
+			return;
+
+
+		}
+	}
+	private: System::Void ViewRead_CellClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
+
+		if (ViewRead->SelectedRows->Count > 0) {
+			// 선택한 행의 인덱스를 가져옵니다.
+			int selectedRowIndex = ViewRead->SelectedRows[0]->Index;
+
+			// 1열, 2열, 3열의 데이터를 가져옵니다.
+			System::Object^ column1ValueObj = ViewRead->Rows[selectedRowIndex]->Cells["R_From"]->Value;
+			System::Object^ column2ValueObj = ViewRead->Rows[selectedRowIndex]->Cells["R_Date"]->Value;
+
+			// null 체크
+			if (column1ValueObj != nullptr && column2ValueObj != nullptr) {
+				System::String^ column1Value = column1ValueObj->ToString();
+				System::String^ column2Value = column2ValueObj->ToString();
+
+
+
+				String^ tmptxt_1 = column1Value + " " + column2Value;
+
+				int t_index = e_message_RGiven_msg;
+				String^ buffer = t_index.ToString() + " " + tmptxt_1;
+
+				_my->SendMessage(buffer);
+
+			}
+			else {
+				// 선택한 행의 하나 이상의 열이 null일 때 처리할 내용
+				// 예를 들어, 오류 메시지 출력 또는 다른 작업을 수행할 수 있습니다.
+				return;
+			}
+		}
+		else {
+			// 선택한 행이 없을 때 처리할 내용
+			// 예를 들어, 오류 메시지 출력 또는 다른 작업을 수행할 수 있습니다.
+			return;
+
+
+		}
+	}
+	private: System::Void btnRead_Click(System::Object^ sender, System::EventArgs^ e) {
+	
+	String^ tmptxt_1;
+
+	if (ViewUnread->SelectedRows->Count > 0) {
+		// 선택한 행의 인덱스를 가져옵니다.
+		int selectedRowIndex = ViewUnread->SelectedRows[0]->Index;
+
+		// 1열, 2열, 3열의 데이터를 가져옵니다.
+		System::Object^ column1ValueObj = ViewUnread->Rows[selectedRowIndex]->Cells["NumOfUnread"]->Value;
+		System::Object^ column2ValueObj = ViewUnread->Rows[selectedRowIndex]->Cells["U_From"]->Value;
+		System::Object^ column3ValueObj = ViewUnread->Rows[selectedRowIndex]->Cells["U_Date"]->Value;
+
+		// null 체크
+		if (column1ValueObj != nullptr && column2ValueObj != nullptr && column3ValueObj != nullptr) {
+			System::String^ column1Value = column1ValueObj->ToString();
+			System::String^ column2Value = column2ValueObj->ToString();
+			System::String^ column3Value = column3ValueObj->ToString();
+
+			tmptxt_1 = column2Value + " " + column3Value;
+
+			int t_index = e_message_UGiven_Read;
+			String^ buffer = t_index.ToString() + " " + tmptxt_1;
+
+			_my->SendMessage(buffer);
+		}
+	}
+	else {
+		System::Windows::Forms::MessageBox::Show("Please select message", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		// 선택한 행이 없을 때 처리할 내용
+		// 예를 들어, 오류 메시지 출력 또는 다른 작업을 수행할 수 있습니다.
+		return;
+	}
+}
+	private: System::Void btnDelete_U_Click(System::Object^ sender, System::EventArgs^ e) {
+
+	String^ tmptxt_1;
+	if (ViewUnread->SelectedRows->Count > 0) {
+		// 선택한 행의 인덱스를 가져옵니다.
+		int selectedRowIndex = ViewUnread->SelectedRows[0]->Index;
+
+		// 1열, 2열, 3열의 데이터를 가져옵니다.
+		System::Object^ column1ValueObj = ViewUnread->Rows[selectedRowIndex]->Cells["NumOfUnread"]->Value;
+		System::Object^ column2ValueObj = ViewUnread->Rows[selectedRowIndex]->Cells["U_From"]->Value;
+		System::Object^ column3ValueObj = ViewUnread->Rows[selectedRowIndex]->Cells["U_Date"]->Value;
+
+		// null 체크
+		if (column1ValueObj != nullptr && column2ValueObj != nullptr && column3ValueObj != nullptr) {
+			System::String^ column1Value = column1ValueObj->ToString();
+			System::String^ column2Value = column2ValueObj->ToString();
+			System::String^ column3Value = column3ValueObj->ToString();
+
+			tmptxt_1 = column2Value + " " + column3Value;
+			
+			int t_index = e_message_UGiven_msg_delete;
+			String^ buffer = t_index.ToString() + " " + tmptxt_1;
+			_my->SendMessage(buffer);
+		}
+		else {
+			// 선택한 행의 하나 이상의 열이 null일 때 처리할 내용
+			// 예를 들어, 오류 메시지 출력 또는 다른 작업을 수행할 수 있습니다.
+			return;
+		}
+	}
+	else {
+		// 선택한 행이 없을 때 처리할 내용
+		// 예를 들어, 오류 메시지 출력 또는 다른 작업을 수행할 수 있습니다.
+		return;
+	}
+	
+}
+	private: System::Void btnDelete_R_Click(System::Object^ sender, System::EventArgs^ e) {
+	
+	String^ tmptxt_1;
+	if (ViewRead->SelectedRows->Count > 0) {
+		// 선택한 행의 인덱스를 가져옵니다.
+		int selectedRowIndex = ViewRead->SelectedRows[0]->Index;
+
+		// 1열, 2열, 3열의 데이터를 가져옵니다.
+		System::Object^ column1ValueObj = ViewRead->Rows[selectedRowIndex]->Cells["NumOfRead"]->Value;
+		System::Object^ column2ValueObj = ViewRead->Rows[selectedRowIndex]->Cells["R_From"]->Value;
+		System::Object^ column3ValueObj = ViewRead->Rows[selectedRowIndex]->Cells["R_Date"]->Value;
+
+		// null 체크
+		if (column1ValueObj != nullptr && column2ValueObj != nullptr && column3ValueObj != nullptr) {
+			System::String^ column1Value = column1ValueObj->ToString();
+			System::String^ column2Value = column2ValueObj->ToString();
+			System::String^ column3Value = column3ValueObj->ToString();
+
+			tmptxt_1 = column2Value + " " + column3Value;
+			
+			int t_index = e_message_RGiven_msg_delete;
+			String^ buffer = t_index.ToString() + " " + tmptxt_1;
+			_my->SendMessage(buffer);
+		}
+		else {
+			// 선택한 행의 하나 이상의 열이 null일 때 처리할 내용
+			// 예를 들어, 오류 메시지 출력 또는 다른 작업을 수행할 수 있습니다.
+			return;
+		}
+	}
+	else {
+		// 선택한 행이 없을 때 처리할 내용
+		// 예를 들어, 오류 메시지 출력 또는 다른 작업을 수행할 수 있습니다.
+		return;
+	}
+
 }
 };
 }

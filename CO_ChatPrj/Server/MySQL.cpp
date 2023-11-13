@@ -790,12 +790,14 @@ string MySQL::QuerySql(string msg, int idx) {
                     _ret = s_(e_message_Send) + delim + trueStr;
                     break;
                 }
-                else
-                {
-                    _ret = s_(e_message_Send) + delim + falseStr;
-                    break;
-                }
+                
+                
             }
+            else
+            {
+                _ret = s_(e_message_Send) + delim + falseStr;
+            }
+            break;
         }
         //case e_message_Sent: //이건 엔터가 들어간 메세지 관련 쓸꺼야 지우지마
         //{
@@ -881,7 +883,7 @@ string MySQL::QuerySql(string msg, int idx) {
                 
                 // 결과 처리
             }
-            _id_from = "", _nick_from = "", _msg = "";
+            _id_from = "", _nick_from = "";
             _id_temp = "", _msg_temp = "", result = "";
             string _date_from;
 
@@ -897,7 +899,7 @@ string MySQL::QuerySql(string msg, int idx) {
                         res = stmt->executeQuery(query);
                         if (res->next()) {
                             _nick_from = "*/" + res->getString("Nickname");
-                            result += _nick_from + delim + _msg_temp + delim + _date_from + "\n";
+                            result += "\n" + _nick_from + delim + _msg_temp + delim + _date_from;
                         }
                     }
                 }
@@ -1030,7 +1032,7 @@ string MySQL::QuerySql(string msg, int idx) {
             }
             break;
         }
-        case e_message_UGiven_list: // 받은 메세지 보기
+        case e_message_UGiven_list: // 안읽은 메세지 리스트
         {
             string _id = sck_list[idx]._user.getID();
             string _to_nickname, _msg;
@@ -1048,7 +1050,7 @@ string MySQL::QuerySql(string msg, int idx) {
 
                 // 결과 처리
             }
-            _id_from = "", _nick_from = "", _msg = "";
+            _id_from = "", _nick_from = "";
             _id_temp = "", _msg_temp = "", result = "";
 
             while (ss_id >> _id_temp)
@@ -1057,9 +1059,9 @@ string MySQL::QuerySql(string msg, int idx) {
                 stmt = con->createStatement();
                 res = stmt->executeQuery(query);
                 if (res->next()) {
-                    getline(ss_date, _msg_temp, '\n');
+                    getline(ss_date, _msg_temp);
                     _nick_from = "*/" + res->getString("Nickname");
-                    result += _nick_from + delim + _msg_temp + "\n";
+                    result += "\n" + _nick_from + delim + _msg_temp;
 
                 }
             }
@@ -1136,7 +1138,7 @@ string MySQL::QuerySql(string msg, int idx) {
                 }
             }
         }
-        case e_message_RGiven_list: // 받은 메세지 보기
+        case e_message_RGiven_list: // 읽은 메세지 리스트
         {
             string _id = sck_list[idx]._user.getID();
             string _to_nickname, _msg;
@@ -1165,7 +1167,7 @@ string MySQL::QuerySql(string msg, int idx) {
                 if (res->next()) {
                     getline(ss_date, _msg_temp, '\n');
                     _nick_from = "*/" + res->getString("Nickname");
-                    result += _nick_from + delim + _msg_temp + "\n";
+                    result += "\n" + _nick_from + delim + _msg_temp;
 
                 }
             }
@@ -1278,7 +1280,7 @@ string MySQL::QuerySql(string msg, int idx) {
                 }
             }
         }
-        case e_message_RGiven_msg: // 읽지않은 받은 메세지 보기 *
+        case e_message_RGiven_msg: // 읽은 받은 메세지 보기 *
         {
             string _id = sck_list[idx]._user.getID();
             string _from_nickname, _msg, _date;
