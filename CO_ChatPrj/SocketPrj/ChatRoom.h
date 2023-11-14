@@ -34,6 +34,8 @@ namespace SocketPrj {
 			_my = my;
 			_my->MyEvent += gcnew Action<String^>(this, &ChatRoom::ReceivedMsg);
 		}
+	private: System::Windows::Forms::TextBox^ txtBoxChatWindow;
+	public:
 	private: MyFunction^ _my;
 
 	protected:
@@ -61,7 +63,7 @@ namespace SocketPrj {
 	private: System::Windows::Forms::Button^ btnClose;
 	private: System::Windows::Forms::Button^ btnSend;
 	private: System::Windows::Forms::TextBox^ txtBoxMyChat;
-	private: System::Windows::Forms::TextBox^ txtBoxChatWindow;
+
 
 	private:
 		/// <summary>
@@ -91,10 +93,10 @@ namespace SocketPrj {
 			// 
 			this->picBoxImojiYou->BackColor = System::Drawing::Color::Transparent;
 			this->picBoxImojiYou->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
-			this->picBoxImojiYou->Location = System::Drawing::Point(671, 13);
+			this->picBoxImojiYou->Location = System::Drawing::Point(612, 11);
 			this->picBoxImojiYou->Margin = System::Windows::Forms::Padding(2);
 			this->picBoxImojiYou->Name = L"picBoxImojiYou";
-			this->picBoxImojiYou->Size = System::Drawing::Size(135, 154);
+			this->picBoxImojiYou->Size = System::Drawing::Size(108, 128);
 			this->picBoxImojiYou->TabIndex = 12;
 			this->picBoxImojiYou->TabStop = false;
 			// 
@@ -102,10 +104,10 @@ namespace SocketPrj {
 			// 
 			this->picBoxImojiMy->BackColor = System::Drawing::Color::Transparent;
 			this->picBoxImojiMy->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
-			this->picBoxImojiMy->Location = System::Drawing::Point(106, 13);
+			this->picBoxImojiMy->Location = System::Drawing::Point(-28, 11);
 			this->picBoxImojiMy->Margin = System::Windows::Forms::Padding(2);
 			this->picBoxImojiMy->Name = L"picBoxImojiMy";
-			this->picBoxImojiMy->Size = System::Drawing::Size(135, 154);
+			this->picBoxImojiMy->Size = System::Drawing::Size(108, 128);
 			this->picBoxImojiMy->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
 			this->picBoxImojiMy->TabIndex = 11;
 			this->picBoxImojiMy->TabStop = false;
@@ -119,10 +121,9 @@ namespace SocketPrj {
 			this->btnClose->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnClose->Location = System::Drawing::Point(608, 551);
-			this->btnClose->Margin = System::Windows::Forms::Padding(4);
+			this->btnClose->Location = System::Drawing::Point(486, 459);
 			this->btnClose->Name = L"btnClose";
-			this->btnClose->Size = System::Drawing::Size(199, 61);
+			this->btnClose->Size = System::Drawing::Size(159, 51);
 			this->btnClose->TabIndex = 10;
 			this->btnClose->UseVisualStyleBackColor = false;
 			this->btnClose->Click += gcnew System::EventHandler(this, &ChatRoom::btnClose_Click);
@@ -136,44 +137,41 @@ namespace SocketPrj {
 			this->btnSend->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnSend->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnSend->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnSend->Location = System::Drawing::Point(111, 551);
-			this->btnSend->Margin = System::Windows::Forms::Padding(4);
+			this->btnSend->Location = System::Drawing::Point(89, 459);
 			this->btnSend->Name = L"btnSend";
-			this->btnSend->Size = System::Drawing::Size(196, 61);
+			this->btnSend->Size = System::Drawing::Size(157, 51);
 			this->btnSend->TabIndex = 9;
 			this->btnSend->UseVisualStyleBackColor = false;
+			this->btnSend->Click += gcnew System::EventHandler(this, &ChatRoom::btnSend_Click);
 			// 
 			// txtBoxMyChat
 			// 
-			this->txtBoxMyChat->Location = System::Drawing::Point(106, 467);
-			this->txtBoxMyChat->Margin = System::Windows::Forms::Padding(4);
+			this->txtBoxMyChat->Location = System::Drawing::Point(85, 389);
 			this->txtBoxMyChat->Name = L"txtBoxMyChat";
-			this->txtBoxMyChat->Size = System::Drawing::Size(700, 28);
+			this->txtBoxMyChat->Size = System::Drawing::Size(561, 25);
 			this->txtBoxMyChat->TabIndex = 8;
+			this->txtBoxMyChat->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &ChatRoom::txtBoxMyChat_KeyPress);
 			// 
 			// txtBoxChatWindow
 			// 
-			this->txtBoxChatWindow->BackColor = System::Drawing::SystemColors::InactiveBorder;
-			this->txtBoxChatWindow->Location = System::Drawing::Point(106, 13);
-			this->txtBoxChatWindow->Margin = System::Windows::Forms::Padding(4);
+			this->txtBoxChatWindow->Location = System::Drawing::Point(89, 32);
 			this->txtBoxChatWindow->Multiline = true;
 			this->txtBoxChatWindow->Name = L"txtBoxChatWindow";
 			this->txtBoxChatWindow->ReadOnly = true;
-			this->txtBoxChatWindow->Size = System::Drawing::Size(700, 417);
-			this->txtBoxChatWindow->TabIndex = 7;
+			this->txtBoxChatWindow->Size = System::Drawing::Size(545, 317);
+			this->txtBoxChatWindow->TabIndex = 13;
 			// 
 			// ChatRoom
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(10, 18);
+			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(914, 625);
+			this->ClientSize = System::Drawing::Size(731, 521);
+			this->Controls->Add(this->txtBoxChatWindow);
 			this->Controls->Add(this->picBoxImojiYou);
 			this->Controls->Add(this->picBoxImojiMy);
 			this->Controls->Add(this->btnClose);
 			this->Controls->Add(this->btnSend);
 			this->Controls->Add(this->txtBoxMyChat);
-			this->Controls->Add(this->txtBoxChatWindow);
-			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"ChatRoom";
 			this->Text = L"ChatRoom";
 			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &ChatRoom::ChatRoom_FormClosing);
@@ -184,7 +182,7 @@ namespace SocketPrj {
 
 		}
 #pragma endregion
-		private: void ReceivedMsg(String^ message)
+	private: void ReceivedMsg(String^ message)
 		{
 			String^ inputString = message;
 
@@ -196,20 +194,18 @@ namespace SocketPrj {
 
 			switch (index)
 			{
-			case e_edit_PWchk:
-			{
-				if (isTrue == "true")
+				case e_room_Chat:
 				{
-					//txtBoxNickName->Invoke(gcnew Action<String^>(this, &YourFormName::UpdateTextBox), newText);
-					//Invoke(gcnew Action(this, &EditProfile::UpdateTextBox));
-					System::Windows::Forms::MessageBox::Show("Password matches username.", "PW check", MessageBoxButtons::OK, MessageBoxIcon::Information);
+					if (isTrue == "true")
+					{
+						this->Invoke(gcnew Action<String^>(this, &ChatRoom::UpdateMessage), message);
+					}
+					else
+					{
+						System::Windows::Forms::MessageBox::Show("Password Wrong", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+					}
+					break;
 				}
-				else
-				{
-					System::Windows::Forms::MessageBox::Show("Password Wrong", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-				}
-				break;
-			}
 			//case e_edit_NickNamechk:
 			//{
 			//	if (isTrue == "true")
@@ -240,13 +236,46 @@ namespace SocketPrj {
 
 		}
 
+	public: void UpdateMessage(String^ message)
+	{
+		String^ e_length = _my->s_(e_room_Chat);
+		String^ msg = message->Substring(e_length->Length + 6);
+		
+		txtBoxChatWindow->Text += msg + Environment::NewLine;
+
+		return;
+	}
+
 	private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->Close();
 
 	}
-private: System::Void ChatRoom_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
-	this->Owner->Show();
-	this->Owner->Activate();
+	private: System::Void ChatRoom_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+
+		String^ buffer = _my->s_(e_room_Exit);
+		_my->SendMessage(buffer);
+		this->Owner->Show();
+		this->Owner->Activate();
+		
+
+	}
+private: System::Void txtBoxMyChat_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
+	// Check if Enter key (carriage return) was pressed
+	if (e->KeyChar == (char)Keys::Enter) {
+		// Trigger the "Send" button's click event
+		btnSend_Click(sender, e);
+	}
+}
+private: System::Void btnSend_Click(System::Object^ sender, System::EventArgs^ e) {
+	String^ tmptxt_1 = txtBoxMyChat->Text; // textBox는 해당 텍스트 상자의 이름입니다.
+	if (!String::IsNullOrEmpty(tmptxt_1))
+	{
+		
+
+		int t_index = e_room_Chat;
+		String^ buffer = _my->s_(t_index) + " " + tmptxt_1;
+		_my->SendMessage(buffer);
+	}
 }
 };
 }

@@ -34,7 +34,9 @@ namespace SocketPrj {
 			//
 			//TODO: 생성자 코드를 여기에 추가합니다.
 			//
+			
 			_my = my;
+			this->_my->MyEvent += gcnew Action<String^>(this, &JoinChatRoom::ReceivedMsg);
 		}
 	private: System::Windows::Forms::Label^ label2;
 	public:
@@ -173,6 +175,7 @@ namespace SocketPrj {
 			this->Controls->Add(this->btnClose);
 			this->Name = L"JoinChatRoom";
 			this->Text = L"JoinChatRoom";
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &JoinChatRoom::JoinChatRoom_FormClosing);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -201,6 +204,20 @@ namespace SocketPrj {
 		}
 
 	}
+
+	private: void JoinServerChat(String^ message)
+	{
+		if (chatRoom == nullptr || chatRoom->IsDisposed) {
+
+			chatRoom = gcnew ChatRoom(_my);
+			chatRoom->Owner = this; // Owner를 설정해야 가능
+			chatRoom->Show();
+			this->Hide();
+		}	// 이미 생성된 폼이 열려 있는 경우, 해당 폼을 활성화시킵니다.
+		else {
+			chatRoom->Activate();
+		}
+	}
 	private: void ReceivedMsg(String^ message)
 	{
 		String^ inputString = message;
@@ -213,29 +230,19 @@ namespace SocketPrj {
 
 		switch (index)
 		{
-		case e_edit_PWchk:
-		{
-			if (isTrue == "true")
+			case e_room_Enter:
 			{
-				if (chatRoom == nullptr || chatRoom->IsDisposed) {
+				if (isTrue == "true")
+				{
+					this->Invoke(gcnew Action<String^>(this, &JoinChatRoom::JoinServerChat), message);
 
-					chatRoom = gcnew ChatRoom(_my);
-					chatRoom->Owner = this; // Owner를 설정해야 가능
-					chatRoom->Show();
-					this->Hide();
-				}	// 이미 생성된 폼이 열려 있는 경우, 해당 폼을 활성화시킵니다.
-				else {
-					chatRoom->Activate();
 				}
+				else
+				{
+					// false 시에 할 행동
+				}
+				break;
 			}
-			else
-			{
-				// false 시에 할 행동
-			}
-			break;
-		}
-
-
 
 		}
 	}
@@ -256,8 +263,12 @@ private: System::Void btnGeneral_Click(System::Object^ sender, System::EventArgs
 	}
 }
 private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {
-	this->Owner->Show();
+	
 	this->Close();
+}
+private: System::Void JoinChatRoom_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+	this->Owner->Show();
+	this->Owner->Activate();
 }
 };
 }

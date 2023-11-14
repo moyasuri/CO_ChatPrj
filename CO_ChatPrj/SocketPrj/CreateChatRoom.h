@@ -38,7 +38,8 @@ namespace SocketPrj {
 	public:
 	private: System::Windows::Forms::Label^ label2;
 	private: System::Windows::Forms::Label^ label4;
-	private: System::Windows::Forms::Button^ button2;
+	private: System::Windows::Forms::Button^ btnClose;
+
 	private: System::Windows::Forms::CheckBox^ chkBox;
 	private: System::Windows::Forms::TextBox^ txtBoxPW;
 	private: System::Windows::Forms::Button^ btnConfirm;
@@ -84,7 +85,7 @@ namespace SocketPrj {
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->label4 = (gcnew System::Windows::Forms::Label());
-			this->button2 = (gcnew System::Windows::Forms::Button());
+			this->btnClose = (gcnew System::Windows::Forms::Button());
 			this->chkBox = (gcnew System::Windows::Forms::CheckBox());
 			this->txtBoxPW = (gcnew System::Windows::Forms::TextBox());
 			this->btnConfirm = (gcnew System::Windows::Forms::Button());
@@ -130,21 +131,21 @@ namespace SocketPrj {
 			this->label4->TabIndex = 20;
 			this->label4->Text = L"RoomTitle";
 			// 
-			// button2
+			// btnClose
 			// 
-			this->button2->BackColor = System::Drawing::Color::Transparent;
-			this->button2->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button2.BackgroundImage")));
-			this->button2->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->button2->FlatAppearance->BorderSize = 0;
-			this->button2->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
-			this->button2->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
-			this->button2->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->button2->Location = System::Drawing::Point(429, 372);
-			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(170, 51);
-			this->button2->TabIndex = 17;
-			this->button2->UseVisualStyleBackColor = false;
-			this->button2->Click += gcnew System::EventHandler(this, &CreateChatRoom::button2_Click);
+			this->btnClose->BackColor = System::Drawing::Color::Transparent;
+			this->btnClose->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"btnClose.BackgroundImage")));
+			this->btnClose->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->btnClose->FlatAppearance->BorderSize = 0;
+			this->btnClose->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
+			this->btnClose->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
+			this->btnClose->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnClose->Location = System::Drawing::Point(429, 372);
+			this->btnClose->Name = L"btnClose";
+			this->btnClose->Size = System::Drawing::Size(170, 51);
+			this->btnClose->TabIndex = 17;
+			this->btnClose->UseVisualStyleBackColor = false;
+			this->btnClose->Click += gcnew System::EventHandler(this, &CreateChatRoom::btnClose_Click);
 			// 
 			// chkBox
 			// 
@@ -193,7 +194,7 @@ namespace SocketPrj {
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->label4);
-			this->Controls->Add(this->button2);
+			this->Controls->Add(this->btnClose);
 			this->Controls->Add(this->chkBox);
 			this->Controls->Add(this->txtBoxPW);
 			this->Controls->Add(this->btnConfirm);
@@ -201,6 +202,7 @@ namespace SocketPrj {
 			this->Margin = System::Windows::Forms::Padding(2);
 			this->Name = L"CreateChatRoom";
 			this->Text = L"CreateChatRoom";
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &CreateChatRoom::CreateChatRoom_FormClosing);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -284,9 +286,13 @@ namespace SocketPrj {
 		btnConfirm->NotifyDefault(false);
 		SendMessageForm(e_room_Create);
 	}
-	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
-		this->Close();
-	}
 
+private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->Close();
+}
+private: System::Void CreateChatRoom_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+	this->Owner->Show();
+	this->Owner->Activate();
+}
 };
 }

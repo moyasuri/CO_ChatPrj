@@ -335,18 +335,9 @@ namespace SocketPrj {
 	public: String^ temp;
 
 
-	public: void SendMessageForm(int index)
+	public: void SendMessageForm(int index) // 무조건 여길 통하는 방법도 있었을텐데
 		{
-
-			switch (index)
-			{
-				// 나중에 이름 바꾸자
-			case e_message_UGiven_list:
-			{
-				break;
-			}
-			
-			}
+			return;
 		}
 
 	public: void ReceivedMsg(String^ message)

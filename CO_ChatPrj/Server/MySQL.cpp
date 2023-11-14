@@ -35,9 +35,10 @@ string s_(int e_num) {
 
 
 void MySQL::_send_msg(const char* msg, int room_Index66) {
+    size_t length = strlen(msg);
     for (int i = 0; i < client_count; i++) { // 이 방에 접속해 있는 모든 client에게 메시지 전송
         if (stoi(sck_list[i]._user.getJoinRoomIndex()) == room_Index66) {// UserInfo 객체 생성시 초기화 반드시 진행, JoinRoomIndex ="0"으로
-            send(sck_list[i].sck, msg, MAX_SIZE, 0);
+            send(sck_list[i].sck, msg, length, 0);
         }
         else
             break;
@@ -195,16 +196,16 @@ string MySQL::room_List() {
         room_Type = res->getInt(2);
         room_Title = res->getString(3);
         room_Date = res->getString(4);
-        line = line + "\n" + s_(room_Index) + delim + s_(room_Type) + delim + "*/" + room_Title + "*/" + delim + room_Date;
-
+        line = line + "\n" + s_(room_Index) + "*/" + s_(room_Type) + "*/" + room_Title +"*/" + room_Date;
+        // ex) 17*/2*/welcome my home*/20211012 3033\n
     }
     if (line.size() > 0)
     {
-        _rlresult = trueStr + line;
+        _rlresult = s_(e_room_List) + delim + trueStr + delim + line;
     }
     else
     {
-        _rlresult = falseStr;
+        _rlresult = s_(e_room_List) + delim + falseStr;
     }
 
     return _rlresult;
@@ -1679,11 +1680,12 @@ string MySQL::QuerySql(string msg, int idx) {
             cout << "rowUpdate : " << rowUpdate << endl;
             if (rowUpdate > 0)
             {
-                msg_chat = my_Nickname66 + " : " + modifiedString;
+                msg_chat = s_(e_room_Chat) + delim + trueStr + delim + my_Nickname66 + " : " + modifiedString;
                 _send_msg(msg_chat.c_str(), room_Index66);// 방에 참여한 모든 사람에게 메시지를 보내는 함수
                 cout << "if (res->next()) " << endl;
             }
-            return _ret;
+            //return _ret;
+            break;
         }
 
         // 여기 이하 어떻게 할것인지

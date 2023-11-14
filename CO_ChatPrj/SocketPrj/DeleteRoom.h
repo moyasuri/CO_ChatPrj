@@ -177,6 +177,7 @@ namespace SocketPrj {
 			this->Controls->Add(this->ViewRoomList);
 			this->Name = L"DeleteRoom";
 			this->Text = L"DeleteRoom";
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &DeleteRoom::DeleteRoom_FormClosing);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ViewRoomList))->EndInit();
 			this->ResumeLayout(false);
 
@@ -269,6 +270,11 @@ namespace SocketPrj {
 
 private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {
 	this->Close();
+}
+private: System::Void DeleteRoom_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+	this->Owner->Show();
+	this->Owner->Activate();
+
 }
 };
 }
