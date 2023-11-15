@@ -182,7 +182,7 @@ namespace SocketPrj {
 		}
 #pragma endregion
 
-		public: ChatRoom^ chatRoom = nullptr; 
+		private: ChatRoom^ chatRoom = nullptr; 
 		public: GeneralChatList^ generalChatList = nullptr; 
 
 
@@ -232,7 +232,7 @@ namespace SocketPrj {
 		{
 			case e_room_Enter:
 			{
-				if (isTrue == "true")
+				if (isTrue == "else")
 				{
 					this->Invoke(gcnew Action<String^>(this, &JoinChatRoom::JoinServerChat), message);
 

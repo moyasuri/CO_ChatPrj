@@ -1533,6 +1533,7 @@ string MySQL::QuerySql(string msg, int idx) {
             string room_Title62;
             string room_PW62;
             string room_Index62;
+            string isServer=falseStr;
             //std::stringstream ss(recv_content);
             ss >> room_Index62 >> room_Type62 >> room_PW62;
           
@@ -1590,7 +1591,13 @@ string MySQL::QuerySql(string msg, int idx) {
                         sck_list[idx].room.setRoom_PW(res->getString(6));
                     sck_list[idx]._user.setJoinRoomIndex(room_Index62);
                     room_activate(stoi(room_Index62), idx);
-                    result = s_(e_room_Enter) + delim + trueStr;
+                    if (i_room_Type == 1)
+                    {
+                        isServer = elseStr;
+                    }
+                    else
+                        isServer = trueStr;
+                    result = s_(e_room_Enter) + delim + isServer;
                     cout << "result : " << result << endl;
                     return result;
                 }

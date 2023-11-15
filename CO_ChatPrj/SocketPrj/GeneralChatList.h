@@ -1,7 +1,7 @@
 #pragma once
 #include "MyFunction.h"
 #include "enum.h"
-
+#include "ChatRoom.h"
 namespace SocketPrj {
 
 	using namespace System;
@@ -35,6 +35,7 @@ namespace SocketPrj {
 		}
 
 	private: MyFunction^ _my;
+	private: ChatRoom^ chatRoom;
 
 	protected:
 		/// <summary>
@@ -241,48 +242,38 @@ namespace SocketPrj {
 		{
 			switch (index)
 			{
-			case e_room_Enter:
-			{
-				String^ tmptxt_1 = "";
-				
-				
-
-
-
+				case e_room_Enter:
+				{
 					if (!(ViewRoomList->SelectedRows->Count > 0)) {
 						return;
 					}
 
+
+					// 선택한 행의 인덱스를 가져옵니다.
+					int selectedRowIndex = ViewRoomList->SelectedRows[0]->Index;
+
+					System::String^ column1Value;
+					System::String^ column2Value;
+					System::String^ RoomPW = "";
+					System::String^ RoomType = "";
+
+
+					// 1열, 2열, 3열의 데이터를 가져옵니다.
+					System::Object^ column1ValueObj = ViewRoomList->Rows[selectedRowIndex]->Cells["RoomIndex"]->Value;
+					System::Object^ column2ValueObj = ViewRoomList->Rows[selectedRowIndex]->Cells["PrivateCheck"]->Value;
+
+
+					// null 체크
+					if (column1ValueObj != nullptr && column2ValueObj != nullptr) {
+						column1Value = column1ValueObj->ToString();
+						column2Value = column2ValueObj->ToString();
 					}
-						// 선택한 행의 인덱스를 가져옵니다.
-						int selectedRowIndex = ViewRoomList->SelectedRows[0]->Index;
-
-						System::String^ column1Value;
-						System::String^ column2Value;
-						System::String^ RoomPW ="";
-						System::String^ RoomType ="";
-
-
-						// 1열, 2열, 3열의 데이터를 가져옵니다.
-						System::Object^ column1ValueObj = ViewRoomList->Rows[selectedRowIndex]->Cells["RoomIndex"]->Value;
-						System::Object^ column2ValueObj = ViewRoomList->Rows[selectedRowIndex]->Cells["PrivateCheck"]->Value;
-
-
-						// null 체크
-						if (column1ValueObj != nullptr && column2ValueObj != nullptr) {
-							column1Value = column1ValueObj->ToString();
-							column2Value = column2ValueObj->ToString();
-
-
-						}
-						else {
-							// 선택한 행의 하나 이상의 열이 null일 때 처리할 내용
-							// 예를 들어, 오류 메시지 출력 또는 다른 작업을 수행할 수 있습니다.
-							return;
-						}
-
-
-						RoomPW = this->txtBoxPW->Text;
+					else {
+						// 선택한 행의 하나 이상의 열이 null일 때 처리할 내용
+						// 예를 들어, 오류 메시지 출력 또는 다른 작업을 수행할 수 있습니다.
+						return;
+					}
+					RoomPW = this->txtBoxPW->Text;
 
 					if ((column2Value == "Private") && String::IsNullOrEmpty(RoomPW))
 					{
@@ -299,60 +290,15 @@ namespace SocketPrj {
 						RoomType = "2";
 					}
 
-					tmptxt_1 = _my->s_(e_room_Enter) + " " + column1Value + " " + RoomType + " " + RoomPW;
-
-					if (!String::IsNullOrEmpty(column1Value)) {
-
-
-
-						int time_limit = 0;
-						std::string tmptxt_1_ = msclr::interop::marshal_as<std::string>(column1Value);
-						std::string tmptxt_3_ = msclr::interop::marshal_as<std::string>(tmpValue);
-						std::string _Index_Str = msclr::interop::marshal_as<std::string>(Convert::ToString(e_room_Enter));
-						std::string _Index_Str_Result = _Index_Str + delim + tmptxt_1_ + delim + tmptxt_2_ + delim + tmptxt_3_;
-						const char* buffer = _Index_Str_Result.c_str();
-
-
-
-
-
-					// 선택한 행의 인덱스를 가져옵니다.
-					int selectedRowIndex = ViewDataSent->SelectedRows[0]->Index;
-
-					// 1열, 2열, 3열의 데이터를 가져옵니다.
-					System::Object^ column1ValueObj = ViewDataSent->Rows[selectedRowIndex]->Cells["NumOfSentMsg"]->Value;
-					System::Object^ column2ValueObj = ViewDataSent->Rows[selectedRowIndex]->Cells["To"]->Value;
-					System::Object^ column3ValueObj = ViewDataSent->Rows[selectedRowIndex]->Cells["Date"]->Value;
-
-					// null 체크
-					if (column1ValueObj != nullptr && column2ValueObj != nullptr && column3ValueObj != nullptr) {
-						System::String^ column1Value = column1ValueObj->ToString();
-						System::String^ column2Value = column2ValueObj->ToString();
-						System::String^ column3Value = column3ValueObj->ToString();
-
-						tmptxt_1 = column2Value + " " + column3Value;
-					}
-					else {
-						// 선택한 행의 하나 이상의 열이 null일 때 처리할 내용
-						// 예를 들어, 오류 메시지 출력 또는 다른 작업을 수행할 수 있습니다.
-						return;
-					}
-				}
-				else {
-					System::Windows::Forms::MessageBox::Show("Please select message", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-					return;
+					String^ tmptxt_1 = column1Value + " " + RoomType + " " + RoomPW;
+					int t_index = e_room_Enter;
+					String^ buffer = _my->s_(t_index) + " " + tmptxt_1;
+					_my->SendMessage(buffer);
+					break;
 				}
 
-
-				int t_index = e_message_Sent_msg_delete;
-				String^ buffer = t_index.ToString() + " " + tmptxt_1;
-				_my->SendMessage(buffer);
-				break;
 			}
 
-
-
-			}
 		}
 
 		private: void ReceivedMsg(String^ message)
@@ -376,8 +322,28 @@ namespace SocketPrj {
 				}
 				else
 				{
+					// 
+				}
+				break;
+			}
+			case e_room_Enter:
+			{
+				if (isTrue == "true")
+				{
+
+					this->Invoke(gcnew Action<String^>(this, &GeneralChatList::JoinRoom), message);
+				}
+				else if (isTrue == "else")
+				{
+					// server방
+					
+				}
+				else
+				{
+					// password 때매 거절당하는거겟지?
 					System::Windows::Forms::MessageBox::Show("Password Wrong", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 				}
+
 				break;
 			}
 			//case e_edit_NickNamechk:
@@ -415,9 +381,9 @@ namespace SocketPrj {
 		this->Owner->Activate();
 
 	}
-private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {
-	this->Close();
-}
+	private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) {
+		this->Close();
+	}
 
 	private: Void UpdateRoomList(String^ message) {
 
@@ -425,42 +391,42 @@ private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ 
 
 
 
-		String^ Room_Index;
-		String^ Room_Type;
-		String^ Room_Title;
-		String^ Room_Date;
+	String^ Room_Index;
+	String^ Room_Type;
+	String^ Room_Title;
+	String^ Room_Date;
 			
-		// 17*/2*/welcome my home*/20211012 3033\n
+	// 17*/2*/welcome my home*/20211012 3033\n
 
-		array<String^>^ roomInfo = message->Split('\n');
-		int rowNum = 0;
-		array<String^>^ separators = gcnew array<String^> { "*/" };
+	array<String^>^ roomInfo = message->Split('\n');
+	int rowNum = 0;
+	array<String^>^ separators = gcnew array<String^> { "*/" };
 		
-		for (int i = 1; i < roomInfo->Length;i++)
+	for (int i = 1; i < roomInfo->Length;i++)
+	{
+		//array<String^>^ myString = roomInfo[i]->Split('*/');
+		array<String^>^ myString = roomInfo[i]->Split(separators, StringSplitOptions::None);
+		ViewRoomList->Rows->Add();
+		ViewRoomList->Rows[rowNum]->Cells["RoomIndex"]->Value = myString[0];
+
+
+		if (myString[1] == "2")
 		{
-			//array<String^>^ myString = roomInfo[i]->Split('*/');
-			array<String^>^ myString = roomInfo[i]->Split(separators, StringSplitOptions::None);
-			ViewRoomList->Rows->Add();
-			ViewRoomList->Rows[rowNum]->Cells["RoomIndex"]->Value = myString[0];
-
-
-			if (myString[1] == "2")
-			{
-				ViewRoomList->Rows[rowNum]->Cells["PrivateCheck"]->Value = "Public";
-			}
-			else
-			{
-				ViewRoomList->Rows[rowNum]->Cells["PrivateCheck"]->Value = "Private";
-			}
-
-			ViewRoomList->Rows[rowNum]->Cells["RoomName"]->Value = myString[2];
-
-
-			ViewRoomList->Rows[rowNum]->Cells["CreatedDate"]->Value = myString[3];
-
-			rowNum++;
+			ViewRoomList->Rows[rowNum]->Cells["PrivateCheck"]->Value = "Public";
 		}
+		else
+		{
+			ViewRoomList->Rows[rowNum]->Cells["PrivateCheck"]->Value = "Private";
+		}
+
+		ViewRoomList->Rows[rowNum]->Cells["RoomName"]->Value = myString[2];
+
+
+		ViewRoomList->Rows[rowNum]->Cells["CreatedDate"]->Value = myString[3];
+
+		rowNum++;
 	}
+}
 	private: System::Void GeneralChatList_Activated(System::Object^ sender, System::EventArgs^ e) {
 
 		String^ buffer = _my->s_(e_room_List);
@@ -470,10 +436,24 @@ private: System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ 
 
 
 }
-private: System::Void btnJoin_Click(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void btnJoin_Click(System::Object^ sender, System::EventArgs^ e) {
 	SendMessageForm(e_room_Enter);
+    }
+	private: Void JoinRoom(String^ message) {
 
-}
+		if (chatRoom == nullptr || chatRoom->IsDisposed) {
+
+			chatRoom = gcnew ChatRoom(_my);
+			chatRoom->Owner = this; // Owner를 설정해야 가능
+			chatRoom->Show();
+			this->Hide();
+		}	// 이미 생성된 폼이 열려 있는 경우, 해당 폼을 활성화시킵니다.
+		else {
+			chatRoom->Activate();
+		}
+
+	}
+
 
 };
 }

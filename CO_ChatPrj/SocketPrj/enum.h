@@ -92,6 +92,7 @@ enum RoomList
 	e_room_myList,
 	e_room_Chat,
 	e_room_show_whole_Text,
+	e_room_Enter_server,
 
 };
 
