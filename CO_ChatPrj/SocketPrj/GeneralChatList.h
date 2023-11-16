@@ -252,8 +252,8 @@ namespace SocketPrj {
 					// 선택한 행의 인덱스를 가져옵니다.
 					int selectedRowIndex = ViewRoomList->SelectedRows[0]->Index;
 
-					System::String^ column1Value;
-					System::String^ column2Value;
+					System::String^ RoomIndex;
+					System::String^ PrivateCheck;
 					System::String^ RoomPW = "";
 					System::String^ RoomType = "";
 
@@ -265,8 +265,8 @@ namespace SocketPrj {
 
 					// null 체크
 					if (column1ValueObj != nullptr && column2ValueObj != nullptr) {
-						column1Value = column1ValueObj->ToString();
-						column2Value = column2ValueObj->ToString();
+						RoomIndex = column1ValueObj->ToString();
+						PrivateCheck = column2ValueObj->ToString();
 					}
 					else {
 						// 선택한 행의 하나 이상의 열이 null일 때 처리할 내용
@@ -275,13 +275,13 @@ namespace SocketPrj {
 					}
 					RoomPW = this->txtBoxPW->Text;
 
-					if ((column2Value == "Private") && String::IsNullOrEmpty(RoomPW))
+					if ((PrivateCheck == "Private") && String::IsNullOrEmpty(RoomPW))
 					{
 						System::Windows::Forms::MessageBox::Show("비밀번호를 입력해주세요.", "경고", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 						return;
 					}
 
-					if ((column2Value == "Private"))
+					if ((PrivateCheck == "Private"))
 					{
 						RoomType = "3";
 					}
@@ -290,7 +290,7 @@ namespace SocketPrj {
 						RoomType = "2";
 					}
 
-					String^ tmptxt_1 = column1Value + " " + RoomType + " " + RoomPW;
+					String^ tmptxt_1 = RoomIndex + " " + RoomType + " " + RoomPW;
 					int t_index = e_room_Enter;
 					String^ buffer = _my->s_(t_index) + " " + tmptxt_1;
 					_my->SendMessage(buffer);
@@ -390,11 +390,6 @@ namespace SocketPrj {
 		ViewRoomList->Rows->Clear();
 
 
-
-	String^ Room_Index;
-	String^ Room_Type;
-	String^ Room_Title;
-	String^ Room_Date;
 			
 	// 17*/2*/welcome my home*/20211012 3033\n
 

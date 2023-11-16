@@ -39,8 +39,9 @@ namespace SocketPrj {
 	private: System::Windows::Forms::Label^ label2;
 	private: System::Windows::Forms::Label^ label4;
 	private: System::Windows::Forms::Button^ btnClose;
+	private: System::Windows::Forms::CheckBox^ chkBoxPrivate;
 
-	private: System::Windows::Forms::CheckBox^ chkBox;
+
 	private: System::Windows::Forms::TextBox^ txtBoxPW;
 	private: System::Windows::Forms::Button^ btnConfirm;
 	private: System::Windows::Forms::TextBox^ txtBoxRoomTitle;
@@ -86,7 +87,7 @@ namespace SocketPrj {
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->btnClose = (gcnew System::Windows::Forms::Button());
-			this->chkBox = (gcnew System::Windows::Forms::CheckBox());
+			this->chkBoxPrivate = (gcnew System::Windows::Forms::CheckBox());
 			this->txtBoxPW = (gcnew System::Windows::Forms::TextBox());
 			this->btnConfirm = (gcnew System::Windows::Forms::Button());
 			this->txtBoxRoomTitle = (gcnew System::Windows::Forms::TextBox());
@@ -147,14 +148,14 @@ namespace SocketPrj {
 			this->btnClose->UseVisualStyleBackColor = false;
 			this->btnClose->Click += gcnew System::EventHandler(this, &CreateChatRoom::btnClose_Click);
 			// 
-			// chkBox
+			// chkBoxPrivate
 			// 
-			this->chkBox->AutoSize = true;
-			this->chkBox->Location = System::Drawing::Point(433, 91);
-			this->chkBox->Name = L"chkBox";
-			this->chkBox->Size = System::Drawing::Size(18, 17);
-			this->chkBox->TabIndex = 16;
-			this->chkBox->UseVisualStyleBackColor = true;
+			this->chkBoxPrivate->AutoSize = true;
+			this->chkBoxPrivate->Location = System::Drawing::Point(433, 91);
+			this->chkBoxPrivate->Name = L"chkBoxPrivate";
+			this->chkBoxPrivate->Size = System::Drawing::Size(18, 17);
+			this->chkBoxPrivate->TabIndex = 16;
+			this->chkBoxPrivate->UseVisualStyleBackColor = true;
 			// 
 			// txtBoxPW
 			// 
@@ -195,7 +196,7 @@ namespace SocketPrj {
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->label4);
 			this->Controls->Add(this->btnClose);
-			this->Controls->Add(this->chkBox);
+			this->Controls->Add(this->chkBoxPrivate);
 			this->Controls->Add(this->txtBoxPW);
 			this->Controls->Add(this->btnConfirm);
 			this->Controls->Add(this->txtBoxRoomTitle);
@@ -215,26 +216,34 @@ namespace SocketPrj {
 			{
 				case e_room_Create:
 				{
-					String^ tmptxt_1;
-					String^ tmptxt_3 = txtBoxRoomTitle->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-					String^ tmptxt_2 = txtBoxPW->Text; // textBox는 해당 텍스트 상자의 이름입니다.
-					if (chkBox->Checked)
+					String^ roomType;
+					String^ roomTitle = txtBoxRoomTitle->Text; // textBox는 해당 텍스트 상자의 이름입니다.
+					String^ roomPW = txtBoxPW->Text; // textBox는 해당 텍스트 상자의 이름입니다.
+					if (!chkBoxPrivate->Checked && !String::IsNullOrEmpty(roomPW))
 					{
-						tmptxt_1 = "3";
+						System::Windows::Forms::MessageBox::Show("Please check the private box", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+
+						return;
 					}
-					else
-					{
-						tmptxt_1 = "2";
-					}
-					if (chkBox->Checked && String::IsNullOrEmpty(tmptxt_2))
+					if(chkBoxPrivate->Checked && String::IsNullOrEmpty(roomPW))
 					{
 						System::Windows::Forms::MessageBox::Show("Please enter your password", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 						return;
 					}
-					if (!String::IsNullOrEmpty(tmptxt_3) && !String::IsNullOrEmpty(tmptxt_2))
+					if (chkBoxPrivate->Checked)
+					{
+						roomType = "3";
+					}
+					else
+					{
+						roomType = "2";
+						roomPW = "0";
+					}
+					
+					if (!String::IsNullOrEmpty(roomTitle) && !chkBoxPrivate->Checked)
 					{
 						int t_index = e_room_Create;
-						String^ buffer = t_index.ToString() + " " + tmptxt_1 + " " + tmptxt_2 + " " + tmptxt_3;
+						String^ buffer = t_index.ToString() + " " + roomType + " " + roomPW + " " + roomTitle;
 						_my->SendMessage(buffer);
 					}
 					else

@@ -33,8 +33,20 @@ namespace SocketPrj {
 			//
 			_my = my;
 			_my->MyEvent += gcnew Action<String^>(this, &ChatRoom::ReceivedMsg);
+
+			int t_index = e_room_show_whole_Text;
+			String^ buffer = _my->s_(t_index);
+			_my->SendMessage(buffer);
 		}
-	private: System::Windows::Forms::TextBox^ txtBoxChatWindow;
+	private: System::Windows::Forms::TextBox^ txtBoxMessage;
+	public:
+	private: System::Windows::Forms::TextBox^ txtBoxId;
+	private: System::Windows::Forms::TextBox^ txtBoxDate;
+	private: System::Windows::Forms::DataGridView^ dataGridView1;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ViewId;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ViewMsg;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Date;
+
 	public:
 	private: MyFunction^ _my;
 
@@ -69,7 +81,7 @@ namespace SocketPrj {
 		/// <summary>
 		/// 필수 디자이너 변수입니다.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+		System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -84,16 +96,23 @@ namespace SocketPrj {
 			this->btnClose = (gcnew System::Windows::Forms::Button());
 			this->btnSend = (gcnew System::Windows::Forms::Button());
 			this->txtBoxMyChat = (gcnew System::Windows::Forms::TextBox());
-			this->txtBoxChatWindow = (gcnew System::Windows::Forms::TextBox());
+			this->txtBoxMessage = (gcnew System::Windows::Forms::TextBox());
+			this->txtBoxId = (gcnew System::Windows::Forms::TextBox());
+			this->txtBoxDate = (gcnew System::Windows::Forms::TextBox());
+			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
+			this->ViewId = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->ViewMsg = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Date = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->picBoxImojiYou))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->picBoxImojiMy))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// picBoxImojiYou
 			// 
 			this->picBoxImojiYou->BackColor = System::Drawing::Color::Transparent;
 			this->picBoxImojiYou->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
-			this->picBoxImojiYou->Location = System::Drawing::Point(612, 11);
+			this->picBoxImojiYou->Location = System::Drawing::Point(-4, 221);
 			this->picBoxImojiYou->Margin = System::Windows::Forms::Padding(2);
 			this->picBoxImojiYou->Name = L"picBoxImojiYou";
 			this->picBoxImojiYou->Size = System::Drawing::Size(108, 128);
@@ -121,7 +140,7 @@ namespace SocketPrj {
 			this->btnClose->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnClose->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnClose->Location = System::Drawing::Point(486, 459);
+			this->btnClose->Location = System::Drawing::Point(709, 458);
 			this->btnClose->Name = L"btnClose";
 			this->btnClose->Size = System::Drawing::Size(159, 51);
 			this->btnClose->TabIndex = 10;
@@ -137,7 +156,7 @@ namespace SocketPrj {
 			this->btnSend->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Transparent;
 			this->btnSend->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Transparent;
 			this->btnSend->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnSend->Location = System::Drawing::Point(89, 459);
+			this->btnSend->Location = System::Drawing::Point(307, 458);
 			this->btnSend->Name = L"btnSend";
 			this->btnSend->Size = System::Drawing::Size(157, 51);
 			this->btnSend->TabIndex = 9;
@@ -146,27 +165,87 @@ namespace SocketPrj {
 			// 
 			// txtBoxMyChat
 			// 
-			this->txtBoxMyChat->Location = System::Drawing::Point(85, 389);
+			this->txtBoxMyChat->Location = System::Drawing::Point(307, 390);
 			this->txtBoxMyChat->Name = L"txtBoxMyChat";
-			this->txtBoxMyChat->Size = System::Drawing::Size(561, 25);
+			this->txtBoxMyChat->Size = System::Drawing::Size(273, 25);
 			this->txtBoxMyChat->TabIndex = 8;
 			this->txtBoxMyChat->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &ChatRoom::txtBoxMyChat_KeyPress);
 			// 
-			// txtBoxChatWindow
+			// txtBoxMessage
 			// 
-			this->txtBoxChatWindow->Location = System::Drawing::Point(89, 32);
-			this->txtBoxChatWindow->Multiline = true;
-			this->txtBoxChatWindow->Name = L"txtBoxChatWindow";
-			this->txtBoxChatWindow->ReadOnly = true;
-			this->txtBoxChatWindow->Size = System::Drawing::Size(545, 317);
-			this->txtBoxChatWindow->TabIndex = 13;
+			this->txtBoxMessage->Location = System::Drawing::Point(307, 41);
+			this->txtBoxMessage->Multiline = true;
+			this->txtBoxMessage->Name = L"txtBoxMessage";
+			this->txtBoxMessage->ReadOnly = true;
+			this->txtBoxMessage->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
+			this->txtBoxMessage->Size = System::Drawing::Size(241, 317);
+			this->txtBoxMessage->TabIndex = 13;
+			// 
+			// txtBoxId
+			// 
+			this->txtBoxId->Location = System::Drawing::Point(129, 41);
+			this->txtBoxId->Multiline = true;
+			this->txtBoxId->Name = L"txtBoxId";
+			this->txtBoxId->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
+			this->txtBoxId->Size = System::Drawing::Size(156, 317);
+			this->txtBoxId->TabIndex = 14;
+			// 
+			// txtBoxDate
+			// 
+			this->txtBoxDate->Location = System::Drawing::Point(588, 41);
+			this->txtBoxDate->Multiline = true;
+			this->txtBoxDate->Name = L"txtBoxDate";
+			this->txtBoxDate->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
+			this->txtBoxDate->Size = System::Drawing::Size(156, 317);
+			this->txtBoxDate->TabIndex = 14;
+			// 
+			// dataGridView1
+			// 
+			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(3) {
+				this->ViewId,
+					this->ViewMsg, this->Date
+			});
+			this->dataGridView1->Location = System::Drawing::Point(828, 86);
+			this->dataGridView1->Name = L"dataGridView1";
+			this->dataGridView1->RowHeadersWidth = 51;
+			this->dataGridView1->RowTemplate->Height = 27;
+			this->dataGridView1->Size = System::Drawing::Size(610, 262);
+			this->dataGridView1->TabIndex = 15;
+			// 
+			// ViewId
+			// 
+			this->ViewId->HeaderText = L"Column1";
+			this->ViewId->MinimumWidth = 6;
+			this->ViewId->Name = L"ViewId";
+			this->ViewId->ReadOnly = true;
+			this->ViewId->Width = 125;
+			// 
+			// ViewMsg
+			// 
+			this->ViewMsg->HeaderText = L"Column1";
+			this->ViewMsg->MinimumWidth = 6;
+			this->ViewMsg->Name = L"ViewMsg";
+			this->ViewMsg->ReadOnly = true;
+			this->ViewMsg->Width = 125;
+			// 
+			// Date
+			// 
+			this->Date->HeaderText = L"Column1";
+			this->Date->MinimumWidth = 6;
+			this->Date->Name = L"Date";
+			this->Date->ReadOnly = true;
+			this->Date->Width = 125;
 			// 
 			// ChatRoom
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(731, 521);
-			this->Controls->Add(this->txtBoxChatWindow);
+			this->ClientSize = System::Drawing::Size(1428, 648);
+			this->Controls->Add(this->dataGridView1);
+			this->Controls->Add(this->txtBoxDate);
+			this->Controls->Add(this->txtBoxId);
+			this->Controls->Add(this->txtBoxMessage);
 			this->Controls->Add(this->picBoxImojiYou);
 			this->Controls->Add(this->picBoxImojiMy);
 			this->Controls->Add(this->btnClose);
@@ -177,71 +256,123 @@ namespace SocketPrj {
 			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &ChatRoom::ChatRoom_FormClosing);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->picBoxImojiYou))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->picBoxImojiMy))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
 	private: void ReceivedMsg(String^ message)
+	{
+		String^ inputString = message;
+
+		array<String^>^ subString = inputString->Split(' ');
+
+		String^ index_s = subString[0];
+		String^ isTrue = subString[1];
+		int index = Int32::Parse(index_s);
+
+		switch (index)
 		{
-			String^ inputString = message;
-
-			array<String^>^ subString = inputString->Split(' ');
-
-			String^ index_s = subString[0];
-			String^ isTrue = subString[1];
-			int index = Int32::Parse(index_s);
-
-			switch (index)
+		case e_room_Chat:
+		{
+			if (isTrue == "true")
 			{
-				case e_room_Chat:
-				{
-					if (isTrue == "true")
-					{
-						this->Invoke(gcnew Action<String^>(this, &ChatRoom::UpdateMessage), message);
-					}
-					else
-					{
-						System::Windows::Forms::MessageBox::Show("Password Wrong", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-					}
-					break;
-				}
-			//case e_edit_NickNamechk:
-			//{
-			//	if (isTrue == "true")
-			//	{
-			//		Invoke(gcnew Action(this, &EditProfile::UpdateTextBoxNickname));
-			//		System::Windows::Forms::MessageBox::Show("You can use this Nickname", "nickname check", MessageBoxButtons::OK, MessageBoxIcon::Information);
-			//	}
-			//	else
-			//	{
-			//		System::Windows::Forms::MessageBox::Show("The nickname already exists.", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-			//	}
-			//	break;
-			//}
-			//case e_edit_Confirm:
-			//{
-			//	if (isTrue == "true")
-			//	{
-			//		System::Windows::Forms::MessageBox::Show("Update Profile Success", "Edit Porofile", MessageBoxButtons::OK, MessageBoxIcon::Information);
-			//	}
-			//	else
-			//	{
-			//		System::Windows::Forms::MessageBox::Show("something wrong..", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-			//	}
-			//	break;
-			//}
-
+				this->Invoke(gcnew Action<String^>(this, &ChatRoom::UpdateMessage), message);
 			}
-
+			else 
+			{
+				System::Windows::Forms::MessageBox::Show("Password Wrong", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			}
+			break;
+		}
+		case e_room_show_whole_Text:
+		{
+			if (isTrue == "true")
+			{
+				this->Invoke(gcnew Action<String^>(this, &ChatRoom::PreviousMsgShow), message);
+			}
+			else if (isTrue == "else")
+			{
+				this->Invoke(gcnew Action(this, &ChatRoom::PreviousMsgEndline));
+			}
+			break;
+		}
+		//case e_edit_Confirm:
+		//{
+		//	if (isTrue == "true")
+		//	{
+		//		System::Windows::Forms::MessageBox::Show("Update Profile Success", "Edit Porofile", MessageBoxButtons::OK, MessageBoxIcon::Information);
+		//	}
+		//	else
+		//	{
+		//		System::Windows::Forms::MessageBox::Show("something wrong..", "warning", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		//	}
+		//	break;
+		//}
 		}
 
+
+
+	}
+	public: void PreviousMsgEndline()
+	{
+		txtBoxId->Text += Environment::NewLine;
+		txtBoxMessage->Text += "-----------------previous--------------" + Environment::NewLine;
+		txtBoxDate->Text += Environment::NewLine;
+	}
+	public: void PreviousMsgShow(String^ message)
+	{
+		String^ e_length = _my->s_(e_room_show_whole_Text);
+		String^ msg = message->Substring(e_length->Length + 6);
+
+		// 아이디 추출
+		int idEndIndex = msg->IndexOf(' '); // 공백 이전까지가 아이디
+		String^ id = msg->Substring(0, idEndIndex)->Trim();
+
+		// 메시지 추출
+		String^ messagePart = msg->Substring(idEndIndex)->Trim();
+
+		// 날짜 추출
+		int lastSpaceIndex = messagePart->LastIndexOf(' '); // 뒤에서부터 첫 번째 공백의 위치
+		int dateEndIndex = messagePart->LastIndexOf(' ', lastSpaceIndex - 1); // 뒤에서부터 두 번째 공백의 위치
+		String^ date = messagePart->Substring(dateEndIndex)->Trim();
+
+		// 실제 메시지 추출 (날짜 이전의 부분)
+		String^ messageText = messagePart->Substring(0, dateEndIndex)->Trim();
+
+		// 각각의 텍스트 박스에 표시
+		txtBoxId->Text += id + Environment::NewLine;
+		txtBoxMessage->Text += messageText + Environment::NewLine;
+		txtBoxDate->Text += date + Environment::NewLine;
+
+	}
+
+		   
 	public: void UpdateMessage(String^ message)
 	{
-		String^ e_length = _my->s_(e_room_Chat);
+		String^ e_length = _my->s_(e_room_show_whole_Text);
 		String^ msg = message->Substring(e_length->Length + 6);
-		
-		txtBoxChatWindow->Text += msg + Environment::NewLine;
+
+		// 아이디 추출
+		int idEndIndex = msg->IndexOf(' '); // 공백 이전까지가 아이디
+		String^ id = msg->Substring(0, idEndIndex)->Trim();
+
+		// 메시지 추출
+		String^ messagePart = msg->Substring(idEndIndex)->Trim();
+
+		// 날짜 추출
+		int lastSpaceIndex = messagePart->LastIndexOf(' '); // 뒤에서부터 첫 번째 공백의 위치
+		int dateEndIndex = messagePart->LastIndexOf(' ', lastSpaceIndex - 1); // 뒤에서부터 두 번째 공백의 위치
+		String^ date = messagePart->Substring(dateEndIndex)->Trim();
+
+		// 실제 메시지 추출 (날짜 이전의 부분)
+		String^ messageText = messagePart->Substring(0, dateEndIndex)->Trim();
+
+		// 각각의 텍스트 박스에 표시
+		txtBoxId->Text += id + Environment::NewLine;
+		txtBoxMessage->Text += messageText + Environment::NewLine;
+		txtBoxDate->Text += date + Environment::NewLine;
 
 		return;
 	}
@@ -270,11 +401,10 @@ private: System::Void btnSend_Click(System::Object^ sender, System::EventArgs^ e
 	String^ tmptxt_1 = txtBoxMyChat->Text; // textBox는 해당 텍스트 상자의 이름입니다.
 	if (!String::IsNullOrEmpty(tmptxt_1))
 	{
-		
-
 		int t_index = e_room_Chat;
 		String^ buffer = _my->s_(t_index) + " " + tmptxt_1;
 		_my->SendMessage(buffer);
+		txtBoxMyChat->Text = "";
 	}
 }
 };

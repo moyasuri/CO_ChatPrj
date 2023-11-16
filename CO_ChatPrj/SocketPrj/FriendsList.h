@@ -190,6 +190,7 @@ namespace SocketPrj {
 		{
 			if (isTrue == "true")
 			{
+				// 이거 안될거 같은데
 				for (int i = 2; i < subString->Length;i++)
 				{
 					listBoxFriends->Items->Add(gcnew String(subString[i]));

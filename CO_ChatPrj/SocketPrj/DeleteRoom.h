@@ -177,6 +177,7 @@ namespace SocketPrj {
 			this->Controls->Add(this->ViewRoomList);
 			this->Name = L"DeleteRoom";
 			this->Text = L"DeleteRoom";
+			this->Activated += gcnew System::EventHandler(this, &DeleteRoom::DeleteRoom_Activated);
 			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &DeleteRoom::DeleteRoom_FormClosing);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ViewRoomList))->EndInit();
 			this->ResumeLayout(false);
@@ -221,6 +222,7 @@ namespace SocketPrj {
 				}
 				else
 				{
+					ViewRoomList->Rows->Clear();
 					return;
 				}
 
@@ -229,6 +231,15 @@ namespace SocketPrj {
 				_my->SendMessage(buffer);
 				break;
 			}
+			case e_room_myList:
+			{
+				int t_index = e_room_myList;
+				String^ buffer = _my->s_(t_index);
+				_my->SendMessage(buffer);
+
+				break;
+			}
+
 		}
 
 	}
@@ -251,6 +262,7 @@ namespace SocketPrj {
 
 				if (isTrue == "true")
 				{
+
 					System::Windows::Forms::MessageBox::Show("Room deleted", "Notice", MessageBoxButtons::OK, MessageBoxIcon::Information);
 				}
 				else
@@ -259,10 +271,69 @@ namespace SocketPrj {
 				}
 				break;
 			}
+
+			case e_room_myList:
+			{
+
+				this->Invoke(gcnew Action<String^>(this, &DeleteRoom::UpdateRoomList), message);				
+				break;
+			}
+
 		}
 		
 
 	}
+	private: void UpdateRoomList(String^ message) {
+
+		ViewRoomList->Rows->Clear();
+
+		String^ inputString = message;
+
+		array<String^>^ subString = inputString->Split(' ');
+
+		String^ index_s = subString[0];
+		String^ isTrue = subString[1];
+
+		if (isTrue == "false")
+		{
+			return;
+		}
+
+		// 17*/2*/welcome my home*/20211012 3033\n
+
+		array<String^>^ roomInfo = message->Split('\n');
+		int rowNum = 0;
+		array<String^>^ separators = gcnew array<String^> { "*/" };
+
+		for (int i = 1; i < roomInfo->Length;i++)
+		{
+			//array<String^>^ myString = roomInfo[i]->Split('*/');
+			array<String^>^ myString = roomInfo[i]->Split(separators, StringSplitOptions::None);
+			ViewRoomList->Rows->Add();
+			ViewRoomList->Rows[rowNum]->Cells["RoomIndex"]->Value = myString[0];
+
+
+			if (myString[1] == "2")
+			{
+				ViewRoomList->Rows[rowNum]->Cells["PrivateCheck"]->Value = "Public";
+			}
+			else
+			{
+				ViewRoomList->Rows[rowNum]->Cells["PrivateCheck"]->Value = "Private";
+			}
+
+			ViewRoomList->Rows[rowNum]->Cells["RoomName"]->Value = myString[2];
+
+
+			ViewRoomList->Rows[rowNum]->Cells["CreatedDate"]->Value = myString[3];
+
+			rowNum++;
+		}
+
+
+	}
+
+
 	private: System::Void btnDelete_Click(System::Object^ sender, System::EventArgs^ e) {
 		btnDelete->NotifyDefault(false);
 		SendMessageForm(e_room_Delete);
@@ -276,5 +347,12 @@ private: System::Void DeleteRoom_FormClosing(System::Object^ sender, System::Win
 	this->Owner->Activate();
 
 }
+private: System::Void DeleteRoom_Activated(System::Object^ sender, System::EventArgs^ e) {
+
+	SendMessageForm(e_room_myList);
+
+
+}
+
 };
 }
