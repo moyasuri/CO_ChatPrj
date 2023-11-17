@@ -42,10 +42,18 @@ namespace SocketPrj {
 	public:
 	private: System::Windows::Forms::TextBox^ txtBoxId;
 	private: System::Windows::Forms::TextBox^ txtBoxDate;
-	private: System::Windows::Forms::DataGridView^ dataGridView1;
+	private: System::Windows::Forms::DataGridView^ ViewDataChat;
+
+
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ViewId;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ViewMsg;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Date;
+
+
+
+
+
+
 
 	public:
 	private: MyFunction^ _my;
@@ -99,13 +107,13 @@ namespace SocketPrj {
 			this->txtBoxMessage = (gcnew System::Windows::Forms::TextBox());
 			this->txtBoxId = (gcnew System::Windows::Forms::TextBox());
 			this->txtBoxDate = (gcnew System::Windows::Forms::TextBox());
-			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
+			this->ViewDataChat = (gcnew System::Windows::Forms::DataGridView());
 			this->ViewId = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->ViewMsg = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->Date = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->picBoxImojiYou))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->picBoxImojiMy))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ViewDataChat))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// picBoxImojiYou
@@ -199,23 +207,23 @@ namespace SocketPrj {
 			this->txtBoxDate->Size = System::Drawing::Size(156, 317);
 			this->txtBoxDate->TabIndex = 14;
 			// 
-			// dataGridView1
+			// ViewDataChat
 			// 
-			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(3) {
+			this->ViewDataChat->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->ViewDataChat->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(3) {
 				this->ViewId,
 					this->ViewMsg, this->Date
 			});
-			this->dataGridView1->Location = System::Drawing::Point(828, 86);
-			this->dataGridView1->Name = L"dataGridView1";
-			this->dataGridView1->RowHeadersWidth = 51;
-			this->dataGridView1->RowTemplate->Height = 27;
-			this->dataGridView1->Size = System::Drawing::Size(610, 262);
-			this->dataGridView1->TabIndex = 15;
+			this->ViewDataChat->Location = System::Drawing::Point(377, 110);
+			this->ViewDataChat->Name = L"ViewDataChat";
+			this->ViewDataChat->RowHeadersWidth = 51;
+			this->ViewDataChat->RowTemplate->Height = 27;
+			this->ViewDataChat->Size = System::Drawing::Size(960, 262);
+			this->ViewDataChat->TabIndex = 15;
 			// 
 			// ViewId
 			// 
-			this->ViewId->HeaderText = L"Column1";
+			this->ViewId->HeaderText = L"ID";
 			this->ViewId->MinimumWidth = 6;
 			this->ViewId->Name = L"ViewId";
 			this->ViewId->ReadOnly = true;
@@ -223,26 +231,26 @@ namespace SocketPrj {
 			// 
 			// ViewMsg
 			// 
-			this->ViewMsg->HeaderText = L"Column1";
+			this->ViewMsg->HeaderText = L"Message";
 			this->ViewMsg->MinimumWidth = 6;
 			this->ViewMsg->Name = L"ViewMsg";
 			this->ViewMsg->ReadOnly = true;
-			this->ViewMsg->Width = 125;
+			this->ViewMsg->Width = 500;
 			// 
 			// Date
 			// 
-			this->Date->HeaderText = L"Column1";
+			this->Date->HeaderText = L"Time";
 			this->Date->MinimumWidth = 6;
 			this->Date->Name = L"Date";
 			this->Date->ReadOnly = true;
-			this->Date->Width = 125;
+			this->Date->Width = 200;
 			// 
 			// ChatRoom
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1428, 648);
-			this->Controls->Add(this->dataGridView1);
+			this->Controls->Add(this->ViewDataChat);
 			this->Controls->Add(this->txtBoxDate);
 			this->Controls->Add(this->txtBoxId);
 			this->Controls->Add(this->txtBoxMessage);
@@ -256,7 +264,7 @@ namespace SocketPrj {
 			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &ChatRoom::ChatRoom_FormClosing);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->picBoxImojiYou))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->picBoxImojiMy))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ViewDataChat))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -326,25 +334,25 @@ namespace SocketPrj {
 		String^ e_length = _my->s_(e_room_show_whole_Text);
 		String^ msg = message->Substring(e_length->Length + 6);
 
-		// 아이디 추출
+		//// 아이디 추출
 		int idEndIndex = msg->IndexOf(' '); // 공백 이전까지가 아이디
 		String^ id = msg->Substring(0, idEndIndex)->Trim();
 
 		// 메시지 추출
 		String^ messagePart = msg->Substring(idEndIndex)->Trim();
 
-		// 날짜 추출
+		//// 날짜 추출
 		int lastSpaceIndex = messagePart->LastIndexOf(' '); // 뒤에서부터 첫 번째 공백의 위치
 		int dateEndIndex = messagePart->LastIndexOf(' ', lastSpaceIndex - 1); // 뒤에서부터 두 번째 공백의 위치
 		String^ date = messagePart->Substring(dateEndIndex)->Trim();
 
-		// 실제 메시지 추출 (날짜 이전의 부분)
+		//// 실제 메시지 추출 (날짜 이전의 부분)
 		String^ messageText = messagePart->Substring(0, dateEndIndex)->Trim();
+		int rowIndex = ViewDataChat->Rows->Add();
+		ViewDataChat->Rows[rowIndex]->Cells["ViewId"]->Value = id;
+		ViewDataChat->Rows[rowIndex]->Cells["ViewMsg"]->Value = messageText;
+		ViewDataChat->Rows[rowIndex]->Cells["Date"]->Value = date;
 
-		// 각각의 텍스트 박스에 표시
-		txtBoxId->Text += id + Environment::NewLine;
-		txtBoxMessage->Text += messageText + Environment::NewLine;
-		txtBoxDate->Text += date + Environment::NewLine;
 
 	}
 

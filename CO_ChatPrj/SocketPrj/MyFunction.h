@@ -57,10 +57,12 @@ namespace SocketPrj {
 				{
 					array<Byte>^ buffer = gcnew array<Byte>(1024);
 					int bytesRead = clientSocket->Receive(buffer);
-					String^ message = Encoding::GetEncoding("UTF-8")->GetString(buffer, 0, bytesRead);
+					//String^ message = Encoding::GetEncoding("UTF-8")->GetString(buffer, 0, bytesRead);
+					String^ message = Encoding::UTF8->GetString(buffer, 0, bytesRead);
 					if (!String::IsNullOrEmpty(message))
 					{
-							MyEvent(message);
+						Console::WriteLine("Sent message: " + message);
+						MyEvent(message);
 						
 					}
 					//AppendMessageToUI("상대방: " + message);

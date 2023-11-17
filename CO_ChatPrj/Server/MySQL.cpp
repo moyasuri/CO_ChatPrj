@@ -169,8 +169,8 @@ void MySQL::set_database(string str) {
         con->setSchema(str);
         // db 한글 저장을 위한 셋팅 
         stmt = con->createStatement();
-        stmt->execute("set names euckr");
-        //stmt->execute("set names 'utf8'");
+        //stmt->execute("set names euckr");
+        stmt->execute("set names 'utf8'");
         // if (stmt) { delete stmt; stmt = nullptr; }
     }
     catch (sql::SQLException& e) {
@@ -1657,8 +1657,9 @@ string MySQL::QuerySql(string msg, int idx) {
                 chat = res->getString(2);
                 chat_Data = res->getString(3);
                 row = s_(e_room_show_whole_Text) + delim + trueStr + delim + nickname + delim + chat + delim + chat_Data;
+                Sleep(20);
                 send(sck_list[idx].sck, row.c_str(), row.size(), 0);
-                Sleep(5);
+                
             }
             row = s_(e_room_show_whole_Text) + delim + elseStr;
             send(sck_list[idx].sck, row.c_str(), row.size(), 0);
